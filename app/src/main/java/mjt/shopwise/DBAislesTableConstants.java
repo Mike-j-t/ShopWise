@@ -54,7 +54,7 @@ public class DBAislesTableConstants {
     public static final Boolean AISLES_SHOPREF_PRIMARY_INDEX = false;
     public static final DBColumn AISLESSHOPREFCOL = new DBColumn(AISLES_SHOPREF_COL,
             AISLES_SHOPREF_TYPE,
-            AISLES_ID_PRIMARY_INDEX,
+            AISLES_SHOPREF_PRIMARY_INDEX,
             ""
     );
 
@@ -69,7 +69,7 @@ public class DBAislesTableConstants {
     public static final Boolean AISLES_ORDER_PRIMARY_INDEX = false;
     public static final DBColumn AISLESORDERCOL = new DBColumn(AISLES_ORDER_COL,
             AISLES_ORDER_TYPE,
-            AISLES_ID_PRIMARY_INDEX,
+            AISLES_ORDER_PRIMARY_INDEX,
             DEFAULTORDER
     );
 
@@ -83,13 +83,19 @@ public class DBAislesTableConstants {
     public static final String AISLES_NAME_TYPE = TXT;
     public static final Boolean AISLES_NAME_PRIMARY_INDEX = false;
     public static final DBColumn AISLESNAMECOL = new DBColumn(AISLES_NAME_COL,
-            AISLES_ID_TYPE,
-            AISLES_ID_PRIMARY_INDEX,
+            AISLES_NAME_TYPE,
+            AISLES_NAME_PRIMARY_INDEX,
             ""
     );
+    /**
+     * Create the Array od DBcolumns ready for the DBTable
+     */
     public static final ArrayList<DBColumn> AISLESCOLS = new ArrayList<>(Arrays.asList(AISLESIDCOL,
             AISLESSHOPREFCOL,
             AISLESORDERCOL,
             AISLESNAMECOL));
+    /**
+     * Finally create the DBTable
+     */
     public static final DBTable AISLESTABLE = new DBTable(AISLES_TABLE,AISLESCOLS);
 }
