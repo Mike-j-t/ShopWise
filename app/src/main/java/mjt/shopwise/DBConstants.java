@@ -5,13 +5,12 @@ import java.util.Arrays;
 
 import static mjt.shopwise.DBAislesTableConstants.AISLESTABLE;
 import static mjt.shopwise.DBProductsTableConstants.PRODUCTSTABLE;
-import mjt.shopwise.DBProductusageTableConstants;
 
 import static mjt.shopwise.DBProductusageTableConstants.PRODUCTUSAGETABLE;
 import static mjt.shopwise.DBRulesTableConstants.RULESTABLE;
 import static mjt.shopwise.DBShopListTableConstants.SHOPLISTTABLE;
 import static mjt.shopwise.DBShopsTableConstants.SHOPSTABLE;
-import static mjt.shopwise.DBValuesTableConstants.VALUESTABLE;
+import static mjt.shopwise.DBAppvaluesTableConstants.APPVALUESTABLE;
 
 /**
  * Constans used for DB construction and usage. Note that many values are
@@ -35,6 +34,6 @@ final class DBConstants {
             PRODUCTUSAGETABLE,
             SHOPLISTTABLE,
             RULESTABLE,
-            VALUESTABLE));
+            APPVALUESTABLE));
     static final DBDatabase SHOPWISE = new DBDatabase(DATABASE_NAME,SHOPWISETABLES);
 }
