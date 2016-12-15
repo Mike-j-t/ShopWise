@@ -1,5 +1,8 @@
 package mjt.shopwise;
 
+/**
+ * The type Db column.
+ */
 /*==================================================================================================
 //==================================================================================================
 // DBTColumn class - Database Column Class has Column Name, Column Datatype, primary index flag,
@@ -40,7 +43,10 @@ class DBColumn {
     private String problem_msg;
     private int order;
 
-    //==============================================================================================
+    /**
+     * Instantiates a new Db column.
+     */
+//==============================================================================================
     // Default Constructor
     public DBColumn() {
         this.usable = false;
@@ -53,7 +59,13 @@ class DBColumn {
                 "Use at least setDBColumnType AND setDBColumnName methods. " +
                 "Caller=(DBColumn (Default))";
     }
-    //==============================================================================================
+
+    /**
+     * Instantiates a new Db column.
+     *
+     * @param column_name the column name
+     */
+//==============================================================================================
     // Intermediate Constructor - Just give the column name - defaults to TEXT and not a primary index
     // Note!!! always assumed to be usable.
     public DBColumn(String column_name) {
@@ -66,13 +78,29 @@ class DBColumn {
         this.order = 0;
         this.checkDBColumnIsUsable("DBCOlumn (Quick Constructor)");
     }
-    //==============================================================================================
+
+    /**
+     * Instantiates a new Db column.
+     *
+     * @param column_name the column name
+     * @param sortorder   the sortorder
+     */
+//==============================================================================================
     // Intermediate with sort order
     public DBColumn(String column_name, int sortorder) {
         this(column_name);
         this.order = sortorder;
     }
-    //==============================================================================================
+
+    /**
+     * Instantiates a new Db column.
+     *
+     * @param column_name   the column name
+     * @param column_type   the column type
+     * @param primary_index the primary index
+     * @param default_value the default value
+     */
+//==============================================================================================
     // Full constructor
     public DBColumn(String column_name, String column_type, boolean primary_index, String default_value) {
         column_type = column_type.toUpperCase();
@@ -87,46 +115,134 @@ class DBColumn {
         this.order = 0;
         this.checkDBColumnIsUsable("DBColumn (Full)");
     }
-    //==============================================================================================
+
+    /**
+     * Instantiates a new Db column.
+     *
+     * @param column_name   the column name
+     * @param column_type   the column type
+     * @param primary_index the primary index
+     * @param default_value the default value
+     * @param sortorder     the sortorder
+     */
+//==============================================================================================
     // Full with sort order
     public DBColumn(String column_name,String column_type, boolean primary_index, String  default_value, int sortorder) {
         this(column_name, column_type, primary_index, default_value);
         this.order = sortorder;
     }
-    //==============================================================================================
+
+    /**
+     * Sets db column name.
+     *
+     * @param column_name the column name
+     */
+//==============================================================================================
     public void setDBColumnName(String column_name) {
         this.column_name = column_name;
         this.checkDBColumnIsUsable("setDBColumnName");
     }
-    //==============================================================================================
+
+    /**
+     * Sets db column type.
+     *
+     * @param column_type the column type
+     */
+//==============================================================================================
     public void setDBColumnType(String column_type) {
         this.column_type = simplifyColumnType(column_type);
         this.checkDBColumnIsUsable("setDBColumnType");
     }
-    //==============================================================================================
+
+    /**
+     * Sets default value.
+     *
+     * @param default_value the default value
+     */
+//==============================================================================================
     public void setDefault_value(String default_value) {
         this.default_value = default_value;
     }
-    //==============================================================================================
+
+    /**
+     * Gets db column name.
+     *
+     * @return the db column name
+     */
+//==============================================================================================
     public String getDBColumnName() {
         return this.column_name;
     }
+
+    /**
+     * Gets db column type.
+     *
+     * @return the db column type
+     */
     public String getDBColumnType() {
         return this.column_type;
     }
+
+    /**
+     * Gets db column is usable.
+     *
+     * @return the db column is usable
+     */
     public boolean getDBColumnIsUsable() {
         return this.usable;
     }
+
+    /**
+     * Is db column usable boolean.
+     *
+     * @return the boolean
+     */
     public boolean isDBColumnUsable() {
         return this.usable;
     }
+
+    /**
+     * Gets db column is primary index.
+     *
+     * @return the db column is primary index
+     */
     public boolean getDBColumnIsPrimaryIndex() {
         return this.primary_index;
     }
+
+    /**
+     * Gets db column default value.
+     *
+     * @return the db column default value
+     */
     public String getDBColumnDefaultValue() { return this.default_value; }
+
+    /**
+     * Is db column primary index boolean.
+     *
+     * @return the boolean
+     */
     public boolean isDBColumnPrimaryIndex() { return this.primary_index; }
+
+    /**
+     * Gets db column problem msg.
+     *
+     * @return the db column problem msg
+     */
     public String getDBColumnProblemMsg() { return this.problem_msg; }
+
+    /**
+     * Gets unusable msg.
+     *
+     * @return the unusable msg
+     */
     public String getUnusableMsg() { return this.problem_msg; }
+
+    /**
+     * Gets sortorder.
+     *
+     * @return the sortorder
+     */
     public int getSortorder() { return this.order; }
     //==============================================================================================
     private boolean checkDBColumnIsUsable(String caller) {

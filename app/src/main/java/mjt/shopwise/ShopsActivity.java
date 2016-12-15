@@ -1,0 +1,612 @@
+package mjt.shopwise;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+/******************************************************************************
+ * ShopsActivity - List Shops allowing them to be edited, stocked, or deleted
+ * List can also be sorted by clicking on a label. Clicking
+ * a label will toggle between descending and ascending order.
+ *
+ * Stock means to add a product to an aisle, this can be
+ * achieved from a shop, aisle or product. The Stock button
+ * will only be available when at least 1 aisle and 1 product
+ * exists.
+ */
+public class ShopsActivity extends AppCompatActivity {
+
+    private static final String THIS_ACTIVITY = "ShopsActivity";
+    private static String caller;
+    private static int calledmode;
+
+    /**
+     * Sorting Shoplist columns
+     */
+    private static final int BYSHOP = 0;
+    private static final int BYCITY = 1;
+    private static final int BYORDER = 2;
+    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
+    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    /**
+     * The Context.
+     */
+    Context context;
+    /**
+     * The Actionbar.
+     */
+    ActionBar actionbar;
+
+    /**
+     * Colours
+     */
+    private static int h1;
+    private static int h2;
+    private static int h3;
+    private static int h4;
+    private static int primary_color;
+    private String menucolorcode;
+    /**
+     * The Passedmenucolorcode.
+     */
+    int passedmenucolorcode;
+
+    /**
+     * View objects
+     */
+    TextView donebutton;
+    /**
+     * The Newbutton.
+     */
+    TextView newbutton;
+    /**
+     * The Messagebar.
+     */
+    TextView messagebar;
+    /**
+     * The Shoplist.
+     */
+    ListView shoplist;
+    /**
+     * The Shoplistheading.
+     */
+    LinearLayout shoplistheading;
+    /**
+     * The Shoplistadapter.
+     */
+    AdapterShopList shoplistadapter;
+
+    /**
+     * Database objects
+     */
+    DBDAO dbdao;
+    /**
+     * The Dbshopmethods.
+     */
+    DBShopMethods dbshopmethods;
+    /**
+     * The Dbaislemethods.
+     */
+    DBAisleMethods dbaislemethods;
+    /**
+     * The Dbproductmethods.
+     */
+    DBProductMethods dbproductmethods;
+    /**
+     * The Slcsr.
+     */
+    Cursor slcsr;
+
+    /**
+     * The Showdetails.
+     */
+    boolean showdetails = false;
+    private static final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
+    private static final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
+    private static final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
+    private static final String SHOPORDER_COLUMN = DBShopsTableConstants.SHOPS_ORDER_COL;
+    private static final String SHOPID_FULLCOLUMN = DBShopsTableConstants.SHOPS_ID_COL_FULL;
+    private static final String SHOPNAME_FULLCOLUMN = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
+    private static final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
+    private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
+
+    /**
+     * The Orderby.
+     */
+    static String orderby = SHOPNAME_FULLCOLUMN + SORTASCENDING;
+    /**
+     * The Orderfld.
+     */
+    static int orderfld = BYSHOP;
+    /**
+     * The Ordertype.
+     */
+    static boolean ordertype = true;
+    /**
+     * The Sortchanged.
+     */
+    static boolean sortchanged = false;
+    /**
+     * The Lastmessage.
+     */
+    static String lastmessage = "";
+    /**
+     * The Currentshopname.
+     */
+    static String currentshopname = "";
+    /**
+     * The Shopcount.
+     */
+    static int shopcount = 0;
+    /**
+     * The Aislecount.
+     */
+    static int aislecount = 0;
+    /**
+     * The Productcount.
+     */
+    static int productcount = 0;
+
+    private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    private Activity thisactivity;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shops);
+        context = this;
+        thisactivity = (Activity)context;
+        caller = getIntent().getStringExtra(
+                StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
+        calledmode = getIntent().getIntExtra(
+                StandardAppConstants.INTENTKEY_CALLINGMODE,0);
+        menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
+        passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
+
+        donebutton = (TextView) findViewById(R.id.shops_donebutton);
+        newbutton = (TextView) findViewById(R.id.shops_newshopbutton);
+        shoplist  = (ListView) findViewById(R.id.shops_shoplist);
+        shoplistheading = (LinearLayout) findViewById(R.id.shops_shoplist_heading);
+        messagebar = (TextView) findViewById(R.id.shops_messagebar);
+
+        /**
+         * Apply Color Coding
+         */
+        actionbar = getSupportActionBar();
+        ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
+        primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
+        h1 = ActionColorCoding.setHeadingColor(this,getIntent(),1);
+        h2 = ActionColorCoding.setHeadingColor(this,getIntent(),2);
+        h3 = ActionColorCoding.setHeadingColor(this,getIntent(),3);
+        h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
+        ActionColorCoding.setActionButtonColor(donebutton, primary_color);
+        ActionColorCoding.setActionButtonColor(newbutton, primary_color);
+        shoplistheading.setBackgroundColor(h1);
+
+
+        dbdao = new DBDAO(this);
+        dbshopmethods = new DBShopMethods(this);
+        dbaislemethods = new DBAisleMethods(this);
+        dbproductmethods = new DBProductMethods(this);
+        setDBCounts();
+        this.setTitle("SHOPS (" + Integer.toString(shopcount) + ")");
+
+        slcsr = dbshopmethods.getShops("",orderby);
+        shoplistadapter = new AdapterShopList(
+                this,
+                slcsr,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
+                getIntent(),
+                false);
+        shoplist.setAdapter(shoplistadapter);
+        shoplist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView,
+                                           View view,
+                                           int position,
+                                           long id) {
+                listItemLongClick(view, position, id);
+                return true;
+            }
+        });
+        shoplist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view,
+                                    int position,
+                                    long id) {
+                listItemClick(view, position, id);
+            }
+        });
+    }
+
+    /**************************************************************************
+     * onResume do any processing upon resume of the activity
+     * e.g. refresh any listviews etc.
+     * RESUMESTATES would be set when starting another activity if that
+     * activity could alter the contents to be displayed.
+     * Should always set the resumestate to RESUMESTATE_NORMAL
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDBCounts();
+        switch (resumestate) {
+            case StandardAppConstants.RESUMESTATE_ALT1:
+                break;
+            case StandardAppConstants.RESUMESTATE_ALT2:
+                break;
+            case StandardAppConstants.RESUMESTATE_ALT3:
+                break;
+            case StandardAppConstants.RESUMESTATE_ALT4:
+                break;
+            default:
+                messagebar.setVisibility(View.GONE);
+                break;
+        }
+        slcsr = dbshopmethods.getShops("",orderby);
+        shoplistadapter.swapCursor(slcsr);
+        resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+        this.setTitle("SHOPS (" + Integer.toString(shopcount) + ")");
+    }
+
+    /**************************************************************************
+     * onDestroy - do any clean up before th application is destroyed
+     * e.g. close any open cursors and then close the database
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        slcsr.close();
+    }
+
+    /**************************************************************************
+     * Button Click Handler
+     *
+     * @param view The view (i.e the TextView that was clicked)
+     */
+    public void actionButtonClick(View view) {
+        switch (view.getId()) {
+            case R.id.shops_donebutton:
+                this.finish();
+                break;
+            case R.id.shops_newshopbutton:
+                addShop();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**************************************************************************
+     * addShop - Invoke ShopAddEditActivity passing
+     *              the respective intent extras
+     *              menucolorcode as per this activity
+     *              this Activity's name
+     *              the mode i.e. Add as opposed to edit
+     *
+     */
+    public void addShop() {
+        Intent intent = new Intent(this,ShopsAddEditActivity.class);
+        intent.putExtra(menucolorcode,passedmenucolorcode);
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_CALLINGACTIVITY,
+                THIS_ACTIVITY
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_CALLINGMODE,
+                StandardAppConstants.CM_ADD);
+        startActivity(intent);
+    }
+
+    /**************************************************************************
+     * Shop edit.
+     *
+     * @param values the values
+     */
+    public void shopEdit(RequestDialogParameters values) {
+        //ShopsActivity sa = (ShopsActivity) values.getPassedactivity();
+        long shopid = values.getLong1();
+        Intent intent = new Intent(this,ShopsAddEditActivity.class);
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_CALLINGACTIVITY,
+                THIS_ACTIVITY
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_CALLINGMODE,
+                StandardAppConstants.CM_EDIT
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_SHOPID,
+                slcsr.getLong(
+                        slcsr.getColumnIndex(SHOPID_COLUMN)
+                )
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_SHOPNAME,
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPNAME_COLUMN)
+                )
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_SHOPCITY,
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPCITY_COLUMN)
+                )
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_SHOPORDER,
+                slcsr.getInt(
+                        slcsr.getColumnIndex(SHOPORDER_COLUMN)
+                )
+        );
+        intent.putExtra(menucolorcode,passedmenucolorcode);
+        startActivity(intent);
+    }
+
+    /**************************************************************************
+     * shopDelete - Delete the respective Shop as extracted
+     *              from the RequestDialogParameters passed to
+     *              this method via the RequestDialog.
+     *
+     * @param values a RequestDialogParameters instance
+     */
+    public void shopDelete(RequestDialogParameters values) {
+        Activity activity = (values.getPassedactivity());
+        ShopsActivity sa = (ShopsActivity) activity;
+        sa.dbshopmethods.deleteShop(values.getLong1(),false);
+        sa.slcsr = dbshopmethods.getShops("",ShopsActivity.orderby);
+        sa.shoplistadapter.swapCursor(sa.slcsr);
+        sa.setMessage(sa,"Shop " +
+                        currentshopname +
+                        " Deleted.",
+                true);
+    }
+
+    /**************************************************************************
+     *
+     * @param values    a RequestDialogParameters instance
+     */
+    public void shopStock(RequestDialogParameters values) {
+        long shopid = values.getLong1();
+        Intent intent = new Intent(this,StockActivity.class);
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_CALLINGACTIVITY,
+                THIS_ACTIVITY
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_CALLINGMODE,
+                StandardAppConstants.CM_STOCKFROMSSHOP
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_SHOPID,
+                shopid
+        );
+        intent.putExtra(
+                StandardAppConstants.INTENTKEY_SHOPNAME,
+                currentshopname
+        );
+        intent.putExtra(menucolorcode,passedmenucolorcode);
+        startActivity(intent);
+    }
+
+    /**************************************************************************
+     * sortClick - Handle list heading clicks (i.e. sort by that field)
+     *
+     * @param view the view that was clicked
+     */
+    public void sortClick(View view) {
+        lastmessage = "List of Shops sorted by ";
+        switch (view.getId()) {
+            case R.id.shops_shoplist_heading_shopname:
+                getOrderBy(SHOPNAME_FULLCOLUMN,BYSHOP);
+                lastmessage = lastmessage + " SHOP NAME in ";
+                break;
+            case R.id.shops_shoplist_heading_shopcity:
+                getOrderBy(SHOPCITY_FULLCOLUMN,BYCITY);
+                lastmessage = lastmessage + "  CITY in ";
+                break;
+            case R.id.shops_shoplist_heading_shoporder:
+                getOrderBy(SHOPORDER_FULLCOLUMN,BYORDER);
+                lastmessage = lastmessage + " SHOP ORDER in";
+            default:
+                break;
+        }
+        if (sortchanged) {
+            slcsr = dbshopmethods.getShops("",orderby);
+            shoplistadapter.swapCursor(slcsr);
+            if (ordertype) {
+                lastmessage = lastmessage + " ascending order.";
+            } else {
+                lastmessage = lastmessage + " descending order.";
+            }
+            setMessage(this,lastmessage,false);
+        }
+    }
+
+    /**************************************************************************
+     * listItemClick - Handle Clicking an Item
+     *
+     * @param view     The view that was clicked.
+     * @param position The position of the clicked item in the list
+     * @param id       The row id of the item that was clicked.
+     */
+    public void listItemClick(View view, int position, long id) {
+
+        long shopid = slcsr.getLong(
+                slcsr.getColumnIndex(SHOPID_COLUMN)
+        );
+        currentshopname = slcsr.getString(
+                slcsr.getColumnIndex(SHOPNAME_COLUMN)
+        );
+        Class cls = null;
+        String classname = this.getClass().getCanonicalName();
+        String positivebuttontext = getResources().getString(R.string.editbutton);
+        String positiveaction = "shopEdit";
+        String negativebuttontext = getResources().getString(R.string.stockbutton);
+        String negativeaction = "shopStock";
+        String neutralbuttontext = getResources().getString(R.string.cancelbutton);
+        String neutralaction = "";
+        String title = "Edit or Stock Shop = " + currentshopname;
+        String message = "Avaiable Options are CANCEL, EDIT and STOCK.\n\n" +
+                "\tCANCEL returns to Shops, doing nothing.\n\n" +
+                "\tEDIT allows you to edit the Shop.\n\n" +
+                "\tSTOCK allows you to assign Products to Aisles in the Shop " +
+                "(or othershops).";
+        if ((aislecount < 1) || (productcount < 1) || (dbaislemethods.getAislesPerShop(shopid) < 1)) {
+            negativebuttontext = "";
+        }
+        MixTripleLongTripleInt values = new MixTripleLongTripleInt();
+        values.setMIXTRPPLONGINT(shopid, 0, 0, 0, 0, 0);
+        //Activity activitytopass = (Activity)this;
+        new RequestDialog().requestDialog(thisactivity,
+                classname,
+                title,
+                message,
+                positivebuttontext, negativebuttontext, neutralbuttontext,
+                positiveaction, negativeaction, neutralaction,
+                values                          // parameters to be used
+        );
+    }
+
+    /**************************************************************************
+     * listItemLongClick - Handle long Clicking an Item
+     *
+     * @param view     The view that was long clicked.
+     * @param position The position of the clicked item in the list
+     * @param id       The row id of the item that was clicked.
+     */
+    public void listItemLongClick(View view, int position, long id) {
+
+        long shopid = slcsr.getLong(
+                slcsr.getColumnIndex(SHOPID_COLUMN));
+        currentshopname = slcsr.getString(
+                slcsr.getColumnIndex(SHOPNAME_COLUMN));
+        String title = "Delete Shop - " +currentshopname;
+
+        String positivebuttontext = getResources().getString(R.string.deletebutton);;
+        String negativebuttontext = "";
+        String neutralbuttontext = getResources().getString(R.string.cancelbutton);
+        String positiveaction = "shopDelete";
+        String negativeaction = "";
+        String neutralaction = "";
+
+        // Get impact of deleting the shop (i.e other entitiies to be deleted)
+        // e.g. Ailses witht the shop as a parent, product usages (products
+        // assigned to (aka stocked_ to such an aisle. Shopping list entries
+        // and Rules for such product usages. Notes, products are not
+        // to be deleted.
+        ArrayList<String> impact = dbshopmethods.shopDeletedImpact(shopid);
+        String tmsg = "";
+        for (String msg: impact) {
+            tmsg = tmsg + msg + "\n";
+        }
+        String message = "Deleting Shop - " + currentshopname + tmsg;
+         // Prepare for potential deletion i.e. pass the shopid via values
+        MixTripleLongTripleInt values = new MixTripleLongTripleInt();
+        values.setMIXTRPPLONGINT(shopid,0,0,0,0,0);
+
+        // Need the class that the methods belong to
+        // (note restricted to all being in this class)
+        String classname = this.getClass().getCanonicalName();
+        new RequestDialog().requestDialog(thisactivity, classname,
+                title, message,
+                positivebuttontext, negativebuttontext, neutralbuttontext ,
+                positiveaction, negativeaction, neutralaction,
+                values);
+    }
+
+    /**************************************************************************
+     * setDBCounts - extract the row counts from the database for relevant
+     *                  tables.
+     */
+    private void setDBCounts() {
+        shopcount = dbshopmethods.getShopCount();
+        aislecount = dbaislemethods.getAisleCount();
+        productcount = dbproductmethods.getProductCount();
+    }
+
+    /**************************************************************************
+     * setMessage - set the Message regarding the lat action performed
+     * Note as an action may have altered the database getDBcounts
+     * is called and the title changed
+     *
+     * @param sa   the sa
+     * @param msg  The message to be displayed.
+     * @param flag Message imnportant, if true Yellow text, esle green
+     */
+    public void setMessage(ShopsActivity sa, String msg, boolean flag) {
+
+        TextView messagebar = (TextView) sa.findViewById(R.id.shops_messagebar);
+        messagebar.setText(context.getResources().getString(
+                R.string.messagebar_prefix_lastaction) + " " + msg);
+        if (flag) {
+            messagebar.setTextColor(Color.YELLOW);
+        } else {
+            messagebar.setTextColor(Color.GREEN);
+        }
+        messagebar.setVisibility(View.VISIBLE);
+        sa.setDBCounts();
+        String shopslabel = sa.getResources().getString(R.string.shopslabel) +
+                " (number of Shops = " +
+                Integer.toString(shopcount) +
+                ")";
+        sa.actionbar.setTitle(shopslabel);
+    }
+
+    /**************************************************************************
+     * getOrderBy - Generate the new ORDEY BY sql (ORDER BY already exists)
+     * @param newcolumn     the DB column to sort by
+     * @param neworderfld   the column as an integer as per constants
+     */
+    private void getOrderBy(String newcolumn, int neworderfld) {
+        orderby = newcolumn;
+        // If already sorted by this column then toggle between ascedning and
+        // descending.
+        // If not then default to ascending
+        if (orderfld == neworderfld) {
+            if (ordertype) {
+                orderby = orderby + SORTDESCENDING;
+                ordertype = false;
+            } else {
+                orderby = orderby + SORTASCENDING;
+                ordertype = true;
+            }
+        } else {
+            orderby = orderby + SORTASCENDING;
+            ordertype = true;
+        }
+        orderfld = neworderfld;
+        sortchanged = true;
+    }
+
+    /**************************************************************************
+     * Do nothing.
+     *
+     * @param values the values
+     */
+    public void doNothing(RequestDialogParameters values) {
+    }
+
+    /**************************************************************************
+     * Usecalledmethods.
+     */
+    protected void usecalledmethods() {
+        shopDelete(null);
+        shopEdit(null);
+    }
+}

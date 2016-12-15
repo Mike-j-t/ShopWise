@@ -10,7 +10,6 @@ import java.util.ArrayList;
 /**
  * DBHelper
  */
-
 class DBHelper extends SQLiteOpenHelper {
 
     private static final String LOGTAG = "SW-DBHelper";
@@ -29,21 +28,33 @@ class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Consrtuctor
+     *
      * @param context activity context
-     * @param name      database name
-     * @param factory   cursorfactory
-     * @param version   database version
+     * @param name    database name
+     * @param factory cursorfactory
+     * @param version database version
      */
     DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
+    /**
+     * Instantiates a new Db helper.
+     *
+     * @param context the context
+     */
     DBHelper(Context context) {
         super(context, DBConstants.DATABASE_NAME, null, 1);
     }
 
     private static DBHelper instance;
 
+    /**
+     * Gets helper.
+     *
+     * @param context the context
+     * @return the helper
+     */
     static synchronized DBHelper getHelper(Context context) {
         if(instance == null) {
             instance = new DBHelper(context);
@@ -55,6 +66,7 @@ class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         expand(db, false);
     }
+    
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {
@@ -63,9 +75,9 @@ class DBHelper extends SQLiteOpenHelper {
 
     /**
      * expand create database tables
-     * @param db SQLIte Database, if null then instance is used
-     * @param buildandexpand to attempt both create and expand
      *
+     * @param db             SQLIte Database, if null then instance is used
+     * @param buildandexpand to attempt both create and expand
      */
     void expand(SQLiteDatabase db, boolean buildandexpand) {
         String mode = "Create Mode.";
