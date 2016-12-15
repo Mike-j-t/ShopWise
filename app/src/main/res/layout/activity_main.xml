@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,7 +12,70 @@
     tools:context="mjt.shopwise.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World Again!" />
-</RelativeLayout>
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size_superextra_large"
+        android:text="@string/app_name"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlue"
+        style="@style/text_shadow"
+        android:shadowColor="@color/colorPurple"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size_normal"
+        android:textStyle="italic"
+        android:textColor="@color/colorBlack"
+        android:text="@string/app_catchphrase"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/listview_vertical_padding_normal" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/listview_mainheading_blue"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.185"
+            android:textSize="@dimen/text_size_large"
+            android:text="@string/optionsmenu_actionbutton_heading"
+            android:textColor="@color/colorWhite"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.025"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.69"
+            android:textSize="@dimen/text_size_large"
+            android:text="@string/optionsmenu_actioninfo_heading"
+            android:textColor="@color/colorWhite"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:textSize="@dimen/text_size_normal"
+            android:gravity="end"
+            android:text="@string/optionsmenu_rowcount_heading"
+            android:textColor="@color/colorWhite"
+            />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/activity_main_OptionsMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp">
+    </ListView>
+</LinearLayout>

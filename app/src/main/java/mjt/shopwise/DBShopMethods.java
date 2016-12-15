@@ -19,7 +19,13 @@ class DBShopMethods {
     private static SQLiteDatabase db;      // get db
     private static long lastshopadded = -1;            // id of the last shop added
     private static boolean lastshopaddok = false;   // state of last insert
+    private static boolean lastshopupdateok = false;
 
+    /**
+     * Instantiates a new Db shop methods.
+     *
+     * @param ctxt the ctxt
+     */
     DBShopMethods(Context ctxt) {
         context = ctxt;
         dbdao = new DBDAO(context);
@@ -28,21 +34,19 @@ class DBShopMethods {
 
     /**************************************************************************
      * getShopCount - get the number of shops
-     * @return          number of Shops
+     *
+     * @return number of Shops
      */
     int getShopCount() {
-        String sqlstr = "SELECT * FROM " +
-                DBShopsTableConstants.SHOPSTABLE.getDBTableName() +
-                " ;";
-        Cursor csr = db.rawQuery(sqlstr,null);
-        int rv = csr.getCount();
-        csr.close();
-        return rv;
+        return DBCommonMethods.getTableRowCount(db,
+                DBShopsTableConstants.SHOPS_TABLE
+        );
     }
 
     /**************************************************************************
      * getLastShopAdded - return the id of the last shop added
-     * @return shopid
+     *
+     * @return shopid last shop added
      */
     long getLastShopAdded() {
         return lastshopadded;
@@ -50,39 +54,77 @@ class DBShopMethods {
 
     /**************************************************************************
      * ifShopAdded - returns status of last shop insert
+     *
      * @return true if added ok, else false
      */
     boolean ifShopAdded() {
         return lastshopaddok;
     }
 
+    /**
+     * If shop updated boolean.
+     *
+     * @return the boolean
+     */
+    boolean ifShopUpdated() { return lastshopupdateok; }
+
     /**************************************************************************
      * getShops - get shops as a cursor
+     *
      * @param filter sql filter string less WHERE
-     * @param order sql sort string less ORDER BY
+     * @param order  sql sort string less ORDER BY
      * @return cursor containing selected shops
      */
     Cursor getShops(String filter, String order) {
-        String sql = " SELECT * FROM " +
-                DBShopsTableConstants.SHOPS_TABLE;
-        if(filter.length() > 0) {
-            sql = sql + " WHERE " + filter;
+        return DBCommonMethods.getTableRows(db,
+                DBShopsTableConstants.SHOPS_TABLE,
+                filter,order
+        );
+    }
+
+    /**************************************************************************
+     *
+     * @param filter
+     * @param order
+     * @return
+     */
+    Cursor getShopsWithAisles(String filter, String order) {
+        String sql = DBConstants.SQLSELECT +
+                DBShopsTableConstants.SHOPS_ID_COL_FULL + ", " +
+                DBShopsTableConstants.SHOPS_ORDER_COL_FULL + ", " +
+                DBShopsTableConstants.SHOPS_NAME_COL_FULL + ", " +
+                DBShopsTableConstants.SHOPS_CITY_COL_FULL + ", " +
+                DBShopsTableConstants.SHOPS_STREET_COL_FULL + ", " +
+                DBShopsTableConstants.SHOPS_STATE_COL_FULL + ", " +
+                DBShopsTableConstants.SHOPS_NOTES_COL_FULL +
+                DBConstants.SQLFROM +
+                DBShopsTableConstants.SHOPS_TABLE +
+                DBConstants.SQLLEFTJOIN +
+                DBAislesTableConstants.AISLES_TABLE +
+                DBConstants.SQLON +
+                DBShopsTableConstants.SHOPS_ID_COL_FULL + " = " +
+                DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
+                DBConstants.SQLWHERE +
+                DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
+                " IS NOT NULL " + filter + " " +
+                DBConstants.SQLGROUP +
+                DBShopsTableConstants.SHOPS_ID_COL_FULL;
+
+        if (order.length() > 0) {
+            sql = sql + DBConstants.SQLORDERBY + order;
         }
-        if(order.length() > 0) {
-            sql = sql + " ORDER BY " + order;
-        }
-        sql = sql + " ;";
         return db.rawQuery(sql,null);
     }
 
     /**************************************************************************
      * insertShop add a new Shop
-     * @param shopname      name of the shop
-     * @param shoporder     order of the shop (lowest first)
-     * @param shopstreet    street part of the address of the shop
-     * @param shopcity      city/location of the shop
-     * @param shopstate     state/county of the shop
-     * @param shopnotes     motes about the shop
+     *
+     * @param shopname   name of the shop
+     * @param shoporder  order of the shop (lowest first)
+     * @param shopstreet street part of the address of the shop
+     * @param shopcity   city/location of the shop
+     * @param shopstate  state/county of the shop
+     * @param shopnotes  motes about the shop
      */
     void insertShop(String shopname,
                            int shoporder,
@@ -111,13 +153,15 @@ class DBShopMethods {
         }
     }
 
-    /**------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
      * alternative insertShop method (notes blank)
-     * @param shopname      name of the shop
-     * @param shoporder     order of the shop (lowest first)
-     * @param shopstreet    street part of the address of the shop
-     * @param shopcity      city/location of the shop
-     * @param shopstate     state/county of the shop
+     *
+     * @param shopname   name of the shop
+     * @param shoporder  order of the shop (lowest first)
+     * @param shopstreet street part of the address of the shop
+     * @param shopcity   city/location of the shop
+     * @param shopstate  state/county of the shop
      */
     void insertShop(String shopname,
                            int shoporder,
@@ -127,12 +171,14 @@ class DBShopMethods {
         insertShop(shopname, shoporder, shopstreet, shopcity, shopstate,"");
     }
 
-    /**------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
      * alternative insertShop method (notes and shopstate blank)
-     * @param shopname      name of the shop
-     * @param shoporder     order of the shop (lowest first)
-     * @param shopstreet    street part of the address of the shop
-     * @param shopcity      city/location of the shop
+     *
+     * @param shopname   name of the shop
+     * @param shoporder  order of the shop (lowest first)
+     * @param shopstreet street part of the address of the shop
+     * @param shopcity   city/location of the shop
      */
     void insertShop(String shopname,
                            int shoporder,
@@ -140,31 +186,40 @@ class DBShopMethods {
                            String shopcity) {
         insertShop(shopname, shoporder, shopstreet, shopcity, "");
     }
-    /**------------------------------------------------------------------------
+
+    /**
+     * ------------------------------------------------------------------------
      * alternative insertShop method (notes, shopstate and hhopcity blank)
-     * @param shopname      name of the shop
-     * @param shoporder     order of the shop (lowest first)
-     * @param shopstreet    street part of the address of the shop
+     *
+     * @param shopname   name of the shop
+     * @param shoporder  order of the shop (lowest first)
+     * @param shopstreet street part of the address of the shop
      */
     void insertShop(String shopname,
                            int shoporder,
                            String shopstreet) {
         insertShop(shopname, shoporder, shopstreet, "");
     }
-    /**------------------------------------------------------------------------
+
+    /**
+     * ------------------------------------------------------------------------
      * alternative insertShop method (notes, shopstate, shopcity and
      * shopstreet blank)
-     * @param shopname      name of the shop
-     * @param shoporder     order of the shop (lowest first)
+     *
+     * @param shopname  name of the shop
+     * @param shoporder order of the shop (lowest first)
      */
     void insertShop(String shopname,
                            int shoporder) {
         insertShop(shopname, shoporder, "");
     }
-    /**------------------------------------------------------------------------
+
+    /**
+     * ------------------------------------------------------------------------
      * alternative insertShop method (notes, shopstate, shopcity and
      * shopstreet  blank, shoporder set to default)
-     * @param shopname      name of the shop
+     *
+     * @param shopname name of the shop
      */
     void insertShop(String shopname) {
         String orderdflt = DBConstants.DEFAULTORDER;
@@ -173,18 +228,20 @@ class DBShopMethods {
 
     /**************************************************************************
      * doesShopExist
+     *
      * @param shopid shopid
      * @return true if shopid exists, false if not
      */
     boolean doesShopExist(long shopid) {
         boolean rv = false;
-        String sql = "SELECT " +
-                    DBShopsTableConstants.SHOPS_ID_COL_FULL +
-                " FROM " + DBShopsTableConstants.SHOPS_TABLE +
-                " WHERE " + DBShopsTableConstants.SHOPS_ID_COL_FULL +
+        String filter =  DBShopsTableConstants.SHOPS_ID_COL_FULL +
                     " = " + Long.toString(shopid) +
-                " ;";
-        Cursor csr = db.rawQuery(sql,null);
+                DBConstants.SQLENDSTATEMENT;
+        Cursor csr = DBCommonMethods.getTableRows(db,
+                DBShopsTableConstants.SHOPS_TABLE,
+                filter,
+                ""
+        );
         if (csr.getCount() > 0) {
             rv = true;
         }
@@ -194,13 +251,14 @@ class DBShopMethods {
 
     /**************************************************************************
      * modifyShop Update a shop
-     * @param shopid        shopid of the shop to be updated
-     * @param shoporder     order of the shop 0 if to skip
-     * @param shopname      new shopname, "" to skip
-     * @param shopstreet    new street, "" to skip
-     * @param shopcity      new city, "" skip
-     * @param shopstate     new state, "" to skip
-     * @param shopnotes new notes, "" to skip
+     *
+     * @param shopid     shopid of the shop to be updated
+     * @param shoporder  order of the shop 0 if to skip
+     * @param shopname   new shopname, "" to skip
+     * @param shopstreet new street, "" to skip
+     * @param shopcity   new city, "" skip
+     * @param shopstate  new state, "" to skip
+     * @param shopnotes  new notes, "" to skip
      */
     void modifyShop(long shopid,
                     int shoporder,
@@ -247,92 +305,46 @@ class DBShopMethods {
         if (updatecount < 1 ) {
             return;
         }
-        String whereargs[] = {Long.toString(shopid )};
+        String[] whereargs = {Long.toString(shopid )};
         String whereclause = DBShopsTableConstants.SHOPS_ID_COL + " = ?";
-        db.update(DBShopsTableConstants.SHOPS_TABLE,cv,whereclause,whereargs);
+        lastshopupdateok = false;
+        if (db.update(DBShopsTableConstants.SHOPS_TABLE,cv,whereclause,whereargs) > 0) {
+            lastshopupdateok = true;
+        }
     }
 
     /**************************************************************************
      * deleteShop = Delete a specified shop from the database along with all
      * the underlying "owned" components.
-     *      aisles are directly owned by a shop
-     *      aisles own productusages, rules and shoppinglist entries
+     * aisles are directly owned by a shop
+     * aisles own productusages, rules and shoppinglist entries
      *
-     * @param shopid id of the shop to be deleted
+     * @param shopid        id of the shop to be deleted
+     * @param intransaction the intransaction
      * @return number of shops deleted
      */
-    int deleteShop(long shopid) {
+    int deleteShop(long shopid, boolean intransaction) {
         int rv = 0;
         int deleted_productusages = 0;
         int deleted_rules = 0;
         int deleted_shoplists = 0;
         int deleted_aisles = 0;
 
-        String sqlstr = "SELECT * FROM " +
-                DBAislesTableConstants.AISLES_TABLE +
-                " WHERE " +
-                DBAislesTableConstants.AISLES_SHOPREF_COL +
+        String filter = DBAislesTableConstants.AISLES_SHOPREF_COL +
                 " = " + Long.toString(shopid) +
-                " ;";
-        Cursor aislescursor = db.rawQuery(sqlstr,null);
-        db.beginTransaction();
+                DBConstants.SQLENDSTATEMENT;
+        Cursor aislescursor = DBCommonMethods.getTableRows(db,
+                DBAislesTableConstants.AISLES_TABLE,
+                filter,
+                "");
+        if(!intransaction) {
+            db.beginTransaction();
+        }
         while(aislescursor.moveToNext()) {
-
-            /**
-             * Aisle ID required for all 3 sets of deletions so set whereargs to aisleid
-             */
-            String whereargs[] = {
-                    aislescursor.getString(
-                            aislescursor.getColumnIndex(
-                                    DBAislesTableConstants.AISLES_ID_COL
-                            )
-                    )
-            };
-
-            /**
-             * Ready for and action deletion of referenced productusages
-             */
-            String dlt_pu_whereclause =
-                    DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL + " = ?";
-            deleted_productusages = db.delete(
-                    DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
-                    dlt_pu_whereclause,
-                    whereargs
-            );
-
-            /**
-             * Ready for and action deletion of referenced shoplist entries
-             */
-            String dlt_sl_whereclause =
-                DBShopListTableConstants.SHOPLIST_AISLEREF_COL + " = ? ";
-            deleted_shoplists = db.delete(
-                    DBShopListTableConstants.SHOPLIST_TABLE,
-                    dlt_sl_whereclause,
-                    whereargs
-            );
-
-            /**
-             * Ready for and action deleteion of referenced rules
-             */
-            String dlt_rules_whereclause =
-                    DBRulesTableConstants.RULES_AISLEREF_COL + " = ?";
-            deleted_rules = db.delete(DBRulesTableConstants.RULES_TABLE,
-                    dlt_rules_whereclause,
-                    whereargs
-            );
+            long aisleid = aislescursor.getLong(aislescursor.getColumnIndex(DBAislesTableConstants.AISLES_ID_COL));
+            new DBAisleMethods(context).deleteAisle(aisleid,true);
         }
         aislescursor.close();
-        /**
-         * Ready for and action deletion of referenced Aisles
-         */
-        String dlt_aisles_whereclause =
-                DBAislesTableConstants.AISLES_SHOPREF_COL + " = ?";
-        String dlt_ailses_whereargs[] = { Long.toString(shopid)};
-        deleted_aisles = db.delete(
-                DBAislesTableConstants.AISLES_TABLE,
-                dlt_aisles_whereclause,
-                dlt_ailses_whereargs
-        );
 
         /**
          * Ready for action the deletion of the Shop (should only ever be 1)
@@ -342,51 +354,42 @@ class DBShopMethods {
         rv =  db.delete(DBShopsTableConstants.SHOPS_TABLE,
                 dlt_shop_whereclause,
                 dlt_shop_whereargs);
-        db.setTransactionSuccessful();
-        db.endTransaction();
+        if(!intransaction) {
+            db.setTransactionSuccessful();
+            db.endTransaction();
+        }
         Log.i(LOGTAG,
-                Long.toString(rv) + " Shops Deleted for shopid " +
-                Long.toString(shopid) +
-                "\n\t" +
-                Long.toString(deleted_aisles) +
-                " Referenced Aisles Deleted (by shop)." +
-                "\n\t" +
-                Long.toString(deleted_productusages) +
-                " Referenced Productusages Deleted (by aisles)" +
-                "\n\t" +
-                Long.toString(deleted_shoplists) +
-                " Referenced ShopList Entries Deleted (by aisles)" +
-                "\n\t" +
-                Long.toString(deleted_rules) +
-                " Referenced Rules Deleted (by aisles)");
-
+                Long.toString(rv) + " Shops Deleted for shopid " + Long.toString(shopid));
         return rv;
     }
 
     /**************************************************************************
      * shopDeleteImpact
+     *
      * @param shopid id of the shop to report on
      * @return String ArrayList of table rows that will be deleted
      */
     ArrayList<String> shopDeletedImpact(long shopid) {
         ArrayList<String> rv = new ArrayList<>();
 
-        String shopsql = "SELECT * FROM " +
-                DBShopsTableConstants.SHOPS_TABLE +
-                " WHERE " +
-                DBShopsTableConstants.SHOPS_ID_COL_FULL +
+        String shopfilter = DBShopsTableConstants.SHOPS_ID_COL_FULL +
                 " = " +
                 Long.toString(shopid) +
-                " ;";
-        String aislesql = "SELECT * FROM " + DBAislesTableConstants.AISLES_TABLE +
-                " WHERE " +
-                DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
+                DBConstants.SQLENDSTATEMENT;
+        String aislefilter = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
                 " = " +
                 Long.toString(shopid) +
-                " ;";
-        Cursor shopstodelete = db.rawQuery(shopsql,null);
+                DBConstants.SQLENDSTATEMENT;
+        Cursor shopstodelete = DBCommonMethods.getTableRows(db,
+                DBShopsTableConstants.SHOPS_TABLE,
+                shopfilter,
+                ""
+        );                ;
         while (shopstodelete.moveToNext()) {
-            Cursor aislestodelete = db.rawQuery(aislesql,null);
+            Cursor aislestodelete = DBCommonMethods.getTableRows(db,
+                    DBAislesTableConstants.AISLES_TABLE,
+                    aislefilter,
+                    "");
             rv.add("SHOP " +
                     shopstodelete.getString(
                             shopstodelete.getColumnIndex(
@@ -399,86 +402,10 @@ class DBShopMethods {
                             DBShopsTableConstants.SHOPS_STREET_COL)) +
                     " would be deleted.");
             while (aislestodelete.moveToNext()) {
-                String current_aisleid = Long.toString(
-                        aislestodelete.getLong(
-                                aislestodelete.getColumnIndex(
-                                        DBAislesTableConstants.AISLES_SHOPREF_COL
-                                )
-                        )
-                );
-                /**
-                 * Add this aisle as one to be deleted
-                 */
-                rv.add("AISLE " +
-                        aislestodelete.getString(
-                                aislestodelete.getColumnIndex(
-                                        DBAislesTableConstants.AISLES_NAME_COL
-                                )
-                        ) +
-                        " would be deleted."
-                );
+                long aisleid = aislestodelete.getLong(aislestodelete.getColumnIndex(
+                        DBAislesTableConstants.AISLES_ID_COL));
 
-                /**
-                 * Determine productusages that would be deleted due to being
-                 * referenced by this aisle
-                 */
-                String pusql = " SELECT * FROM " +
-                        DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                        " LEFT JOIN " +
-                            DBProductsTableConstants.PRODUCTS_TABLE +
-                            " ON " + DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                                " = " +
-                                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                        " WHERE " +
-                        DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
-                        " = " + current_aisleid +
-                        " ;";
-                Cursor pucursor = db.rawQuery(pusql,null);
-                while (pucursor.moveToNext()) {
-                    //TODO add stuff here
-
-                }
-                pucursor.close();
-
-                /**
-                 * Determine ShopList entries that would be deleted due to being
-                 * referenced by this aisle
-                 */
-                String slsql = " SELECT * FROM " +
-                        DBShopListTableConstants.SHOPLIST_TABLE +
-                        " LEFT JOIN " +
-                            DBProductsTableConstants.PRODUCTS_TABLE +
-                            " ON " +
-                                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                                " = " +
-                                DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL +
-                        " WHERE " +
-                            DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
-                            " = " + current_aisleid +
-                        " ;";
-                Cursor slcursor = db.rawQuery(slsql,null);
-                while (slcursor.moveToNext()) {
-                    //TODO add stuff here
-                }
-                slcursor.close();
-
-                String rulesql = " SELECT * FROM " +
-                        DBRulesTableConstants.RULES_TABLE +
-                        " LEFT JOIN " +
-                            DBProductsTableConstants.PRODUCTS_TABLE +
-                            " ON " +
-                                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                                " = " +
-                                DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL +
-                        " WHERE " +
-                            DBRulesTableConstants.RULES_AISLEREF_COL_FULL +
-                            " = " + current_aisleid +
-                        " ;";
-                Cursor rulescursor = db.rawQuery(rulesql,null);
-                while (rulescursor.moveToNext()) {
-                    //TODO stuff here
-                }
-                rulescursor.close();
+                rv.addAll(new DBAisleMethods(context).aisleDeleteImpact(aisleid));
             }
             aislestodelete.close();
         }

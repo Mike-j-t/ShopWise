@@ -4,6 +4,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
+/**
+ * The type Db table.
+ */
 /*==================================================================================================
 //==================================================================================================
 // DBTable class - Database Table Class has table name and holds list of the columns in the table
@@ -41,7 +44,10 @@ class DBTable {
 
     //* signifies internally managed property
 
-    //==============================================================================================
+    /**
+     * Instantiates a new Db table.
+     */
+//==============================================================================================
     // Default DBTable Object Constructor
     public DBTable() {
         this.usable = false;
@@ -56,7 +62,12 @@ class DBTable {
                 "Caller=DBTable (Default Constructor)";
     }
 
-    //==============================================================================================
+    /**
+     * Instantiates a new Db table.
+     *
+     * @param table_name the table name
+     */
+//==============================================================================================
     // Intermediate DBTable Object Constructor - Just the table name
     public DBTable(String table_name) {
         this.usable = false;
@@ -74,7 +85,14 @@ class DBTable {
                     "Caller=(DBTable (table_name))";
         }
     }
-    //==============================================================================================
+
+    /**
+     * Instantiates a new Db table.
+     *
+     * @param table_name   the table name
+     * @param table_column the table column
+     */
+//==============================================================================================
     // HigherIntermediate DBTable Object Constructor - Table with 1 column
     public DBTable(String table_name, DBColumn table_column) {
         this();
@@ -83,7 +101,14 @@ class DBTable {
         this.problem_msg = "";
         this.checkDBTableIsUsable("DBTable (table_name, table_column (singular))");
     }
-    //==============================================================================================
+
+    /**
+     * Instantiates a new Db table.
+     *
+     * @param table_name    the table name
+     * @param table_columns the table columns
+     */
+//==============================================================================================
     // Full DBTable Object Constructor
     public DBTable(String table_name, ArrayList<DBColumn> table_columns) {
         this();
@@ -92,26 +117,50 @@ class DBTable {
         this.table_columns = table_columns;
         this.checkDBTableIsUsable("DBTable Full Constructor");
     }
-    //==============================================================================================
+
+    /**
+     * Add db column to db table.
+     *
+     * @param dbcolumn the dbcolumn
+     */
+//==============================================================================================
     // Add a DBCOlumn Object to the table
     public void AddDBColumnToDBTable(DBColumn dbcolumn) {
         this.table_columns.add(dbcolumn);
         this.problem_msg = "";
         this.checkDBTableIsUsable("AddDBColumnToDBTable");
     }
-    //==============================================================================================
+
+    /**
+     * Add db columnsto db table.
+     *
+     * @param dbcolumns the dbcolumns
+     */
+//==============================================================================================
     // Add a list of DBCOlumn Objects, as held in a DBColumn ArrayList, to the table
     public void AddDBColumnstoDBTable(ArrayList<DBColumn> dbcolumns) {
         this.table_columns.addAll(dbcolumns);
         this.problem_msg = "";
         this.checkDBTableIsUsable("AddDBColumnsToDBtable");
     }
-    //==============================================================================================
+
+    /**
+     * Add multiple columnsto db table.
+     *
+     * @param dbcolumns the dbcolumns
+     */
+//==============================================================================================
     // psuedonym for AddDBColumnsToDBTable (easier to differentiate from AddDBColumnToDBTable)
     public void AddMultipleColumnstoDBTable(ArrayList<DBColumn> dbcolumns) {
         this.AddDBColumnstoDBTable(dbcolumns);
     }
-    //==============================================================================================
+
+    /**
+     * Sets db table name.
+     *
+     * @param table_name the table name
+     */
+//==============================================================================================
     // Set the name of the table.
     // Note table name will be converetd to lowercase.
     // The table usability will be rechecked.
@@ -120,19 +169,55 @@ class DBTable {
         this.problem_msg = "";
         this.checkDBTableIsUsable("setDBTableName");
     }
-    // Retrieve the DBTable's name
+
+    /**
+     * Gets db table name.
+     *
+     * @return the db table name
+     */
+// Retrieve the DBTable's name
     //==============================================================================================
     public String getDBTableName() { return this.table_name; }
-    //==============================================================================================
+
+    /**
+     * Is db table usable boolean.
+     *
+     * @return the boolean
+     */
+//==============================================================================================
     public boolean isDBTableUsable() { return this.usable; }
+
+    /**
+     * Number of columns in table int.
+     *
+     * @return the int
+     */
     public int numberOfColumnsInTable() { return this.table_columns.size(); }
-    //Retrieve the DBTable's DBColumn list as and ArrayList of DBCOlumn objects
+
+    /**
+     * Gets table db columns.
+     *
+     * @return the table db columns
+     */
+//Retrieve the DBTable's DBColumn list as and ArrayList of DBCOlumn objects
     //==============================================================================================
     public ArrayList<DBColumn> getTableDBColumns() { return this.table_columns; }
-    // Retrieve the DBTable's Problem Message
+
+    /**
+     * Gets db table problem msg.
+     *
+     * @return the db table problem msg
+     */
+// Retrieve the DBTable's Problem Message
     //==============================================================================================
     public String getDBTableProblemMsg() { return this.problem_msg; }
-    //==============================================================================================
+
+    /**
+     * Gets all db table problem msgs.
+     *
+     * @return the all db table problem msgs
+     */
+//==============================================================================================
     // Retrieve the DBTable's Problem Message along with all the Problem Messages for the
     // DBColumns in the DBTable
     public String getAllDBTableProblemMsgs() {
@@ -142,7 +227,14 @@ class DBTable {
         }
         return  problem_messages;
     }
-    //==============================================================================================
+
+    /**
+     * Check db table is usable boolean.
+     *
+     * @param caller the caller
+     * @return the boolean
+     */
+//==============================================================================================
     // Check if the DBTable is usable, setting usability state. Includes underlying DBColumns
     public boolean checkDBTableIsUsable(String caller) {
         this.usable = false;
@@ -157,7 +249,14 @@ class DBTable {
         }
         return this.usable;
     }
-    //==============================================================================================
+
+    /**
+     * Any empty db columns in db table boolean.
+     *
+     * @param caller the caller
+     * @return the boolean
+     */
+//==============================================================================================
     // Check to see if the DBtable has 0 DBColumns. If not then checks the DBColumns for usability.
     // Note!! does not reset DBColumn usability, rather this is the DBTable's view of the DBColumns
     // usability.
@@ -180,7 +279,14 @@ class DBTable {
         }
         return rc;
     }
-    //==============================================================================================
+
+    /**
+     * Gets sql create string.
+     *
+     * @param db the db
+     * @return the sql create string
+     */
+//==============================================================================================
     public String getSQLCreateString(SQLiteDatabase db) {
 
         // Check to see if this table exists, if not then skip CREATE
@@ -241,7 +347,14 @@ class DBTable {
         part1 = part1 + ") ;";
         return part1;
     }
-    //==============================================================================================
+
+    /**
+     * Gets sql table create as string.
+     *
+     * @param doasmysql the doasmysql
+     * @return the sql table create as string
+     */
+//==============================================================================================
     public String getSQLTableCreateAsString(Boolean doasmysql) {
 
         // Extract Columns that are flagged as PRIMARY INDEXES so we have a count
@@ -294,7 +407,14 @@ class DBTable {
         part1 = part1 + ") ;";
         return part1;
     }
-    //==============================================================================================
+
+    /**
+     * Gets sql alter to add new columns.
+     *
+     * @param db the db
+     * @return the sql alter to add new columns
+     */
+//==============================================================================================
     public ArrayList<String> getSQLAlterToAddNewColumns(SQLiteDatabase db) {
         // Have to return an array (arraylist) as ALTER statements can only Add 1 column at a time.
         ArrayList<String> result = new ArrayList<>();
