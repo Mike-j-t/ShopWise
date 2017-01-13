@@ -2,13 +2,14 @@ package mjt.shopwise;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 
 import java.util.ArrayList;
 
@@ -85,6 +86,17 @@ class ActionColorCoding {
         return instance;
     }
 
+    public static int getPrimaryColorCount() {
+        return primarycolors.length;
+    }
+    public static int getAllColorsCount() {
+        return allcolors.length;
+    }
+
+    public static void forceStoreColors(Context context) {
+        storeColors(context,allcolors,primarycolors);
+    }
+
     /**
      * Gets colors per group.
      *
@@ -92,6 +104,39 @@ class ActionColorCoding {
      */
     static int getColorsPerGroup() {
         return colorspergroup;
+    }
+
+    /**
+     * setCheckBoxAccent - Change the primary and accent colors of a checkbox
+     *                          according to the current color code.
+     *
+     * @param context   the context from the caller
+     * @param intent    the intent from the calling activity MUST have set
+     *                  or been passed the menucolorcode (generally this is
+     *                  propogated from the main/initial activity). However,
+     *                  it could be manually set. Theorectically any number
+     *                  would be valid due to the use of :-
+     *                  passedoption % primarycolors.length
+     * @param checkBox  the id of the checkbox that is to be set.
+     */
+    static void setCheckBoxAccent(
+            Context context,
+            Intent intent,
+            CheckBox checkBox) {
+        setDefaultColors();
+        int passedoption = intent.getIntExtra(
+                StandardAppConstants.INTENTKEY_MENUCOLORCODE,0);
+
+        ColorStateList csl = new ColorStateList(
+                new int[][] {
+                        new int[]{-android.R.attr.state_checked},
+                        new int[] {android.R.attr.state_checked},
+                },
+                new int[]{ primarycolors[passedoption % primarycolors.length],
+                primarycolors[passedoption % primarycolors.length &
+                        transparency_optional],
+        });
+        CompoundButtonCompat.setButtonTintList(checkBox,csl);
     }
 
 
@@ -110,14 +155,33 @@ class ActionColorCoding {
     ) {
         setDefaultColors();
         int passedoption = intent.getIntExtra(
-                StandardAppConstants.INTENTKEY_MENUCOLORCODE,
-                -1
-        );
+                StandardAppConstants.INTENTKEY_MENUCOLORCODE,0);
         //int colorlist[] = context.getResources().getIntArray(R.array.colorList);
         int actionbarcolor = primarycolors[passedoption % primarycolors.length];
         ColorDrawable cd = new ColorDrawable();
         cd.setColor(actionbarcolor);
         actionbar.setBackgroundDrawable(cd);
+    }
+
+    /**************************************************************************
+     * getprimaryColor
+     * @param offset    offset of the primary color
+     * @return          the primary color according to the given offset
+     */
+    public static int getPrimaryColor(int offset) {
+        return primarycolors[(offset % primarycolors.length)];
+    }
+
+    /**
+     * getGroupColor
+     * @param group         the group/primary color
+     * @param groupoffset   the offset from the primary color
+     * @return              the color
+     */
+    public static int getGroupColor(int group, int groupoffset) {
+        return allcolors[(((group % primarycolors.length) *
+                colorspergroup) +
+                (groupoffset % colorspergroup))];
     }
 
     /**************************************************************************
@@ -149,7 +213,7 @@ class ActionColorCoding {
          */
         int colorspergroup = allcolors.length / primarycolors.length;
         /**
-         * offset can be a maximum og the number of colors per group
+         * offset can be a maximum of the number of colors per group
          *  (less 1 as it is an offest).
          */
         if (offset > (colorspergroup -1)) {
@@ -182,31 +246,44 @@ class ActionColorCoding {
 
         if (colorset) { return; }
 
-        // All Colors (first per set is primary/base color)
-        int[] R = {0xffff0000, 0xffff3333, 0xffff6666, 0xffff9999, 0xffffbbbb };
-        int[] Y = {0xffffb000, 0xffffc333, 0xffffd666, 0xffffe999, 0xfffffbbb };
-        int[] G = {0xff32bd32, 0xff42cd42, 0xff52dd52, 0xff62ed62, 0xff72fd72 };
-        int[] B = {0xff0000ff, 0xff5555ff, 0xff7777ff, 0xff9999ff, 0xffbbbbff };
-        int[] P = {0xffb010f0, 0xffc020f0, 0xffd030f0, 0xffe040f0, 0xfff050f0 };
-        int[] DR = {0xffdd0000, 0xffdd3333, 0xffdd6666, 0xffdd9999, 0xffddbbbb };
-        int[] DY = {0xffff8800, 0xffff8833, 0xffff9966, 0xffffaa99, 0xffffbbaa};
-        int[] DG = {0xff228b22, 0xff449b44, 0xff66ab66, 0xff88bb88, 0xffaacbaa };
-        int[] DB = {0xff0000aa, 0xff0033bb, 0xff0066cc, 0xff0099dd, 0xff00bbee };
-        int[] DP = {0xff5010b0, 0xff6020c0, 0xff7030d0, 0xff8040e0, 0xff9050f0 };
+        // All Colors (first per set in primary/base color)
+        int[] R = {0xffff0000, 0xffff3333, 0xffff6666, 0xffff9999, 0xffffcccc }; // RED
+        int[] O = {0xffff5500, 0xffff7733, 0xffff9966, 0xffffbb99, 0xffffeecc} ;
+        int[] Y = {0xffffdd00, 0xffffdd33, 0xffffdd66, 0xffffdd99, 0xffffddcc }; // Yellow
+        int[] G = {0xff00ff00, 0xff33ff33, 0xff66ff66, 0xff99ff99, 0xffccffcc }; // Green
+        int[] X = {0xff00ffdd, 0xff33ffdd, 0xff66ffdd, 0xff99ffdd, 0xffccffdd }; // ???
+        int[] B = {0xff0000ff, 0xff3333ff, 0xff6666ff, 0xff9999ff, 0xffccccff }; // Blue
+        int[] Z = {0xffdd00ff, 0xffdd33ff, 0xffdd66ff, 0xffdd99ff, 0xffddccff }; // ??
+        int[] P = {0xffb010f0, 0xffc020f0, 0xffd030f0, 0xffe040f0, 0xfff050f0 }; // Purple
+        int[] C = {0xff3498db, 0xff5dade2, 0xff85c1e9, 0xffaed6f1, 0xffd1f2eb }; // Cyan
+        int[] SG = {0xff008B45, 0xff00CD66, 0xff00EE76, 0xff4EEE94, 0xff54FF9F }; //Sea Green
+        int[] DR = {0xffdd0000, 0xffdd3333, 0xffdd6666, 0xffdd9999, 0xffddcccc }; //Dark Red
+        int[] DY = {0xffffbb00, 0xffffbb33, 0xffffbb66, 0xffffbb99, 0xffffbbcc }; // Dark Yellow
+        int[] DG = {0xff228b22, 0xff449b44, 0xff66ab66, 0xff88bb99, 0xffaacbaa }; // Dark Green
+        int[] DB = {0xff0000aa, 0xff0033bb, 0xff0066cc, 0xff0099dd, 0xff00bbee }; //Dark Blue
+        int[] DP = {0xff5010b0, 0xff6020c0, 0xff7030d0, 0xff8040e0, 0xff9050f0 }; // Dark Purple
 
         //Build an array of primary/base colors
-        int[] pc = {R[0], Y[0], G[0], B[0], P[0],
-                DR[0], DY[0], DG[0], DB[0], DP[0]};
+        int[] pc = {
+                R[0], O[0], Y[0], G[0], X[0], B[0], Z[0], C[0], SG[0],
+                DR[0], DY[0], DG[0], DB[0], P[0], DP[0]
+        };
         //Build an array of all colors
-        int[] ac = {R[0], R[1], R[2], R[3], R[4],
+        int[] ac = {
+                R[0], R[1], R[2], R[3], R[4],
+                O[0], O[1], O[2], O[3], O[4],
                 Y[0], Y[1], Y[2], Y[3], Y[4],
                 G[0], G[1], G[2], G[3], G[4],
+                X[0], X[1], X[2], X[3], X[4],
                 B[0], B[1], B[2], B[3], B[4],
-                P[0], P[1], P[2], P[3], P[4],
+                Z[0], Z[1], Z[2], Z[3], Z[4],
+                C[0], C[1], C[2], C[3], C[4],
+                SG[0], SG[1], SG[2], SG[3], SG[4],
                 DR[0], DR[1], DR[2], DR[3], DR[4],
                 DY[0], DY[1], DY[2], DY[3], DY[4],
                 DG[0], DG[1], DG[2], DG[3], DG[4],
                 DB[0], DB[1], DB[2], DB[3], DB[4],
+                P[0], P[1], P[2], P[3], P[4],
                 DP[0], DP[1], DP[2], DP[3], DP[4]
         };
         primarycolors = pc;
@@ -284,5 +361,4 @@ class ActionColorCoding {
         allcolors = iac;
         colorsloaded = true;
     }
-
 }

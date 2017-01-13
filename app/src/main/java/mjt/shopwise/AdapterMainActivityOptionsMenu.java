@@ -1,6 +1,7 @@
 package mjt.shopwise;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -40,9 +41,10 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
     private DBAisleMethods dbaisles;
     private DBProductMethods dbproducts;
     private DBProductUsageMethods dbprodusages;
-    //TODO implement shoplist when DBShopMethods exists and works
-    //private DBShopListMethods dbshoplist;
+    private DBShopListMethods dbshoplist;
     private DBRuleMethods dbrules;
+    private Context ctxt;
+    private Intent callerintent;
 
 
     /**
@@ -52,16 +54,17 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
      * @param csr     the csr
      * @param flags   the flags
      */
-    AdapterMainActivityOptionsMenu(Context context, Cursor csr, int flags) {
+    AdapterMainActivityOptionsMenu(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
         colorlist =  context.getResources().getIntArray(R.array.colorList);
         dbshops = new DBShopMethods(context);
         dbaisles = new DBAisleMethods(context);
         dbproducts = new DBProductMethods(context);
         dbprodusages = new DBProductUsageMethods(context);
-        //TODO implement shoplist when DBShopMethods exists and works
-        //dbshoplist = new DBShopListMethods(context);
+        dbshoplist = new DBShopListMethods(context);
         dbrules = new DBRuleMethods(context);
+        this.ctxt = context;
+        callerintent = intent;
     }
 
     @Override
@@ -102,6 +105,7 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        ActionColorCoding acc = ActionColorCoding.getInstance(ctxt);
         View view = super.getView(position,convertview, parent);
         TextView option_tv = (TextView) view.findViewById(
                 R.id.activity_main_OptionsMenu_option
@@ -111,7 +115,9 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
         );
         option_tv.setTag(position);
         option_tv.setTextColor(Color.WHITE);
-        ((GradientDrawable) option_tv.getBackground()).setColor(colorlist[position % colorlist.length]);
+        ((GradientDrawable) option_tv.getBackground()).setColor(
+                acc.getPrimaryColor(position));
+                //colorlist[position % colorlist.length]
         return view;
     }
 }

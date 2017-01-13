@@ -22,9 +22,13 @@ import static mjt.shopwise.DBConstants.REAL;
  * productusagelatestbuydate    last time the product was purchased
  * productusageorder            order of product within the aisle
  * productusagerulesuggestflag  flag used by rule suggestion to allow use,
- * temporarily disable (skip) or permanently
- * disable (can be reveresed) Rule Suggestion
- * for this ProductUsage
+ *                                  temporarily disable (skip) or permanently
+ *                                  disable (can be reveresed) Rule Suggestion
+ *                                  for this ProductUsage.
+ * productusagechecklistflag    flag to indicate if this productusage should
+ *                                  appear in the checlist.
+ * productusagechecklistcount   The number of items to check for in the
+ *                                  checklist.
  */
 public class DBProductusageTableConstants {
     /**
@@ -255,6 +259,28 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_RULESUGGESTFLAG_PRIMARY_INDEX,
             "0");
 
+    public static final String PRODUCTUSAGE_CHECKLISTFLAG_COL = "productusagechecklistflag";
+    public static final String PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL =
+            PRODUCTUSAGE_TABLE + PERIOD + PRODUCTUSAGE_CHECKLISTFLAG_COL;
+    public static final String PRODUCTUSAGE_CHECKLISTFLAG_TYPE = INT;
+    public static final boolean PRODUCTUSAGE_CHECKLISTFLAG_PRIMARY_INDEX = false;
+    public static final DBColumn PRODUCTUSAGECHECKLISTFLAGCOL = new DBColumn(
+            PRODUCTUSAGE_CHECKLISTFLAG_COL,
+            PRODUCTUSAGE_CHECKLISTFLAG_TYPE,
+            PRODUCTUSAGE_CHECKLISTFLAG_PRIMARY_INDEX,
+            "0");
+
+    public static final String PRODUCTUSAGE_CHECKLISTCOUNT_COL = "productusagechecklistcount";
+    public static final String PRODUCTUSAGE_CHECKLISTCOUNT_COL_FULL =
+            PRODUCTUSAGE_TABLE + PERIOD + PRODUCTUSAGE_CHECKLISTCOUNT_COL;
+    public static final String PRODUCTUSAGE_CHECKLISTCOUNT_TYPE = INT;
+    public static final boolean PRODUCTUSAGE_CHECKLISTCOUNT_PRIMARY_INDEX = false;
+    public static final DBColumn PRODUCTUSAGECHECKLISTCOUNTCOL = new DBColumn(
+            PRODUCTUSAGE_CHECKLISTCOUNT_COL,
+            PRODUCTUSAGE_CHECKLISTCOUNT_TYPE,
+            PRODUCTUSAGE_CHECKLISTCOUNT_PRIMARY_INDEX,
+            "1");
+
     /**
      * The constant PRODUCTUSAGECOLS.
      */
@@ -266,10 +292,13 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGEFIRSTBUYDATECOL,
             PRODUCTUSAGESLATESTBUYDATECOL,
             PRODUCTUSAGEORDERCOL,
-            PRODUCTUSAGERULESUGGESTFLAGCOL));
+            PRODUCTUSAGERULESUGGESTFLAGCOL,
+            PRODUCTUSAGECHECKLISTFLAGCOL,
+            PRODUCTUSAGECHECKLISTCOUNTCOL));
     /**
      * The constant PRODUCTUSAGETABLE.
      */
     public static final DBTable PRODUCTUSAGETABLE = new DBTable(PRODUCTUSAGE_TABLE,
             PRODUCTUSAGECOLS);
+    public static final String PRODUCTUSAGEMAXORDERCOLUMN = "maxorder";
 }

@@ -79,6 +79,7 @@ class AdapterShopList extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.shoplist,
                 parent,
@@ -125,6 +126,7 @@ class AdapterShopList extends CursorAdapter {
                 ActionColorCoding.setActionButtonColor(view,oddrow);
             }
         }
+        this.cursor.moveToPosition(position);
         bindView(view, ctxt, this.cursor);
         return view;
     }

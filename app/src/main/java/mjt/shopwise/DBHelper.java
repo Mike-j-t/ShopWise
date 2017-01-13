@@ -80,6 +80,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param buildandexpand to attempt both create and expand
      */
     void expand(SQLiteDatabase db, boolean buildandexpand) {
+
         String mode = "Create Mode.";
         if (buildandexpand) {
             mode = "Expand Mode.";
@@ -89,6 +90,7 @@ class DBHelper extends SQLiteOpenHelper {
         if(db == null) {
             db = instance.getWritableDatabase();
         }
+        //db.execSQL("DROP TABLE IF EXISTS " + DBRulesTableConstants.RULES_TABLE);
         // Build Tables to reflect schema (SHOPWISE) only if schema is usable
         if(DBConstants.SHOPWISE.isDBDatabaseUsable()) {
             // Check to see if any tables need to be added

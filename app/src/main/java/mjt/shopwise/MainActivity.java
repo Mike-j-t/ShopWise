@@ -14,6 +14,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import static mjt.shopwise.StandardAppConstants.AISLESAPPVALNAME;
+import static mjt.shopwise.StandardAppConstants.CHECKLISTAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.INTENTKEY_CALLINGACTIVITY;
 import static mjt.shopwise.StandardAppConstants.INTENTKEY_CALLINGMODE;
 import static mjt.shopwise.StandardAppConstants.MAINACTIVITYOPTIONLIST;
@@ -23,6 +24,8 @@ import static mjt.shopwise.StandardAppConstants.PRODUCTSAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.RULESAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.SHOPPINGAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.SHOPSAPPVALNAME;
+import static mjt.shopwise.StandardAppConstants.STOCKAPPVALNAME;
+import static mjt.shopwise.StandardAppConstants.TOOLSAPPVALNAME;
 
 /**
  * Main/Start Activity for ShopWise
@@ -100,9 +103,10 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Setup Color coding i.e. Load colors from Appvalues Table. If they
          *  do not exist then default colors are genereated and stored in the
-         *  Appvalues table.
+         *  Appvalues table. Also force a store of values to enforce any updates.
          */
         ActionColorCoding acc = ActionColorCoding.getInstance(this);
+        ActionColorCoding.forceStoreColors(this);
 
         setContentView(R.layout.activity_main);
 
@@ -119,132 +123,14 @@ public class MainActivity extends AppCompatActivity {
          * the options menu (do twice to fully resolve any menu changes)
          */
         options_listview = (ListView) this.findViewById(R.id.activity_main_OptionsMenu);
+        String rp_appvalname = StandardAppConstants.RULEPERIODS_APPVALKEY;
 
-        dbappvaluesmethods.insertAppvalue("RULEPERIODS","DAYS",true,true,"");
-        dbappvaluesmethods.insertAppvalue("RULEPERIODS","WEEKS",true,true,"");
-        dbappvaluesmethods.insertAppvalue("RULEPERIODS","FORTNIGHTS",true,true,"");
-        dbappvaluesmethods.insertAppvalue("RULEPERIODS","MONTHS",true,true,"");
-        dbappvaluesmethods.insertAppvalue("RULEPERIODS","QUARTERS",true,true,"");
-        dbappvaluesmethods.insertAppvalue("RULEPERIODS","YEARS",true,true,"");
-
-
-        //dbshopmethods.insertShop("TestShop",1000,"1 Main Street","Maintown","County Main","blah");
-        //dbproductmethods.insertProduct("Baked beans","Small tin");
-        //dbaislemethods.insertAisle("Fruit & Veg",1000,1);
-        //dbaislemethods.insertAisle("Veg & Fruit",1100,1);
-        //dbaislemethods.insertAisle("Bakery",1200,1);
-        //dbproductusagemethods.insertProductUsage(1,1,0.65,1000);
-
-
-        //TODO Remove block, just for testing/development
-        ArrayList<String> ruleperiods = dbappvaluesmethods.getStringAppvalues("RULEPERIODS");
-        for (int i = 0; i < ruleperiods.size(); i++) {
-            Log.i(LOGTAG,"\t\tThis RULEPERIOD=" + ruleperiods.get(i));
-        }
-
-        //TODO remove block, just for testing/development
-        Cursor shopscsr = dbshopmethods.getShops("","");
-        while(shopscsr.moveToNext()) {
-            Log.i(LOGTAG," Shop=" +
-                    shopscsr.getString(shopscsr.getColumnIndex(DBShopsTableConstants.SHOPS_NAME_COL)) +
-                    " ID=" + shopscsr.getString(shopscsr.getColumnIndex(DBShopsTableConstants.SHOPS_ID_COL)) +
-                    " ORDER=" + shopscsr.getString(shopscsr.getColumnIndex(DBShopsTableConstants.SHOPS_ORDER_COL))
-            );
-        }
-        shopscsr.close();
-
-        //TODO remove block, just for testing/development
-        Cursor aislecsr = dbaislemethods.getAisles("","");
-        while (aislecsr.moveToNext()) {
-            long idoffset = aislecsr.getColumnIndex(DBAislesTableConstants.AISLES_ID_COL);
-            long aisleid = aislecsr.getLong(aislecsr.getColumnIndex(DBAislesTableConstants.AISLES_ID_COL));
-            Log.i(LOGTAG,"Aisle=" +
-                    aislecsr.getString(aislecsr.getColumnIndex(DBAislesTableConstants.AISLES_NAME_COL)) +
-                    " ID=" + aislecsr.getString(aislecsr.getColumnIndex(DBAislesTableConstants.AISLES_ID_COL)) +
-                    " ORDER=" + aislecsr.getString(aislecsr.getColumnIndex(DBAislesTableConstants.AISLES_ORDER_COL)) +
-                    " SHOPREF=" + aislecsr.getString(aislecsr.getColumnIndex(DBAislesTableConstants.AISLES_SHOPREF_COL))
-            );
-        }
-        aislecsr.close();
-
-
-        //TODO remove block, just for testing/development
-        Cursor productcsr = dbproductmethods.getProducts("","");
-        while(productcsr.moveToNext()) {
-            Log.i(LOGTAG,"Product=" +
-                    productcsr.getString(productcsr.getColumnIndex(DBProductsTableConstants.PRODUCTS_NAME_COL)) +
-                    " ID=" + productcsr.getString(productcsr.getColumnIndex(DBProductsTableConstants.PRODUCTS_ID_COL)) +
-                    " Notes=" + productcsr.getString(productcsr.getColumnIndex(DBProductsTableConstants.PRODUCTS_NOTES_COL))
-            );
-        }
-        productcsr.close();
-
-        //TODO remove block, just for testing/development
-        Cursor pucsr = dbproductusagemethods.getProductUsages("","");
-        while(pucsr.moveToNext()) {
-            Log.i(LOGTAG,"PUARef=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL)) +
-                    " PUPRef=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL)) +
-                    " PUCost=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_COST_COL)) +
-                    " PUCNT=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL)) +
-                    " PUFRST=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL)) +
-                    " PULAST=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_LATESTBUYDATE_COL)) +
-                    " PUORD=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL)) +
-                    " PURSF=" +
-                    pucsr.getString(pucsr.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_RULESUGGESTFLAG_COL))
-            );
-        }
-        pucsr.close();
-
-
-        //TODO remove block, just for testing/development
-        Cursor appvaluescsr = dbappvaluesmethods.getAppvalues("","");
-        while (appvaluescsr.moveToNext()) {
-            Log.i(LOGTAG, "Appvalue =" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_NAME_COL)) +
-                    " Type=" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_TYPE_COL)) +
-                    " TEXT Value=" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_TEXT_COL)) +
-                    " INT Value=" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_INT_COL)) +
-                    " REAL Value=" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_REAL_COL)) +
-                    " INCL FLAG=" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_INCLUDEINSETTINGS_COL)) +
-                    " INFO Value=" +
-                    appvaluescsr.getString(appvaluescsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_SETTINGSINFO_COL)) +
-                    " ;"
-            );
-        }
-        appvaluescsr.close();
-
-
-        //TODO remove block, just for testing/development
-        Cursor rcsr = dbrulemethods.getRules("","");
-        while (rcsr.moveToNext()) {
-            Log.i(LOGTAG,"RuleName=" +
-                    rcsr.getString(rcsr.getColumnIndex(DBRulesTableConstants.RULES_NAME_COL)) +
-                    " ProdRef=" + Long.toString(rcsr.getLong(rcsr.getColumnIndex(DBRulesTableConstants.RULES_PRODUCTREF_COL))) +
-                    " Aisleref=" + Long.toString(rcsr.getLong(rcsr.getColumnIndex(DBRulesTableConstants.RULES_AISLEREF_COL))) +
-                    " Period=" + Integer.toString(rcsr.getInt(rcsr.getColumnIndex(DBRulesTableConstants.RULES_PERIOD_COL))) +
-                    " Multiplier =" + rcsr.getString(rcsr.getColumnIndex(DBRulesTableConstants.RULES_MULTIPLIER_COL))
-            );
-        }
-         rcsr.close();
-
-
-        int stophere = 0;
-
-        /**********************************************************************
-         *  END OF TESTING STUFF.
-         *********************************************************************/
+        dbappvaluesmethods.insertAppvalue(rp_appvalname,"DAYS",true,true,"");
+        dbappvaluesmethods.insertAppvalue(rp_appvalname,"WEEKS",true,true,"");
+        dbappvaluesmethods.insertAppvalue(rp_appvalname,"FORTNIGHTS",true,true,"");
+        dbappvaluesmethods.insertAppvalue(rp_appvalname,"MONTHS",true,true,"");
+        dbappvaluesmethods.insertAppvalue(rp_appvalname,"QUARTERS",true,true,"");
+        dbappvaluesmethods.insertAppvalue(rp_appvalname,"YEARS",true,true,"");
 
         //Build the menu (do a second time to correct any missed insertions
         // due to deletes)
@@ -331,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
     private void buildMenu() {
         getDBCounts();
 
+        /**
+         * Menu Options String definitions
+         */
+
         String include_shops = "(" +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + SHOPSAPPVALNAME + "') ";
@@ -340,37 +230,65 @@ public class MainActivity extends AppCompatActivity {
         String include_aisles = "(" +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + AISLESAPPVALNAME + "') ";
+        String include_stock = "(" +
+                DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
+                " = '" + STOCKAPPVALNAME + "') ";
         String include_order = "(" +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + ORDERAPPVALNAME + "') ";
+        String include_checklist = "(" +
+                DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
+                " = '" + CHECKLISTAPPVALNAME + "') ";
         String include_shopping = "( " +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + SHOPPINGAPPVALNAME + "') ";
         String include_rules = "( " +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + RULESAPPVALNAME + "') ";
+        String include_tools = "( " +
+                DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
+                " = '" + TOOLSAPPVALNAME + "') ";
+
         String filter =
                 DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                         " = '" + MENUOPTIONS + "' " +
                         DBConstants.SQLAND;
+
+        /**
+         * Inclusion/visiblity of menuoption logic
+         * If no data at all then show Shops and Products only
+         * If 1 or more Shops then add Aisles
+         * If at least 1 Shop, Product and Aisle then add Stock
+         * It at least 1 stocked product (i.e. product assigned to an aisle)
+         *      stocked product aka productusage
+         * then show all others (even though they may show nothing)
+         */
         if (shopcount < 1) {
             filter = filter + "(" +
-                    include_shops + DBConstants.SQLOR + include_products +
+                    include_shops +
+                    DBConstants.SQLOR + include_products +
+                    DBConstants.SQLOR + include_tools +
                     ")";
         }
         if (shopcount > 0) {
             filter = filter + "(" +
-                    include_shops + DBConstants.SQLOR +
-                    include_products + DBConstants.SQLOR +
-                    include_aisles;
+                    include_shops +
+                    DBConstants.SQLOR + include_products +
+                    DBConstants.SQLOR + include_aisles +
+                    DBConstants.SQLOR + include_tools;
+            if (productcount > 0 && aislecount > 0)
+                filter = filter +
+                    DBConstants.SQLOR + include_stock;
             if (productusagecount > 0) {
-                filter = filter + DBConstants.SQLOR + include_order +
+                filter = filter +
+                        DBConstants.SQLOR + include_order +
+                        DBConstants.SQLOR + include_checklist +
                         DBConstants.SQLOR + include_shopping +
                         DBConstants.SQLOR + include_rules;
                 }
             filter = filter + ")";
         }
-        //filter = filter + DBConstants.SQLENDSTATEMENT;
+
         // Get a cursor with the relevant rows according to the filter
         Cursor csr =  dbdao.getTableRows(
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -420,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
             // comparisons done so act accordingly
             // skip to next if both match or only the option mismatches
             // (latter cases means the notes are for another option))
-            if ((optionmatch && notesmatch) || (!optionmatch && notesmatch)) {
+            if ((optionmatch && notesmatch && ordermatch) || (!optionmatch && notesmatch &&ordermatch)) {
                 continue;
             }
             ContentValues cv = new ContentValues();
@@ -438,8 +356,11 @@ public class MainActivity extends AppCompatActivity {
             if(optionmatch) {
                 cv.put(DBAppvaluesTableConstants.APPVALUES_SETTINGSINFO_COL,
                         MAINACTIVITYOPTIONLIST[i].getmMenuOptionInfo());
+                cv.put(DBAppvaluesTableConstants.APPVALUES_INT_COL,
+                        MAINACTIVITYOPTIONLIST[i].getmMenuOptionOrder());
                 String whereargs[] = { MENUOPTIONS,
-                        MAINACTIVITYOPTIONLIST[i].getMenuOptionName()};
+                        MAINACTIVITYOPTIONLIST[i].getMenuOptionName()
+                };
                 String whereclause = DBAppvaluesTableConstants.APPVALUES_NAME_COL +
                         " = ? AND " +
                         DBAppvaluesTableConstants.APPVALUES_TEXT_COL +
@@ -487,7 +408,6 @@ public class MainActivity extends AppCompatActivity {
         }
         csr.close();
         // Phase 3 build the actual Listview that is displayed
-
         String order = DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL + DBConstants.SQLORDERASCENDING;
         mocsr = dbdao.getTableRows(
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -499,6 +419,7 @@ public class MainActivity extends AppCompatActivity {
                 this,
                 mocsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+                ,this.getIntent()
         );
         options_listview.setAdapter(options_adapter);
 
@@ -517,39 +438,61 @@ public class MainActivity extends AppCompatActivity {
         switch (tag) {
             case 0:
                 intent = new Intent(this,ShopsActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.SHOPSAPPVALORDER);
                 break;
             case 1:
-                //TODO Implement Aisles
                 intent = new Intent(this,AislesActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.AISLESAPPVALORDER);
                 break;
             case 2:
-                //TODO Implement Products
                 intent = new Intent(this,ProductsActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.PRODUCTSAPPVALORDER);
                 break;
             case 3:
-                //TODO Implement Ordering
-                intent = new Intent(this,TestAction.class);
+                intent = new Intent(this,StockListActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.STOCKAPPVALORDER);
                 break;
             case 4:
-                //TODO Implement Shopping
-                intent = new Intent(this,TestAction.class);
+                intent = new Intent(this,OrderActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.ORDERAPPVALORDER);
                 break;
             case 5:
-                //TODO Implement Rules
-                intent = new Intent(this,TestAction.class);
+                intent = new Intent(this,CheckListActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.CHECKLISTAPPVALORDER);
                 break;
             case 6:
-                //TODO Not needed as of yet
-                intent = new Intent(this,TestAction.class);
+                intent = new Intent(this,ShoppingActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.SHOPPINGAPPVALORDER);
                 break;
             case 7:
-                //TODO Not needed as yet
-                intent = new Intent(this,TestAction.class);
+                intent = new Intent(this,RulesActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.RULESAPPVALORDER);
+                break;
+            case 8:
+                intent = new Intent(this,ToolsActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.TOOLSAPPVALORDER);
                 break;
             default:
                 intent = new Intent(this, TestAction.class);
         }
-        intent.putExtra(StandardAppConstants.INTENTKEY_MENUCOLORCODE,tag);
         intent.putExtra(INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
         intent.putExtra(INTENTKEY_CALLINGMODE,(int)0);
         startActivity(intent);

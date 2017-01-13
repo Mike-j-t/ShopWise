@@ -68,6 +68,33 @@ class DBShopMethods {
      */
     boolean ifShopUpdated() { return lastshopupdateok; }
 
+    /**
+     * getHighestShopOrder
+     * @return  the highest order via MAX(shoporder)
+     */
+    int getHighestShopOrder() {
+        int rv = 0;
+        String columns[] = {
+               DBConstants.SQLMAX +
+                       DBShopsTableConstants.SHOPS_ORDER_COL +
+                       DBConstants.SQLMAXCLOSE +
+                       DBConstants.SQLAS +
+                       DBShopsTableConstants.SHOPSMAXORDERCOLUMN
+        };
+        Cursor csr = db.query(
+                DBShopsTableConstants.SHOPS_TABLE,
+                columns,
+                null,null,null,null,null);
+        if (csr.getCount() > 0 ) {
+            csr.moveToFirst();
+            rv = csr.getInt(csr.getColumnIndex(
+                    DBShopsTableConstants.SHOPSMAXORDERCOLUMN
+            ));
+        }
+        csr.close();
+        return rv;
+    }
+
     /**************************************************************************
      * getShops - get shops as a cursor
      *
@@ -325,10 +352,6 @@ class DBShopMethods {
      */
     int deleteShop(long shopid, boolean intransaction) {
         int rv = 0;
-        int deleted_productusages = 0;
-        int deleted_rules = 0;
-        int deleted_shoplists = 0;
-        int deleted_aisles = 0;
 
         String filter = DBAislesTableConstants.AISLES_SHOPREF_COL +
                 " = " + Long.toString(shopid) +

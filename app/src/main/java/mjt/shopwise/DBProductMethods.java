@@ -105,6 +105,88 @@ class DBProductMethods {
     }
 
     /**************************************************************************
+     *
+     * @param aisleid
+     * @param filter
+     * @param order
+     * @return
+     */
+    Cursor getProductsInAisle(long aisleid, String filter, String order) {
+        String sql = DBConstants.SQLSELECTDISTINCT  +
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + " " +
+                DBConstants.SQLFROM +
+                DBProductsTableConstants.PRODUCTS_TABLE +
+                DBConstants.SQLWHERE +
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
+                DBConstants.SQLIN + "(" +
+                DBConstants.SQLSELECT +
+                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
+                DBConstants.SQLFROM +
+                DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
+                DBConstants.SQLWHERE +
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
+                " = " +
+                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
+                " AND " +
+                DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
+                " = " +
+                Long.toString(aisleid) +
+                ") ";
+
+        if (filter.length() > 0 ) {
+
+            sql = sql + DBConstants.SQLAND + filter;
+        }
+        if (order.length() > 0 ) {
+            sql = sql + DBConstants.SQLORDERBY + order;
+        }
+        return db.rawQuery(sql,null);
+    }
+
+    /**************************************************************************
+     * getproductsNotInAIsle - get products that are not in the specified aisle
+     * @param aisleid   the id of the aisle
+     * @param filter    filter string (do not include WHERE)
+     * @param order     order string (do not include ORDER BY)
+     * @return          a cursor containing the products
+     */
+    Cursor getProductsNotInAisle(long aisleid, String filter, String order) {
+        String sql = DBConstants.SQLSELECTDISTINCT  +
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + " " +
+                DBConstants.SQLFROM +
+                DBProductsTableConstants.PRODUCTS_TABLE +
+                DBConstants.SQLWHERE +
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
+                DBConstants.SQLNOTIN + "(" +
+                DBConstants.SQLSELECT +
+                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
+                DBConstants.SQLFROM +
+                DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
+                DBConstants.SQLWHERE +
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
+                " = " +
+                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
+                " AND " +
+                DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
+                " = " +
+                Long.toString(aisleid) +
+                ") ";
+
+        if (filter.length() > 0 ) {
+
+            sql = sql + DBConstants.SQLAND + filter;
+        }
+        if (order.length() > 0 ) {
+            sql = sql + DBConstants.SQLORDERBY + order;
+        }
+        return db.rawQuery(sql,null);
+    }
+
+    /**************************************************************************
      * getProductname - get the name of the Product
      *
      * @param productid the id of the product
@@ -132,7 +214,7 @@ class DBProductMethods {
         return rv;
     }
 
-    /**
+    /**************************************************************************
      * insertProduct - Add a new Product
      *
      * @param productname  name of the Product
@@ -154,7 +236,7 @@ class DBProductMethods {
         }
     }
 
-    /**
+    /**************************************************************************
      * modifyProduct - Update a Product's Name and Notes
      *
      * @param productid    id of the Product to be updated
@@ -288,9 +370,8 @@ class DBProductMethods {
                             )
                     );
 
-                    rv.add("PRODUCT - " +
-                            productname +
-                            " would be deleted."
+                    rv.add("Delete PRODUCT - " +
+                            productname
                     );
 
                     String pusql = DBConstants.SQLSELECTALLFROM +
@@ -307,16 +388,14 @@ class DBProductMethods {
                             Long.toString(productid) +
                             DBConstants.SQLENDSTATEMENT;
                     Cursor pucsr = db.rawQuery(pusql,null);
+                    int text = pucsr.getCount();
                     while(pucsr.moveToNext()) {
-                        rv.add("TO GET for product -" +
+                        rv.add("Delete STOCK row for " +
                                 productname +
-                                " from Aisle - " +
+                                " Aisle " +
                                 pucsr.getString(
                                         pucsr.getColumnIndex(
-                                                DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL
-                                        )
-                                ) +
-                                " will be removed."
+                                                DBAislesTableConstants.AISLES_NAME_COL))
                         );
                     }
                     pucsr.close();
@@ -335,13 +414,12 @@ class DBProductMethods {
                             DBConstants.SQLENDSTATEMENT;
                     Cursor slcsr = db.rawQuery(slsql,null);
                     while (slcsr.moveToNext()) {
-                        rv.add("ShopList row for Product - " +
+                        rv.add("Delete SHOPPING row for " +
                                 productname +
-                                " Aisle - " +
+                                " Aisle " +
                                 slcsr.getString(
                                         slcsr.getColumnIndex(
-                                                DBAislesTableConstants.AISLES_NAME_COL)) +
-                                " will be removed."
+                                                DBAislesTableConstants.AISLES_NAME_COL))
                         );
                     }
                     slcsr.close();
@@ -362,18 +440,16 @@ class DBProductMethods {
                     Cursor rulecsr = db.rawQuery(rulesql,null);
                     while (rulecsr.moveToNext()) {
                         rv.add(
-                                "Rule - " +
+                                "Delete Rule " +
                                         rulecsr.getString(
                                                 rulecsr.getColumnIndex(
                                                         DBRulesTableConstants.RULES_NAME_COL
                                                 )
-                                        ) +
-                                " will be removed."
+                                        )
                         );
                     }
                     rulecsr.close();
                 }
-
             }
             productcsr.close();
         }

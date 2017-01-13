@@ -154,4 +154,5 @@ public class DBAislesTableConstants {
      * Finally create the DBTable
      */
     public static final DBTable AISLESTABLE = new DBTable(AISLES_TABLE,AISLESCOLS);
+    public static final String AISLESMAXORDERCOLUMN = "maxorder";
 }
