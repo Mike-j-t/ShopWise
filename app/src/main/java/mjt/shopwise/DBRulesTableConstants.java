@@ -77,7 +77,7 @@ public class DBRulesTableConstants {
      */
     public static final DBColumn RULESPRODUCTREFCOL = new DBColumn(RULES_PRODUCTREF_COL,
             RULES_PRODUCTREF_TYPE,
-            RULES_ID_PRIMARY_INDEX,
+            RULES_PRODUCTREF_PRIMARY_INDEX,
             "");
 
     /**

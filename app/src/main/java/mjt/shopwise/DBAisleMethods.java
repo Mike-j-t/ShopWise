@@ -60,6 +60,24 @@ class DBAisleMethods {
         );
     }
 
+    long getOwningShop(long aisleid) {
+        long rv = 0;
+        String filter = DBAislesTableConstants.AISLES_ID_COL_FULL +
+                " = " + Long.toString(aisleid);
+        String order = "";
+        Cursor csr = DBCommonMethods.getTableRows(db,
+                DBAislesTableConstants.AISLES_TABLE,
+                filter,
+                order);
+        if (csr.getCount() > 0 ) {
+            csr.moveToFirst();
+            rv = csr.getLong(csr.getColumnIndex(
+                    DBAislesTableConstants.AISLES_SHOPREF_COL
+            ));
+        }
+        return rv;
+    }
+
     /**************************************************************************
      * getAislesPerShop - Get the number of Aisles owned by a Shop
      *
@@ -97,6 +115,42 @@ class DBAisleMethods {
      * @return          the status of the last modifyAisle
      */
     boolean ifAisleUpdated() { return  lastaisleupdateok; }
+
+    /**
+     * getHighhesteAisleOrderPerShop
+     * @param shopid    id of the shop
+     * @return          the highest aisle number in the shop
+     */
+    int getHighestAisleOrderPerShop(long shopid) {
+        int rv = 0;
+        String columns[] = {
+                DBConstants.SQLMAX +
+                        DBAislesTableConstants.AISLES_ORDER_COL +
+                        DBConstants.SQLMAXCLOSE +
+                        DBConstants.SQLAS +
+                        DBAislesTableConstants.AISLESMAXORDERCOLUMN
+        };
+        String whereclause = DBAislesTableConstants.AISLES_SHOPREF_COL +
+                " = ? ";
+        String whereargs[] = new String[] {
+                Long.toString(shopid)
+        };
+        Cursor csr = db.query(
+                DBAislesTableConstants.AISLES_TABLE,
+                columns,
+                whereclause,
+                whereargs,
+                null,null,null
+        );
+        if (csr.getCount() > 0 ) {
+            csr.moveToFirst();
+            rv = csr.getInt(csr.getColumnIndex(
+                    DBAislesTableConstants.AISLESMAXORDERCOLUMN
+            ));
+        }
+        csr.close();
+        return rv;
+    }
 
     /**************************************************************************
      * doesAisleExist

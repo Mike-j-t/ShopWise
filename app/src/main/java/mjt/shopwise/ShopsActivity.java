@@ -41,13 +41,8 @@ public class ShopsActivity extends AppCompatActivity {
     private static final int BYORDER = 2;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
-    /**
-     * The Context.
-     */
+
     Context context;
-    /**
-     * The Actionbar.
-     */
     ActionBar actionbar;
 
     /**
@@ -59,61 +54,27 @@ public class ShopsActivity extends AppCompatActivity {
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
-    /**
-     * The Passedmenucolorcode.
-     */
     int passedmenucolorcode;
 
     /**
      * View objects
      */
     TextView donebutton;
-    /**
-     * The Newbutton.
-     */
     TextView newbutton;
-    /**
-     * The Messagebar.
-     */
     TextView messagebar;
-    /**
-     * The Shoplist.
-     */
     ListView shoplist;
-    /**
-     * The Shoplistheading.
-     */
     LinearLayout shoplistheading;
-    /**
-     * The Shoplistadapter.
-     */
     AdapterShopList shoplistadapter;
 
     /**
      * Database objects
      */
     DBDAO dbdao;
-    /**
-     * The Dbshopmethods.
-     */
     DBShopMethods dbshopmethods;
-    /**
-     * The Dbaislemethods.
-     */
     DBAisleMethods dbaislemethods;
-    /**
-     * The Dbproductmethods.
-     */
     DBProductMethods dbproductmethods;
-    /**
-     * The Slcsr.
-     */
     Cursor slcsr;
 
-    /**
-     * The Showdetails.
-     */
-    boolean showdetails = false;
     private static final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
     private static final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
     private static final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
@@ -123,41 +84,14 @@ public class ShopsActivity extends AppCompatActivity {
     private static final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
     private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
-    /**
-     * The Orderby.
-     */
     static String orderby = SHOPNAME_FULLCOLUMN + SORTASCENDING;
-    /**
-     * The Orderfld.
-     */
     static int orderfld = BYSHOP;
-    /**
-     * The Ordertype.
-     */
     static boolean ordertype = true;
-    /**
-     * The Sortchanged.
-     */
     static boolean sortchanged = false;
-    /**
-     * The Lastmessage.
-     */
     static String lastmessage = "";
-    /**
-     * The Currentshopname.
-     */
     static String currentshopname = "";
-    /**
-     * The Shopcount.
-     */
     static int shopcount = 0;
-    /**
-     * The Aislecount.
-     */
     static int aislecount = 0;
-    /**
-     * The Productcount.
-     */
     static int productcount = 0;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -203,7 +137,7 @@ public class ShopsActivity extends AppCompatActivity {
         dbaislemethods = new DBAisleMethods(this);
         dbproductmethods = new DBProductMethods(this);
         setDBCounts();
-        this.setTitle("SHOPS (" + Integer.toString(shopcount) + ")");
+        this.setTitle(getResources().getString(R.string.shopslabel));
 
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter = new AdapterShopList(
@@ -255,13 +189,13 @@ public class ShopsActivity extends AppCompatActivity {
             case StandardAppConstants.RESUMESTATE_ALT4:
                 break;
             default:
-                messagebar.setVisibility(View.GONE);
+                messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter.swapCursor(slcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
-        this.setTitle("SHOPS (" + Integer.toString(shopcount) + ")");
+        this.setTitle(getResources().getString(R.string.shopslabel));
     }
 
     /**************************************************************************
@@ -372,9 +306,10 @@ public class ShopsActivity extends AppCompatActivity {
         sa.slcsr = dbshopmethods.getShops("",ShopsActivity.orderby);
         sa.shoplistadapter.swapCursor(sa.slcsr);
         sa.setMessage(sa,"Shop " +
-                        currentshopname +
-                        " Deleted.",
-                true);
+                currentshopname +
+                " Deleted.",
+                false
+        );
     }
 
     /**************************************************************************
@@ -410,29 +345,31 @@ public class ShopsActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
-        lastmessage = "List of Shops sorted by ";
+        lastmessage = getResources().getString(R.string.shopslabel) +
+                " sorted by ";
         switch (view.getId()) {
             case R.id.shops_shoplist_heading_shopname:
                 getOrderBy(SHOPNAME_FULLCOLUMN,BYSHOP);
-                lastmessage = lastmessage + " SHOP NAME in ";
+                lastmessage = lastmessage + " SHOP NAME (";
                 break;
             case R.id.shops_shoplist_heading_shopcity:
                 getOrderBy(SHOPCITY_FULLCOLUMN,BYCITY);
-                lastmessage = lastmessage + "  CITY in ";
+                lastmessage = lastmessage + "  CITY (";
                 break;
             case R.id.shops_shoplist_heading_shoporder:
                 getOrderBy(SHOPORDER_FULLCOLUMN,BYORDER);
-                lastmessage = lastmessage + " SHOP ORDER in";
+                lastmessage = lastmessage + " SHOP ORDER (";
             default:
                 break;
         }
         if (sortchanged) {
             slcsr = dbshopmethods.getShops("",orderby);
+            shoplistadapter.notifyDataSetChanged();
             shoplistadapter.swapCursor(slcsr);
             if (ordertype) {
-                lastmessage = lastmessage + " ascending order.";
+                lastmessage = lastmessage + "ascending)";
             } else {
-                lastmessage = lastmessage + " descending order.";
+                lastmessage = lastmessage + "descending)";
             }
             setMessage(this,lastmessage,false);
         }
@@ -560,12 +497,7 @@ public class ShopsActivity extends AppCompatActivity {
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
-        sa.setDBCounts();
-        String shopslabel = sa.getResources().getString(R.string.shopslabel) +
-                " (number of Shops = " +
-                Integer.toString(shopcount) +
-                ")";
-        sa.actionbar.setTitle(shopslabel);
+        sa.actionbar.setTitle(getResources().getString(R.string.shopslabel));
     }
 
     /**************************************************************************

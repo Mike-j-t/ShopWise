@@ -50,10 +50,14 @@ final class DBConstants {
      */
     static final String DEFAULTORDER = "1000";
 
+    static final String CALCULATED_PRODUTSORDERED_NAME = "orderedcount";
+    static final String CALCULATED_TOTALCOST = "calculated_totalcost";
+
     /**
      * The Sqlselect.
      */
     static final String SQLSELECT = " SELECT ";
+    static final String SQLSELECTDISTINCT = SQLSELECT + "DISTINCT ";
     /**
      * The Sqlfrom.
      */
@@ -90,6 +94,7 @@ final class DBConstants {
      * The Sqlon.
      */
     static final String SQLON = " ON ";
+    static final String SQLAS = " AS ";
     /**
      * The Sqlendstatement.
      */
@@ -105,14 +110,26 @@ final class DBConstants {
     /**
      * The Sqllimit.
      */
+    static final String SQLNOT = " NOT ";
+    static final String SQLIN = " IN ";
+    static final String SQLNOTIN = SQLNOT + SQLIN;
+    static final String SQLNOTEQUALS = " <> ";
     static final String SQLLIMIT = " LIMIT ";
     static final String SQLLIKECHARSTART = " LIKE '%";
     static final String SQLLIKECHAREND = "%' ";
+
+    static final String SQLSUM = " SUM(";
+    static final String SQLSUMCLOSE = ") ";
+
+    static final String SQLMAX = "MAX(";
+    static final String SQLMAXCLOSE = ") ";
 
     /**
      * The Sqlselectallfrom.
      */
     static final String SQLSELECTALLFROM = SQLSELECT + "*" + SQLFROM;
+    static final String SQLSELECTDISTINCTALLFROM =
+            SQLSELECTDISTINCT + "*" + SQLFROM;
 
 
     /**************************************************************************

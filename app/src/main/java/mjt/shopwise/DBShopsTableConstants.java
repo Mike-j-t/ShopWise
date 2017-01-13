@@ -233,4 +233,5 @@ public class DBShopsTableConstants {
      * The constant SHOPSTABLE.
      */
     public static final DBTable SHOPSTABLE = new DBTable(SHOPS_TABLE,SHOPSCOLS);
+    public static final String SHOPSMAXORDERCOLUMN = "maxorder";
 }

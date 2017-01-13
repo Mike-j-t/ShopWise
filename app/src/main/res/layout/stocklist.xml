@@ -3,9 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
-        android:id="@+id/shoplist_linearlayout"
+        android:orientation="horizontal"
+        android:id="@+id/stocklist_listview"
         style="@style/listviewrow_standard"
         >
         <TextView
@@ -13,9 +13,9 @@
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/shoplist_name"
+            android:id="@+id/stocklist_productname"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="42"
+            android:layout_weight="70"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             />
@@ -23,17 +23,20 @@
             style="@style/listviewrowcol_standard"
             android:layout_weight="2"
             />
+
         <TextView
-            android:id="@+id/shoplist_city"
+            android:id="@+id/stocklist_cost"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="42"
+            android:layout_weight="14"
+            android:gravity="end"
             />
+
         <TextView
             style="@style/listviewrowcol_standard"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/shoplist_order"
+            android:id="@+id/stocklist_order"
             style="@style/listviewrowcol_standard"
             android:layout_weight="8"
             android:gravity="end"
@@ -42,10 +45,5 @@
             style="@style/listviewrowcol_standard"
             android:layout_weight="2"
             />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/listviewrow_standard"
-        android:visibility="gone"
-        >
     </LinearLayout>
 </LinearLayout>

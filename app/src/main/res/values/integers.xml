@@ -5,6 +5,6 @@
     <integer name="strokewidth">3</integer>
     <integer name="shadowradius">3</integer>
     <integer name="maxcharlength_names">24</integer>
-    <integer name="maxcharlength_order">5</integer>
-    <integer name="maxcharlength_monetary">10</integer>
+    <integer name="maxcharlength_order">4</integer>
+    <integer name="maxcharlength_monetary">9</integer>
 </resources>
