@@ -21,61 +21,52 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/stock_buttons_linearlayout"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/activity_vertical_margin">
-
+        style="@style/standard_linearlayout">
         <TextView
             android:id="@+id/stocklist_donebutton"
             style="@style/actionbutton"
-            android:layout_weight="18.5"
+            android:layout_weight="18"
             android:text="@string/donebutton"
             />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2.5"
-            android:layout_height="wrap_content"
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
             />
-
         <TextView
             android:id="@+id/stocklist_addbutton"
             style="@style/actionbutton"
-            android:layout_weight="18.5"
+            android:layout_weight="18"
             android:text="@string/addbutton"
             />
-
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="60.5"
-            android:layout_height="wrap_content" />
+            style="@style/inputitemdummy"
+            android:layout_weight="62"
+            />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/stocklist_productfilter_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/standard_linearlayout"
         >
         <TextView
-            android:layout_width="0dp"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
-            android:layout_height="wrap_content"
             />
         <TextView
+            android:id="@+id/products_inputfilterlabel"
             style="@style/inputitemlabel"
-            android:layout_weight="12"
+            android:layout_weight="16"
             android:text="@string/filterlabel"
             />
         <TextView
-            android:layout_width="0dp"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
-            android:layout_height="wrap_content"
             />
         <EditText
             android:id="@+id/products_inputfilter"
             style="@style/inputitem"
             android:inputType="textFilter"
-            android:layout_weight="84"
+            android:layout_weight="80"
             />
     </LinearLayout>
     <LinearLayout
@@ -83,7 +74,7 @@
         style="@style/listview_heading_standard"
         >
         <TextView
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
@@ -93,19 +84,17 @@
             android:text="@string/productlabel"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
-
         <TextView
             android:id="@+id/stocklist_stocklist_heading_shopname"
             style="@style/listview_heading_col_standard"
             android:layout_weight="24"
             android:text="@string/shoplabel"
             />
-
         <TextView
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
@@ -115,7 +104,7 @@
             android:text="@string/aislelabel"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
@@ -125,7 +114,7 @@
             android:text="@string/costlabel"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
@@ -135,7 +124,7 @@
             android:text="@string/orderlabel"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
     </LinearLayout>
@@ -145,5 +134,4 @@
         android:layout_height="wrap_content"
         >
     </ListView>
-
 </LinearLayout>

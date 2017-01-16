@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(Build.VERSION.SDK_INT >= 23) {
+            ExternalStoragePermissions.verifyStoragePermissions(this);
+        }
         db = new DBHelper(this,DBConstants.DATABASE_NAME,null,1);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
@@ -425,7 +429,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
+    /**************************************************************************
      * actionButtonClick - Take the appropriate action when an action button is
      * touched/clicked
      * Curenttly the same activity is invoked however the position is passed
