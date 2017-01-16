@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/filelist_filename_linearlayout"
+        style="@style/listviewrow_standard"
+        >
+        <TextView
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/filelist_filename"
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="60"
+            />
+        <TextView
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/filelist_filemodifieddatetime"
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="34"
+            />
+        <TextView
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="2"
+            />
+        </LinearLayout>
+</LinearLayout>

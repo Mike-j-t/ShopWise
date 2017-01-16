@@ -137,6 +137,7 @@ public class StockListActivity extends AppCompatActivity {
     TextView donebutton;
     TextView addbutton;
     LinearLayout stocklistheading;
+    TextView inputproductfilterlabel;
     EditText inputproductfilter;
     ListView stocklist;
 
@@ -162,6 +163,7 @@ public class StockListActivity extends AppCompatActivity {
         addbutton = (TextView) findViewById(R.id.stocklist_addbutton);
 
         stocklabel = getResources().getString(R.string.stocklabel);
+        inputproductfilterlabel = (TextView) findViewById(R.id.products_inputfilterlabel);
         inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
         stocklistheading = (LinearLayout) findViewById(R.id.stocklist_stocklist_heading);
         stocklist = (ListView) findViewById(R.id.stocklist_stocklist);
@@ -179,6 +181,7 @@ public class StockListActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(inputproductfilter,
                 h2 & ActionColorCoding.transparency_optional);
         stocklistheading.setBackgroundColor(h1);
+        inputproductfilterlabel.setTextColor(h2);
 
         this.setTitle(getResources().getString(R.string.stocklabel));
 
