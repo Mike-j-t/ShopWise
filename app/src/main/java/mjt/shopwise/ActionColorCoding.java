@@ -73,7 +73,7 @@ class ActionColorCoding {
         colorspergroup = allcolors.length / primarycolors.length;
     }
 
-    /**
+    /**************************************************************************
      * Gets instance.
      *
      * @param context the context
@@ -86,18 +86,31 @@ class ActionColorCoding {
         return instance;
     }
 
+    /**************************************************************************
+     *
+     * @return returns the number of primary colours (aka number of groups)
+     */
     public static int getPrimaryColorCount() {
         return primarycolors.length;
     }
+
+    /**
+     *
+     * @return returns the number of all colours
+     */
     public static int getAllColorsCount() {
         return allcolors.length;
     }
 
+    /**************************************************************************
+     *
+     * @param context Context
+     */
     public static void forceStoreColors(Context context) {
         storeColors(context,allcolors,primarycolors);
     }
 
-    /**
+    /**************************************************************************
      * Gets colors per group.
      *
      * @return the colors per group
@@ -138,7 +151,6 @@ class ActionColorCoding {
         });
         CompoundButtonCompat.setButtonTintList(checkBox,csl);
     }
-
 
     /**************************************************************************
      * setActionBarColor - Change the Action Bar background color to
@@ -231,7 +243,7 @@ class ActionColorCoding {
                 ];
     }
 
-    /**
+    /**************************************************************************
      * setActionButtonColor - Change the color of the buttons drawable
      * Used to ensure that rounded corners etc
      * are changed.
@@ -242,13 +254,17 @@ class ActionColorCoding {
     public static void setActionButtonColor(View view, int color) {
         ((GradientDrawable) view.getBackground()).setColor(color);
     }
+
+    /**************************************************************************
+     *
+     */
     private static void setDefaultColors() {
 
         if (colorset) { return; }
 
-        // All Colors (first per set in primary/base color)
+        // All Colors (first per set is primary/base color)
         int[] R = {0xffff0000, 0xffff3333, 0xffff6666, 0xffff9999, 0xffffcccc }; // RED
-        int[] O = {0xffff5500, 0xffff7733, 0xffff9966, 0xffffbb99, 0xffffeecc} ;
+        int[] O = {0xffff5500, 0xffff7733, 0xffff9966, 0xffffbb99, 0xffffeecc };
         int[] Y = {0xffffdd00, 0xffffdd33, 0xffffdd66, 0xffffdd99, 0xffffddcc }; // Yellow
         int[] G = {0xff00ff00, 0xff33ff33, 0xff66ff66, 0xff99ff99, 0xffccffcc }; // Green
         int[] X = {0xff00ffdd, 0xff33ffdd, 0xff66ffdd, 0xff99ffdd, 0xffccffdd }; // ???
@@ -291,25 +307,38 @@ class ActionColorCoding {
         colorset = true;
     }
 
-    /**
+    /**************************************************************************
      * Store colors.
      *
      * @param context       the context
      * @param allcolors     the allcolors
      * @param primarycolors the primarycolors
      */
-    public static void storeColors(Context context, int[] allcolors, int[] primarycolors) {
+    public static void storeColors(Context context,
+                                   int[] allcolors,
+                                   int[] primarycolors) {
         setDefaultColors();
         DBAppvaluesMethods dbAppvaluesmethods = new DBAppvaluesMethods(context);
         for (int i = 0; i < allcolors.length; i++) {
-            dbAppvaluesmethods.insertAppvalue(COLORCODENAME,allcolors[i],true,false,Integer.toString(i));
+            dbAppvaluesmethods.insertAppvalue(
+                    COLORCODENAME,allcolors[i],
+                    true,
+                    false,
+                    Integer.toString(i)
+            );
         }
         for (int i = 0; i < primarycolors.length; i++) {
-            dbAppvaluesmethods.insertAppvalue(PRIMARYCOLORCODENAME,primarycolors[i],true,true,Integer.toString(i));
+            dbAppvaluesmethods.insertAppvalue(
+                    PRIMARYCOLORCODENAME,
+                    primarycolors[i],
+                    true,
+                    true,
+                    Integer.toString(i)
+            );
         }
     }
 
-    /**
+    /**************************************************************************
      * Load colors.
      *
      * @param context the context

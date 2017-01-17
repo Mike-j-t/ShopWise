@@ -640,6 +640,7 @@ public class BackupActivity extends AppCompatActivity {
      * @param fileext       fileextension
      * @param sd            StoreData object
      */
+    @SuppressLint("SetTextI18n")
     @SuppressWarnings("ParameterCanBeLocal")
     private void populateRestoreSpinner(Spinner spn,
                                         TextView tv,

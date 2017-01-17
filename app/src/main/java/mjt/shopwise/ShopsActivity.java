@@ -435,7 +435,7 @@ public class ShopsActivity extends AppCompatActivity {
                 slcsr.getColumnIndex(SHOPNAME_COLUMN));
         String title = "Delete Shop - " +currentshopname;
 
-        String positivebuttontext = getResources().getString(R.string.deletebutton);;
+        String positivebuttontext = getResources().getString(R.string.deletebutton);
         String negativebuttontext = "";
         String neutralbuttontext = getResources().getString(R.string.cancelbutton);
         String positiveaction = "shopDelete";

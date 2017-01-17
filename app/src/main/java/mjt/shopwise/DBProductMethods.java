@@ -1,6 +1,5 @@
 package mjt.shopwise;
 
-import android.app.TaskStackBuilder;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -254,16 +253,11 @@ class DBProductMethods {
         cv.put(DBProductsTableConstants.PRODUCTS_NOTES_COL,productnotes);
         String whereargs[] = { Long.toString(productid)};
         String whereclause = DBProductsTableConstants.PRODUCTS_ID_COL + " = ?";
-        if (db.update(DBProductsTableConstants.PRODUCTS_TABLE,
+        lastproductupdatedok = db.update(DBProductsTableConstants.PRODUCTS_TABLE,
                 cv,
                 whereclause,
                 whereargs)
-                > 0
-                ) {
-            lastproductupdatedok = true;
-        } else {
-            lastproductupdatedok = false;
-        }
+                > 0;
     }
 
     /**

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -107,17 +106,36 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
     public View getView(int position, View convertview, ViewGroup parent) {
         ActionColorCoding acc = ActionColorCoding.getInstance(ctxt);
         View view = super.getView(position,convertview, parent);
+
+        // Get the cursor, store current position, and move to position as
+        // passed (this shouldn;t be required as cursor should already be
+        //  positioned correctly)
+        Cursor csr = getCursor();
+        int cpos = csr.getPosition();
+        csr.moveToPosition(position);
+        // get the menuoption, which may not, directly correlate with position
+        // e.g. if not all options are currently available.
+        int menuoption = csr.getInt(csr.getColumnIndex(
+                DBAppvaluesTableConstants.APPVALUES_INT_COL
+        ));
+        // Move cursor back to it's starting position
+        csr.moveToPosition(cpos);
+
+        //Set view id's
         TextView option_tv = (TextView) view.findViewById(
                 R.id.activity_main_OptionsMenu_option
         );
         TextView option_info_tv = (TextView) view.findViewById(
                 R.id.activity_main_OptionsMenu_label
         );
-        option_tv.setTag(position);
+
+        // Update views (Tag to indicate menuoption number)
+        option_tv.setTag(menuoption);
+        // Text White
         option_tv.setTextColor(Color.WHITE);
+        // Background colour to the respectibe colour
         ((GradientDrawable) option_tv.getBackground()).setColor(
-                acc.getPrimaryColor(position));
-                //colorlist[position % colorlist.length]
+                ActionColorCoding.getPrimaryColor(menuoption));
         return view;
     }
 }
