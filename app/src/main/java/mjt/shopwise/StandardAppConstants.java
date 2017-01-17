@@ -1,5 +1,7 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -92,10 +94,13 @@ public class StandardAppConstants{
     public static String STANDARD_DDMMYYY_FORMAT = "dd/MM/yyyy";
     public static String EXTENDED_DATE_FORMAT = "EEE MMM d, yyyy";
     public static String COMPARE_DATE_FORMAT = "yyyyMMdd";
+    @SuppressLint("SimpleDateFormat")
     public static final SimpleDateFormat sdf =
             new SimpleDateFormat(STANDARD_DDMMYYY_FORMAT);
+    @SuppressLint("SimpleDateFormat")
     public static final SimpleDateFormat sdf_extended =
             new SimpleDateFormat(EXTENDED_DATE_FORMAT);
+    @SuppressLint("SimpleDateFormat")
     public static final SimpleDateFormat sdf_compare =
             new SimpleDateFormat(COMPARE_DATE_FORMAT);
 

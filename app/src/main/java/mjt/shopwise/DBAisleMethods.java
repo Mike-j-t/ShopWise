@@ -279,10 +279,7 @@ class DBAisleMethods {
         }
         String whereargs[] = {Long.toString(aisleid)};
         String whereclause = DBAislesTableConstants.AISLES_ID_COL + " = ?";
-        lastaisleupdateok = false;
-        if (db.update(DBAislesTableConstants.AISLES_TABLE, cv, whereclause, whereargs) > 0) {
-            lastaisleupdateok = true;
-        }
+        lastaisleupdateok = db.update(DBAislesTableConstants.AISLES_TABLE, cv, whereclause, whereargs) > 0;
     }
 
     /**************************************************************************

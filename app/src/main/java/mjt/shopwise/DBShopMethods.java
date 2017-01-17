@@ -334,10 +334,7 @@ class DBShopMethods {
         }
         String[] whereargs = {Long.toString(shopid )};
         String whereclause = DBShopsTableConstants.SHOPS_ID_COL + " = ?";
-        lastshopupdateok = false;
-        if (db.update(DBShopsTableConstants.SHOPS_TABLE,cv,whereclause,whereargs) > 0) {
-            lastshopupdateok = true;
-        }
+        lastshopupdateok = db.update(DBShopsTableConstants.SHOPS_TABLE, cv, whereclause, whereargs) > 0;
     }
 
     /**************************************************************************
@@ -407,7 +404,7 @@ class DBShopMethods {
                 DBShopsTableConstants.SHOPS_TABLE,
                 shopfilter,
                 ""
-        );                ;
+        );
         while (shopstodelete.moveToNext()) {
             Cursor aislestodelete = DBCommonMethods.getTableRows(db,
                     DBAislesTableConstants.AISLES_TABLE,
