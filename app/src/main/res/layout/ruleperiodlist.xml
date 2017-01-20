@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        style="@style/listviewrow_standard"
+        >
+        <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="5"/>
+        <TextView
+            android:id="@+id/ruleperiod"
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="98"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+</LinearLayout>

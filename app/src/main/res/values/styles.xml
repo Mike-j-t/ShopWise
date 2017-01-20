@@ -1,0 +1,165 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- ****************************************************************** -->
+    <!-- Style for Action Buttons (textViews acting as buttons )-->
+    <!-- Note! text shadow is incorporated into actionbutton    -->
+    <style name="text_shadow">
+        <item name="android:textSize">@dimen/text_size_extra_large</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:shadowColor">@color/colorBlack</item>
+        <item name="android:shadowDx">@integer/shadowdx</item>
+        <item name="android:shadowDy">@integer/shadowdy</item>
+        <item name="android:shadowRadius">@integer/shadowradius</item>
+    </style>
+    <style name="actionbutton" parent="@style/text_shadow">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_extra_large</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/textviewborder</item>
+        <item name="android:onClick">@string/actionbuttonclick</item>
+    </style>
+    <style name="listviewrowactionbutton" parent="@style/actionbutton">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+    <style name="actioninfo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+    <style name="listview_heading_standard">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">@dimen/listview_vertical_padding_normal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="listview_heading_col_standard" parent="@style/text_shadow">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/listview_rowheight_superextra_large</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:onClick">@string/sortclick</item>
+    </style>
+    <style name="listview_heading_col_monetary" parent="@style/listview_heading_col_standard">
+        <item name="android:gravity">end</item>
+    </style>
+    <style name="listviewrow_standard">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="listviewrowcol_standard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/listview_rowheight_extra_large</item>
+        <item name="android:layout_weight">100</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:clickable">false</item>
+        <item name="android:longClickable">false</item>
+    </style>
+    <style name="listviewrowcol_monetary" parent="@style/listviewrowcol_standard">
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="messagebar">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">100</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:background">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="inputitem">
+        <!--
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">2dp</item>
+        -->
+        <item name="android:layout_width">0dp</item>
+        <!--
+        <item name="android:layout_height">@dimen/listview_rowheight_large</item>
+        -->
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/textviewborder</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">@integer/maxcharlength_names</item>
+        <item name="android:hint">""</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="inputitem_order" parent="inputitem">
+        <item name="android:inputType">number</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:maxLength">@integer/maxcharlength_order</item>
+    </style>
+    <style name="inputitem_monetary" parent="inputitem">
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:digits">0123456789.</item>
+        <item name="android:maxLength">@integer/maxcharlength_monetary</item>
+    </style>
+    <style name="inputitemlabel">
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:gravity">top</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+    <style name="inputitemlabel_primary" parent="@style/inputitemlabel">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+    <style name="inputitemdummy">
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="spinner_selector">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/spinner_rightmargin</item>
+        <item name="android:background">@drawable/textviewborder</item>
+    </style>
+    <!-- Style for Checkboxes.
+            Basically add a border
+            Note! scaleX and scaleY appear to be required to ensure that
+            the checkbox isn't clipped. 0.8 appears to work fine, values
+            greater than 0.8 result in clipping.
+
+    -->
+    <style name="checkbox">
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/textviewborder</item>
+        <item name="android:scaleX">0.8</item>
+        <item name="android:scaleY">0.8</item>
+    </style>
+    <style name="standard_linearlayout">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+</resources>

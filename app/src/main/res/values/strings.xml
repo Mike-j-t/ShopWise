@@ -1,0 +1,160 @@
+<resources>
+    <string name="app_name">ShopWise</string>
+    <string name="app_catchphrase">Making Shopping a Little Easier</string>
+
+
+    <!-- Names of event handlers as invoked from layouts -->
+    <string name="actionbuttonclick">actionButtonClick</string>
+    <string name="sortclick">sortClick</string>
+    <string name="listitemclick">listItemClick</string>
+
+    <!-- Options Menu ListView headings (not used)  -->
+    <string name="optionsmenu_actionbutton_heading">Option</string>
+    <string name="optionsmenu_actioninfo_heading">Use</string>
+    <string name="optionsmenu_rowcount_heading">Count</string>
+
+    <!-- Labels -->
+    <string name="shopslabel">Shops</string>
+    <string name="shoplabel">Shop</string>
+    <string name="shopnamelabel">Shop Name</string>
+    <string name="shopaddlabel">Shops - Add</string>
+    <string name="shopeditLabel">Shops - Edit</string>
+    <string name="citylabel">City</string>
+    <string name="streetlabel">Street</string>
+    <string name="statelabel">State</string>
+    <string name="aisleslabel">Aisles</string>
+    <string name="aislelabel">Aisle</string>
+    <string name="aisleaddlabel">Aisle - Add</string>
+    <string name="aisleeditlabel">Aisle - Edit</string>
+    <string name="aislenamelabel">Aisle Name</string>
+    <string name="productslabel">Products</string>
+    <string name="productlabel">Product</string>
+    <string name="productnamelabel">Product Name</string>
+    <string name="costlabel">Price</string>
+    <string name="ruleslabel">Rules</string>
+    <string name="stocklabel">Stock</string>
+    <string name="rulelabel">Rule</string>
+    <string name="orderlabel">Order</string>
+    <string name="orderslabel">Orders</string>
+    <string name="noteslabel">Notes</string>
+    <string name="filterlabel">Filter</string>
+    <string name="stocklevellabel">Level</string>
+    <string name="orderlevellabel">List#</string>
+    <string name="checklistlabel">Check List</string>
+    <string name="shoppinglabel">Shopping List</string>
+    <string name="inshoppinglist"># In List</string>
+    <string name="totalcostlabel">Total</string>
+    <string name="remainingcostlabel">Left</string>
+    <string name="spentlabel">Spent</string>
+    <string name="quantitylabel">Quantity</string>
+    <string name="nextdatelabel">Next on</string>
+    <string name="promptlabel">Prompted</string>
+    <string name="numbertogetlabel">Get</string>
+    <string name="actonlabel">Add On</string>
+    <string name="promptedruleslabel">Prompted Rules</string>
+    <string name="toolslabel">Tools</string>
+    <string name="backupdirectory">Backup Directory</string>
+    <string name="datetimepart">Date/Time part</string>
+    <string name="basepart">Base Filename</string>
+    <string name="extension">File Extension</string>
+    <string name="fullfilename">File Name in Full</string>
+    <string name="restorefile">Restore File (select from the dropdown list)</string>
+    <string name="backuplabel">Backup</string>
+    <string name="availablebackupslabel">Available Backups</string>
+    <string name="originalvalues">Original Values</string>
+    <string name="ruledatelabel">Starts</string>
+    <string name="ruledateextrainfo">(dd/mm/yyyy or blank)</string>
+    <string name="ruleperiodlabel">Interval</string>
+    <string name="rulemultiplierlabel">Multiplier</string>
+    <string name="checklistflaglabel">Checklist</string>
+    <string name="checklistcountlabel">Count</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="word_for">for</string>
+
+    <!-- Button Text -->
+    <string name="donebutton">DONE</string>
+    <string name="newbutton">NEW</string>
+    <string name="addbutton">ADD</string>
+    <string name="lessbutton">LESS</string>
+    <string name="savebutton">SAVE</string>
+    <string name="cancelbutton">CANCEL</string>
+    <string name="deletebutton">DELETE</string>
+    <string name="stockbutton">STOCK</string>
+    <string name="adjustbutton">ADJUST</string>
+    <string name="boughtbutton">BOUGHT</string>
+    <string name="modifybutton">MODIFY</string>
+    <string name="editbutton">EDIT</string>
+    <string name="copybutton">COPY</string>
+    <string name="movebutton">MOVE</string>
+    <string name="order1button">ADD 1</string>
+    <string name="orderallbutton">ADD</string>
+    <string name="checkoffbutton">Check-off</string>
+    <string name="uncheckbutton">UNCHECK</string>
+    <string name="resetbutton">RESET</string>
+    <string name="tidybutton">TIDY</string>
+    <string name="undobutton">UNDO</string>
+    <string name="skipbutton">SKIP</string>
+    <string name="proceedbutton">PROCEED</string>
+    <string name="backupbutton">BACKUP</string>
+    <string name="restorebutton">RESTORE</string>
+    <string name="rulesbutton">RULES</string>
+    <string name="suggestbutton">SUGGEST</string>
+    <string name="checkbutton">CHECK</string>
+
+    <string name="backupbasefilename">ShopWiseDB</string>
+    <string name="backupfileextension">.bkp</string>
+    <string name="backupdirectoryname">ShopWise</string>
+    <string name="backupbusydialogtitle">Work in Progress</string>
+
+    <!-- Messages -->
+    <string name="inputblank">"cannot be blank!"</string>
+    <string name="notsaved">"was not saved."</string>
+    <string name="addedok">"Successfully Added."</string>
+    <string name="editedok">"Successfuly Changed."</string>
+
+    <!-- Miscellaneous Text -->
+    <string name="messagebar_prefix_lastaction">"Last action: "</string>
+    <string name="availableoptions">"Available options are "\u0020</string>
+    <string name="and">\u0020"and"\u0020</string>
+    <string name="canceldoes">\u0020returns, doing nothing.</string>
+
+    <!-- Formatting -->
+    <string name="newline">"\n"</string>
+    <string name="doublenewline">\n\n</string>
+    <string name="tab1">\t</string>
+    <string name="tab2">\t\t</string>
+
+    <string name="stockedproduct_edit_note1">Note! after Saving, the Product Selector is changed to another product\u0020
+                (stocked products, on a per aisle basis, are not selectable)\u0020
+                and the inputs are set to default values.\u0020
+                Selecting a Shop, Aisle or Product will also result in the inputs being reset to the defaults.
+    </string>
+
+    <string name="stockedproduct_edit_note2">Note! <b>when Editting</b>, the Product selection shows all Products
+                (stocked products that are normally excluded are included temporarilly).\u0020
+                If a stocked item is selected, the selected Product will be a Product that is not already stocked
+                (this purposefully restricts the potential to add duplicates).
+    </string>
+    <string name="backupoverview">
+        Database backup and restore.
+    </string>
+    <string name="rulesoverview">
+        Rule suggestion and accuracy checking.
+    </string>
+    <string name="rulesuggestionoverview">
+        Rule Suggestion - SUGGEST\n\n
+        Rule Suggestion will search for potential rules based upon the shopping history.\n
+        Suggested rules are then listed allowing them to be added as actual rules.\n
+    </string>
+    <string name="ruleaccuracycheck">
+        Rule Accuracy Check - CHECK\n\n
+        Rule Accuracy Check searches existing rules and calculates their accruacy based upon\u0020
+        the shopping history.\n
+        The Rules are listed with an accuracy as a percentage.\n
+        A percentage that is less than 100, indicates that the rule does not add enough.\n
+        A percentage that is greater than 100, indictaes that the rule adds too many.\n
+        A percent of 100 indicates that the rule is correct.\n
+        The resultant list allows rules to be modified.
+    </string>
+</resources>
