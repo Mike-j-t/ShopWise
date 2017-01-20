@@ -1,0 +1,31 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">9dp</dimen>
+
+    <dimen name="text_size_tiny">5sp</dimen>
+    <dimen name="text_size_small">6sp</dimen>
+    <dimen name="text_size_normal">7sp</dimen>
+    <dimen name="text_size_large">8sp</dimen>
+    <dimen name="text_size_extra_large">10sp</dimen>
+    <dimen name="text_size_superextra_large">15sp</dimen>
+
+    <dimen name="listview_vertical_padding_normal">5dp</dimen>
+    <dimen name="listview_vertical_padding_large">7dp</dimen>
+    <dimen name="listview_vertical_padding_extra_large">10dp</dimen>
+
+    <dimen name="listview_vertical_rowpadding_normal">2dp</dimen>
+    <dimen name="listview_vertical_rowpadding_large">3dp</dimen>
+    <dimen name="listview_vertical_rowpadding_extra_large">5dp</dimen>
+    <dimen name="listview_vertical_rowpadding_superextra_large">7dp</dimen>
+
+    <dimen name="listview_rowheight_tiny">7dp</dimen>
+    <dimen name="listview_rowheight_small">8dp</dimen>
+    <dimen name="listview_rowheight_normal">9dp</dimen>
+    <dimen name="listview_rowheight_large">10dp</dimen>
+    <dimen name="listview_rowheight_extra_large">12dp</dimen>
+    <dimen name="listview_rowheight_superextra_large">17dp</dimen>
+
+    <dimen name="actionbutton_height">20dp</dimen>
+    <dimen name="spinner_rightmargin">32dp</dimen>
+</resources>

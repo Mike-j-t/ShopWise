@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorGold">#ffb000</color>
+    <color name="colorOrange">#ff7700</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorDarkRed">#dd0000</color>
+    <color name="colorGreen">#32bd32</color>
+    <color name="colorDarkGreen">#228b22</color>
+    <color name="colorBlue">#0000ff</color>
+    <color name="colorDarkBlue">#0000aa</color>
+    <color name="colorDarkPurple">#5510b0</color>
+    <color name="colorPurple">#b010f0</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="listview_mainheading_gold">#ffc333</color>
+    <color name="listview_heading_gold">#ffd666</color>
+    <color name="listview_subheading_gold">#ffe999</color>
+    <color name="listview_subsubheading_gold">#fffbbb</color>
+
+    <color name="listview_mainheading_orange">#ff8833</color>
+    <color name="listview_heading_orange">#ff9966</color>
+    <color name="listview_subheading_orange">#ffaa99</color>
+    <color name="listview_subsubheading_orange">#ffbbaa</color>
+
+    <color name="listview_mainheading_red">#ff3333</color>
+    <color name="listview_heading_red">#ff6666</color>
+    <color name="listview_subheading_red">#ff9999</color>
+    <color name="listview_subsubheading_red">#ffbbbb</color>
+
+    <color name="listview_mainheading_darkred">#dd3333</color>
+    <color name="listview_heading_darkred">#dd6666</color>
+    <color name="listview_subheading_darkred">#dd9999</color>
+    <color name="listview_subsubheading_darkred">#ddbbbb</color>
+
+    <color name="listview_mainheading_green">#42cd42</color>
+    <color name="listview_heading_green">#52dd52</color>
+    <color name="listview_subheading_green">#62ed62</color>
+    <color name="listview_subsubheading_green">#72fd72</color>
+
+    <color name="listview_mainheading_darkgreen">#449b44</color>
+    <color name="listview_heading_darkgreen">#66ab66</color>
+    <color name="listview_subheading_darkgreen">#88bb88</color>
+    <color name="listview_subsubheading_darkgreen">#aacbaa</color>
+
+    <color name="listview_mainheading_blue">#3333bb</color>
+    <color name="listview_heading_blue">#6666cc</color>
+    <color name="listview_subheading_blue">#9999dd</color>
+    <color name="listview_subsubheading_blue">#bbbbee</color>
+
+    <color name="listview_mainheading_darkblue">#2222aa</color>
+    <color name="listview_heading_darkblue">#4444ba</color>
+    <color name="listview_subheading_darkblue">#6666ca</color>
+    <color name="listview_subsubheading_darkblue">#8888da</color>
+
+    <color name="listview_mainheading_darkpurple">#6020c0</color>
+    <color name="listview_heading_darkpurple">#7030d0</color>
+    <color name="listview_subheading_darkpurple">#8040e0</color>
+    <color name="listview_subsubheading_darkpurple">#9050f0</color>
+
+    <color name="listview_mainheading_purple">#c020f0</color>
+    <color name="listview_heading_purple">#d030f0</color>
+    <color name="listview_subheading_purple">#e040f0</color>
+    <color name="listview_subsubheading_purple">#f050f0</color>
+
+
+    <array name="colorList">
+        <item>@color/colorRed</item>
+        <item>@color/colorGold</item>
+        <item>@color/colorGreen</item>
+        <item>@color/colorBlue</item>
+        <item>@color/colorPurple</item>
+        <item>@color/colorDarkRed</item>
+        <item>@color/colorOrange</item>
+        <item>@color/colorDarkGreen</item>
+        <item>@color/colorDarkBlue</item>
+        <item>@color/colorDarkPurple</item>
+    </array>
+    <array name="fullColorList" tools:ignore="UnusedResources">
+        <item>@color/colorRed</item>
+        <item>@color/listview_mainheading_red</item>
+        <item>@color/listview_heading_red</item>
+        <item>@color/listview_subheading_red</item>
+        <item>@color/listview_subsubheading_red</item>
+
+        <item>@color/colorGold</item>\
+        <item>@color/listview_mainheading_gold</item>
+        <item>@color/listview_heading_gold</item>
+        <item>@color/listview_subheading_gold</item>
+        <item>@color/listview_subsubheading_gold</item>
+
+        <item>@color/colorGreen</item>
+        <item>@color/listview_mainheading_green</item>
+        <item>@color/listview_heading_green</item>
+        <item>@color/listview_subheading_green</item>
+        <item>@color/listview_subsubheading_green</item>
+
+        <item>@color/colorBlue</item>
+        <item>@color/listview_mainheading_blue</item>
+        <item>@color/listview_heading_blue</item>
+        <item>@color/listview_subheading_blue</item>
+        <item>@color/listview_subsubheading_blue</item>
+
+        <item>@color/colorPurple</item>
+        <item>@color/listview_mainheading_purple</item>
+        <item>@color/listview_heading_purple</item>
+        <item>@color/listview_subheading_purple</item>
+        <item>@color/listview_subsubheading_purple</item>
+
+        <item>@color/colorDarkRed</item>
+        <item>@color/listview_mainheading_darkred</item>
+        <item>@color/listview_heading_darkred</item>
+        <item>@color/listview_subheading_darkred</item>
+        <item>@color/listview_subsubheading_darkred</item>
+
+        <item>@color/colorOrange</item>
+        <item>@color/listview_mainheading_orange</item>
+        <item>@color/listview_heading_orange</item>
+        <item>@color/listview_subheading_orange</item>
+        <item>@color/listview_subsubheading_orange</item>
+
+        <item>@color/colorDarkGreen</item>
+        <item>@color/listview_mainheading_darkgreen</item>
+        <item>@color/listview_heading_darkgreen</item>
+        <item>@color/listview_subheading_darkgreen</item>
+        <item>@color/listview_subsubheading_darkgreen</item>
+
+        <item>@color/colorDarkBlue</item>
+        <item>@color/listview_mainheading_darkblue</item>
+        <item>@color/listview_heading_darkblue</item>
+        <item>@color/listview_subheading_darkblue</item>
+        <item>@color/listview_subsubheading_darkblue</item>
+
+        <item>@color/colorDarkPurple</item>
+        <item>@color/listview_mainheading_darkpurple</item>
+        <item>@color/listview_heading_darkpurple</item>
+        <item>@color/listview_subheading_darkpurple</item>
+        <item>@color/listview_subsubheading_darkpurple</item>
+    </array>
+</resources>
