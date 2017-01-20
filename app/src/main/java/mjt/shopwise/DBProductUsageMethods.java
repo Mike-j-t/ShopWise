@@ -65,7 +65,7 @@ class DBProductUsageMethods {
      */
     boolean ifProductUsageUpdated() { return lastprdductusageupdateok; }
 
-    /**
+    /**************************************************************************
      * If product usage was duplicate boolean.
      *
      * @return true if attempt to insert productusage failed because the
@@ -74,7 +74,7 @@ class DBProductUsageMethods {
      */
     boolean ifProductUsageWasDuplicate() { return lastproductusageduplicate; }
 
-    /**
+    /**************************************************************************
      *
      * @param aisleid   id of the aisle
      * @return          the highest productusage order
@@ -465,7 +465,7 @@ class DBProductUsageMethods {
         return rv;
     }
 
-    /**
+    /**************************************************************************
      *
      * @param aisleid
      * @param productid
@@ -528,7 +528,7 @@ class DBProductUsageMethods {
             currentfirstbuydate =  csr.getLong(csr.getColumnIndex(
                     DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL
             ));
-            if (currentfirstbuydate > 0) {
+            if (currentfirstbuydate == 0) {
                 cv.put(DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL,
                         System.currentTimeMillis());
             }
