@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "MainActivity";
     private static final String LOGTAG = "SW-MA";
-    private static final boolean testflag = false;
 
     /**
      * The Db.
