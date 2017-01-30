@@ -180,7 +180,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
         setSelectShopListener();
 
         // Prepare ListView of aisles currently linked to the current shop
-        alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+        alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
         aislelistadapter = new AdapterAisleList(this,
                 alcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
@@ -263,7 +263,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
-        alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+        alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
         aislelistadapter.swapCursor(alcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     }
@@ -371,7 +371,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
                     msg = msg + notsaved;
                 }
         }
-        alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+        alcsr = dbaislemethods.getAisles(shopfilter,orderby,false);
         aislelistadapter.swapCursor(alcsr);
         setMessage(this,msg,notdoneok);
     }
@@ -395,7 +395,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
                 break;
         }
         if (sortchanged) {
-            alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+            alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
             aislelistadapter.swapCursor(alcsr);
             if (ordertype) {
                 lastmessage = lastmessage + " ascending order.";
@@ -502,7 +502,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
                 shopfilter = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
                         " = " +
                         Long.toString(currentshopid);
-                alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+                alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
                 if (aislesadapterset) {
                     aislelistadapter.swapCursor(alcsr);
                 }

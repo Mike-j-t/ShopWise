@@ -45,8 +45,14 @@ public class AdapterOrderList extends CursorAdapter {
     private int shop_city_offset = 0;
     private int shop_order_offset = 0;
 
+    public static final String THISCLASS = AdapterOrderList.class.getSimpleName();
+    private static final String LOGTAG = "SW_AOL(CsrAdptr)";
+
     AdapterOrderList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, flags);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         this.fromspinner = false;
@@ -57,6 +63,9 @@ public class AdapterOrderList extends CursorAdapter {
     AdapterOrderList(Context context, Cursor csr, int flags, Intent intent,
                      boolean fromspinner) {
         super(context, csr, flags);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
@@ -67,6 +76,9 @@ public class AdapterOrderList extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.orderlist, parent, false
@@ -75,11 +87,17 @@ public class AdapterOrderList extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         view = initView(view, csr);
     }
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
         TextView order1 = (TextView) view.findViewById(R.id.orderlist_order1_button);
@@ -105,6 +123,10 @@ public class AdapterOrderList extends CursorAdapter {
 
     private View initView(View view, Cursor csr) {
 
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+
         TextView productname = (TextView) view.findViewById(R.id.orderlist_productname);
         TextView shopname = (TextView) view.findViewById(R.id.orderlist_shopname);
         TextView aislename = (TextView) view.findViewById(R.id.orderlist_aislename);
@@ -121,6 +143,12 @@ public class AdapterOrderList extends CursorAdapter {
         numberinshop.setText(csr.getString(calculated_orderedcount_offset));
         order1.setTag(csr.getPosition());
         less1.setTag(csr.getPosition());
+        msg = "Set Product=" + productname.getText().toString() +
+                " Shop=" + shopname.getText().toString() +
+                " Aisle=" + aislename.getText().toString() +
+                "\n\tPrice=" + price.getText().toString() +
+                " in Shop=" + numberinshop.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
 
@@ -128,6 +156,9 @@ public class AdapterOrderList extends CursorAdapter {
         if (productusage_aisleref_offset < 0) {
             return;
         }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         productusage_aisleref_offset = cursor.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL);
         productusage_productref_offset = cursor.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL);
         productusage_cost_offest = cursor.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_COST_COL);

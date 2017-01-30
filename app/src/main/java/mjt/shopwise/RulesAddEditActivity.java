@@ -42,6 +42,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
     private int calledmode;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = RulesAddEditActivity.class.getSimpleName();
 
     Context context;
     ActionBar actionbar;
@@ -236,10 +237,15 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruleasddedit);
         context = this;
         thisactivity = (Activity) context;
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
@@ -247,6 +253,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGMODE, 0
         );
 
+        logmsg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode, 0);
 
@@ -286,7 +294,6 @@ public class RulesAddEditActivity extends AppCompatActivity {
         ruleperiod_input = (Spinner) findViewById(R.id.selectruleperiod);
         rulemultiplierlabel = (TextView) findViewById(R.id.inputrulemultiplierlabel);
         rulemultiplier_input = (EditText) findViewById(R.id.inputrulemultiplier);
-
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this, getIntent(), actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this, getIntent(), 0);
@@ -327,6 +334,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 h2 & ActionColorCoding.transparency_requied);
         ActionColorCoding.setActionButtonColor(ruleperiod_input, h2);
 
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -336,6 +345,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
         dbrulemethods = new DBRuleMethods(this);
         dbappvaluesmethods = new DBAppvaluesMethods(this);
 
+        logmsg = "Handling Mode (ADD or EDIT)";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (calledmode) {
             case StandardAppConstants.CM_ADD:
                 numbertoget_input.setText("1");
@@ -379,9 +390,11 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 break;
         }
 
+        logmsg = "Preparing SelectionSpinners";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShopsWithAisles(shopfilter, shoporderby);
         currentshopcount = slcsr.getCount();
-        alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby);
+        alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby, false);
         plcsr = dbproductmethods.getProductsInAisle(
                 currentaisleid, productfilter, productorderby);
         rpfilter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
@@ -415,6 +428,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -429,8 +445,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
-        //rlcsr = dbrulemethods.getExpandedRuleList("",orderby);
-        //rulelistadpater.swapCursor(rlcsr);
+        logmsg = "Refreshing Display";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         refreshDisplay();
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     }
@@ -441,6 +457,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         slcsr.close();
         alcsr.close();
@@ -453,8 +472,13 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.rulesaddedit_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.rulesaddedit_savebutton:
@@ -469,6 +493,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
     @SuppressLint("SimpleDateFormat")
     public void saveRule() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Emsg emsg;
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.STANDARD_DDMMYYY_FORMAT);
@@ -487,6 +514,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
             emsg = ValidateInput.validateDate(newruledate_str);
             if (emsg.getErrorIndicator()) {
                 setMessage(this, "Cannot add Rule. " + emsg.getErrorMessage(), true);
+                logmsg = "Cannot Add Rule due to issue with Date" +
+                        "\n\tIssue=" + emsg.getErrorMessage();
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 return;
             }
         } else {
@@ -498,13 +528,19 @@ public class RulesAddEditActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
             setMessage(this,"Cannot add Rule. Error converting Date to numeric.",true);
+            return;
         }
         ruledate = d.getTime();
+        logmsg = "Validated Date=" + sdf.format(d.getTime());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         String numbertoget_str = numbertoget_input.getText().toString();
         emsg = ValidateInput.validateInteger(numbertoget_str);
         if (emsg.getErrorIndicator()) {
             setMessage(this,"Cannot add Rule. Invalid Get. " + emsg.getErrorMessage(),true);
+            logmsg = "Cannot Add Rule due to issue with Get. " +
+                    "\n\tIssue=" + emsg.getErrorMessage();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
@@ -512,14 +548,24 @@ public class RulesAddEditActivity extends AppCompatActivity {
         emsg = ValidateInput.validateInteger(newmultiplier_str);
         if (emsg.getErrorIndicator()) {
             setMessage(this,"Cannot add Rule. Invalid Multiplier. " + emsg.getErrorMessage(),true);
+            logmsg = "Cannot Add Rule due to issue with Multiplier. " +
+                    "\n\tIssue=" + emsg.getErrorMessage();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
         if (!dbpumethods.doesProductUsageExist(currentaisleid,currentproductid)) {
             setMessage(this,"Cannot add Rule. Stock not found", true);
+            logmsg = "Cannot Add Rule due to Stock (product/aisle) not found. " +
+                    " for AisleID=" + Long.toString(currentaisleid) +
+                    " ProductID=" + Long.toString(currentproductid) +
+                    "\n\tIssue=" + emsg.getErrorMessage();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
+        logmsg = "Determining index for selected period.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Cursor csr = (Cursor) ruleperiod_input.getSelectedItem();
         csr.moveToPosition(ruleperiod_input.getSelectedItemPosition());
         String period_str = csr.getString(csr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_TEXT_COL));
@@ -548,6 +594,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
         switch (calledmode) {
             case StandardAppConstants.CM_ADD:
+                logmsg = "ADD Mode so inserting new Rule.";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbrulemethods.insertRule(currentproductid,currentaisleid,
                         newrulename,
                         Integer.parseInt(numbertoget_input.getText().toString()),
@@ -558,6 +606,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 setMessage(this," Rule " + newrulename + " added",false);
                 break;
             case StandardAppConstants.CM_EDIT:
+                logmsg = "EDIT Mode so updating existing Rule.";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbrulemethods.modifyRuleAllValues(
                         getIntent().getLongExtra(StandardAppConstants.INTENTKEY_RULEID,0),
                         newrulename,
@@ -570,6 +620,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 setMessage(this,"Rule " + newrulename + " updated.",false);
                 break;
             default:
+                logmsg = "Default Enetered. This SHOULD NOT happen.";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
         }
     }
@@ -579,6 +631,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @return
      */
     public AdapterShopList setupShopSelectSpinner(long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterShopList rv = new AdapterShopList(this, slcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(), true);
@@ -592,7 +647,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
                         currentshopid = rowid;
                         aislefilter = AISLESHOPREF_COLUMN + " = " +
                                 Long.toString(currentshopid);
-                        alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby);
+                        alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby, false);
                         aislelistadapter.swapCursor(alcsr);
                     }
 
@@ -609,6 +664,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @return
      */
     public AdapterAisleList setupAisleSelectSpinner(long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterAisleList rv = new AdapterAisleList(this, alcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(), true);
@@ -656,6 +714,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @return
      */
     public AdapterProductList setupProductSelectSpinner(long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterProductList rv = new AdapterProductList(this, plcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(), true);
@@ -682,6 +743,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @return
      */
     public AdapterRulePeriodList setupRulePeriodSpinner() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterRulePeriodList rv = new AdapterRulePeriodList(this, rpcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(), true);
@@ -693,6 +757,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      *
      */
     public void addProductFilterListener() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         productfilter_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -728,6 +795,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      *
      */
     public void setupTextRuleDateInput() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         textruledate_input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -765,10 +835,16 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @param flag
      */
     public void setMessage(String message, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         setMessage(this, message, flag);
     }
 
     public void setTextRuleDateFocus() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         if (!textruledate_input.hasFocus()) {
 
             try {
@@ -786,6 +862,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * the save button by making it invisible
      */
     public void warnUnableToMakeRule() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         setMessage(this, "No products - Unable to create Rule.", true);
         savebutton.setVisibility(View.INVISIBLE);
         unabletomakerule = true;
@@ -797,6 +876,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * unabletomakerule then also hide the message
      */
     public void ableToMakeRule() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         if (unabletomakerule) {
             messagebar.setVisibility(View.INVISIBLE);
         }
@@ -808,10 +890,13 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * refresh the display i.e. the listview and the listview heading
      */
     public void refreshDisplay() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShops(shopfilter, shoporderby);
         currentshopcount = slcsr.getCount();
         shoplistadapter.swapCursor(slcsr);
-        alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby);
+        alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby, false);
         currentaislecount = alcsr.getCount();
         aislelistadapter.swapCursor(alcsr);
         plcsr = dbproductmethods.getProductsInAisle(currentaisleid, productfilter, productorderby);
@@ -824,6 +909,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @param view
      */
     public void rulesAddEditDatePick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         try {
             oldate = sdf.parse(ruledate_input.getText().toString());
@@ -877,6 +965,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(RulesAddEditActivity raea, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) raea.findViewById(
                 R.id.rulesaddedit_messagebar);
@@ -897,6 +988,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
      * @param neworderfld the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

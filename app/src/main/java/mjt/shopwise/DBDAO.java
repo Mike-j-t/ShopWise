@@ -15,6 +15,8 @@ public class DBDAO {
     protected SQLiteDatabase db;
     private DBHelper dbhelper;
     private Context mContext;
+    public static final String THISCLASS = DBDAO.class.getSimpleName();
+    private static final String LOGTAG = "SW_DBDAO";
 
     /**
      * DBAO Constructor
@@ -22,6 +24,9 @@ public class DBDAO {
      * @param context Context of the invoking method
      */
     public DBDAO(Context context) {
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.mContext = context;
         dbhelper = DBHelper.getHelper(context);
         db = dbhelper.getWritableDatabase();
@@ -34,10 +39,17 @@ public class DBDAO {
      * @return number of rows
      */
     public int getTableRowCount(String tablename) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String sql = " SELECT * FROM " + tablename + " ;";
         Cursor csr = db.rawQuery(sql,null);
         int rv = csr.getCount();
         csr.close();
+        msg = "Returned " + Integer.toString(rv) +
+                " rows from Table=" +tablename;
+        methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -51,6 +63,9 @@ public class DBDAO {
      * @return Cursor with extracted rows, if any.
      */
     public Cursor getTableRows(String table, String joinclause, String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String sql = " SELECT * FROM " + table;
         if (joinclause.length() > 0 ) {
             sql = sql + joinclause;

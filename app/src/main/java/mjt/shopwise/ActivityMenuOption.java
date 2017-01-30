@@ -1,13 +1,15 @@
 package mjt.shopwise;
 
 /**
- * Created by Mike092015 on 6/12/2016.
+ * Activity menu Option
  */
 public class ActivityMenuOption {
 
     private String mMenuOptionName;
     private String mMenuOptionInfo;
     private int mMenuOptionOrder;
+    private static final String LOGTAG = "SW_AMO";
+    public static final String THISCLASS = ActivityMenuOption.class.getSimpleName();
 
     /**
      * Instantiates a new Activity menu option.
@@ -17,6 +19,11 @@ public class ActivityMenuOption {
      * @param menuoptionorder the menuoptionorder
      */
     public ActivityMenuOption(String menuoptionname, String menuoptioninfo, int menuoptionorder) {
+        String methodname = "Construct";
+        String msg = "Construction Name=" + menuoptionname +
+                " Info=" + menuoptioninfo +
+                " Order=" + Integer.toString(menuoptionorder);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,this.getClass().getSimpleName(),methodname);
         this.mMenuOptionName = menuoptionname;
         this.mMenuOptionInfo = menuoptioninfo;
         this.mMenuOptionOrder = menuoptionorder;

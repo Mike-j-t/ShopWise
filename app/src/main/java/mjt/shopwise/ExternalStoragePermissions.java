@@ -15,10 +15,15 @@ class ExternalStoragePermissions {
             //Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    public static final String THISCLASS = ExternalStoragePermissions.class.getSimpleName();
+    private static final String LOGTAG = "SW_ESP";
 
     public ExternalStoragePermissions() {}
     // Note call this method
     public static void verifyStoragePermissions(Activity activity) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         int permission = ActivityCompat.checkSelfPermission(
                 activity,

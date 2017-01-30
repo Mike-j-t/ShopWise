@@ -2,6 +2,10 @@
     <string name="app_name">ShopWise</string>
     <string name="app_catchphrase">Making Shopping a Little Easier</string>
 
+    <string name="devmodeon">Note!!! Developer Mode is ON\n\n
+        This indicates that this is not a release version.
+    </string>
+
 
     <!-- Names of event handlers as invoked from layouts -->
     <string name="actionbuttonclick">actionButtonClick</string>

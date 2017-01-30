@@ -13,6 +13,8 @@ class RequestDialogParameters {
 
     private MixTripleLongTripleInt mixtrplli;
     private Activity passedactivity;
+    public static final String THISCLASS = RequestDialogParameters.class.getSimpleName();
+    private static final String LOGTAG = "SW_RDP(Class)";
 
     /**
      * Instantiates a new Request dialog parameters.
@@ -21,6 +23,9 @@ class RequestDialogParameters {
      * @param mixtrplli      the mixtrplli
      */
     RequestDialogParameters(Activity passedactivity, MixTripleLongTripleInt mixtrplli) {
+        String logmsg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         this.passedactivity = passedactivity;
         this.mixtrplli = mixtrplli;
     }

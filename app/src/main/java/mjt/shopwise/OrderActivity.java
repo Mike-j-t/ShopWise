@@ -27,6 +27,7 @@ public class OrderActivity extends AppCompatActivity {
     private String caller;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = OrderActivity.class.getSimpleName();
 
     Context context;
     ActionBar actionbar;
@@ -131,6 +132,9 @@ public class OrderActivity extends AppCompatActivity {
     AdapterOrderList orderlisadapter;
 
     protected void onCreate(Bundle savedInstanceState) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         context = this;
@@ -143,7 +147,6 @@ public class OrderActivity extends AppCompatActivity {
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
         productfilter = "";
-
         messagebar = (TextView) findViewById(R.id.order_messagebar);
         donebutton = (TextView) findViewById(R.id.order_donebutton);
         inputproductfilterlabel = (TextView) findViewById(R.id.products_inputfilterlabel);
@@ -152,6 +155,8 @@ public class OrderActivity extends AppCompatActivity {
         orderlistheading = (LinearLayout) findViewById(R.id.order_list_heading);
         addFilterListener();
 
+        msg = "Preparing Color Coding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -165,6 +170,10 @@ public class OrderActivity extends AppCompatActivity {
                 h4 & ActionColorCoding.transparency_optional);
         orderlistheading.setBackgroundColor(h1);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
+
+        msg = "Preparing Databases";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -173,6 +182,8 @@ public class OrderActivity extends AppCompatActivity {
         dbshoplistmethods = new DBShopListMethods(this);
         dbrulemethods = new DBRuleMethods(this);
 
+        msg = "Preparing OrderList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         olcsr = dbpumethods.getExpandedProductUsages(productfilter,orderby);
         orderlisadapter = new AdapterOrderList(
                 this,
@@ -181,7 +192,6 @@ public class OrderActivity extends AppCompatActivity {
                 getIntent(),
                 false);
         orderlist.setAdapter(orderlisadapter);
-
     }
 
     /**************************************************************************
@@ -193,6 +203,9 @@ public class OrderActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -207,6 +220,8 @@ public class OrderActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        msg = "Refreshing OrderList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         olcsr = dbpumethods.getExpandedProductUsages(productfilter,orderby);
         orderlisadapter.swapCursor(olcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -218,6 +233,9 @@ public class OrderActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onDestroy();
         olcsr.close();
     }
@@ -228,12 +246,30 @@ public class OrderActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.order_donebutton:
+                msg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.orderlist_order1_button:
                 olcsr.moveToPosition((int) view.getTag());
+                msg = "Adding 1 to" +
+                        " Shop=" + olcsr.getString(
+                        olcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                        " City=" +
+                        olcsr.getString(
+                                olcsr.getColumnIndex(SHOPCITY_COLUMN)) +
+                        " Aisle=" +
+                        olcsr.getString(
+                                olcsr.getColumnIndex(AISLENAME_COLUMN)) +
+                        " Product=" +
+                        olcsr.getString(
+                                olcsr.getColumnIndex(PRODUCTNAME_COLUMN));
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 dbshoplistmethods.addOrUpdateShopListEntry(
                         olcsr.getLong(olcsr.getColumnIndex(AISLEREF_COLUMN)),
                         olcsr.getLong(olcsr.getColumnIndex(PRODUCTREF_COLUMN)),
@@ -245,6 +281,20 @@ public class OrderActivity extends AppCompatActivity {
                 break;
             case R.id.orderlist_less1_button:
                 olcsr.moveToPosition((int) view.getTag());
+                olcsr.moveToPosition((int) view.getTag());
+                msg = "Subtracting 1 from" +
+                        " Shop=" + olcsr.getString(
+                        olcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                        " City=" +
+                        olcsr.getString(
+                                olcsr.getColumnIndex(SHOPCITY_COLUMN)) +
+                        " Aisle=" +
+                        olcsr.getString(
+                                olcsr.getColumnIndex(AISLENAME_COLUMN)) +
+                        " Product=" +
+                        olcsr.getString(
+                                olcsr.getColumnIndex(PRODUCTNAME_COLUMN));
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 dbshoplistmethods.addOrUpdateShopListEntry(
                         olcsr.getLong(olcsr.getColumnIndex(AISLEREF_COLUMN)),
                         olcsr.getLong(olcsr.getColumnIndex(PRODUCTREF_COLUMN)),
@@ -266,6 +316,9 @@ public class OrderActivity extends AppCompatActivity {
      *
      */
     public void addFilterListener() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         inputproductfilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -299,6 +352,9 @@ public class OrderActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(OrderActivity oa, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) oa.findViewById(R.id.order_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -317,6 +373,9 @@ public class OrderActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.orderlabel) +
                 " sorted by ";
         switch (view.getId()) {
@@ -355,6 +414,9 @@ public class OrderActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

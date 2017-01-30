@@ -15,7 +15,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -103,7 +102,13 @@ public class BackupActivity extends AppCompatActivity {
     private boolean rolledback;
     private String finalmessage = "";
 
+    public static final String THISCLASS = BackupActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_BA";
+
     protected void onCreate(Bundle savedInstanceState) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backup);
         context = this;
@@ -148,6 +153,8 @@ public class BackupActivity extends AppCompatActivity {
         /**
          * Apply Color Coding
          */
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Preparing Colour Coding", this, methodname);
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -165,9 +172,13 @@ public class BackupActivity extends AppCompatActivity {
                 h2 & ActionColorCoding.transparency_requied);
         backupfullfilename.setTextColor(Color.BLUE);
         ActionColorCoding.setActionButtonColor(backupbutton,primary_color);
-        ActionColorCoding.setActionButtonColor(selectrestorefile,h2);
+        ActionColorCoding.setActionButtonColor(selectrestorefile,h4);
         ActionColorCoding.setActionButtonColor(restorebutton,primary_color);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
+
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Determining Directory/File names", this, methodname);
         directory.setText(sdbase.getDirectory());
         directory.setTextColor(Color.BLUE);
         directorylabel.setTextColor(primary_color);
@@ -181,6 +192,8 @@ public class BackupActivity extends AppCompatActivity {
         availablebackups.setTextColor(Color.BLUE);
         availablebackupslabel.setTextColor(primary_color);
         backupfullfilenamelabel.setTextColor(primary_color);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Populating Spinners", this, methodname);
         populateAllSpinners();
         selectrestorefilelabel.setTextColor(primary_color);
         setEditTextTextChangedListener(backupbasepart);
@@ -197,6 +210,8 @@ public class BackupActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -218,6 +233,8 @@ public class BackupActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         super.onDestroy();
     }
 
@@ -227,6 +244,8 @@ public class BackupActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         switch (view.getId()) {
             case R.id.backup_donebutton:
                 this.finish();
@@ -258,6 +277,8 @@ public class BackupActivity extends AppCompatActivity {
      * @param et - Edittext to listen to
      */
     private void setEditTextTextChangedListener(EditText et) {
+        final String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -265,6 +286,9 @@ public class BackupActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 setFullFilename();
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,BackupActivity.LOGTAG,
+                        "Populating Spinners After Text Change",
+                        BackupActivity.class.getSimpleName(),methodname);
                 populateAllSpinners();
             }
 
@@ -277,6 +301,8 @@ public class BackupActivity extends AppCompatActivity {
      * method saveDB save a file copy of the Database
      */
     private void saveDB() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         busy.show();
         errlist.clear();
         confirmaction = true;
@@ -286,13 +312,21 @@ public class BackupActivity extends AppCompatActivity {
         backupfilename = directory.getText().toString() +
                 "/" +
                 backupfullfilename.getText().toString();
-
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Invoking Runnable/New Thread",
+                this,methodname);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     FileInputStream fis = new FileInputStream(dbfile);
                     OutputStream backup = new FileOutputStream(backupfilename);
+                    String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                            BackupActivity.LOGTAG,
+                            "Copying from=" + dbfile.getCanonicalFile() +
+                            " to=" + backupfilename,
+                            BackupActivity.THISCLASS,methodname);
 
                     //byte[] buffer = new byte[32768];
                     int length;
@@ -302,8 +336,15 @@ public class BackupActivity extends AppCompatActivity {
                     backup.flush();
                     backup.close();
                     fis.close();
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                           BackupActivity.LOGTAG,"Copy Completed.",
+                            BackupActivity.THISCLASS,methodname);
                 }
                 catch (IOException e) {
+                    String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                            BackupActivity.LOGTAG,"IO Error Copying File Msg=" + e.getMessage(),
+                            BackupActivity.THISCLASS,methodname);
                     e.printStackTrace();
                     errlist.add("Database backup failed with an IO Error. Error Message was " +
                             e.getMessage() +
@@ -344,9 +385,11 @@ public class BackupActivity extends AppCompatActivity {
      * method restoreDB - Prepare for and confirm database restore
      */
     private void restoreDB() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
         //Prepare filenames
-        //      currentdbfilename = curreant Shopper DataBase
+        //      currentdbfilename = current Shopper DataBase
         //      copydbfilename = filename used when renaming current
         //      icdbfilename = filename of an intermediate/test database used
         //                      to perform an integrity check to see if the
@@ -380,6 +423,12 @@ public class BackupActivity extends AppCompatActivity {
             return;
         }
         backupfilename = selectrestorefile.getSelectedItem().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "File names Prepared." +
+                "\n\tCurrent Database File=" + currentdbfilename +
+                "\n\tWorking Copy File    =" + copydbfilename +
+                "\n\trestore from File    =" + icdbfilename,
+                this,methodname);
 
         // Confirm restore request is wanted and if so invoke it BUT only
         // if the itegrity check is passed
@@ -428,6 +477,8 @@ public class BackupActivity extends AppCompatActivity {
      *      copy
      */
     private void doDBRestore() {
+        final String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
         confirmaction = true;
         logtag = "DB RESTORE";
@@ -435,14 +486,16 @@ public class BackupActivity extends AppCompatActivity {
         resulttitle = "Restore Failed.";
         errlist.clear();
         dbfile = new File(currentdbfilename);
-
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"In Progress set and dispalyed",this,methodname);
         busy.show();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"New Thread Started",this,methodname);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     // Stage 1 Create a copy of the database
-                    Log.i(logtag, "Stage 1 (make Copy of current DB)Starting");
+                    String msg = "Stage 1 (make Copy of current DB)Starting";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     FileInputStream fis = new FileInputStream(dbfile);
                     OutputStream backup = new FileOutputStream(copydbfilename);
                     while ((copylength = fis.read(buffer)) > 0) {
@@ -451,30 +504,36 @@ public class BackupActivity extends AppCompatActivity {
                     backup.flush();
                     backup.close();
                     fis.close();
-                    Log.i(logtag, "Stage 1 - Complete. Copy made of current DB.");
+                    msg = "Stage 1 - Complete. Copy made of current DB.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     copytaken = true;
 
                     // Stage 2 - Delete the database file
                     if (dbfile.delete()) {
-                        Log.i(logtag, "Stage 2 - Completed. Original DB deleted.");
+                        msg = "Stage 2 - Completed. Original DB deleted.";
+                        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                         origdeleted = true;
                     }
 
                     // Stage 3 copy from the backup to the deleted database file i.e. create it
-                    Log.i(logtag, "Stage 3 - (Create new DB from backup) Starting.");
+                    msg = "Stage 3 - (Create new DB from backup) Starting.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     FileInputStream bkp = new FileInputStream(backupfilename);
                     OutputStream restore = new FileOutputStream(currentdbfilename);
                     copylength = 0;
                     while ((copylength = bkp.read(buffer)) > 0) {
                         restore.write(buffer, 0, copylength);
                     }
-                    Log.i(logtag, "Stage 3 - Data Written");
+                    msg = "Stage 3 - Data Written";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     restore.flush();
                     restore.close();
-                    Log.i(logtag, "Stage 3 - New DB file flushed and closed");
+                    msg = "Stage 3 - New DB file flushed and closed";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     restoredone = true;
                     bkp.close();
-                    Log.i(logtag, "Stage 3 - Complete.");
+                    msg = "Stage 3 - Complete.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 } catch (IOException e) {
                     e.printStackTrace();
                     if(!copytaken) {
@@ -495,20 +554,25 @@ public class BackupActivity extends AppCompatActivity {
                 // copy by renaming copy
                 if (copytaken && origdeleted && !restoredone) {
 
-                    Log.w(logtag, "Restore failed. Recovering DB after failed restore from backup");
+                    String msg = "Restore failed. Recovering DB after failed restore from backup";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
                     File rcvdbfile = new File(copydbfilename);
                     rcvdbfile.renameTo(dbfile);
-                    Log.w(logtag, "Restore failed. DB Recovered from backup now in original state.");
+
+                    msg = "Restore failed. DB Recovered from backup now in original state.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
                     rolledback = true;
                     errlist.add("Database reverted to original.");
                 }
                 if (copytaken && !origdeleted) {
-                    Log.w(logtag, "Restore failed. Original DB not deleted so original" +
-                            " is being used.");
+                    String msg = "Restore failed. Original DB not deleted so original\" +\n" +
+                            "                            \" is being used.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
                 }
                 if(!copytaken) {
-                    Log.w(logtag,"Restore failed. Attempt to Copy original DB failed." +
-                            " Original DB is being used.");
+                    String msg = "Restore failed. Attempt to Copy original DB failed.\" +\n" +
+                            "                            \" Original DB is being used.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
                 }
                 if(copytaken && origdeleted && restoredone) {
                     errlist.add("Database successfully restored.");
@@ -521,8 +585,6 @@ public class BackupActivity extends AppCompatActivity {
                     }
                     finalmessage = finalmessage + errlist.get(i);
                 }
-                //busy.dismiss();
-
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -557,6 +619,8 @@ public class BackupActivity extends AppCompatActivity {
      *  Note! if an attempt to open an invalid database file then SQLite deletes the file.
      */
     private boolean dataBaseIntegrityCheck() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
         final String THIS_METHOD = "dataBaseIntegrityCheck";
         String sqlstr_mstr = "SELECT name FROM sqlite_master WHERE type = 'table' AND name!='android_metadata' ORDER by name;";
@@ -648,7 +712,8 @@ public class BackupActivity extends AppCompatActivity {
                                         String fileext,
                                         StoreData sd,
                                         TextView restorebutton) {
-
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         String spnname = "";
         boolean used = false;
         int fcount = 0;
@@ -704,7 +769,6 @@ public class BackupActivity extends AppCompatActivity {
         //String bcnt = "Available Backups=" + Integer.toString(reverseflist.size());
         tv.setText(Integer.toString(reverseflist.size()));
 
-        //TODO spinner adapeter and spinnerlist xml required
         // Set the spinner adapter and dropdown layout and then set the
         // spinner's adapter
         AdapterFileList afl = new AdapterFileList(this,
@@ -720,6 +784,8 @@ public class BackupActivity extends AppCompatActivity {
      * @return String rv as formatted date and time
      */
     private String getDateandTimeasYYMMDDhhmm() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         Calendar cldr = Calendar.getInstance();
         String rv = "";
         @SuppressLint("SimpleDateFormat")
@@ -732,6 +798,8 @@ public class BackupActivity extends AppCompatActivity {
      *
      */
     private void setFullFilename() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         backupfullfilename.setText(
                 backupbasepart.getText().toString() +
                 backupdatetimepart.getText().toString() +
@@ -749,6 +817,8 @@ public class BackupActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(BackupActivity ba, String msg, boolean flag) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
         TextView messagebar = (TextView) ba.findViewById(R.id.backup_messagebar);
         messagebar.setText(context.getResources().getString(

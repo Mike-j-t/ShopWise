@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,18 +25,18 @@ import java.util.ArrayList;
  * subsequent colors shades of that color.
  * <p>
  * The number of primary colors is flexible, thus it is possible to add or
- * remove a color group. the number of shades per primary color is flexible
+ * remove a color group. The number of shades per primary color is flexible
  * to an extent. That is the number of shades per primary color, overall,
  * may be changed but all primary colors must have the same number of shades.
  * <p>
- * The colors are stored in two int arrays, primarycolors and all colors. The
+ * The colors are stored in 2 int arrays, primarycolors and all colors. The
  * former consisting solely of the primary colors, whilst allcolors contains
  * all the shades as well as the primary colors. The order/sequence of the
  * colors should be consistent between the two arrays, which are limited to
  * just storing the actual color.
  * <p>
  * More specifically assuming 5 primary colors with 4 shades per primary color.
- * i.e. 5 colors in total per a color and thus 25 (5 * 5) colors in total.
+ * i.e. 5 colors in total per a color/group and thus 25 (5 * 5) colors in total.
  * The first entry in the primarycolors array (offset 0) is related to the
  * first 5 * colors (offsets 0-4) in the allcolors array.
  * The second primarycolor (offset 1) is related to the second 5 colors
@@ -47,6 +49,7 @@ import java.util.ArrayList;
  */
 class ActionColorCoding {
 
+    private static final String LOGTAG = "SW_AC";
     private static ActionColorCoding instance = null;
     private static final String  COLORCODENAME = "COLORCODES";
     private static final String PRIMARYCOLORCODENAME = "PRIMARYCOLORCODES";
@@ -55,6 +58,7 @@ class ActionColorCoding {
     private static int[] allcolors;
     private static boolean colorset = false;
     private static boolean colorsloaded = false;
+    public static final String THISCLASS = ActionColorCoding.class.getSimpleName();
     /**
      * The constant transparency_requied.
      */
@@ -65,11 +69,56 @@ class ActionColorCoding {
 
 
     private ActionColorCoding(Context context) {
-        loadColors(context);
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                "Constructing",
+                this.getClass().getSimpleName(),methodname);
+        //setDefaultColors();
+        setDefaultColors();
+        DBLINT dfltcounts =  new DBLINT(primarycolors.length, allcolors.length);
+        DBLINT loadedcounts = loadColors(context);
         if (!colorsloaded) {
             setDefaultColors();
             storeColors(context,allcolors,primarycolors);
         }
+        DBDAO dbdao = new DBDAO(context);
+        SQLiteDatabase db = dbdao.db;
+        String sqlstr = "";
+        if (loadedcounts.getInt1() != dfltcounts.getInt1()) {
+            String msg = "Loaded/Default Primary Colors mismatch." +
+                    " Loaded=" + Integer.toString(loadedcounts.getInt1()) +
+                    " Default=" + Integer.toString(dfltcounts.getInt1());
+            LogMsg.LogMsg(LogMsg.LOGTYPE_WARNING,LOGTAG,msg,THISCLASS,methodname);
+            sqlstr = "DELETE FROM " +
+                    DBAppvaluesTableConstants.APPVALUES_TABLE +
+                    DBConstants.SQLWHERE +
+                    DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
+                    " = '" +
+                    ActionColorCoding.PRIMARYCOLORCODENAME + "'";
+            db.execSQL(sqlstr);
+
+            loadedcounts = loadColors(context);
+        }
+        if (loadedcounts.getInt2() != dfltcounts.getInt2()) {
+            String msg = "Loaded/Default AllColors mismatch." +
+                    " Loaded=" + Integer.toString(loadedcounts.getInt2()) +
+                    " Default=" + Integer.toString(dfltcounts.getInt2());
+            LogMsg.LogMsg(LogMsg.LOGTYPE_WARNING,LOGTAG,msg,THISCLASS,methodname);
+            sqlstr = "DELETE FROM " +
+                    DBAppvaluesTableConstants.APPVALUES_TABLE +
+                    DBConstants.SQLWHERE +
+                    DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
+                    " = '" +
+                    ActionColorCoding.COLORCODENAME + "'";
+            db.execSQL(sqlstr);
+        }
+
+        colorset = false;
+        colorsloaded = false;
+        setDefaultColors();
+        storeColors(context,allcolors,primarycolors);
+        loadColors(context);
         colorspergroup = allcolors.length / primarycolors.length;
     }
 
@@ -107,6 +156,9 @@ class ActionColorCoding {
      * @param context Context
      */
     public static void forceStoreColors(Context context) {
+        ActionColorCoding.class.getSimpleName();
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
         storeColors(context,allcolors,primarycolors);
     }
 
@@ -119,7 +171,7 @@ class ActionColorCoding {
         return colorspergroup;
     }
 
-    /**
+    /**************************************************************************
      * setCheckBoxAccent - Change the primary and accent colors of a checkbox
      *                          according to the current color code.
      *
@@ -136,6 +188,9 @@ class ActionColorCoding {
             Context context,
             Intent intent,
             CheckBox checkBox) {
+
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
         setDefaultColors();
         int passedoption = intent.getIntExtra(
                 StandardAppConstants.INTENTKEY_MENUCOLORCODE,0);
@@ -150,29 +205,6 @@ class ActionColorCoding {
                         transparency_optional],
         });
         CompoundButtonCompat.setButtonTintList(checkBox,csl);
-    }
-
-    /**************************************************************************
-     * setActionBarColor - Change the Action Bar background color to
-     * the respetive primary color code.
-     *
-     * @param context   The context from the invoking activity
-     * @param intent    The intent from the invoking activity
-     * @param actionbar The ActionBar from the invoking activity
-     */
-    static void setActionBarColor(
-            Context context,
-            Intent intent,
-            ActionBar actionbar
-    ) {
-        setDefaultColors();
-        int passedoption = intent.getIntExtra(
-                StandardAppConstants.INTENTKEY_MENUCOLORCODE,0);
-        //int colorlist[] = context.getResources().getIntArray(R.array.colorList);
-        int actionbarcolor = primarycolors[passedoption % primarycolors.length];
-        ColorDrawable cd = new ColorDrawable();
-        cd.setColor(actionbarcolor);
-        actionbar.setBackgroundDrawable(cd);
     }
 
     /**************************************************************************
@@ -244,6 +276,28 @@ class ActionColorCoding {
     }
 
     /**************************************************************************
+     * Alternative setHeading colour where the primary colour is provided
+     * as opposed to it being extracted from the activities intent.
+     *
+     * @param primaryoption the primary colour code
+     * @param offset        offset to the shade
+     * @return
+     */
+    public static int setHeadingColor(int primaryoption, int offset) {
+        int colourspergroup = allcolors.length / primarycolors.length;
+        if (offset > (colourspergroup -1)) {
+            offset = colourspergroup - 1;
+        }
+        return allcolors[
+                (
+                        (primaryoption * colourspergroup)
+                        % allcolors.length
+                        ) +
+                        offset
+        ];
+    }
+
+    /**************************************************************************
      * setActionButtonColor - Change the color of the buttons drawable
      * Used to ensure that rounded corners etc
      * are changed.
@@ -252,7 +306,78 @@ class ActionColorCoding {
      * @param color color to change the backkground to
      */
     public static void setActionButtonColor(View view, int color) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
         ((GradientDrawable) view.getBackground()).setColor(color);
+    }
+
+    /**************************************************************************
+     * setActionBarColor - Change the Action Bar background color to
+     * the respetive primary color code.
+     *
+     * @param context   The context from the invoking activity
+     * @param intent    The intent from the invoking activity
+     * @param actionbar The ActionBar from the invoking activity
+     */
+    static void setActionBarColor(
+            Context context,
+            Intent intent,
+            ActionBar actionbar
+    ) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
+        setDefaultColors();
+        int passedoption = intent.getIntExtra(
+                StandardAppConstants.INTENTKEY_MENUCOLORCODE,0);
+        //int colorlist[] = context.getResources().getIntArray(R.array.colorList);
+        int actionbarcolor = primarycolors[passedoption % primarycolors.length];
+        ColorDrawable cd = new ColorDrawable();
+        cd.setColor(actionbarcolor);
+        actionbar.setBackgroundDrawable(cd);
+    }
+
+    /**************************************************************************
+     *
+     * @param view      The View in which the standard swatch exists
+     * @param intent    The intent of the activity from which the current
+     *                  colours are determined.
+     */
+    static void setSwatches(View view, Intent intent) {
+
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
+        if (view == null) {
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                    "Skipping Null View",
+                    THISCLASS,methodname);
+            return;
+        }
+
+        TextView mc = (TextView) view.findViewById(R.id.cs_main);
+        TextView h1 = (TextView) view.findViewById(R.id.cs_h1);
+        TextView h2 = (TextView) view.findViewById(R.id.cs_h2);
+        TextView h3 = (TextView) view.findViewById(R.id.cs_h3);
+        TextView h4 = (TextView) view.findViewById(R.id.cs_h4);
+        TextView re = (TextView) view.findViewById(R.id.cs_re);
+        TextView oe = (TextView) view.findViewById(R.id.cs_ro);
+
+        if (mc == null || h1 == null || h2 == null || h3 == null ||
+                h4 == null || re == null || oe == null  ) {
+            return;
+        }
+
+        int passedoption = intent.getIntExtra(StandardAppConstants.INTENTKEY_MENUCOLORCODE,0);
+        passedoption = passedoption % primarycolors.length;
+        mc.setBackgroundColor(primarycolors[passedoption]);
+        h1.setBackgroundColor(setHeadingColor(passedoption,1));
+        h2.setBackgroundColor(setHeadingColor(passedoption,2));
+        h3.setBackgroundColor(setHeadingColor(passedoption,3));
+        h4.setBackgroundColor(setHeadingColor(passedoption,4));
+
+        re.setBackgroundColor(setHeadingColor(passedoption,2) &
+                ActionColorCoding.transparency_requied);
+        oe.setBackgroundColor(setHeadingColor(passedoption,4) &
+                ActionColorCoding.transparency_optional);
     }
 
     /**************************************************************************
@@ -262,45 +387,77 @@ class ActionColorCoding {
 
         if (colorset) { return; }
 
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
+
         // All Colors (first per set is primary/base color)
+        // Note Order of the colours here does not affect order of use.
         int[] R = {0xffff0000, 0xffff3333, 0xffff6666, 0xffff9999, 0xffffcccc }; // RED
-        int[] O = {0xffff5500, 0xffff7733, 0xffff9966, 0xffffbb99, 0xffffeecc };
-        int[] Y = {0xffffdd00, 0xffffdd33, 0xffffdd66, 0xffffdd99, 0xffffddcc }; // Yellow
-        int[] G = {0xff00ff00, 0xff33ff33, 0xff66ff66, 0xff99ff99, 0xffccffcc }; // Green
-        int[] X = {0xff00ffdd, 0xff33ffdd, 0xff66ffdd, 0xff99ffdd, 0xffccffdd }; // ???
+        int[] O = {0xffffa500, 0xffffae19, 0xffffb732, 0xffffc04c, 0xffffc966 }; // ORANGE
+        int[] Y = {0xffffd700, 0xffffdf32, 0xffffe34c, 0xffffe766, 0xffffeb7f }; // YELLOW
+
+        int[] DG = {0xff228b22, 0xff449b44, 0xff66ab66, 0xff88bb99, 0xffaacbaa }; // Dark Green
+        int[] G = {0xff66cd00, 0xff75d219, 0xff84d732, 0xff93dc4c, 0xffa3e166 }; // GREEN
+        int[] X = {0xff1bddc6, 0xff31e0cb, 0xff48e3d1, 0xff5fe7d7, 0xff76eadc }; // CYANISH
+
+        int[] C = {0xff1bc5dd, 0xff31cae0, 0xff48d0e3, 0xff5fd6e7, 0xff76dcea }; // Cyan
         int[] B = {0xff0000ff, 0xff3333ff, 0xff6666ff, 0xff9999ff, 0xffccccff }; // Blue
+
+        int[] DP = {0xff6020a0, 0xff7030b0, 0xff8040c0, 0xff9050d0, 0xffa060e0 }; // Dark Purple
+
+
+
         int[] Z = {0xffdd00ff, 0xffdd33ff, 0xffdd66ff, 0xffdd99ff, 0xffddccff }; // ??
-        int[] P = {0xffb010f0, 0xffc020f0, 0xffd030f0, 0xffe040f0, 0xfff050f0 }; // Purple
-        int[] C = {0xff3498db, 0xff5dade2, 0xff85c1e9, 0xffaed6f1, 0xffd1f2eb }; // Cyan
-        int[] SG = {0xff008B45, 0xff00CD66, 0xff00EE76, 0xff4EEE94, 0xff54FF9F }; //Sea Green
+        int[] P = {0xffb010ff, 0xffc020ff, 0xffd030ff, 0xffe040ff, 0xfff050ff }; // Purple
         int[] DR = {0xffdd0000, 0xffdd3333, 0xffdd6666, 0xffdd9999, 0xffddcccc }; //Dark Red
         int[] DY = {0xffffbb00, 0xffffbb33, 0xffffbb66, 0xffffbb99, 0xffffbbcc }; // Dark Yellow
-        int[] DG = {0xff228b22, 0xff449b44, 0xff66ab66, 0xff88bb99, 0xffaacbaa }; // Dark Green
         int[] DB = {0xff0000aa, 0xff0033bb, 0xff0066cc, 0xff0099dd, 0xff00bbee }; //Dark Blue
-        int[] DP = {0xff5010b0, 0xff6020c0, 0xff7030d0, 0xff8040e0, 0xff9050f0 }; // Dark Purple
+        int[] SG = {0xff008B45, 0xff00CD66, 0xff00EE76, 0xff4EEE94, 0xff54FF9F }; //Sea Green
 
         //Build an array of primary/base colors
+        // Note the order of the colours here is affects the order of use
+        // Important the order used in the ac array (below) should match the
+        // order of pc array
         int[] pc = {
-                R[0], O[0], Y[0], G[0], X[0], B[0], Z[0], C[0], SG[0],
-                DR[0], DY[0], DG[0], DB[0], P[0], DP[0]
+                R[0], O[0], Y[0],       // Shops, Aisles, Products
+
+                DG[0], G[0], X[0],      // Stock, Order, Checklist
+
+                C[0],  B[0],            // Shopping, Rules
+
+                //DP[0],                  // Tools
+
+                //P[0],
+                //Z[0],
+                //DR[0],
+                //DY[0],
+                DB[0],
+                SG[0],   //Spares
         };
         //Build an array of all colors
         int[] ac = {
-                R[0], R[1], R[2], R[3], R[4],
-                O[0], O[1], O[2], O[3], O[4],
-                Y[0], Y[1], Y[2], Y[3], Y[4],
-                G[0], G[1], G[2], G[3], G[4],
-                X[0], X[1], X[2], X[3], X[4],
-                B[0], B[1], B[2], B[3], B[4],
-                Z[0], Z[1], Z[2], Z[3], Z[4],
-                C[0], C[1], C[2], C[3], C[4],
-                SG[0], SG[1], SG[2], SG[3], SG[4],
-                DR[0], DR[1], DR[2], DR[3], DR[4],
-                DY[0], DY[1], DY[2], DY[3], DY[4],
-                DG[0], DG[1], DG[2], DG[3], DG[4],
+                R[0], R[1], R[2], R[3], R[4],       // Shops
+                O[0], O[1], O[2], O[3], O[4],       // Aisles
+                Y[0], Y[1], Y[2], Y[3], Y[4],       // Products
+
+                DG[0], DG[1], DG[2], DG[3], DG[4],  // Stock
+                G[0], G[1], G[2], G[3], G[4],       // Order
+                X[0], X[1], X[2], X[3], X[4],       // Checklist
+
+                C[0], C[1], C[2], C[3], C[4],       // Shopping
+                B[0], B[1], B[2], B[3], B[4],       // Rules
+
+
+                //DP[0], DP[1], DP[2], DP[3], DP[4],  // Tools
+
+
+                                                    //Spares
+                //P[0], P[1], P[2], P[3], P[4],
+                //Z[0], Z[1], Z[2], Z[3], Z[4],
+                //DR[0], DR[1], DR[2], DR[3], DR[4],
+                //DY[0], DY[1], DY[2], DY[3], DY[4],
                 DB[0], DB[1], DB[2], DB[3], DB[4],
-                P[0], P[1], P[2], P[3], P[4],
-                DP[0], DP[1], DP[2], DP[3], DP[4]
+                SG[0], SG[1], SG[2], SG[3], SG[4]
         };
         primarycolors = pc;
         allcolors = ac;
@@ -317,9 +474,22 @@ class ActionColorCoding {
     public static void storeColors(Context context,
                                    int[] allcolors,
                                    int[] primarycolors) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
         setDefaultColors();
         DBAppvaluesMethods dbAppvaluesmethods = new DBAppvaluesMethods(context);
+
         for (int i = 0; i < allcolors.length; i++) {
+
+            // If a row for this color (by offset) exists then skip
+            if ( dbAppvaluesmethods.doesExtendedAppValueExist(
+                    ActionColorCoding.COLORCODENAME,
+                    DBConstants.INT,
+                    null,null,null,null,
+                    Integer.toString(i))) {
+                continue;
+            }
+            // Otherwise insert the row
             dbAppvaluesmethods.insertAppvalue(
                     COLORCODENAME,allcolors[i],
                     true,
@@ -328,6 +498,16 @@ class ActionColorCoding {
             );
         }
         for (int i = 0; i < primarycolors.length; i++) {
+
+            // If a row for this color (by offset) exists then skip
+            if (dbAppvaluesmethods.doesExtendedAppValueExist(
+                    ActionColorCoding.PRIMARYCOLORCODENAME,
+                    DBConstants.INT,
+                    null,null,null,null,
+                    Integer.toString(i))) {
+                continue;
+            }
+            // Otherwise insert the row
             dbAppvaluesmethods.insertAppvalue(
                     PRIMARYCOLORCODENAME,
                     primarycolors[i],
@@ -343,10 +523,13 @@ class ActionColorCoding {
      *
      * @param context the context
      */
-    public static void loadColors(Context context) {
+    public static DBLINT loadColors(Context context) {
+
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",THISCLASS,methodname);
+        DBLINT rv = new DBLINT(0,0);
 
         DBDAO dbdao = new DBDAO(context);
-
         Cursor pccsr = dbdao.getTableRows(
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
                 "",
@@ -372,7 +555,8 @@ class ActionColorCoding {
         );
         int account = accsr.getCount();
         accsr.close();
-        if (account < 1 || pccount < 1) { return; }
+        rv.setDBLINT(pccount,account);
+        if (account < 1 || pccount < 1) { return rv; }
 
         DBAppvaluesMethods dbappvaluesmethods = new DBAppvaluesMethods(context);
         ArrayList<Long> pc = dbappvaluesmethods.getLongAppvalues(PRIMARYCOLORCODENAME);
@@ -389,5 +573,12 @@ class ActionColorCoding {
         primarycolors = ipc;
         allcolors = iac;
         colorsloaded = true;
+        String msg = "Loaded " +
+                Integer.toString(primarycolors.length) +
+                " primary colours and " +
+                Integer.toString(allcolors.length) +
+                " totalcolors.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 }

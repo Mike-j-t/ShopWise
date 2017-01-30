@@ -31,13 +31,14 @@ import android.widget.TextView;
 public class StockListActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "StockListActivity";
-    private static final String LOGTAG = "SW-SLA";
+    private static final String LOGTAG = "SW_SLA";
     private static String caller;
     private static int calledmode;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = StockListActivity.class.getSimpleName();
 
-    DBDAO dbdao;
+    //DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
     DBProductMethods dbproductmethods;
@@ -145,17 +146,25 @@ public class StockListActivity extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Log.i(LOGTAG, "OnCreate method entered.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stocklist);
         context = this;
         thisactivity = (Activity) context;
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
                 StandardAppConstants.INTENTKEY_CALLINGMODE,0);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
+
+        logmsg = "Preparing Color Coding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockfilter = "";
 
         messagebar = (TextView) findViewById(R.id.stocklist_messagebar);
@@ -184,9 +193,12 @@ public class StockListActivity extends AppCompatActivity {
         inputproductfilterlabel.setTextColor(h2);
 
         this.setTitle(getResources().getString(R.string.stocklabel));
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 
 
-        dbdao = new DBDAO(this);
+        //dbdao = new DBDAO(this);
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
         dbproductmethods = new DBProductMethods(this);
@@ -195,11 +207,15 @@ public class StockListActivity extends AppCompatActivity {
         dbrulemethods = new DBRuleMethods(this);
 
 
+        logmsg = "Retrieving StockList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
         stocklistadapter = new AdapterStockListList(this,stockedcursor,0,getIntent(),false);
         stocklist.setAdapter(stocklistadapter);
         addProductFilterListener();
 
+        logmsg = "Adding StockList OnItemClick Listener";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stocklist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view,
@@ -209,6 +225,8 @@ public class StockListActivity extends AppCompatActivity {
             }
         });
 
+        logmsg = "Adding StockList OnItemLongClick Listener";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stocklist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long rowid) {
@@ -228,6 +246,9 @@ public class StockListActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         setDBCounts();
         switch (resumestate) {
@@ -243,10 +264,11 @@ public class StockListActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        logmsg = "Refreshing StockList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
         stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
         stocklistadapter.swapCursor(stockedcursor);
-        this.setTitle(getResources().getString(R.string.stocklabel));
     }
 
     /**************************************************************************
@@ -255,6 +277,9 @@ public class StockListActivity extends AppCompatActivity {
     */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         stockedcursor.close();
     }
@@ -265,8 +290,13 @@ public class StockListActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.stocklist_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.stocklist_addbutton:
@@ -277,11 +307,16 @@ public class StockListActivity extends AppCompatActivity {
     }
 
     public void stockAdd() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Intent intent = new Intent(this,StockActivity.class);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_STOCKFROMSTOCKLIST);
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        logmsg = "Starting " + StockActivity.class.getSimpleName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -290,6 +325,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param values
      */
     public void stockDelete(RequestDialogParameters values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Activity activity = values.getPassedactivity();
         StockListActivity sla = (StockListActivity) activity;
         sla.dbpumethods.deleteStock(values.getLong1(),values.getLong2(), false);
@@ -300,6 +338,10 @@ public class StockListActivity extends AppCompatActivity {
                 " Deleted from this Shop/Aisle.",
                 false
         );
+        logmsg = "Deleted STOCK item AisleID=" +
+                Long.toString(values.getLong1()) +
+                " ProductID=" + Long.toString(values.getLong2());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -308,6 +350,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.productslabel) + " in Shop/Aisle sorted by ";
         switch (view.getId()) {
             case R.id.stocklist_stocklist_heading_productname:
@@ -353,6 +398,9 @@ public class StockListActivity extends AppCompatActivity {
      *                              available in the product selection spinner
      */
     public void addProductFilterListener() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         inputproductfilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -389,6 +437,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param id        id of the clikced row i.e. the _id column
      */
     public void listItemClick(View view, int position, long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         long aisled = stockedcursor.getLong(
                 stockedcursor.getColumnIndex(AISLEREF_COLUMN)
         );
@@ -452,6 +503,12 @@ public class StockListActivity extends AppCompatActivity {
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisled,productid,shopid,0,0,0);
 
+        logmsg = "Presenting RequestDialog for Product=" + productname +
+                " Shop=" + shopname +
+                " City=" + stockedcursor.getString(
+                stockedcursor.getColumnIndex(SHOPCITY_COLUMN)) +
+                " Aisle=" + aislename;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         new RequestDialog().requestDialog(thisactivity,
                 classname,
                 title,
@@ -468,6 +525,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param rowid     the cursor's rowdid value
      */
     public void listItemLongClick(View view, int position, long rowid) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         long aisleid = stockedcursor.getLong(stockedcursor.getColumnIndex(
                 AISLEREF_COLUMN
         ));
@@ -519,7 +579,12 @@ public class StockListActivity extends AppCompatActivity {
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisleid,productid,0,0,0,0);
 
-
+        logmsg = "Presenting RequestDialog for Product=" + productname +
+                " Shop=" + shopname +
+                " City=" + stockedcursor.getString(
+                stockedcursor.getColumnIndex(SHOPCITY_COLUMN)) +
+                " Aisle=" + aislename;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         new RequestDialog().requestDialog(thisactivity,
                 classname,
                 title,
@@ -547,6 +612,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param values
      */
     public void editStockList(RequestDialogParameters values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Intent intent = new Intent(this,StockLisEditActivity.class);
         intent.putExtra(menucolorcode,passedmenucolorcode);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
@@ -562,6 +630,11 @@ public class StockListActivity extends AppCompatActivity {
         intent.putExtra(StandardAppConstants.INTENTKEY_PUPRODUCTREF,
                 values.getLong2()
         );
+        logmsg = "Starting " + StockLisEditActivity.class.getSimpleName() +
+                " for ShopID=" + Long.toString(values.getLong3()) +
+                " AisleID=" + Long.toString(values.getLong1()) +
+                " ProductID=" + Long.toString(values.getLong2());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -575,6 +648,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(StockListActivity sla, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) sla.findViewById(R.id.stocklist_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -585,7 +661,7 @@ public class StockListActivity extends AppCompatActivity {
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
-        sla.actionbar.setTitle(getResources().getString(R.string.stocklabel));
+        //sla.actionbar.setTitle(getResources().getString(R.string.stocklabel));
     }
 
     /**************************************************************************
@@ -594,6 +670,9 @@ public class StockListActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.
@@ -619,6 +698,9 @@ public class StockListActivity extends AppCompatActivity {
      *                  tables.
      */
     private void setDBCounts() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();

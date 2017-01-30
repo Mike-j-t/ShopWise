@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,7 +21,6 @@ import java.util.Date;
  * are held in this table. e.g. cost and order.
  */
 class DBProductUsageMethods {
-    private static final String LOGTAG = "DB-PUM";
     private Context context;
     private DBDAO dbdao;
     private static SQLiteDatabase db;
@@ -28,6 +28,9 @@ class DBProductUsageMethods {
     private static boolean lastproductusageaddok = false;
     private static boolean lastproductusageduplicate = false;
     private static boolean lastprdductusageupdateok = false;
+    public static final String THISCLASS = DBProductUsageMethods.class.getSimpleName();
+    private static final String LOGTAG = "SW_DBPUM";
+    private SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
 
     /**
      * Instantiates a new Db product usage methods.
@@ -35,6 +38,9 @@ class DBProductUsageMethods {
      * @param ctxt the ctxt
      */
     DBProductUsageMethods(Context ctxt) {
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         context = ctxt;
         dbdao = new DBDAO(context);
         db = dbdao.db;
@@ -80,6 +86,9 @@ class DBProductUsageMethods {
      * @return          the highest productusage order
      */
     int getHighestProductUsageOrderPerAisle(long aisleid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         int rv = 0;
 
@@ -109,6 +118,8 @@ class DBProductUsageMethods {
             ));
         }
         csr.close();
+        msg = "Highhest ProductUsage Order=" + Integer.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -119,6 +130,9 @@ class DBProductUsageMethods {
      * @return true if found, else false
      */
     boolean doesProductUsageExist(long aisleref, long productref) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
         String filter = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
@@ -136,6 +150,9 @@ class DBProductUsageMethods {
             rv = true;
         }
         csr.close();
+        msg = "Product Usage for AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -145,8 +162,12 @@ class DBProductUsageMethods {
      * @param productref    id of the product
      */
     void setChecklistCheckedStatus(long aisleref, long productref) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int currentcheckstatus = 0;
         int toggledcheckstatus = 2;
+        int updatecount = 0;
         String filter = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
                 Long.toString(aisleref) +
@@ -174,18 +195,35 @@ class DBProductUsageMethods {
                 DBConstants.SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL + " = ?";
         cv.put(DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL,toggledcheckstatus);
-        db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,cv,whereclause,whereargs);
+        updatecount = db.update(
+                DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
+                cv,
+                whereclause,
+                whereargs);
+        msg = "Set Checklist Checked Status UpdateOK=" +
+                Boolean.toString(updatecount > 0);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
      *
      */
     void resetChecklistCheckedStatus() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        int updatecount = 0;
         String whereargs[] = { Integer.toString(1)};
         String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL + " >= ?";
         ContentValues cv = new ContentValues();
         cv.put(DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL,1);
-        db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,cv,whereclause,whereargs);
+        updatecount = db.update(
+                DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
+                cv,
+                whereclause,
+                whereargs);
+        msg = "RESET Checklist Updated " + Integer.toString(updatecount) + " Product Usages";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -196,13 +234,33 @@ class DBProductUsageMethods {
      * @return product usages
      */
     Cursor getProductUsages(String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return dbdao.getTableRows(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                 "",
                 filter,
                 order);
     }
 
+    /**************************************************************************
+     * Get ProductUsages that have been set to appear in the checklist
+     * Note! adds 0 in the Shopping List if there is no current Shopping list entry
+     * for the productUsage SQL generated for this is (brackets included):-
+     * (CASE WHEN shoplist.numbertoget IS NULL THEN 0 ELSE shoplist.numbertoget END)
+     *
+     *
+     * @param filter    SQL WHERE clause less WHERE Noting that
+     *                  productusage.productusagechecklistflag > 0 WILL ALWAYS
+     *                  be the first item of the WHERE clause.
+     * @param order     SQL ORDER clause (none by default)
+     * @return          The generated SQLIte DB Cursor
+     */
     Cursor getCheckList(String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor rv;
         String sql = DBConstants.SQLSELECT +
                 " ABS(RANDOM()) AS " + DBConstants.STD_ID + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + ", " +
@@ -271,7 +329,11 @@ class DBProductUsageMethods {
         }
         sql = sql + DBConstants.SQLENDSTATEMENT;
 
-        return db.rawQuery(sql,null);
+        rv = db.rawQuery(sql,null);
+        msg = "Returned Cursor with " + Integer.toString(rv.getCount()) + " rows." +
+                "\n\t SQL used=" + sql;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
 
     }
 
@@ -285,6 +347,10 @@ class DBProductUsageMethods {
      *                  and ShopList
      */
     Cursor getExpandedProductUsages(String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor rv;
         String sql = DBConstants.SQLSELECT +
                 " ABS(RANDOM()) AS " + DBConstants.STD_ID + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + ", " +
@@ -351,7 +417,11 @@ class DBProductUsageMethods {
         }
         sql = sql + DBConstants.SQLENDSTATEMENT;
 
-        return db.rawQuery(sql,null);
+        rv = db.rawQuery(sql,null);
+        msg = "Returned Cursor with " + Integer.toString(rv.getCount()) + " rows." +
+                "\n\t SQL used=" + sql;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 
     /**************************************************************************
@@ -361,6 +431,9 @@ class DBProductUsageMethods {
      * @return
      */
     ArrayList<String> stockDeleteImapct(long aisleid, long productid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ArrayList<String> rv = new ArrayList<>();
 
         String pufilter = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
@@ -409,6 +482,9 @@ class DBProductUsageMethods {
      * @return
      */
     int deleteStock(long aisled, long productid, boolean intransaction) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         int rv = 0;
 
@@ -428,6 +504,8 @@ class DBProductUsageMethods {
 
         if(!intransaction) {
             db.beginTransaction();
+            msg = "Starting DB Transaction";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
 
         while (sllcsr.moveToNext()) {
@@ -461,6 +539,8 @@ class DBProductUsageMethods {
         if(!intransaction) {
             db.setTransactionSuccessful();
             db.endTransaction();
+            msg = "SET AND ENDED DB Transaction";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
         return rv;
     }
@@ -474,6 +554,10 @@ class DBProductUsageMethods {
     void amendProductUsageCost(long aisleid,
                                long productid,
                                double newcost) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        int updatecount = 0;
         ContentValues cv = new ContentValues();
         lastprdductusageupdateok = false;
         String whereclause =
@@ -487,12 +571,16 @@ class DBProductUsageMethods {
         };
         cv.put(DBProductusageTableConstants.PRODUCTUSAGE_COST_COL,newcost);
         if (doesProductUsageExist(aisleid,productid)) {
-            int updatecount = db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
+            updatecount = db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                     cv,whereclause,whereargs);
             if (updatecount > 0) {
                 lastprdductusageupdateok = true;
             }
         }
+        msg = "Update Cost=" + Boolean.toString(updatecount > 0) +
+                " for ProductUsage AisleID=" + Long.toString(aisleid) +
+                " ProductID=" + Long.toString(productid);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -504,9 +592,13 @@ class DBProductUsageMethods {
     void amendPurchasedProductUsage(long aisleid,
                                     long productid,
                                     int numberpurchased) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         long currentfirstbuydate = -1;
         int currentbuycount = 0;
+        int updatecount = 0;
         lastprdductusageupdateok = false;
         ContentValues cv = new ContentValues();
         String whereclause =
@@ -521,7 +613,6 @@ class DBProductUsageMethods {
         Cursor csr = db.query(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                 null,whereclause,whereargs,null,null,null
         );
-        int test = csr.getCount();
 
         if (csr.getCount() > 0) {
             csr.moveToFirst();
@@ -540,7 +631,7 @@ class DBProductUsageMethods {
             cv.put(DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL,
                     currentbuycount + numberpurchased);
             csr.close();
-            int updatecount = db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
+            updatecount = db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                     cv,
                     whereclause,
                     whereargs
@@ -551,6 +642,10 @@ class DBProductUsageMethods {
         } else {
             csr.close();
         }
+        msg = "Productusage AisleID=" + Long.toString(aisleid) +
+                " ProductID=" + Long.toString(productid) +
+                " Purchased Update=" + Boolean.toString(updatecount > 0);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -568,6 +663,9 @@ class DBProductUsageMethods {
                             int order,
                             boolean checklistflag,
                             int checklistcount) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         lastprdductusageupdateok = false;
         int zero = 0;
@@ -593,6 +691,10 @@ class DBProductUsageMethods {
             }
 
         }
+        msg = "ProductUsage for AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref) +
+                " Modified=" + Boolean.toString(lastprdductusageupdateok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -614,6 +716,10 @@ class DBProductUsageMethods {
                             int order,
                             boolean checklistflag,
                             int checklistcount) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+
         int zero = 0;
         long lzero = 0;
         long addedid;
@@ -645,6 +751,11 @@ class DBProductUsageMethods {
             lastproductusageduplicate = true;
             lastproductusageaddok = false;
         }
+        msg = "ProductUsage AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref) +
+                " Inserted=" + Boolean.toString(lastproductusageaddok) +
+                " Duplicate=" + Boolean.toString(lastproductusageduplicate);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -657,6 +768,9 @@ class DBProductUsageMethods {
      * @return a MixTripleLongTripleInt (3 longs and 3 ints) :-                          long1 the firstbutdate                          long2 the latestbuydate                          long3 unused                          int1 the buycount                          int2 unused                          int3 unused
      */
     MixTripleLongTripleInt getBuyCount(long productref, long aisleref) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int buycount = -1;
         long firstbuydate = 0;
         long lastbuydate = 0;
@@ -678,6 +792,12 @@ class DBProductUsageMethods {
             csr.close();
         }
         rv.setMIXTRPPLONGINT(firstbuydate,lastbuydate,0,buycount,0,0);
+        msg = "Returning for ProductUsage AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref) +
+                " :- \n\tBought=" + Integer.toString(buycount) +
+                " First Bought=" + sdf.format(firstbuydate) +
+                " Last Bought=" + sdf.format(lastbuydate);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -692,7 +812,9 @@ class DBProductUsageMethods {
      * @param aisleref   aisle id referenced by this productusage
      */
     void incrementBuyCount(Long productref, Long aisleref) {
-
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         lastprdductusageupdateok = false;
 
         // Get the buycount, firstbuydate and latestbuydate
@@ -719,6 +841,10 @@ class DBProductUsageMethods {
         if (updatecount > 0 ) {
             lastprdductusageupdateok = true;
         }
+        msg = "ProductUsage AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref) +
+                " BuyCount Incremented=" + Boolean.toString(lastprdductusageupdateok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -729,6 +855,9 @@ class DBProductUsageMethods {
      * @param neworder   the new order to be used
      */
     void setProductUsageOrder(long productref, long aisleref, int neworder) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         lastprdductusageupdateok = false;
         if (doesProductUsageExist(productref, aisleref)) {
@@ -743,6 +872,10 @@ class DBProductUsageMethods {
                 lastprdductusageupdateok = true;
             }
         }
+        msg = "ProductUsage AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref) +
+                " Order Updated=" + Boolean.toString(lastprdductusageupdateok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -753,9 +886,11 @@ class DBProductUsageMethods {
      * @param flag       flag (0=clear, 1=to skip, 2=disable)
      */
     void setRuleSuggestFlag(long productref, long aisleref, int flag) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         lastprdductusageupdateok = false;
-
         if (doesProductUsageExist(aisleref,productref)) {
             ContentValues cv = new ContentValues();
             cv.put(DBProductusageTableConstants.PRODUCTUSAGE_RULESUGGESTFLAG_COL, flag);
@@ -768,26 +903,36 @@ class DBProductUsageMethods {
                 lastprdductusageupdateok = true;
             }
         }
+        msg = "ProductUsage AisleID=" + Long.toString(aisleref) +
+                " ProductID=" + Long.toString(productref) +
+                " RuleSuggestFlag Updated=" + Boolean.toString(lastprdductusageupdateok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
      * enableSkipped    change ruleSggestFlags from skipped to clear
      */
     void enableSkipped() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         lastprdductusageupdateok = false;
+        int updatecount = 0;
         String whereargs[] = {Integer.toString(DBProductusageTableConstants.RULESUGGESTFLAG_SKIP)};
         String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_RULESUGGESTFLAG_COL +
                 " = ?";
         ContentValues cv = new ContentValues();
         cv.put(DBProductusageTableConstants.PRODUCTUSAGE_RULESUGGESTFLAG_COL,
                 DBProductusageTableConstants.RULESUGGESTFLAG_CLEAR);
-        int updatecount = db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
+        updatecount = db.update(DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                 cv,whereclause,
                 whereargs);
         if (updatecount > 0 ) {
             lastprdductusageupdateok = true;
         }
+        msg = "RuleSuggestFlags Cleared=" + Long.toString(updatecount);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -798,6 +943,9 @@ class DBProductUsageMethods {
      * @return              Filter String
      */
     private String buildSingleProductUsageFilter(long productref, long aislref) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
                         " = " +
@@ -816,6 +964,9 @@ class DBProductUsageMethods {
      * @return              ContentValues Where Clause
      */
     private String buildCVWhereClause() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL +
                 " = ? " + DBConstants.SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL +

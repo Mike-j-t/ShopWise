@@ -9,6 +9,7 @@
     android:layout_height="match_parent"
     android:descendantFocusability="afterDescendants"
     >
+    <include layout="@layout/colourswatch"></include>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

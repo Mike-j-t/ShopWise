@@ -31,6 +31,66 @@ public class StandardAppConstants{
     public static final String INTENTKEY_CALLINGMODE = "ik_callermode";
 
     /**
+     * DEVMODE Constants are used to control what log messages are output
+     *
+     * DEVMODE itself is ultimate for any logging at all it must be true.
+     * DEVMODE_???? constants control the respective class
+     *
+     * NOTE!!!! These aren't FINAL to potentially allow them to be dynamically
+     *          changed in order to allow debugging production app.
+     *          Not yet implemented.
+     */
+    public static boolean DEVMODE = true;
+    public static boolean DEVMODE_MAINACTIVITY = false;
+    public static boolean DEVMODE_ACTIONCOLORCODING = false;
+    public static boolean DEVMODE_ACTIVYMENUOPTION = false;
+    public static boolean DEVMODE_ADAPTERAISLELIST = false;
+    public static boolean DEVMODE_ADAPTERCHECKLIST = false;
+    public static boolean DEVMODE_ADAPTERFILELIST = false;
+    public static boolean DEVMODE_ADAPTERMAINACTIVITYOPTIONSMENU = false;
+    public static boolean DEVMODE_ADAPTERORDERLIST = false;
+    public static boolean DEVMODE_ADAPTERPRODUCTLIST = false;
+    public static boolean DEVMODE_ADAPATERPROMPTEDRULELIST = false;
+    public static boolean DEVMODE_ADAPTERRULELIST = false;
+    public static boolean DEVMODE_ADAPTERRULEPERIODLIST = false;
+    public static boolean DEVMODE_ADAPTERSHOPLIST = false;
+    public static boolean DEVMODE_ADAPATERSHOPPINGLIST = false;
+    public static boolean DEVMODE_ADAPTERSTOCKLIST = false;
+    public static boolean DEVMODE_ADPATERSTOCKLISTLIST = false;
+    public static boolean DEVMODE_AISLESACTIVITY = false;
+    public static boolean DEVMODE_BACKUPACTIVITY = false;
+    public static boolean DEVMODE_DBAPPVALUESMETHODS = false;
+    public static boolean DEVMODE_DBHELPER = false;
+    public static boolean DEVMODE_DBPRODUCTMETHODS = false;
+    public static boolean DEVMODE_CHECKLISTACTIVITY = false;
+    public static boolean DEVMODE_DBAISLEMETHODS = false;
+    public static boolean DEVMODE_DBDAO = false;
+    public static boolean DEVMODE_DBPRODUCTUSAGEMETHODS = false;
+    public static boolean DEVMODE_DBRULEMETHODS = false;
+    public static boolean DEVMODE_DBSHOPLISTMETHODS = false;
+    public static boolean DEVMODE_DBSHOPMETHODS = false;
+    public static boolean DEVMODE_EXTERNALSTORAGEPERMISSIONS = false;
+    public static boolean DEVMODE_INTEGRITYCHECKDBHELPER = false;
+    public static boolean DEVMODE_ORDERACTIVITY = false;
+    public static boolean DEVMODE_PRODUCTSACTIVITY = false;
+    public static boolean DEVMODE_PRODUCTSADDEDITACTIVITY = false;
+    public static boolean DEVMODE_PROMPTEDRULESACTIVITY = false;
+    public static boolean DEVMODE_REQUESTDIALOG = false;
+    public static boolean DEVMODE_REQUESTDIALOGPARAMETERS = false;
+    public static boolean DEVMODE_RULESACTIVITY = false;
+    public static boolean DEVMODE_RULESADDEDITACTIVITY = false;
+    public static boolean DEVMODE_RULETOOLSACTIVITY = false;
+    public static boolean DEVMODE_SHOPPINGACTIVITY = false;
+    public static boolean DEVMODE_SHOPPINGENTRYADJUSTACTIVITY = false;
+    public static boolean DEVMODE_SHOPSACTIVITY = false;
+    public static boolean DEVMODE_SHOPSADDEDITACTIVITY = false;
+    public static boolean DEVMODE_SPINNERMOVE = false;
+    public static boolean DEVMODE_STOCKACTIVITY = false;
+    public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
+    public static boolean DEVMODE_STOCKLISTACTIVITY = false;
+    public static boolean DEVMODE_TOOLSACTIVITY = true;
+
+    /**
      * Intent keys (DB based i.e. used for passing DB derived values)
      */
     public static final String INTENTKEY_SHOPID = "ik_shopid";

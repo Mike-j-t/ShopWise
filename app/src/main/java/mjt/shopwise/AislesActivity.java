@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +43,8 @@ public class AislesActivity extends AppCompatActivity{
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
     private static String shopfilter = "";
+    public static final String THISCLASS = AislesActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_AA";
 
 
     Context context;
@@ -59,6 +64,7 @@ public class AislesActivity extends AppCompatActivity{
      */
     int passedmenucolorcode;
 
+    LinearLayout screen;
     TextView messagebar;
     TextView donebutton;
     TextView newbutton;
@@ -117,7 +123,9 @@ public class AislesActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aisles);
         context = this;
@@ -129,6 +137,7 @@ public class AislesActivity extends AppCompatActivity{
                 StandardAppConstants.INTENTKEY_CALLINGMODE,0);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
+        //screen = (LinearLayout) findViewById(R.id.aislesactivity_ms);
         donebutton = (TextView) findViewById(R.id.aisles_donebutton);
         newbutton = (TextView) findViewById(R.id.aisles_newaislebutton);
         aiselist = (ListView) findViewById(R.id.aisles_aislelist);
@@ -140,25 +149,40 @@ public class AislesActivity extends AppCompatActivity{
         /**
          * Apply Color Coding
          */
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Preparing Colour Coding", this, methodname);
         actionbar = getSupportActionBar();
-        ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
         h1 = ActionColorCoding.setHeadingColor(this,getIntent(),1);
         h2 = ActionColorCoding.setHeadingColor(this,getIntent(),2);
         h3 = ActionColorCoding.setHeadingColor(this,getIntent(),3);
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
+        ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
+
+        //GradientDrawable gd = new GradientDrawable();
+        //gd.setStroke(3,primary_color);
+        //ColorDrawable cd = new ColorDrawable();
+        //cd.setColor(primary_color);
+        //screen.setBackground((Drawable) gd);
+
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(newbutton, primary_color);
         aislelistheading.setBackgroundColor(h1);
         ActionColorCoding.setActionButtonColor(selectshoplist,h2);
         selectshoplabel.setTextColor(primary_color);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
+
+        msg = "DB Initialisations";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
         dbproductmethods = new DBProductMethods(this);
         setDBCounts();
 
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Preparing ShopList", this, methodname);
         slcsr = dbshopmethods.getShops("", shopsorderby);
         selectshoplistadapter = new AdapterShopList(this,
                 slcsr,
@@ -169,7 +193,9 @@ public class AislesActivity extends AppCompatActivity{
         selectshoplist.setAdapter(selectshoplistadapter);
         setSelectShopListener();
 
-        alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Preparing AisleList", this, methodname);
+        alcsr = dbaislemethods.getAisles(shopfilter,orderby,false);
         aislelistadapter = new AdapterAisleList(
                 this,
                 alcsr,
@@ -208,6 +234,8 @@ public class AislesActivity extends AppCompatActivity{
      */
     @Override
     protected void onResume() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         super.onResume();
 
         switch (resumestate) {
@@ -223,10 +251,11 @@ public class AislesActivity extends AppCompatActivity{
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
-        alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+        alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
         aislelistadapter.swapCursor(alcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
         setDBCounts();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 
     /**************************************************************************
@@ -235,8 +264,11 @@ public class AislesActivity extends AppCompatActivity{
      */
     @Override
     protected void onDestroy() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         super.onDestroy();
         slcsr.close();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 
     /**************************************************************************
@@ -245,6 +277,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         switch (view.getId()) {
             case R.id.aisles_donebutton:
                 this.finish();
@@ -265,6 +299,8 @@ public class AislesActivity extends AppCompatActivity{
      *                  the mode i.e. Add as opposed to edit
      */
     public void addAisle() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         Intent intent = new Intent(this,AislesAddEditActivity.class);
         intent.putExtra(menucolorcode,passedmenucolorcode);
         intent.putExtra(StandardAppConstants.INTENTKEY_AISLESHOPREF,
@@ -274,6 +310,10 @@ public class AislesActivity extends AppCompatActivity{
                 THIS_ACTIVITY);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_ADD);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Start Activity " + AislesAddEditActivity.class.getSimpleName() +
+                " in ADD Mode",
+                this,methodname);
         startActivity(intent);
     }
 
@@ -282,6 +322,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param values
      */
     public void aisleEdit(RequestDialogParameters values) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         AislesActivity activity = (AislesActivity) values.getPassedactivity();
         long aisleid = values.getLong1();
         Intent intent = new Intent(this,AislesAddEditActivity.class);
@@ -310,6 +352,10 @@ public class AislesActivity extends AppCompatActivity{
                 alcsr.getLong(
                         alcsr.getColumnIndex(AISLESHOPREF_COLUMN)));
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Start Activity " + AislesAddEditActivity.class.getSimpleName() +
+                " in EDIT Mode",
+                this,methodname);
         startActivity(intent);
     }
 
@@ -318,16 +364,23 @@ public class AislesActivity extends AppCompatActivity{
      * @param values
      */
     public void aisleDelete(RequestDialogParameters values) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Deleting Aisles" + currentaislename,
+                this,methodname);
         Activity activity = (values.getPassedactivity());
         AislesActivity  aa = (AislesActivity) activity;
         aa.dbaislemethods.deleteAisle(values.getLong1(),false);
-        aa.alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+        aa.alcsr = dbaislemethods.getAisles(shopfilter, orderby, false);
         aa.aislelistadapter.swapCursor(alcsr);
         aa.setMessage(aa,"Aisle " +
                 currentaislename +
                 " Deleted.",
                 true);
         setDBCounts();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Deleted Aisle " + currentaislename,
+                this,methodname);
     }
 
     /**************************************************************************
@@ -335,6 +388,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param values    a RequestDialogParameters instance
      */
     public void aisleStock(RequestDialogParameters values) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         long aisleid = values.getLong1();
         Intent intent = new Intent(this,StockActivity.class);
         intent.putExtra(
@@ -362,6 +417,9 @@ public class AislesActivity extends AppCompatActivity{
                 alcsr.getLong(
                         alcsr.getColumnIndex(AISLESHOPREF_COLUMN)));
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Starting Activity " + StockActivity.class.getSimpleName(),
+                this,methodname);
         startActivity(intent);
     }
 
@@ -371,6 +429,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         lastmessage = getResources().getString(R.string.aisleslabel) +
                 " sorted by ";
         switch (view.getId()) {
@@ -385,7 +445,8 @@ public class AislesActivity extends AppCompatActivity{
                 break;
         }
         if (sortchanged) {
-            alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Sorting",this,methodname);
+            alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
             aislelistadapter.swapCursor(alcsr);
             if (ordertype) {
                 lastmessage = lastmessage + "ascending)";
@@ -393,6 +454,9 @@ public class AislesActivity extends AppCompatActivity{
                 lastmessage = lastmessage + "descending)";
             }
             setMessage(this,lastmessage,false);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                    "Sorted by " + orderby,
+                    this,methodname);
         }
     }
 
@@ -404,6 +468,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param id       The row id of the item that was clicked.
      */
     public void listItemClick(View view, int position, long id) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         setDBCounts();
         long aisleid = alcsr.getLong(
                 alcsr.getColumnIndex(AISLEID_COLUMN));
@@ -429,6 +495,9 @@ public class AislesActivity extends AppCompatActivity{
         }
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisleid,0,0,0,0,0);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Calling AlertDiaolg",
+                this,methodname);
         new RequestDialog().requestDialog(thisactivity,
                 classname,
                 title, message,
@@ -444,6 +513,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param id
      */
     public void listItemLongClick(View view, int position, long id) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
         long aisleid = alcsr.getLong(
                 alcsr.getColumnIndex(AISLEID_COLUMN));
         currentaislename = alcsr.getString(
@@ -466,6 +537,9 @@ public class AislesActivity extends AppCompatActivity{
         values.setMIXTRPPLONGINT(aisleid,0,0,0,0,0);
 
         String classname = this.getClass().getCanonicalName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Calling Alert Dialog",
+                this,methodname);
         new RequestDialog().requestDialog(thisactivity, classname,
                 title,message,
                 positivebuttontext,negativebuttontext,neutralbuttontext,
@@ -479,6 +553,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.
@@ -497,6 +573,10 @@ public class AislesActivity extends AppCompatActivity{
         }
         orderfld = neworderfld;
         sortchanged = true;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Orderby field to be changed=" +  Boolean.toString(sortchanged) +
+                " will be " + orderby,
+                this,methodname);
     }
 
     /**************************************************************************
@@ -509,6 +589,8 @@ public class AislesActivity extends AppCompatActivity{
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(AislesActivity aa, String msg, boolean flag) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
         TextView messagebar = (TextView) aa.findViewById(
                 R.id.aisles_messagebar
@@ -521,6 +603,9 @@ public class AislesActivity extends AppCompatActivity{
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Set Message=" + messagebar.getText().toString(),
+                this,methodname);
     }
 
     /**************************************************************************
@@ -528,6 +613,8 @@ public class AislesActivity extends AppCompatActivity{
      *                  tables.
      */
     private void setDBCounts() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
@@ -537,6 +624,8 @@ public class AislesActivity extends AppCompatActivity{
      *
      */
     void setSelectShopListener() {
+        final String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         selectshoplist.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
             @Override
@@ -553,10 +642,17 @@ public class AislesActivity extends AppCompatActivity{
                 shopfilter = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
                         " = " +
                         Long.toString(currentshopid);
-                alcsr = dbaislemethods.getAisles(shopfilter,orderby);
+                alcsr = dbaislemethods.getAisles(shopfilter,orderby, false);
                 if (aislesadapterset) {
                     aislelistadapter.swapCursor(alcsr);
                 }
+                String msg = "Selected Shop=" + currentshopname +
+                        " id=" + Long.toString(currentshopid);
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                        AislesActivity.LOGTAG,
+                        msg,
+                        AislesActivity.THISCLASS,
+                        methodname);
             }
 
             @Override

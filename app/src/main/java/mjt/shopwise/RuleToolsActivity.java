@@ -42,16 +42,26 @@ public class RuleToolsActivity extends AppCompatActivity{
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = RuleToolsActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_RTA";
 
     protected void onCreate(Bundle savedInstanceState) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruletools);
         context = this;
         thisactivity = (Activity)context;
+        msg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
                 StandardAppConstants.INTENTKEY_CALLINGMODE,0);
+
+        msg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
@@ -72,6 +82,7 @@ public class RuleToolsActivity extends AppCompatActivity{
         h2 = ActionColorCoding.setHeadingColor(this,getIntent(),2);
         h3 = ActionColorCoding.setHeadingColor(this,getIntent(),3);
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
+        ActionColorCoding.setActionButtonColor(donebutton,primary_color);
         ActionColorCoding.setActionButtonColor(suggestbutton,primary_color);
         ActionColorCoding.setActionButtonColor(checkbutton,primary_color);
         suggestoverview.setTextColor(primary_color);
@@ -88,6 +99,9 @@ public class RuleToolsActivity extends AppCompatActivity{
      */
     @Override
     protected void onResume() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -110,6 +124,9 @@ public class RuleToolsActivity extends AppCompatActivity{
      */
     @Override
     protected void onDestroy() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onDestroy();
     }
 
@@ -118,11 +135,17 @@ public class RuleToolsActivity extends AppCompatActivity{
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    //TODO working on this to add Suggest and Check, also remove case for backup
     public void actionButtonClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         Intent intent = null;
         switch (view.getId()) {
             case R.id.ruletools_donebutton:
+                msg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.tools_backupbutton:
@@ -135,6 +158,8 @@ public class RuleToolsActivity extends AppCompatActivity{
             intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
             intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,StandardAppConstants.CM_CLEAR);
             intent.putExtra(menucolorcode,passedmenucolorcode + 1);
+            msg = "Starting Activty " + intent.getComponent().getShortClassName();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             startActivity(intent);
         }
     }

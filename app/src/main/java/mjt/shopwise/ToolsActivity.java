@@ -45,12 +45,19 @@ public class ToolsActivity extends AppCompatActivity {
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = ToolsActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_TA";
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
         context = this;
         thisactivity = (Activity)context;
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
@@ -58,6 +65,8 @@ public class ToolsActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
+        logmsg = "Preparing Color Coding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         messagebar = (TextView) findViewById(R.id.tools_messagebar);
         donebutton = (TextView) findViewById(R.id.tools_donebutton);
         backupbutton = (TextView) findViewById(R.id.tools_backupbutton);
@@ -81,6 +90,8 @@ public class ToolsActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(rulesbutton,primary_color);
         rulesoverview.setTextColor(primary_color);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
+
     }
     /**************************************************************************
      * onResume do any processing upon resume of the activity
@@ -91,6 +102,9 @@ public class ToolsActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -113,6 +127,9 @@ public class ToolsActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
     }
 
@@ -122,10 +139,15 @@ public class ToolsActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         Intent intent = null;
         switch (view.getId()) {
             case R.id.tools_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.tools_backupbutton:
@@ -138,9 +160,13 @@ public class ToolsActivity extends AppCompatActivity {
                 break;
         }
         if (intent != null) {
-            intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
-            intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,StandardAppConstants.CM_CLEAR);
+            intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,
+                    THIS_ACTIVITY);
+            intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
+                    StandardAppConstants.CM_CLEAR);
             intent.putExtra(menucolorcode,passedmenucolorcode);
+            logmsg = "Starting " + intent.getComponent().getShortClassName();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             startActivity(intent);
         }
     }
@@ -155,6 +181,9 @@ public class ToolsActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ToolsActivity ta, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) ta.findViewById(R.id.tools_messagebar);
         messagebar.setText(context.getResources().getString(

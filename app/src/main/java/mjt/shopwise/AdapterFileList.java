@@ -27,10 +27,16 @@ public class AdapterFileList extends ArrayAdapter<File> {
 
     private TextView tv_filename;
     private TextView tv_filemod;
-    @SuppressLint("SimpleDateFormat")private SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy 'at' HH:mm");
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy 'at' HH:mm");
+    public static final String THISCLASS = AdapterFileList.class.getSimpleName();
+    public static final String LOGTAG = "SW_AFL(CsrAdpt)";
 
     AdapterFileList(Activity context, int layout, ArrayList<File> flst, Intent intent) {
         super(context, layout, flst);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.context = context;
         this.flst = flst;
         callerintent = intent;
@@ -44,6 +50,9 @@ public class AdapterFileList extends ArrayAdapter<File> {
     @Override
     public View getDropDownView(int position, final View convertview, ViewGroup parent) {
         //super.getDropDownView(position, convertview, parent);
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View v = convertview;
         v = View.inflate(context,R.layout.filelist,null);
         v.setBackgroundResource(R.drawable.textviewborder);
@@ -65,6 +74,9 @@ public class AdapterFileList extends ArrayAdapter<File> {
         tv_filename.setText(flentry.getName());
         tv_filename.setTextColor(Color.BLACK);
         tv_filemod.setText(sdf.format(flentry.lastModified()));
+        msg = "Setting File=" + tv_filename.getText().toString() +
+                " Mod date=" + tv_filemod.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
 
         /*
@@ -81,6 +93,9 @@ public class AdapterFileList extends ArrayAdapter<File> {
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = convertview;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(
@@ -95,6 +110,9 @@ public class AdapterFileList extends ArrayAdapter<File> {
             tv_filename.setText(flentry.getName());
             tv_filename.setTextColor(Color.BLACK);
             tv_filemod.setText(sdf.format(flentry.lastModified()));
+            msg = "Setting File=" + tv_filename.getText().toString() +
+                    " Mod date=" + tv_filemod.getText().toString();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         }
         int evenrow = ActionColorCoding.setHeadingColor(context, callerintent,

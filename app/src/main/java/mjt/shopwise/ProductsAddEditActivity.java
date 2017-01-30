@@ -89,13 +89,20 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = ProductsAddEditActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_PAEA";
 
     protected void onCreate(Bundle savedInstanceState) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productsaddedit);
         context = this;
         thisactivity = (Activity) context;
 
+        msg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         inputproductname_linearlayout = (LinearLayout) findViewById(R.id.inputproductname_linearlayout);
         inputproductname_label = (TextView) findViewById(R.id.inputproductname_label);
         inputproductname = (EditText) findViewById(R.id.inputproductname);
@@ -127,6 +134,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         inputproductname_label.setTextColor(primary_color);
         productfilterlabel.setTextColor(h2);
 
+        msg = "Preparing DataBases";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -134,6 +143,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         setDBCounts();
         this.setTitle(getResources().getString(R.string.productslabel));
 
+        msg = "Preparing ProductList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         plcsr = dbproductmethods.getProducts(productfilter,orderby);
         productlistadapter = new AdapterProductList(this,
                 plcsr,
@@ -143,6 +154,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         );
         productlist.setAdapter(productlistadapter);
 
+        msg = "Extracting and applying Intent Extras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
@@ -171,6 +184,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onResume();
         //setDBCounts();
         switch (resumestate) {
@@ -186,6 +202,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 //messagebar.setVisibility(View.GONE);
                 break;
         }
+        msg = "Refreshing ProductList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         plcsr = dbproductmethods.getProducts(productfilter,orderby);
         productlistadapter.swapCursor(plcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -197,6 +215,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onDestroy();
         plcsr.close();
     }
@@ -207,11 +228,18 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.productaddedit_donebutton:
+                msg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.productaddedit_savebutton:
+                msg = "Saving Data";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 productSave();
                 break;
             default:
@@ -223,6 +251,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      * productSave - Save the Product being added or edited
      */
     public void productSave() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         boolean notdoneok = true;
         String productname = inputproductname.getText().toString();
         String productnamelabel = getResources().getString(
@@ -235,6 +266,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
             msg = productnamelabel + getResources().getString(R.string.inputblank) +
                     " " + productnamelabel + " " + notsaved;
             setMessage(this,msg,notdoneok);
+            logmsg = "Found that Product Name is blank. Not Saving";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
@@ -242,6 +275,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 inputproductname.getText().toString() + " was ";
         switch (calledmode) {
             case StandardAppConstants.CM_ADD:
+                logmsg = "Adding Product=" + productname;
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbproductmethods.insertProduct(
                         inputproductname.getText().toString(),
                         ""
@@ -254,8 +289,13 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 } else {
                     msg = msg + notsaved;
                 }
+                logmsg = "Product=" + productname +
+                        " Added=" + Boolean.toString(!notdoneok);
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
             case StandardAppConstants.CM_EDIT:
+                logmsg = "Updating Product=" + productname;
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbproductmethods.modifyProduct(passedproductid,
                         inputproductname.getText().toString(),
                         ""
@@ -266,8 +306,13 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 } else {
                     msg = msg + notsaved;
                 }
+                logmsg = "Product=" + productname +
+                        " Updated=" + Boolean.toString(!notdoneok);
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
         }
+        logmsg = "Refreshing ProductList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         plcsr = dbproductmethods.getProducts(productfilter,orderby);
         productlistadapter.swapCursor(plcsr);
         setMessage(this,msg,notdoneok);
@@ -279,6 +324,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         lastmessage = "List of Shops sorted by ";
         switch (view.getId()) {
             case R.id.productaddedit_productlist_heading_productname:
@@ -308,6 +356,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      *
      */
     public void addFilterListener(final EditText edittext) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         edittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -335,6 +386,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      *                  tables.
      */
     private void setDBCounts() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
@@ -350,6 +404,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ProductsAddEditActivity pa, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) pa.findViewById(R.id.productssaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -369,6 +426,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

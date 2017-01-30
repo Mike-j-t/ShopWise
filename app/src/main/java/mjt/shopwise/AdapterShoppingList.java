@@ -58,9 +58,14 @@ public class AdapterShoppingList extends CursorAdapter {
 
     private int white = 0;
     private ColorStateList defaultcolor;
+    public static final String THISCLASS = AdapterShoppingList.class.getSimpleName();
+    private static final String LOGTAG = "SW_ASgL(CsrAdptr)";
 
     AdapterShoppingList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, flags);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         this.cursor = csr;
@@ -72,6 +77,9 @@ public class AdapterShoppingList extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.shoppinglist, parent, false
@@ -80,11 +88,17 @@ public class AdapterShoppingList extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         view = initView(view, csr);
     }
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
         TextView adjustbutton = (TextView) view.findViewById(R.id.shoppinglist_adjustbutton);
@@ -150,7 +164,9 @@ public class AdapterShoppingList extends CursorAdapter {
     }
 
     private View initView(View view, Cursor csr) {
-
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int position = csr.getPosition();
 
         TextView productname = (TextView) view.findViewById(R.id.shoppinglist_productname);
@@ -194,7 +210,14 @@ public class AdapterShoppingList extends CursorAdapter {
             totalcost.setTextColor(defaultcolor);
             boughtbutton.setVisibility(View.VISIBLE);
         }
-
+        msg = "SET Shop=" + shopname.getText().toString() +
+                " City=" + shopcity.getText().toString() +
+                " Aisle=" + aislename.getText().toString() +
+                "\n\tProduct=" + productname.getText().toString() +
+                " ToGet=" + numbertoget.getText().toString() +
+                " Price=" + productcost.getText().toString() +
+                " Total+" + totalcost.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
 
@@ -202,6 +225,9 @@ public class AdapterShoppingList extends CursorAdapter {
         if (productusage_aisleref_offset < 0) {
             return;
         }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         shoplist_aisleref_offset = cursor.getColumnIndex(DBShopListTableConstants.SHOPLIST_AISLEREF_COL);
         shoplist_productref_offset = cursor.getColumnIndex(DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL);
         shoplist_dateadded_offset = cursor.getColumnIndex(DBShopListTableConstants.SHOPLIST_DATEADDED_COL);
