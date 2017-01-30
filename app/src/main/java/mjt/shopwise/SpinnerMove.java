@@ -7,10 +7,13 @@ import android.widget.Spinner;
  * moveToColumn. move the spinner (select item) to the
  * item that matches the movetovalue.
  *
- * Note this is for spinner that are based upon a cursor
+ * Note this is for spinners that are based upon a cursor
  */
 
 public class SpinnerMove {
+
+    public static final String THISCLASS = SpinnerMove.class.getSimpleName();
+    private static final String LOGTAG = "SW_SM";
 
     static void moveToColumn(Spinner spinner,
                              long movetovalue,
@@ -18,6 +21,9 @@ public class SpinnerMove {
                              String column
     )
     {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         int position = 0;
         if (movetovalue > 0 ) {
             csr.moveToPosition(-1);
@@ -40,6 +46,9 @@ public class SpinnerMove {
                              boolean animatespinner
     )
     {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         int position = 0;
         if (movetovalue > 0 ) {
             csr.moveToPosition(-1);

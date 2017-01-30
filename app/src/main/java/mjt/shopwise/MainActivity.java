@@ -1,15 +1,21 @@
 package mjt.shopwise;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.lang.reflect.Method;
 
 import static mjt.shopwise.StandardAppConstants.AISLESAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.CHECKLISTAPPVALNAME;
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "MainActivity";
     private static final String LOGTAG = "SW-MA";
+    public static final String THISCLASS = "MainActivity";
 
     /**
      * The Db.
@@ -51,35 +58,12 @@ public class MainActivity extends AppCompatActivity {
      */
     AdapterMainActivityOptionsMenu options_adapter;
     private Cursor mocsr;
-
-
-    /**
-     * The Shopcount.
-     */
     static int shopcount = 0;
-    /**
-     * The Aislecount.
-     */
     static int aislecount = 0;
-    /**
-     * The Productcount.
-     */
     static int productcount = 0;
-    /**
-     * The Productusagecount.
-     */
     static int productusagecount = 0;
-    /**
-     * The Shoplistcount.
-     */
     static int shoplistcount = 0;
-    /**
-     * The Rulecount.
-     */
     static int rulecount = 0;
-    /**
-     * The Appvaluecount.
-     */
     static int appvaluecount = 0;
 
     private static int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -87,10 +71,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
         super.onCreate(savedInstanceState);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "External Storage Permissions Check", this, methodname);
         if(Build.VERSION.SDK_INT >= 23) {
             ExternalStoragePermissions.verifyStoragePermissions(this);
         }
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "DB Initialisations",this,methodname);
         db = new DBHelper(this,DBConstants.DATABASE_NAME,null,1);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
@@ -99,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         dbappvaluesmethods = new DBAppvaluesMethods(this);
         dbproductusagemethods = new DBProductUsageMethods(this);
         dbrulemethods = new DBRuleMethods(this);
+
+        //TODO remove following line, it is here for testing only
+        Cursor tr = dbrulemethods.getToolRules(false,2,1);
         getDBCounts();
 
         /**
@@ -106,9 +99,13 @@ public class MainActivity extends AppCompatActivity {
          *  do not exist then default colors are genereated and stored in the
          *  Appvalues table. Also force a store of values to enforce any updates.
          */
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Preparing Colour Coding", this, methodname);
         ActionColorCoding acc = ActionColorCoding.getInstance(this);
         ActionColorCoding.forceStoreColors(this);
 
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Setting Layout", this, methodname);
         setContentView(R.layout.activity_main);
 
         /**
@@ -117,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
          * a comparison of the DataBase schema against the actual Database
          * (see
          */
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "expanding Database (if required)", this, methodname);
         db.expand(null, true);
 
         /**
@@ -124,8 +123,10 @@ public class MainActivity extends AppCompatActivity {
          * the options menu (do twice to fully resolve any menu changes)
          */
         options_listview = (ListView) this.findViewById(R.id.activity_main_OptionsMenu);
-        String rp_appvalname = StandardAppConstants.RULEPERIODS_APPVALKEY;
 
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Setting RULEPERIODS", this, methodname);
+        String rp_appvalname = StandardAppConstants.RULEPERIODS_APPVALKEY;
         dbappvaluesmethods.insertAppvalue(rp_appvalname,"DAYS",true,true,"");
         dbappvaluesmethods.insertAppvalue(rp_appvalname,"WEEKS",true,true,"");
         dbappvaluesmethods.insertAppvalue(rp_appvalname,"FORTNIGHTS",true,true,"");
@@ -135,8 +136,18 @@ public class MainActivity extends AppCompatActivity {
 
         //Build the menu (do a second time to correct any missed insertions
         // due to deletes)
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Building Options Menu", this, methodname);
         buildMenu();
         buildMenu();
+
+        if (StandardAppConstants.DEVMODE) {
+            Toast.makeText(this,getResources().getString(R.string.devmodeon),Toast.LENGTH_LONG).show();
+            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION,100);
+            tg.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT);
+        }
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Ending", this, methodname);
     }
 
     /**************************************************************************
@@ -148,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         super.onResume();
 
         getDBCounts();
@@ -168,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         }
         buildMenu();
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 
     /**************************************************************************
@@ -176,9 +190,12 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
         super.onDestroy();
         mocsr.close();
         db.close();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 
     /**************************************************************************
@@ -188,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
      * exist etc.
      */
     void getDBCounts() {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
@@ -195,15 +214,23 @@ public class MainActivity extends AppCompatActivity {
         shoplistcount = dbdao.getShoplistCount();
         rulecount = dbrulemethods.getRuleCount();
         appvaluecount = dbappvaluesmethods.getAppvalueCount();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 
     /**************************************************************************
      * buildMenu - Build the Main Activity Options Menu
      *              This menu is built dynamically, as a ListView, from rows
      *              in the Appvalues Table.
-     *              Rows used are those with a Name as defined in MENUOPTIONS.
-     *              The TEXT column has the Text shown by the button (TextView)
-     *              The settingssinfo column contains the notes for the option.
+     *
+     *                  Only rows that have menuoptions (or whatever is defined
+     *                  in StandardAppConstants.MENUOPTIONS) in the NAME column.
+     *
+     *                  The TEXT column has the Text shown by the button.
+     *
+     *                  The settingssinfo column contains the notes for
+     *                  the option.
+     *
+     *
      *              The respective database rows are generated, deleted or
      *              updated according to data in String Arrays menuoptions and
      *              menuoptions_info (defined as MainActivity Class Members
@@ -213,15 +240,18 @@ public class MainActivity extends AppCompatActivity {
      *              build the ListView thus catering for a relatively simple
      *              means of updating the menus as available features change.
      *
-     *
      */
     private void buildMenu() {
-        getDBCounts();
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
+        //getDBCounts();
 
         /**
          * Menu Options String definitions
          */
 
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Setting Option String definitions", this, methodname);
         String include_shops = "(" +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + SHOPSAPPVALNAME + "') ";
@@ -254,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
                 DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                         " = '" + MENUOPTIONS + "' " +
                         DBConstants.SQLAND;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Determening Options to use", this, methodname);
 
         /**
          * Inclusion/visiblity of menuoption logic
@@ -290,6 +322,9 @@ public class MainActivity extends AppCompatActivity {
             filter = filter + ")";
         }
 
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Extracting current APPVALUES Table",
+                this, methodname);
         // Get a cursor with the relevant rows according to the filter
         Cursor csr =  dbdao.getTableRows(
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -297,6 +332,10 @@ public class MainActivity extends AppCompatActivity {
                 filter,
                 ""
         );
+
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Performing comparisons",
+                this, methodname);
         SQLiteDatabase modb = DBHelper.getHelper(this).getWritableDatabase();
         //Phase 1 - determine if there are any rows that need to be added or
         // updated.
@@ -307,12 +346,16 @@ public class MainActivity extends AppCompatActivity {
         boolean notesmatch;
         boolean ordermatch;
         for (int i = 0; i < MAINACTIVITYOPTIONLIST.length; i++) {
+            String msg = "Comparing DEFINED Option Named " + MAINACTIVITYOPTIONLIST[i].getMenuOptionName();
+            // compare cursor values and array equivalents
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                    msg,
+                    this, methodname);
             csr.moveToPosition(-1);     //position before first row
             optionmatch = false;
             notesmatch = false;
             ordermatch = false;
             while (csr.moveToNext()) {
-                // compare cursor values and array equivalents
                 if (csr.getString(csr.getColumnIndex(
                         DBAppvaluesTableConstants.APPVALUES_TEXT_COL
                 )).equals(
@@ -340,11 +383,19 @@ public class MainActivity extends AppCompatActivity {
             // skip to next if both match or only the option mismatches
             // (latter cases means the notes are for another option))
             if ((optionmatch && notesmatch && ordermatch) || (!optionmatch && notesmatch &&ordermatch)) {
+                msg = MAINACTIVITYOPTIONLIST[i].getMenuOptionName() + " Not Changed";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                        msg,
+                        this, methodname);
                 continue;
             }
             ContentValues cv = new ContentValues();
             // insert required as no matches
             if ((!optionmatch)) {
+                msg = "Inserting DEFINED Option " + MAINACTIVITYOPTIONLIST[i].getMenuOptionName();
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                        msg,
+                        this, methodname);
                 dbappvaluesmethods.insertStringAndIntAppvalue(
                         MENUOPTIONS,
                         MAINACTIVITYOPTIONLIST[i].getMenuOptionName(),
@@ -375,6 +426,9 @@ public class MainActivity extends AppCompatActivity {
         }
         // Phase 2 - Determine if and then delete, any rows that have no matching
         //              array entry.
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Checking for deletion of redundant APPVALUES Table options",
+                this, methodname);
         csr.moveToPosition(-1);
         while (csr.moveToNext()) {
             optionmatch = false;
@@ -390,6 +444,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
             if (!optionmatch) {
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                        "Deleting redundant Option " +
+                                csr.getString(csr.getColumnIndex(
+                                        DBAppvaluesTableConstants.APPVALUES_TEXT_COL
+                                )),
+                        this, methodname);
                 String sql = "DELETE FROM " +
                         DBAppvaluesTableConstants.APPVALUES_TABLE +
                         DBConstants.SQLWHERE +
@@ -405,9 +465,19 @@ public class MainActivity extends AppCompatActivity {
                                 )) +
                         "' " + DBConstants.SQLENDSTATEMENT;
                 modb.execSQL(sql);
+            } else {
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                        "Not Deleteing Option " +
+                                csr.getString(csr.getColumnIndex(
+                                        DBAppvaluesTableConstants.APPVALUES_TEXT_COL
+                                )),
+                        this, methodname);
             }
         }
         csr.close();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Building the Options ListView and setting the adapter.",
+                this, methodname);
         // Phase 3 build the actual Listview that is displayed
         String order = DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL + DBConstants.SQLORDERASCENDING;
         mocsr = dbdao.getTableRows(
@@ -423,6 +493,7 @@ public class MainActivity extends AppCompatActivity {
                 ,this.getIntent()
         );
         options_listview.setAdapter(options_adapter);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
 
     }
 
@@ -434,6 +505,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view the view (TextView acting as Button)that was clicked
      */
     public void actionButtonClick(View view) {
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
         Integer tag = (Integer) view.getTag();
         Intent intent;
         switch (tag) {
@@ -497,5 +570,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
         intent.putExtra(INTENTKEY_CALLINGMODE,(int)0);
         startActivity(intent);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 }

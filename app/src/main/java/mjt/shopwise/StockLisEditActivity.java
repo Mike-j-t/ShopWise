@@ -19,13 +19,14 @@ import android.widget.TextView;
 public class StockLisEditActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "StockListEditActivity";
-    private static final String LOGTAG = "SW-SLEA";
+    private static final String LOGTAG = "SW_SLEA";
     private static String caller;
     private static int calledmode;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = StockLisEditActivity.class.getSimpleName();
 
-    DBDAO dbdao;
+    //DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
     DBProductMethods dbproductmethods;
@@ -143,10 +144,16 @@ public class StockLisEditActivity extends AppCompatActivity {
     long currentproductid = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stocklistedit);
         context = this;
         thisactivity = (Activity) context;
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
@@ -162,6 +169,8 @@ public class StockLisEditActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_PUPRODUCTREF,0);
 
 
+        logmsg = "Preparing Color Coding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         actionbar = getSupportActionBar();
         messagebar = (TextView) findViewById(R.id.stocklistedit_messagebar);
         donebutton = (TextView) findViewById(R.id.stocklistedit_donebutton);
@@ -211,14 +220,16 @@ public class StockLisEditActivity extends AppCompatActivity {
         inputchecklistflaglabel.setTextColor(primary_color);
         inputchecklistcountlabel.setTextColor(primary_color);
 
-        this.setTitle(getResources().getString(R.string.stocklabel));
-
-        dbdao = new DBDAO(this);
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        //dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
         dbpumethods = new DBProductUsageMethods(this);
         dbproductmethods = new DBProductMethods(this);
 
+        logmsg = "Populating Lists";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         populateFromDB();
     }
 
@@ -231,6 +242,9 @@ public class StockLisEditActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -246,7 +260,8 @@ public class StockLisEditActivity extends AppCompatActivity {
                 break;
         }
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
-        this.setTitle(getResources().getString(R.string.stocklabel));
+        logmsg = "Refreshing Lists";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         populateFromDB();
     }
 
@@ -256,6 +271,9 @@ public class StockLisEditActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         stockedcursor.close();
     }
@@ -266,8 +284,13 @@ public class StockLisEditActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.stocklistedit_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.stocklistedit_savebutton:
@@ -282,6 +305,9 @@ public class StockLisEditActivity extends AppCompatActivity {
      *
      */
     public void stockListEditSave() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Emsg emsg = new Emsg();
         double newcost;
         String newcost_str;
@@ -297,6 +323,9 @@ public class StockLisEditActivity extends AppCompatActivity {
         } else {
             setMessage(this,emsg.getErrorMessage(),true);
             inputstockcost.requestFocus();
+            logmsg = "Unable to Save as Price is Inavlid error=" +
+                    emsg.getErrorMessage();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
@@ -307,6 +336,9 @@ public class StockLisEditActivity extends AppCompatActivity {
         } else {
             setMessage(this,emsg.getErrorMessage(),true);
             inputstockorder.requestFocus();
+            logmsg = "Unable to Save as Order is Invalid error=" +
+                    emsg.getErrorMessage();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
         newchklistcount_str = inputchecklistcount.getText().toString();
@@ -316,11 +348,16 @@ public class StockLisEditActivity extends AppCompatActivity {
         } else {
             setMessage(this, emsg.getErrorMessage(),true);
             inputchecklistcount.requestFocus();
+            logmsg = "Unable to Save as Count is Invalid error=" +
+                    emsg.getErrorMessage();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
         if ((productname.getText().toString()).length() < 1) {
             setMessage(this,getResources().getString(R.string.inputblank),true);
             productname.requestFocus();
+            logmsg = "Unable to save as ProductName is blank";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
         dbpumethods.modifyProductUsage(currentproductid,currentaisleid,
@@ -328,6 +365,9 @@ public class StockLisEditActivity extends AppCompatActivity {
         dbproductmethods.modifyProduct(currentproductid,
                 productname.getText().toString(),"");
         setMessage(this,getResources().getString(R.string.editedok),false);
+        logmsg = "Stock and underlying Product have been modifed. " +
+                "Lists have been refreshed";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         populateFromDB();
 
     }
@@ -336,6 +376,9 @@ public class StockLisEditActivity extends AppCompatActivity {
      *
      */
     public void populateFromDB() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockfilter = AISLEREF_COLUMN + " = " + Long.toString(currentaisleid) +
                 " AND " +
                 PRODUCTREF_COLUMN + " = " + Long.toString(currentproductid);
@@ -377,6 +420,9 @@ public class StockLisEditActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(StockLisEditActivity slea, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) slea.findViewById(R.id.stocklistedit_messagebar);
         messagebar.setText(context.getResources().getString(

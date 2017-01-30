@@ -135,13 +135,19 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
 
     //private static final String filter = SHOPLISTNUMBERTOGET_FULLCOLUMN + " > 0 ";
     private static final String filter = "";
+    public static final String THISCLASS = ShoppingEntryAdjustActivity.class.getSimpleName();
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingadjust);
         context = this;
         thisactivity = (Activity) context;
+        logmsg = "retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
@@ -161,6 +167,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_SHOPLISTQUANTITY,0
         );
 
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -169,6 +177,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         dbpumethods = new DBProductUsageMethods(this);
         dbrulemethods = new DBRuleMethods(this);
 
+        logmsg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         originalvaluesheading = (LinearLayout) findViewById(R.id.shoppingadjust_orginalvalues_heading);
         donebutton = (TextView) findViewById(R.id.shoppingadjust_donebutton);
         savebutton = (TextView) findViewById(R.id.shoppingadjust_savebutton);
@@ -236,6 +246,9 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -247,12 +260,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
             case StandardAppConstants.RESUMESTATE_ALT4:
                 break;
             default:
-                //messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
-        //slcsr = dbshoplistmethods.getExpandedShopListEntries(filter);
-        //shoppinglistadapter.swapCursor(slcsr);
-        //refreshDisplay();
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     }
 
@@ -262,8 +271,10 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
-        //slcsr.close();
     }
 
     /**************************************************************************
@@ -272,9 +283,14 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         String msg = "";
         switch (view.getId()) {
             case R.id.shoppingadjust_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.shoppingadjust_morebutton:
@@ -284,19 +300,23 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 );
                 msg = "Number to purchase increased by 1";
                 setMessage(this,msg,false);
+                logmsg = "Increased Quantity by 1";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
             case R.id.shoppingadjust_lessbutton:
                 int tcost = Integer.parseInt(new_quantity_et.getText().toString());
-                if (tcost > 1) {
+                if (tcost > 0) {
                     tcost = tcost - 1;
                     new_quantity_et.setText(Integer.toString(tcost));
                     msg = "Number to get reduced by 1";
                     setMessage(this,msg,false);
 
                 } else {
-                    msg = "Sorry, Number to get cannot be changed to less than 1";
+                    msg = "Sorry, Number to get cannot be changed to less than 0";
                     setMessage(this,msg,true);
                 }
+                logmsg = "Decreased Quantity by 1";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
             case R.id.shoppingadjust_undobutton:
                 new_productname_et.setText(orig_productname);
@@ -304,6 +324,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 new_cost_et.setText(Double.toString(orig_cost));
                 msg = "Values reset to their original values.";
                 setMessage(this,msg,false);
+                logmsg = "Reset values to their original values";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
             case R.id.shoppingadjust_savebutton:
                 doSave();
@@ -317,6 +339,9 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
      *
      */
     public void doSave() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         boolean updateallok = true;
         String msg = "";
         Emsg emsg;
@@ -324,13 +349,17 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
             msg = "Product name cannot be blank.";
             setMessage(this,msg,true);
             new_productname_et.requestFocus();
+            logmsg = "Cannot save ShoppingList entry as the Product Name is blank";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
         emsg = ValidateInput.validateMonetary(new_cost_et.getText().toString());
         if (emsg.getErrorIndicator()) {
-            msg = "Cost " +emsg.getErrorMessage();
+            msg = "Cost " + emsg.getErrorMessage();
             setMessage(this,msg,true);
             new_cost_et.requestFocus();
+            logmsg = "Cannot save ShoppingList entry as " + msg;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
         emsg = ValidateInput.validateInteger(new_quantity_et.getText().toString());
@@ -338,6 +367,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
             msg = "Quantity " + emsg.getErrorMessage();
             setMessage(this,msg,true);
             new_quantity_et.requestFocus();
+            logmsg = "Cannot save ShoppingList entry as " + msg;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
             }
         if (orig_quantity != Integer.parseInt(new_quantity_et.getText().toString())) {
@@ -385,6 +416,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         } else {
             setMessage(this,"Nothing changed, so nothing was done",true);
         }
+        logmsg = "ShopingList entry updated=" + Boolean.toString(updateallok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -397,6 +430,9 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ShoppingEntryAdjustActivity seaa, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) seaa.findViewById(
                 R.id.shoppingadjust_messagebar);

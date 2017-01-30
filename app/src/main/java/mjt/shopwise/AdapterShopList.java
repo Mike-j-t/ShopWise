@@ -28,6 +28,8 @@ class AdapterShopList extends CursorAdapter {
     private int shops_shopstate_offset = 0;
     private int shops_shopnotes_offset = 0;
     private int shops_shoporder_offset = 0;
+    public static final String THISCLASS = AdapterShopList.class.getSimpleName();
+    private static final String LOGTAG = "SW_SL(CsrAdptr)";
 
 
     /**
@@ -40,6 +42,9 @@ class AdapterShopList extends CursorAdapter {
      */
     AdapterShopList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.ctxt = context;
         this.cursor = csr;
         this.callerintent = intent;
@@ -63,6 +68,9 @@ class AdapterShopList extends CursorAdapter {
                     Intent intent,
                     boolean fromspinner) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
@@ -79,6 +87,9 @@ class AdapterShopList extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.shoplist,
@@ -97,6 +108,9 @@ class AdapterShopList extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int position = csr.getPosition();
         view = initView(view, csr);
     }
@@ -110,6 +124,9 @@ class AdapterShopList extends CursorAdapter {
      */
     @Override
     public View getDropDownView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
         View view = convertview;
         if (fromspinner) {
@@ -140,6 +157,9 @@ class AdapterShopList extends CursorAdapter {
      */
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
         /**
@@ -167,6 +187,9 @@ class AdapterShopList extends CursorAdapter {
      * @return          The modifed view
      */
     private View initView(View view, Cursor cursor) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         TextView nametv = (TextView) view.findViewById(R.id.shoplist_name);
         TextView citytv = (TextView) view.findViewById(R.id.shoplist_city);
@@ -182,15 +205,25 @@ class AdapterShopList extends CursorAdapter {
         nametv.setText(shopname);
         citytv.setText(shopcity);
         ordertv.setText(shoporder);
+        msg = "SET Shopname=" + nametv.getText().toString() +
+                " City=" + citytv.getText().toString() +
+                " Order=" + ordertv.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         return view;
     }
 
     /**
-     * setShopOffsets - get the cursor's column offsets just one
+     * setShopOffsets - get the cursor's column offsets just once
      * @param csr       The SQLite cursor that contains the data as rows
      */
     private void setShopOffsets(Cursor csr) {
+        if (shops_shopid_offset != -1) {
+            return;
+        }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         shops_shopid_offset = csr.getColumnIndex(
                 DBShopsTableConstants.SHOPS_ID_COL
         );

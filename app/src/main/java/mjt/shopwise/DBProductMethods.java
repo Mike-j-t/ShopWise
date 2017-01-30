@@ -12,13 +12,14 @@ import java.util.ArrayList;
  */
 class DBProductMethods {
 
-    private static final String LOGTAG = "DB-PM";
     private Context context;
     private DBDAO dbdao;
     private static SQLiteDatabase db;
     private static long lastproductadded;
     private static boolean lastproductaddok = false;
     private static boolean lastproductupdatedok = false;
+    public static final String THISCLASS = DBProductMethods.class.getSimpleName();
+    private static final String LOGTAG = "SW_DBPM";
 
     /**
      * Instantiates a new Db product methods.
@@ -26,6 +27,9 @@ class DBProductMethods {
      * @param ctxt the ctxt
      */
     DBProductMethods(Context ctxt) {
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         context = ctxt;
         dbdao = new DBDAO(context);
         db = dbdao.db;
@@ -70,6 +74,9 @@ class DBProductMethods {
      * @return true if the product row was found otherwise false
      */
     boolean doesProductExist(long productid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
         String sql = " SELECT " +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
@@ -85,6 +92,8 @@ class DBProductMethods {
             rv = true;
         }
         csr.close();
+        msg = "Returning " + Boolean.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -111,6 +120,9 @@ class DBProductMethods {
      * @return
      */
     Cursor getProductsInAisle(long aisleid, String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String sql = DBConstants.SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
@@ -152,6 +164,9 @@ class DBProductMethods {
      * @return          a cursor containing the products
      */
     Cursor getProductsNotInAisle(long aisleid, String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String sql = DBConstants.SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
@@ -192,6 +207,9 @@ class DBProductMethods {
      * @return the product name as a string
      */
     String getProductName(long productid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String rv = "NOTAPRODUCT";
         if(doesProductExist(productid)) {
             String filter = DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
@@ -210,6 +228,8 @@ class DBProductMethods {
             }
             csr.close();
         }
+        msg = "Returning " + rv;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -220,6 +240,9 @@ class DBProductMethods {
      * @param productnotes notes about the Product
      */
     void insertProduct(String productname, String productnotes) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         long addedid;
         ContentValues cv = new ContentValues();
         cv.put(DBProductsTableConstants.PRODUCTS_NAME_COL,productname);
@@ -230,8 +253,12 @@ class DBProductMethods {
         if (addedid > -1) {
             lastproductadded = addedid;
             lastproductaddok = true;
+            msg = "Added Product=" + productname;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         } else {
             lastproductaddok = false;
+            msg = "Failed to add Product=" + productname;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
     }
 
@@ -243,6 +270,9 @@ class DBProductMethods {
      * @param productnotes New notes (always changed to allow blank)
      */
     void modifyProduct(long productid, String productname, String productnotes) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         if (!doesProductExist(productid)) {
             return;
         }
@@ -258,6 +288,9 @@ class DBProductMethods {
                 whereclause,
                 whereargs)
                 > 0;
+        msg = "Product Modify=" + Boolean.toString(lastproductupdatedok) +
+                " for Product=" + productname;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**
@@ -268,6 +301,9 @@ class DBProductMethods {
      * @param intransaction true if being called from within an existing db                      transaction.
      */
     void deleteProduct(long productid, boolean intransaction) {
+        String msg = "Invoked for Product ID=" + productid;
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String sql;
         int pudeletes = 0;
         int sldeletes = 0;
@@ -281,6 +317,8 @@ class DBProductMethods {
              */
             if(!intransaction) {
                 db.beginTransaction();
+                msg = "Starting DB Transaction";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             }
 
             String whereargs[] = { Long.toString(productid)};
@@ -294,6 +332,9 @@ class DBProductMethods {
                             " = ?",
                     whereargs
             );
+            msg = "Deleted " + Integer.toString(pudeletes) +
+                    " ProductUsage Rows that reference Product ID=" + productid;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
             /**
              * Delete ShopList rows that use this product
@@ -304,6 +345,9 @@ class DBProductMethods {
                             " = ?",
                     whereargs
             );
+            msg = "Deleted " + Integer.toString(sldeletes) +
+                    " ShoppingList Rows that reference Product ID=" + productid;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
             /**
              * Delete Rules rows that use this product
@@ -314,6 +358,9 @@ class DBProductMethods {
                             " = ?",
                     whereargs
             );
+            msg = "Deleted " + Integer.toString(rdeletes) +
+                    " Rule Rows that reference Product ID=" + productid;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
             /**
              * Delete the Product
@@ -324,6 +371,9 @@ class DBProductMethods {
                             " = ?",
                     whereargs
             );
+            msg = "Deleted " + Integer.toString(pdeletes) +
+                    " Products with Product ID=" + productid;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
             /**
              * if originally not in a transaction then as one was started
@@ -332,6 +382,8 @@ class DBProductMethods {
             if(!intransaction) {
                 db.setTransactionSuccessful();
                 db.endTransaction();
+                msg = "Transaction SET and ENDED for Product ID=" + productid;
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             }
         }
     }
@@ -345,6 +397,9 @@ class DBProductMethods {
      * @return a String ArrayList
      */
     ArrayList<String> productDeleteImpact(long productid) {
+        String msg = "Invoked for Product ID=" + productid;
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ArrayList<String> rv = new ArrayList<>();
 
         if (doesProductExist(productid)) {

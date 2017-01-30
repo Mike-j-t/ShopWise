@@ -51,6 +51,8 @@ public class AdapterRuleList extends CursorAdapter {
 
     private int products_productname_offset = 0;
     private int products_productnotes_offset = 0;
+    public static final String THISCLASS = AdapterRuleList.class.getSimpleName();
+    private static final String LOGTAG = "SW_ARL(CsrAdptr)";
 
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
@@ -64,6 +66,9 @@ public class AdapterRuleList extends CursorAdapter {
      */
     AdapterRuleList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.ctxt = context;
         this.callerintent = intent;
         this.fromspinner = false;
@@ -81,6 +86,9 @@ public class AdapterRuleList extends CursorAdapter {
     AdapterRuleList(Context context, Cursor csr, int flags, Intent intent,
                     boolean fromspinner) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.ctxt = context;
         this.callerintent = intent;
         this.fromspinner = fromspinner;
@@ -96,6 +104,9 @@ public class AdapterRuleList extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.rulelist,
@@ -113,6 +124,9 @@ public class AdapterRuleList extends CursorAdapter {
     //TODO Not complete as yet
     @Override
     public View getDropDownView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
         View view = convertview;
         if (fromspinner) {
@@ -125,6 +139,9 @@ public class AdapterRuleList extends CursorAdapter {
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
         int evevrow = ActionColorCoding.setHeadingColor(ctxt,
                 callerintent,
@@ -142,6 +159,9 @@ public class AdapterRuleList extends CursorAdapter {
 
 
     private View initView(View view, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         TextView rulename = (TextView) view.findViewById(R.id.rulelist_rulename);
         TextView productname = (TextView) view.findViewById(R.id.rulelist_productname);
         TextView nextdate = (TextView) view.findViewById(R.id.rulelist_nextdate);
@@ -269,6 +289,12 @@ public class AdapterRuleList extends CursorAdapter {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
         shopinfo.setText(wts);
+        msg = "SET RuleName=" + rulename.getText().toString() +
+                " Product=" + productname.getText().toString() +
+                " AddDate=" + nextdate.getText().toString() +
+                "\n\tRule=" + rule.getText().toString() +
+                " Shop=" + shopinfo.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
 
@@ -276,6 +302,9 @@ public class AdapterRuleList extends CursorAdapter {
         if (rules_ruleid_offset != -1 ) {
             return;
         }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         rules_ruleid_offset = csr.getColumnIndex(
                 DBRulesTableConstants.RULES_ID_COL
         );

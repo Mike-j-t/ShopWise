@@ -25,6 +25,8 @@ public class AdapterProductList extends CursorAdapter {
 
     private static int products_productid_offset = -1;
     private static int products_productname_offset = 0;
+    public static final String THISCLASS = AdapterProductList.class.getSimpleName();
+    private static final String LOGTAG = "SW_APL(CsrAdptr)";
 
     /**
      * AdapterProductList Constructor - shortform for ListView only
@@ -36,6 +38,9 @@ public class AdapterProductList extends CursorAdapter {
      */
     AdapterProductList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.ctxt = context;
         this.cursor = csr;
         this.callerintent = intent;
@@ -50,6 +55,9 @@ public class AdapterProductList extends CursorAdapter {
                        Intent intent,
                        boolean fromspinner) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
@@ -66,6 +74,9 @@ public class AdapterProductList extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.productlist,
@@ -84,6 +95,9 @@ public class AdapterProductList extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         view = initView(view, csr);
     }
 
@@ -96,6 +110,9 @@ public class AdapterProductList extends CursorAdapter {
      */
     @Override
     public View getDropDownView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
 
         View view = convertview;
@@ -126,6 +143,9 @@ public class AdapterProductList extends CursorAdapter {
      * @return              the modified view
      */
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,
@@ -150,15 +170,19 @@ public class AdapterProductList extends CursorAdapter {
      * @return          The modifed view
      */
     private View initView(View view, Cursor cursor) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         TextView nametv = (TextView) view.findViewById(R.id.productlist_name);
 
         String productname = cursor.getString(products_productname_offset);
 
         nametv.setText(productname);
+        msg = "Set Product=" + productname;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
-
 
     /**
      * setProductOffsets
@@ -167,6 +191,9 @@ public class AdapterProductList extends CursorAdapter {
         if (products_productid_offset != -1) {
             return;
         }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         products_productid_offset = csr.getColumnIndex(
                 DBProductsTableConstants.PRODUCTS_ID_COL
         );

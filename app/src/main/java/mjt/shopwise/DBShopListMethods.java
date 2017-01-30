@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -13,13 +14,14 @@ import java.util.ArrayList;
 
 public class DBShopListMethods {
 
-    private static final String LOGTAG = "DB-SLM";
+    private static final String LOGTAG = "SW-DBSLM";
     private Context context;
     private DBDAO dbdao;
     private static SQLiteDatabase db;
     private static TRPLLONG lastshoplistadded = new TRPLLONG(0,0,0);
     private static boolean lastshoplistaddedok = false;
     private static boolean lastshoplistupdatedok = false;
+    public static final String THISCLASS = DBShopListMethods.class.getSimpleName();
 
 
     /**************************************************************************
@@ -27,6 +29,9 @@ public class DBShopListMethods {
      * @param ctxt  the Context to be used
      */
     DBShopListMethods(Context ctxt) {
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         context = ctxt;
         dbdao = new DBDAO(context);
         db = dbdao.db;
@@ -60,14 +65,23 @@ public class DBShopListMethods {
      * @return
      */
     Cursor getShopListEntry(long shoplistid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor rv;
         String filter = DBShopListTableConstants.SHOPLIST_ID_COL_FULL +
                 " = " + Long.toString(shoplistid) +
                 DBConstants.SQLENDSTATEMENT;
-        return DBCommonMethods.getTableRows(db,
+        rv =  DBCommonMethods.getTableRows(db,
                 DBShopListTableConstants.SHOPLIST_TABLE,
                 filter,
                 ""
         );
+        msg = "Returning Cursor for ShoplistID=" +
+                Long.toString(shoplistid) +
+                " rows=" + Integer.toString(rv.getCount());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 
     /**************************************************************************
@@ -76,12 +90,18 @@ public class DBShopListMethods {
      * @return
      */
     boolean doesShopListEntryExist(long shoplistid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
         Cursor csr = getShopListEntry(shoplistid);
         if (csr.getCount() > 0 ) {
             rv = true;
         }
         csr.close();
+        msg = "ShoplistID=" + Long.toString(shoplistid) +
+                "Exists=" + Boolean.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -104,6 +124,9 @@ public class DBShopListMethods {
      * @return
      */
     boolean doesShopListEntryExist(long aisleid, long productid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
         ContentValues cv = new ContentValues();
         String whereargs[] = new String[] {Long.toString(aisleid),
@@ -119,21 +142,33 @@ public class DBShopListMethods {
             rv = true;
         }
         csr.close();
+        msg = "ShoppingList Entry for AisleID=" + Long.toString(aisleid) +
+                " ProductID=" + Long.toString(productid) +
+                " Exists=" + Boolean.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
     /**************************************************************************
-     * Tidy Shopping List - remove shoppinhlist rows that are complete
+     * Tidy Shopping List - remove shoppinglist rows that are complete
      *                      i.e. the numbertoget is 0. Effectively this
      *                      removes items that appear as checked-off.
      */
     void tidyShoppingList() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        int cleancount = 0;
         String whereargs[] = new String[] {
                 "0"
         };
         String whereclause = DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL +
                 " = ?";
-        db.delete(DBShopListTableConstants.SHOPLIST_TABLE,whereclause,whereargs);
+        cleancount = db.delete(DBShopListTableConstants.SHOPLIST_TABLE,
+                whereclause,whereargs);
+        msg = "Tidied " + Integer.toString(cleancount) +
+                " ShoppingList Entries.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -144,6 +179,10 @@ public class DBShopListMethods {
      *                  remaining cost and amount spent
      */
     TRPLDBL getTotals(String filter) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+
         TRPLDBL rv = new TRPLDBL();
         rv.setTRPLDBL(-1,-1,-1);
         String sql = DBConstants.SQLSELECT +
@@ -217,6 +256,14 @@ public class DBShopListMethods {
                     totcsr.getDouble(totcsr.getColumnIndex(DBShopListTableConstants.TOTALSPENT))
             );
         }
+        msg = "Returning Totals as :-" +
+                "\n\tTotal Cost=" +
+                NumberFormat.getCurrencyInstance().format(rv.getdbl1()) +
+                "\tRemaining Cost=" +
+                NumberFormat.getCurrencyInstance().format(rv.getdbl2()) +
+                "\tSpent=" +
+                NumberFormat.getCurrencyInstance().format(rv.getdbl3());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         totcsr.close();
         return rv;
     }
@@ -228,16 +275,28 @@ public class DBShopListMethods {
      * @return
      */
     Cursor getShopListEntries(String filter, String orderby) {
-        return dbdao.getTableRows(DBShopListTableConstants.SHOPLIST_TABLE,
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor rv =  dbdao.getTableRows(
+                DBShopListTableConstants.SHOPLIST_TABLE,
                 "", filter, orderby);
+        msg = "Returning Cursor with " + Integer.toString(rv.getCount()) +
+                " ShoppingList Entries";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 
-    /**
+    /**************************************************************************
      *
      * @param filter    filter to be used "" otherwise
      * @return          the extracted cursor
      */
     Cursor getExpandedShopListEntries(String filter) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor rv;
         String sql = DBConstants.SQLSELECT +
                 DBShopListTableConstants.SHOPLIST_ID_COL_FULL + ", " +
                 DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL + ", " +
@@ -312,7 +371,11 @@ public class DBShopListMethods {
                 DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL_FULL
                 + DBConstants.SQLENDSTATEMENT;
 
-        return db.rawQuery(sql,null);
+        rv = db.rawQuery(sql,null);
+        msg = "returning Cursor with " + Integer.toString(rv.getCount()) +
+                " ShoppingList Entries.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 
     /**************************************************************************
@@ -340,6 +403,9 @@ public class DBShopListMethods {
                                   int numbertoget,
                                   boolean incrementifexists,
                                   boolean adjustdone) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean exists = false;
         int newnumbertoget = 0;
         int newdone = 0;
@@ -389,6 +455,10 @@ public class DBShopListMethods {
             } else {
                 lastshoplistupdatedok = false;
             }
+            msg = "ShoppingList Entry AisleID=" + Long.toString(aisleid) +
+                    " ProductID=" + Long.toString(productid) +
+                    " Updated=" + Boolean.toString(lastshoplistupdatedok);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
         if (!exists) {
             lastshoplistaddedok = false;
@@ -406,6 +476,10 @@ public class DBShopListMethods {
             if (lastshoplistadded.getLong1() > 0) {
                 lastshoplistaddedok = true;
             }
+            msg = "ShoppingList Entry AisleID=" + Long.toString(aisleid) +
+                    " ProductID=" + Long.toString(productid) +
+                    "Added=" + Boolean.toString(lastshoplistaddedok);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
     }
 
@@ -424,6 +498,9 @@ public class DBShopListMethods {
      *
      */
     ArrayList<String> shopListEntryDeleteImpact(long aisleid, long productid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         ArrayList<String> rv = new ArrayList<>();
         String sllfilter = DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
@@ -458,14 +535,21 @@ public class DBShopListMethods {
      * @param shoplistid id of the Shoplist entry to be deleted
      */
     void deleteShopListEntry(long shoplistid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        int deletedcount = 0;
         if (doesShopListEntryExist(shoplistid)) {
             String whereargs[] = {Long.toString(shoplistid)};
-            db.delete(
+            deletedcount = db.delete(
                     DBShopListTableConstants.SHOPLIST_TABLE,
                     DBShopListTableConstants.SHOPLIST_ID_COL + " = ?",
                     whereargs
             );
         }
+        msg = "ShopList Entry for ShopID=" + Long.toString(shoplistid) +
+                " Deleted=" + Boolean.toString(deletedcount > 0);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -474,6 +558,10 @@ public class DBShopListMethods {
      * @param productid     id of the product
      */
     void deleteShopListEntry(long aisleid, long productid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        int deletedcount = 0;
         if (doesShopListEntryExist(aisleid, productid)) {
             String whereargs[] = new String[] {
                     Long.toString(aisleid),
@@ -483,10 +571,14 @@ public class DBShopListMethods {
                     " = ? AND " +
                     DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL +
                     " = ? ";
-            db.delete(
+            deletedcount = db.delete(
                     DBShopListTableConstants.SHOPLIST_TABLE,
                     whereclause,whereargs
             );
         }
+        msg = "ShopList Entry for AisleID=" + Long.toString(aisleid) +
+                " ProductID=" + Long.toString(productid) +
+                " Deleted=" + Boolean.toString(deletedcount > 0);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 }

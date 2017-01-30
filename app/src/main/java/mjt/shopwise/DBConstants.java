@@ -2,6 +2,7 @@ package mjt.shopwise;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 import static mjt.shopwise.DBAislesTableConstants.AISLESTABLE;
 import static mjt.shopwise.DBProductsTableConstants.PRODUCTSTABLE;
@@ -52,6 +53,7 @@ final class DBConstants {
 
     static final String CALCULATED_PRODUTSORDERED_NAME = "orderedcount";
     static final String CALCULATED_TOTALCOST = "calculated_totalcost";
+    static final String CALCULATED_RULEPERIODINDAYS = "periodindays";
 
     /**
      * The Sqlselect.
@@ -110,6 +112,7 @@ final class DBConstants {
     /**
      * The Sqllimit.
      */
+    static final String SQLNULL = " NULL ";
     static final String SQLNOT = " NOT ";
     static final String SQLIN = " IN ";
     static final String SQLNOTIN = SQLNOT + SQLIN;
@@ -117,6 +120,9 @@ final class DBConstants {
     static final String SQLLIMIT = " LIMIT ";
     static final String SQLLIKECHARSTART = " LIKE '%";
     static final String SQLLIKECHAREND = "%' ";
+    static final String SQLIS = " IS ";
+    static final String SQLISNOTNULL = SQLIS + SQLNOT + SQLNULL;
+    static final String SQLISNULL = SQLIS + SQLNULL;
 
     static final String SQLSUM = " SUM(";
     static final String SQLSUMCLOSE = ") ";

@@ -19,7 +19,8 @@ import android.widget.TextView;
 public class CheckListActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "CheckListActivity";
-    private final String LOGTAG = "SW-CLA";
+    private final String LOGTAG = "SW_CLA";
+    public static final String THISCLASS = CheckListActivity.class.getSimpleName();
     private String caller;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
@@ -129,6 +130,9 @@ public class CheckListActivity extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
         context = this;
@@ -146,6 +150,8 @@ public class CheckListActivity extends AppCompatActivity {
         checklist = (ListView) findViewById(R.id.checklist_checklist);
         checklistheading = (LinearLayout) findViewById(R.id.checklist_checklist_heading);
 
+        msg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -157,9 +163,13 @@ public class CheckListActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(resetbutton,primary_color);
         checklistheading.setBackgroundColor(h1);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
+
         /**
          * Perpare to use the database and the underlying methods
          */
+        msg = "Preparing Database Access";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -172,7 +182,6 @@ public class CheckListActivity extends AppCompatActivity {
         checklistadapater = new AdapterChecklist(this,clcsr,0,getIntent());
         checklist.setAdapter(checklistadapater);
 
-
     }
 
     /**************************************************************************
@@ -184,6 +193,9 @@ public class CheckListActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -207,6 +219,9 @@ public class CheckListActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onDestroy();
         clcsr.close();
     }
@@ -217,12 +232,19 @@ public class CheckListActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int position;
         switch (view.getId()) {
             case R.id.checklist_donebutton:
+                msg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.checklist_resetbutton:
+                msg = "Restting Checklist Items";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 dbpumethods.resetChecklistCheckedStatus();
                 clcsr = dbpumethods.getCheckList(filter,orderby);
                 checklistadapater.swapCursor(clcsr);
@@ -230,6 +252,10 @@ public class CheckListActivity extends AppCompatActivity {
             case R.id.checklist_order1_button:
                 position = (int) view.getTag();
                 clcsr.moveToPosition(position);
+                msg = "Ordering 1 Product=" + clcsr.getString(
+                        clcsr.getColumnIndex(PRODUCTNAME_COLUMN)
+                );
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 dbshoplistmethods.addOrUpdateShopListEntry(
                         clcsr.getLong(clcsr.getColumnIndex(AISLEREF_COLUMN)),
                         clcsr.getLong(clcsr.getColumnIndex(PRODUCTREF_COLUMN)),
@@ -238,10 +264,18 @@ public class CheckListActivity extends AppCompatActivity {
                 );
                 clcsr = dbpumethods.getCheckList(filter,orderby);
                 checklistadapater.swapCursor(clcsr);
+                msg = "Ordered 1 Product=" +
+                        clcsr.getString(clcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                        " and Resetting List (swapping cursor for adapter)";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 break;
             case R.id.checklist_less1_button:
                 position = (int) view.getTag();
                 clcsr.moveToPosition(position);
+                msg = "Recalling 1 Product=" + clcsr.getString(
+                        clcsr.getColumnIndex(PRODUCTNAME_COLUMN)
+                );
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 dbshoplistmethods.addOrUpdateShopListEntry(
                         clcsr.getLong(clcsr.getColumnIndex(AISLEREF_COLUMN)),
                         clcsr.getLong(clcsr.getColumnIndex(PRODUCTREF_COLUMN)),
@@ -250,10 +284,18 @@ public class CheckListActivity extends AppCompatActivity {
                 );
                 clcsr = dbpumethods.getCheckList(filter,orderby);
                 checklistadapater.swapCursor(clcsr);
+                msg = "Recalled 1 Product=" +
+                        clcsr.getString(clcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                        " and Resetting List (swapping cursor for adapter)";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 break;
             case R.id.checklist_checkoff_button:
                 position = (int) view.getTag();
                 clcsr.moveToPosition(position);
+                msg = "Toggling Check-off for Product=" + clcsr.getString(
+                        clcsr.getColumnIndex(PRODUCTNAME_COLUMN)
+                );
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 dbpumethods.setChecklistCheckedStatus(
                         clcsr.getLong(clcsr.getColumnIndex(AISLEREF_COLUMN)),
                         clcsr.getLong(clcsr.getColumnIndex(PRODUCTREF_COLUMN))
@@ -261,6 +303,12 @@ public class CheckListActivity extends AppCompatActivity {
                 );
                 clcsr = dbpumethods.getCheckList(filter,orderby);
                 checklistadapater.swapCursor(clcsr);
+                msg = "Toggled Check-off for Product=" +
+                        clcsr.getString(clcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                        " Check-off status =" + Boolean.toString(
+                        clcsr.getInt(clcsr.getColumnIndex(CHECKLISTFLAG_COLUMN)) > 1) +
+                        " and Resetting List (swapping cursor for adapter)";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 break;
             default:
                 break;
@@ -277,6 +325,9 @@ public class CheckListActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(CheckListActivity cla, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) cla.findViewById(R.id.checklist_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -296,6 +347,9 @@ public class CheckListActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.stocklabel) +
                 " in Shop/Aisle sorted by ";
         switch (view.getId()) {
@@ -334,6 +388,9 @@ public class CheckListActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

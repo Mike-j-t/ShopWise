@@ -32,6 +32,8 @@ public class ShopsActivity extends AppCompatActivity {
     private static final String THIS_ACTIVITY = "ShopsActivity";
     private static String caller;
     private static int calledmode;
+    public static final String THISCLASS = ShopsActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_ShopsA";
 
     /**
      * Sorting Shoplist columns
@@ -100,14 +102,22 @@ public class ShopsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops);
         context = this;
         thisactivity = (Activity)context;
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
                 StandardAppConstants.INTENTKEY_CALLINGMODE,0);
+
+        logmsg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
@@ -116,6 +126,7 @@ public class ShopsActivity extends AppCompatActivity {
         shoplist  = (ListView) findViewById(R.id.shops_shoplist);
         shoplistheading = (LinearLayout) findViewById(R.id.shops_shoplist_heading);
         messagebar = (TextView) findViewById(R.id.shops_messagebar);
+
 
         /**
          * Apply Color Coding
@@ -131,14 +142,35 @@ public class ShopsActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(newbutton, primary_color);
         shoplistheading.setBackgroundColor(h1);
 
+        /**
+         * Colour Swatch thinggy
 
-        dbdao = new DBDAO(this);
+        ((TextView)this.findViewById(R.id.cs_main)).setBackgroundColor(primary_color);
+        ((TextView)this.findViewById(R.id.cs_h1)).setBackgroundColor(h1);
+        ((TextView)this.findViewById(R.id.cs_h2)).setBackgroundColor(h2);
+        ((TextView)this.findViewById(R.id.cs_h3)).setBackgroundColor(h3);
+        ((TextView)this.findViewById(R.id.cs_h4)).setBackgroundColor(h4);
+        ((TextView)this.findViewById(R.id.cs_re)).setBackgroundColor(
+                h2 & ActionColorCoding.transparency_requied
+        );
+        ((TextView) this.findViewById(R.id.cs_ro)).setBackgroundColor(
+                h4 & ActionColorCoding.transparency_optional
+        );
+
+         **/
+        ActionColorCoding.setSwatches((View) findViewById(android.R.id.content),this.getIntent());
+
+        //dbdao = new DBDAO(this);
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
         dbproductmethods = new DBProductMethods(this);
         setDBCounts();
         this.setTitle(getResources().getString(R.string.shopslabel));
 
+        logmsg = "Retrieving ShopList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter = new AdapterShopList(
                 this,
@@ -147,6 +179,8 @@ public class ShopsActivity extends AppCompatActivity {
                 getIntent(),
                 false);
         shoplist.setAdapter(shoplistadapter);
+        logmsg = "Adding ShopList OnItemLongClick Listener";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         shoplist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView,
@@ -157,6 +191,8 @@ public class ShopsActivity extends AppCompatActivity {
                 return true;
             }
         });
+        logmsg = "Adding ShopList OnItemClick Listener";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         shoplist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView,
@@ -177,6 +213,9 @@ public class ShopsActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         setDBCounts();
         switch (resumestate) {
@@ -192,6 +231,8 @@ public class ShopsActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        logmsg = "Refreshing ShopList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter.swapCursor(slcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -204,6 +245,9 @@ public class ShopsActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         slcsr.close();
     }
@@ -214,8 +258,13 @@ public class ShopsActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.shops_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.shops_newshopbutton:
@@ -235,6 +284,9 @@ public class ShopsActivity extends AppCompatActivity {
      *
      */
     public void addShop() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Intent intent = new Intent(this,ShopsAddEditActivity.class);
         intent.putExtra(menucolorcode,passedmenucolorcode);
         intent.putExtra(
@@ -244,6 +296,9 @@ public class ShopsActivity extends AppCompatActivity {
         intent.putExtra(
                 StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_ADD);
+        logmsg = "Starting " + ShopsAddEditActivity.class.getSimpleName() +
+                "in ADD mode";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -253,8 +308,10 @@ public class ShopsActivity extends AppCompatActivity {
      * @param values the values
      */
     public void shopEdit(RequestDialogParameters values) {
-        //ShopsActivity sa = (ShopsActivity) values.getPassedactivity();
-        long shopid = values.getLong1();
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        //long shopid = values.getLong1();
         Intent intent = new Intent(this,ShopsAddEditActivity.class);
         intent.putExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY,
@@ -289,6 +346,14 @@ public class ShopsActivity extends AppCompatActivity {
                 )
         );
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        logmsg = "Starting " + ShopsAddEditActivity.class.getSimpleName() +
+                " in EDIT mode for Shop=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPNAME_COLUMN)) + "" +
+                " City=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPCITY_COLUMN));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -300,6 +365,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param values a RequestDialogParameters instance
      */
     public void shopDelete(RequestDialogParameters values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Activity activity = (values.getPassedactivity());
         ShopsActivity sa = (ShopsActivity) activity;
         sa.dbshopmethods.deleteShop(values.getLong1(),false);
@@ -317,6 +385,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param values    a RequestDialogParameters instance
      */
     public void shopStock(RequestDialogParameters values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         long shopid = values.getLong1();
         Intent intent = new Intent(this,StockActivity.class);
         intent.putExtra(
@@ -336,6 +407,14 @@ public class ShopsActivity extends AppCompatActivity {
                 currentshopname
         );
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        logmsg = "Starting " + StockActivity.class.getSimpleName() +
+                " passing Shop=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                " City=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPCITY_COLUMN));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -345,6 +424,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.shopslabel) +
                 " sorted by ";
         switch (view.getId()) {
@@ -383,6 +465,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param id       The row id of the item that was clicked.
      */
     public void listItemClick(View view, int position, long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         long shopid = slcsr.getLong(
                 slcsr.getColumnIndex(SHOPID_COLUMN)
@@ -409,6 +494,13 @@ public class ShopsActivity extends AppCompatActivity {
         }
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(shopid, 0, 0, 0, 0, 0);
+        logmsg = "Presenting OnClick RequestDialog for Shop=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                " City=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPCITY_COLUMN));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         //Activity activitytopass = (Activity)this;
         new RequestDialog().requestDialog(thisactivity,
                 classname,
@@ -428,6 +520,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param id       The row id of the item that was clicked.
      */
     public void listItemLongClick(View view, int position, long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         long shopid = slcsr.getLong(
                 slcsr.getColumnIndex(SHOPID_COLUMN));
@@ -460,6 +555,13 @@ public class ShopsActivity extends AppCompatActivity {
         // Need the class that the methods belong to
         // (note restricted to all being in this class)
         String classname = this.getClass().getCanonicalName();
+        logmsg = "Presenting OnLongClick RequestDialog for Shop=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                " City=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPCITY_COLUMN));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         new RequestDialog().requestDialog(thisactivity, classname,
                 title, message,
                 positivebuttontext, negativebuttontext, neutralbuttontext ,
@@ -472,6 +574,9 @@ public class ShopsActivity extends AppCompatActivity {
      *                  tables.
      */
     private void setDBCounts() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
@@ -487,6 +592,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ShopsActivity sa, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) sa.findViewById(R.id.shops_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -506,6 +614,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

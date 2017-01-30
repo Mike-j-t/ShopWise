@@ -26,6 +26,7 @@ public class RulesActivity extends AppCompatActivity {
     private String caller;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = RulesActivity.class.getSimpleName();
 
     Context context;
     ActionBar actionbar;
@@ -159,14 +160,21 @@ public class RulesActivity extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rules);
         context = this;
         thisactivity = (Activity) context;
+        logmsg = "Retrieving IntentExtras.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
 
+        logmsg = "Preparing ColorCoding and Display";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
@@ -188,6 +196,10 @@ public class RulesActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(addbutton,primary_color);
         rulelistheading.setBackgroundColor(h1);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
+
+        logmsg = "Preparing Databases";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -196,12 +208,16 @@ public class RulesActivity extends AppCompatActivity {
         dbshoplistmethods = new DBShopListMethods(this);
         dbrulemethods = new DBRuleMethods(this);
 
+        logmsg = "Preparing RulesList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rlcsr = dbrulemethods.getExpandedRuleList("",orderby);
         rulelistadpater = new AdapterRuleList(this,rlcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent());
         rulelist.setAdapter(rulelistadpater);
 
+        logmsg = "Preparing OnItemClick Listener";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rulelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view,
@@ -211,6 +227,8 @@ public class RulesActivity extends AppCompatActivity {
             }
         });
 
+        logmsg = "Preparing OnItemLongClick Listener";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rulelist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view,
@@ -231,6 +249,9 @@ public class RulesActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -245,6 +266,8 @@ public class RulesActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        logmsg = "Refreshing RulesList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rlcsr = dbrulemethods.getExpandedRuleList("",orderby);
         rulelistadpater.swapCursor(rlcsr);
         refreshDisplay();
@@ -257,6 +280,9 @@ public class RulesActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         rlcsr.close();
     }
@@ -266,8 +292,13 @@ public class RulesActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.rules_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.rules_addbutton:
@@ -284,8 +315,19 @@ public class RulesActivity extends AppCompatActivity {
      * @param id
      */
     public void listItemLongClick(View view, int position, long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         int cpos = rlcsr.getPosition();
         rlcsr.moveToPosition(position);
+        logmsg = "Preparing RequstDisalog for Rule=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(RULENAME_COLUMN)) + " " +
+                "RuleID=" +
+                Long.toString(
+                        rlcsr.getLong(
+                                rlcsr.getColumnIndex(RULEID_COLUMN)));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         long ruleid = rlcsr.getLong(
                 rlcsr.getColumnIndex(RULEID_COLUMN)
         );
@@ -309,6 +351,8 @@ public class RulesActivity extends AppCompatActivity {
         values.setMIXTRPPLONGINT(ruleid,0,0,0,0,0);
 
         String classname = this.getClass().getCanonicalName();
+        logmsg = "Displaying Prepared RequestDialog";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         new RequestDialog().requestDialog(thisactivity, classname,
                 title,message,
                 positivebuttontext, negativebuttontext, neutralbuttontext,
@@ -323,6 +367,18 @@ public class RulesActivity extends AppCompatActivity {
      * @param id
      */
     public void listItemClick(View view, int position, long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        rlcsr.moveToPosition(position);
+        logmsg = "Preparing RequstDisalog for Rule=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(RULENAME_COLUMN)) + " " +
+                "RuleID=" +
+                Long.toString(
+                        rlcsr.getLong(
+                                rlcsr.getColumnIndex(RULEID_COLUMN)));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         long ruleid = rlcsr.getLong(
                 rlcsr.getColumnIndex(RULEID_COLUMN)
         );
@@ -346,6 +402,8 @@ public class RulesActivity extends AppCompatActivity {
                 "\t" + positivebuttontext + " allows the Rule to be changed.";
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(ruleid,0,0,0,0,0);
+        logmsg = "Displaying Prepared RequestDialog";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         new RequestDialog().requestDialog(thisactivity,
                 classname,
                 title,message,
@@ -359,6 +417,9 @@ public class RulesActivity extends AppCompatActivity {
      * @param values
      */
     public void ruleEdit(RequestDialogParameters values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Activity activity = (values.getPassedactivity());
         RulesActivity ra = (RulesActivity) activity;
         long ruleid = values.getLong1();
@@ -406,6 +467,29 @@ public class RulesActivity extends AppCompatActivity {
                 rlcsr.getInt(
                         rlcsr.getColumnIndex(RULEMULTIPLIER_COLUMN)));
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        logmsg = "Starting Activity=" +
+                RulesAddEditActivity.class.getSimpleName() +
+                " for Rule=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(RULENAME_COLUMN)) +
+                " ID=" +
+                Long.toString(
+                        rlcsr.getLong(
+                                rlcsr.getColumnIndex(RULEID_COLUMN))) +
+                " Product=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                " Shop=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                " City=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(SHOPCITY_COLUMN)) +
+                " Aisle=" +
+                rlcsr.getString(
+                        rlcsr.getColumnIndex(AISLENAME_COLUMN)) +
+                " Mode=EDIT";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -414,6 +498,9 @@ public class RulesActivity extends AppCompatActivity {
      * @param values
      */
     public void ruleDelete(RequestDialogParameters values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Activity activity = (values.getPassedactivity());
         RulesActivity ra = (RulesActivity) activity;
         ra.dbrulemethods.deleteRule(values.getLong1());
@@ -422,11 +509,16 @@ public class RulesActivity extends AppCompatActivity {
         ra.setMessage(ra,"Rule " +
                 currentrulename
                 + " Deleted.",true);
+        logmsg = "Rule " + currentrulename + " Deleted";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
     /**************************************************************************
      *
      */
     public void addRule(){
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Intent intent = new Intent(this,RulesAddEditActivity.class);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,
                 THIS_ACTIVITY);
@@ -434,6 +526,9 @@ public class RulesActivity extends AppCompatActivity {
                 StandardAppConstants.CM_ADD);
         intent.putExtra(menucolorcode,
                 passedmenucolorcode);
+        logmsg = "Starting Activity=" +
+                RulesAddEditActivity.class.getSimpleName() + " Mode=ADD";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -443,6 +538,9 @@ public class RulesActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.ruleslabel) +
                 " sorted by ";
         switch (view.getId()) {
@@ -480,6 +578,9 @@ public class RulesActivity extends AppCompatActivity {
      * refresh the display i.e. the listview and the listview heading
      */
     public void refreshDisplay() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -492,6 +593,9 @@ public class RulesActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(RulesActivity ra, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) ra.findViewById(
                 R.id.rules_messagebar);
@@ -512,6 +616,9 @@ public class RulesActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

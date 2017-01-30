@@ -121,6 +121,7 @@ public class ShoppingActivity extends AppCompatActivity {
 
     //private static final String filter = SHOPLISTNUMBERTOGET_FULLCOLUMN + " > 0 ";
     private static final String filter = "";
+    public static final String THISCLASS = ShoppingActivity.class.getSimpleName();
 
     Cursor slcsr;
     TRPLDBL totals;
@@ -160,14 +161,20 @@ public class ShoppingActivity extends AppCompatActivity {
     String adj_new_productname;
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
         context = this;
         thisactivity = (Activity) context;
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
-
+        logmsg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
@@ -191,6 +198,10 @@ public class ShoppingActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(tidybutton,primary_color);
         shoppinglistheading.setBackgroundColor(h1);
 
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
+
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -199,12 +210,16 @@ public class ShoppingActivity extends AppCompatActivity {
         dbshoplistmethods = new DBShopListMethods(this);
         dbrulemethods = new DBRuleMethods(this);
 
+        logmsg = "Applying Automated Rule Additions";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         refreshDisplay();
         int autoadded = dbrulemethods.applyAutoAddRules();
         String msg = Integer.toString(autoadded) +
                 " Shopping List Entries Added from Rules.";
         //Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
         setMessage(this,msg,false);
+        logmsg = "Invoking Prompted Rules";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         doPromptedRules();
 
 
@@ -231,6 +246,9 @@ public class ShoppingActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -244,6 +262,8 @@ public class ShoppingActivity extends AppCompatActivity {
             default:
                 break;
         }
+        logmsg = "Refreshing ShoppingList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshoplistmethods.getExpandedShopListEntries(filter);
         shoppinglistadapter.swapCursor(slcsr);
         refreshDisplay();
@@ -256,6 +276,9 @@ public class ShoppingActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         slcsr.close();
     }
@@ -266,8 +289,13 @@ public class ShoppingActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.shopping_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.shoppinglist_boughtbutton:
@@ -290,11 +318,22 @@ public class ShoppingActivity extends AppCompatActivity {
     }
 
     public void doPromptedRules() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Cursor palcsr = dbrulemethods.getPromptedRules("","");
         if (palcsr.getCount() < 1 ) {
             palcsr.close();
+            logmsg = "No prompted Rules so returning";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
+        logmsg = "Preparing to invoke" +
+                PromptedRulesActivity.class.getSimpleName() +
+                " to process " + Integer.toString(palcsr.getCount()) +
+                " Prompted Rules" +
+                "\n\tNote!!!! may process more as dates are adjusted.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         palcsr.close();
         Intent intent = new Intent(this,PromptedRulesActivity.class);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
@@ -308,6 +347,9 @@ public class ShoppingActivity extends AppCompatActivity {
      * @param position
      */
     public void doAdjustShoppingEntry(int position) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Intent intent = new Intent(this,ShoppingEntryAdjustActivity.class);
         intent.putExtra(StandardAppConstants.INTENTKEY_MENUCOLORCODE,passedmenucolorcode);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
@@ -339,15 +381,35 @@ public class ShoppingActivity extends AppCompatActivity {
                         slcsr.getColumnIndex(PRODUCTNAME_COLUMN)
                 ));
         slcsr.moveToPosition(cpos);
+        logmsg = "Starting Activity " +
+                ShoppingEntryAdjustActivity.class.getSimpleName() +
+                " for Product=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                " Shop=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                " City=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(SHOPCITY_COLUMN)) +
+                " Aisle=" +
+                slcsr.getString(
+                        slcsr.getColumnIndex(AISLENAME_COLUMN));
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }
 
+    //TODO doAdjust should be removed
     /**************************************************************************
      *
      * @param position
      */
+    /**
     @SuppressLint("SetTextI18n")
     public void doAdjust(int position) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr.moveToPosition(position);
         adj_aisleid = slcsr.getLong(
                 slcsr.getColumnIndex(
@@ -434,6 +496,7 @@ public class ShoppingActivity extends AppCompatActivity {
         adjustdialog.show();
         adw.setAttributes(lp);
     }
+    **/
 
     /**************************************************************************
      * doBought i.e. buy a product
@@ -441,6 +504,9 @@ public class ShoppingActivity extends AppCompatActivity {
      *                      respective item being bought.
      */
     public void doBought(int position) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr.moveToPosition(position);
         long aisleid = slcsr.getLong(
                 slcsr.getColumnIndex(
@@ -473,6 +539,9 @@ public class ShoppingActivity extends AppCompatActivity {
      *
      */
     public void tidyShoppingList() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbshoplistmethods.tidyShoppingList();
         refreshDisplay();
     }
@@ -487,6 +556,9 @@ public class ShoppingActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ShoppingActivity sa, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) sa.findViewById(
                 R.id.shopping_messagebar);
@@ -504,6 +576,9 @@ public class ShoppingActivity extends AppCompatActivity {
      * refresh the display i.e. the listview and the listview heading
      */
     public void refreshDisplay() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshoplistmethods.getExpandedShopListEntries(filter);
         if (!firstrefreshdisplaydone) {
             shoppinglistadapter = new AdapterShoppingList(this, slcsr,
@@ -526,6 +601,9 @@ public class ShoppingActivity extends AppCompatActivity {
      * setup in order to maintain shoppong order.
      */
      public void sortClick(View view) {
+         String logmsg = "Invoked (not shoppinglist sort does nothing)";
+         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
 
     /**************************************************************************

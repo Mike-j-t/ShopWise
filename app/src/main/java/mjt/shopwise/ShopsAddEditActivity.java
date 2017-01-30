@@ -50,6 +50,8 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     private static int h3;
     private static int h4;
     private static int primary_color;
+    public static final String THISCLASS = ShopsAddEditActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_SAEA";
 
 
     /**
@@ -118,11 +120,16 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     private Activity thisactivity;
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopsaddedit);
         context = this;
         thisactivity = (Activity)context;
 
+        logmsg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         inputshopname_linearlayout = (LinearLayout) findViewById(R.id.inputshopname_linearlayout);
         inputshopname_label = (TextView) findViewById(R.id.inputshopname_label);
         inputshopname = (EditText) findViewById(R.id.inputshopname);
@@ -162,11 +169,15 @@ public class ShopsAddEditActivity extends AppCompatActivity {
         inputshoporder_label.setTextColor(h1);
         shoplist_heading.setBackgroundColor(h1);
 
-        dbdao = new DBDAO(this);
+        logmsg = "Preparing Database";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        //dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
         dbproductmethods = new DBProductMethods(this);
 
+        logmsg = "Retrieving ShopList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter = new AdapterShopList(this,
                 slcsr,
@@ -175,6 +186,8 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                 false);
         shoplist.setAdapter(shoplistadapter);
 
+        logmsg = "Retrieving IntentExtras";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         caller = getIntent().getStringExtra(
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
@@ -182,8 +195,12 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_CLEAR
         );
+        logmsg = "Determening ShopOrder for a new Shop (used for ADD mode)";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         setNewOrder(inputshoporder);
         if (calledmode == StandardAppConstants.CM_EDIT) {
+            logmsg = "Populating values, (EDIT mode)";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             passedshopid = getIntent().getLongExtra(
                     StandardAppConstants.INTENTKEY_SHOPID,0);
             passedshopname = getIntent().getStringExtra(
@@ -209,6 +226,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -222,6 +242,8 @@ public class ShopsAddEditActivity extends AppCompatActivity {
             default:
                 break;
         }
+        logmsg = "Refreshing ShopList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter.swapCursor(slcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -233,6 +255,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         slcsr.close();
     }
@@ -243,8 +268,13 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.shopaddedit_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.shopaddedit_savebutton:
@@ -259,6 +289,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      *
      */
     public void shopsave() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         boolean notdoneok = true;
         String shoporder_str = inputshoporder.getText().toString();
         String shopname = inputshopname.getText().toString();
@@ -275,6 +308,8 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                     " " + shoplabel +
                     " " + notsaved;
             setMessage(this,msg,notdoneok);
+            logmsg = "Cannot Save as ShopName is blank";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
@@ -284,6 +319,8 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                     " " + shoplabel + " " + notsaved;
             setMessage(this,msg,notdoneok);
             setNewOrder(inputshoporder);
+            logmsg = "Cannot Save as ShopOrder is blanks";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
         }
 
@@ -292,6 +329,10 @@ public class ShopsAddEditActivity extends AppCompatActivity {
         msg = shoplabel + " " + shopname + " was ";
         switch (calledmode) {
             case StandardAppConstants.CM_ADD:
+                logmsg = "ADD Mode so Adding Shop=" + shopname +
+                        " City=" + inputshopcity.getText().toString() +
+                        " Order=" + Integer.toString(shoporder);
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbshopmethods.insertShop(inputshopname.getText().toString(),
                         shoporder,"",
                         inputshopcity.getText().toString(),"",""
@@ -307,6 +348,10 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                 }
                 break;
             case StandardAppConstants.CM_EDIT:
+                logmsg = "EDIT Mode Shop=" + shopname +
+                        " City=" + inputshopcity.getText() +
+                        " Order=" + Integer.toString(shoporder);
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbshopmethods.modifyShop(passedshopid,
                         shoporder,
                         inputshopname.getText().toString(),"",
@@ -321,9 +366,16 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                 }
                 break;
         }
+        logmsg = "Refreshing ShopList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShops("",orderby);
         shoplistadapter.swapCursor(slcsr);
         setMessage(this,msg,notdoneok);
+        logmsg = "Shop=" + shopname +
+                " City=" + inputshopcity.getText() +
+                " Order=" + Integer.toString(shoporder) +
+                " Add=" + Boolean.toString(!notdoneok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -332,6 +384,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         lastmessage = "List of Shops sorted by ";
         switch (view.getId()) {
             case R.id.shopaddedit_shoplist_heading_shopname:
@@ -365,6 +420,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      *                  tables.
      */
     private void setDBCounts() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
@@ -375,11 +433,22 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      * @param edittext
      */
     private void setNewOrder(EditText edittext) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         int highorder = dbshopmethods.getHighestShopOrder() + 100;
         if (highorder < 1000 ) {
             highorder = 1000;
         }
+        if (highorder > 9999) {
+            highorder = highorder - 100 + 1;
+            if (highorder > 9999) {
+                highorder = 9999;
+            }
+        }
         edittext.setText(Integer.toString(highorder));
+        logmsg = "New Highorder=" + Integer.toString(highorder);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -392,6 +461,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ShopsAddEditActivity sa, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) sa.findViewById(R.id.shopsaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -410,6 +482,10 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.

@@ -24,6 +24,7 @@ public class PromptedRulesActivity extends AppCompatActivity {
     private String caller;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = PromptedRulesActivity.class.getSimpleName();
 
     Context context;
     ActionBar actionbar;
@@ -154,6 +155,9 @@ public class PromptedRulesActivity extends AppCompatActivity {
     AdapterPromptedRuleList rulelistadpater;
 
     protected void onCreate(Bundle savedInstanceState) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promptedrules);
         context = this;
@@ -162,9 +166,10 @@ public class PromptedRulesActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY
         );
 
+        logmsg = "Preparing ColorCoding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode, 0);
-
         messagebar = (TextView) findViewById(R.id.promptedrules_messagebar);
         donebutton = (TextView) findViewById(R.id.promptedrules_donebutton);
         rulelistheading = (LinearLayout) findViewById(R.id.promptedrules_rulelist_heading);
@@ -180,6 +185,8 @@ public class PromptedRulesActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         rulelistheading.setBackgroundColor(h1);
 
+        logmsg = "Preparing Databases";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -188,12 +195,16 @@ public class PromptedRulesActivity extends AppCompatActivity {
         dbshoplistmethods = new DBShopListMethods(this);
         dbrulemethods = new DBRuleMethods(this);
 
+        logmsg = "Preparing RulesList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rlcsr = dbrulemethods.getPromptedRules("",orderby);
         rulelistadpater = new AdapterPromptedRuleList(this,rlcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent());
         rulelist.setAdapter(rulelistadpater);
 
+        logmsg = "Displaying Dialog Explaining Prompted Rules";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         String classname = this.getClass().getCanonicalName();
         String title = "Prompted Rules Exist";
         String positivebuttontext = "";
@@ -237,6 +248,9 @@ public class PromptedRulesActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
@@ -251,6 +265,8 @@ public class PromptedRulesActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        logmsg = "Refreshing RulesList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rlcsr = dbrulemethods.getPromptedRules("",orderby);
         rulelistadpater.swapCursor(rlcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -262,6 +278,9 @@ public class PromptedRulesActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         super.onDestroy();
         rlcsr.close();
     }
@@ -272,6 +291,9 @@ public class PromptedRulesActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.ruleslabel) +
                 " sorted by ";
         switch (view.getId()) {
@@ -312,6 +334,9 @@ public class PromptedRulesActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(PromptedRulesActivity pra, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) pra.findViewById(
                 R.id.promptedrules_messagebar);
@@ -330,6 +355,9 @@ public class PromptedRulesActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.
@@ -356,31 +384,57 @@ public class PromptedRulesActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         int tag, cpos;
 
         switch (view.getId()) {
             case R.id.promptedrules_donebutton:
+                logmsg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.promptedruleslist_skipbutton:
                 tag = Integer.parseInt(view.getTag().toString());
                 cpos = rlcsr.getPosition();
                 rlcsr.moveToPosition(tag);
+                logmsg = "Skipping PromptedRule for " +
+                        rlcsr.getString(
+                                rlcsr.getColumnIndex(RULENAME_COLUMN));
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbrulemethods.applyPromptedRule(rlcsr.getLong(
                         rlcsr.getColumnIndex(
                                 DBRulesTableConstants.RULES_ID_COL
                         )), true);
                 rlcsr = dbrulemethods.getPromptedRules("",orderby);
                 if (rlcsr.getCount() < 1) {
+                    logmsg = "No More Prompted Rules left. Finishing and going to ShoppingList";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                     this.finish();
                 }
+                logmsg = "Refreshing PromptedRulesList";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 rulelistadpater.swapCursor(rlcsr);
                 break;
             case R.id.promptedruleslist_addbutton:
                 tag = Integer.parseInt(view.getTag().toString());
                 cpos = rlcsr.getPosition();
                 rlcsr.moveToPosition(tag);
+                logmsg = "Adding Product=" +
+                        rlcsr.getString(
+                                rlcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                        " Shop=" +
+                        rlcsr.getString(
+                                rlcsr.getColumnIndex(SHOPNAME_COLUMN)) +
+                        " City=" +
+                        rlcsr.getString(
+                                rlcsr.getColumnIndex(SHOPCITY_COLUMN)) +
+                        " Ailse=" +
+                        rlcsr.getString(
+                                rlcsr.getColumnIndex(AISLENAME_COLUMN));
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbrulemethods.applyPromptedRule(rlcsr.getLong(
                         rlcsr.getColumnIndex(
                                 DBRulesTableConstants.RULES_ID_COL
@@ -388,8 +442,12 @@ public class PromptedRulesActivity extends AppCompatActivity {
                 rlcsr.moveToPosition(cpos);
                 rlcsr = dbrulemethods.getPromptedRules("",orderby);
                 if (rlcsr.getCount() < 1) {
+                    logmsg = "No More Prompted Rules left. Finishing and going to ShoppingList";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                     this.finish();
                 }
+                logmsg = "Refreshing PromptedRulesList";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 rulelistadpater.swapCursor(rlcsr);
                 break;
             default:

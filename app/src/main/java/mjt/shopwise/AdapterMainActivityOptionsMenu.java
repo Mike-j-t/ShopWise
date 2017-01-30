@@ -44,6 +44,8 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
     private DBRuleMethods dbrules;
     private Context ctxt;
     private Intent callerintent;
+    public static final String THISCLASS = AdapterMainActivityOptionsMenu.class.getSimpleName();
+    public static final String LOGTAG = "SW_AMAOM(CsrAdpt)";
 
 
     /**
@@ -55,6 +57,9 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
      */
     AdapterMainActivityOptionsMenu(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         colorlist =  context.getResources().getIntArray(R.array.colorList);
         dbshops = new DBShopMethods(context);
         dbaisles = new DBAisleMethods(context);
@@ -68,6 +73,9 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return LayoutInflater.from(context).inflate(
                 R.layout.activity_main_optionsmenu,
                 parent,
@@ -75,6 +83,9 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
     }
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int position = csr.getPosition();
         boolean showthis = true;
 
@@ -104,6 +115,9 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ActionColorCoding acc = ActionColorCoding.getInstance(ctxt);
         View view = super.getView(position,convertview, parent);
 
@@ -136,6 +150,9 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
         // Background colour to the respectibe colour
         ((GradientDrawable) option_tv.getBackground()).setColor(
                 ActionColorCoding.getPrimaryColor(menuoption));
+        msg = "Setting Option=" + option_tv.getText().toString() +
+                " Info=" + option_info_tv.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
 }

@@ -15,18 +15,24 @@ class RequestDialog {
     private Method posmethod = null;
     private Method negmethod = null;
     private Method neumethod = null;
+    public static final String THISCLASS = RequestDialog.class.getSimpleName();
+    private static final String LOGTAG = "SW_RD(generic)";
     /**
      * The Cls.
      */
-    Class<?> cls;
+    private Class<?> cls;
     private RequestDialogParameters rdp;
 
     /**
      * Instantiates a new Request dialog.
      */
-    RequestDialog(){}
+    RequestDialog(){
+        String logmsg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+    }
 
-    /**
+    /**************************************************************************
      * requestDialog - Build an Alretdialog and handle the response by
      * invkoing the respective method, if specified (see notes)
      * <p>
@@ -69,6 +75,9 @@ class RequestDialog {
                        String positiveaction, String negativeaction,
                        String neutralaction,
                        MixTripleLongTripleInt values) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         // Construct the RequestDialogParametes object/insatnce to be sent to
         // the invoked method (if invoked)
@@ -77,6 +86,8 @@ class RequestDialog {
         // build the 3 (up to) potential methods to be invoked
         // Note! if the name given is null or empty then method to invoke
         //          will not be built but will be left as null.
+        logmsg = "Building Request Dialog";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         try {
             cls = Class.forName(callingclass);
             obj = passedactivity;
@@ -121,10 +132,12 @@ class RequestDialog {
                     neutralbuttontext);
         }
         // Finally show the AlertDialog
+        logmsg = "Displaying Built Request Dialog";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rdialog.show();
     }
 
-    /**
+    /**************************************************************************
      * setupButton - Setup the button onClickListener
      * @param method        // declared mthod to be invoked
      * @param rdp           // the parameters to be passed to the method
@@ -135,8 +148,13 @@ class RequestDialog {
                                     final RequestDialogParameters rdp,
                                     int button,
                                     String buttontext) {
+        String logmsg = "Setting Up Request Dialog Button=" + buttontext;
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         if ((button == AlertDialog.BUTTON_POSITIVE) ) {
+            logmsg = "Adding OnClick Listener for Positive Button=" + buttontext;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             rdialog.setPositiveButton(buttontext,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -151,6 +169,8 @@ class RequestDialog {
             );
         }
         if (button == AlertDialog.BUTTON_NEGATIVE) {
+            logmsg = "Adding OnClick Listener for Negative Button=" + buttontext;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             rdialog.setNegativeButton(buttontext,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -165,6 +185,8 @@ class RequestDialog {
             );
         }
         if (button == AlertDialog.BUTTON_NEUTRAL) {
+            logmsg = "Adding OnClick Listener for Neutral Button" + buttontext;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             rdialog.setNeutralButton(buttontext,
                 new DialogInterface.OnClickListener() {
                     @Override

@@ -26,6 +26,8 @@ public class AdapterAisleList extends CursorAdapter{
     private int aisles_aisleorder_offset = 0;
     private int aisles_aisleshopref_offset = 0;
     private int aisles_aislenotes_offset = 0;
+    public static final String THISCLASS = AdapterAisleList.class.getSimpleName();
+    public static final String LOGTAG = "SW_AAL(CsrAdpt)";
 
 
     /**
@@ -38,6 +40,9 @@ public class AdapterAisleList extends CursorAdapter{
      */
     AdapterAisleList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         setAisleOffsets(csr);
@@ -58,6 +63,9 @@ public class AdapterAisleList extends CursorAdapter{
                      Intent intent,
                      boolean fromspinner) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
@@ -74,6 +82,9 @@ public class AdapterAisleList extends CursorAdapter{
      */
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.aislelist,
@@ -92,6 +103,9 @@ public class AdapterAisleList extends CursorAdapter{
      */
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         view = initView(view, csr);
 
     }
@@ -106,6 +120,9 @@ public class AdapterAisleList extends CursorAdapter{
     @Override
     public View getDropDownView(int position, View convertview, ViewGroup parent) {
         super.getDropDownView(position, convertview, parent);
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = convertview;
         if (fromspinner) {
             int cpos = this.cursor.getPosition();
@@ -138,6 +155,9 @@ public class AdapterAisleList extends CursorAdapter{
     public View getView(int position, View convertview, ViewGroup parent) {
         View view = super.getView(position, convertview, parent);
 
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,
                 callerintent,
                 ActionColorCoding.getColorsPerGroup() -1 ) &
@@ -159,6 +179,10 @@ public class AdapterAisleList extends CursorAdapter{
      */
     private View initView(View view, Cursor cursor) {
 
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+
         TextView nametv = (TextView) view.findViewById(R.id.aislelist_name);
         TextView ordertv = (TextView) view.findViewById(R.id.aislelist_order);
 
@@ -167,6 +191,8 @@ public class AdapterAisleList extends CursorAdapter{
 
         nametv.setText(aislename);
         ordertv.setText(aisleorder);
+        msg = "Set AisleName=" + aislename + " Order=" + aisleorder;
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
 
@@ -178,6 +204,9 @@ public class AdapterAisleList extends CursorAdapter{
         if (aisles_aisleid_offset != -1) {
             return;
         }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         aisles_aisleid_offset = csr.getColumnIndex(
                 DBAislesTableConstants.AISLES_ID_COL
         );

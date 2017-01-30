@@ -3,7 +3,6 @@ package mjt.shopwise;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ class DBHelper extends SQLiteOpenHelper {
             "004I Database " + DBNAME + " expand skipped - nothing to alter.";
     private static final String dbbuildskipped =
             "005I Database" + DBNAME + " build skipped - no tables to add";
+    public static final String THISCLASS = DBHelper.class.getSimpleName();
 
     /**
      * Consrtuctor
@@ -85,8 +85,10 @@ class DBHelper extends SQLiteOpenHelper {
         if (buildandexpand) {
             mode = "Expand Mode.";
         }
-        Log.i(LOGTAG,mode);
-        // if no database as been passed then get the database
+        String msg = mode;
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        // if no database has been passed then get the database
         if(db == null) {
             db = instance.getWritableDatabase();
         }
@@ -97,23 +99,27 @@ class DBHelper extends SQLiteOpenHelper {
             ArrayList<String> buildsql = DBConstants.SHOPWISE.generateDBBuildSQL(db);
             if (!buildsql.isEmpty()) {
                 DBConstants.SHOPWISE.actionDBBuildSQL(db);
-                Log.i(LOGTAG, dbcreated + buildsql.size() + " tables added.");
+                msg = dbcreated + buildsql.size() + " tables added.";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             } else {
-                Log.i(LOGTAG, dbbuildskipped);
+                msg = dbbuildskipped;
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             }
             if(buildandexpand) {
                 ArrayList<String> altersql = DBConstants.SHOPWISE.generateDBAlterSQL(db);
                 if(!altersql.isEmpty()) {
-                    Log.i(LOGTAG,dbexpanded + altersql.size() + " columns added.");
+                    msg = dbexpanded + altersql.size() + " columns added.";
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     DBConstants.SHOPWISE.actionDBAlterSQL(db);
                 }  else {
-                    Log.i(LOGTAG,dbexpandskipped);
+                    msg = dbexpandskipped;
+                    LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 }
             }
         } else {
-            Log.e(LOGTAG,dbunusable +
-                    "\n" +
-                    DBConstants.SHOPWISE.getAllDBDatabaseProblemMsgs());
+            msg = dbunusable + "\n" +
+                    DBConstants.SHOPWISE.getAllDBDatabaseProblemMsgs();
+            LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);;
         }
     }
 }

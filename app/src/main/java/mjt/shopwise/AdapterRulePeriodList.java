@@ -22,9 +22,14 @@ public class AdapterRulePeriodList extends CursorAdapter {
 
     private int appvalues_name_offset = -1;
     private int appvalues_text_offset = 0;
+    public static final String THISCLASS = AdapterRulePeriodList.class.getSimpleName();
+    private static final String LOGTAG = "SW_ARPL(CsrAdptr)";
 
     AdapterRulePeriodList(Context context, Cursor csr, int flags, Intent intent) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.ctxt = context;
         this.callerintent = intent;
         this.fromspinner = false;
@@ -34,6 +39,9 @@ public class AdapterRulePeriodList extends CursorAdapter {
     AdapterRulePeriodList(Context context, Cursor csr, int flags, Intent intent,
                           boolean fromspinner) {
         super(context, csr, 0);
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.ctxt = context;
         this.callerintent = intent;
         this.fromspinner = fromspinner;
@@ -43,6 +51,9 @@ public class AdapterRulePeriodList extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor csr, ViewGroup parent) {
+        String msg = "Inflating Layout";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
         return LayoutInflater.from(context).inflate(
                 R.layout.ruleperiodlist,
@@ -53,12 +64,18 @@ public class AdapterRulePeriodList extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         initView(view,csr);
 
     }
 
     @Override
     public View getDropDownView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
         View view = convertview;
         if (fromspinner) {
@@ -83,6 +100,9 @@ public class AdapterRulePeriodList extends CursorAdapter {
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,
@@ -99,8 +119,13 @@ public class AdapterRulePeriodList extends CursorAdapter {
     }
 
     private View initView(View view, Cursor csr) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         TextView ruleperiod = (TextView) view.findViewById(R.id.ruleperiod);
         ruleperiod.setText(csr.getString(appvalues_text_offset));
+        msg = "Set Period=" + ruleperiod.getText().toString();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;
     }
 
@@ -108,6 +133,9 @@ public class AdapterRulePeriodList extends CursorAdapter {
         if (appvalues_name_offset != -1) {
             return;
         }
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         appvalues_name_offset = csr.getColumnIndex(
                 DBAppvaluesTableConstants.APPVALUES_NAME_COL
         );

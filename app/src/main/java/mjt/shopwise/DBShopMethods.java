@@ -20,6 +20,7 @@ class DBShopMethods {
     private static long lastshopadded = -1;            // id of the last shop added
     private static boolean lastshopaddok = false;   // state of last insert
     private static boolean lastshopupdateok = false;
+    public static final String THISCLASS = DBShopMethods.class.getSimpleName();
 
     /**
      * Instantiates a new Db shop methods.
@@ -27,6 +28,9 @@ class DBShopMethods {
      * @param ctxt the ctxt
      */
     DBShopMethods(Context ctxt) {
+        String msg = "Constructing";
+        String methodname = "Construct";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         context = ctxt;
         dbdao = new DBDAO(context);
         db = dbdao.db;
@@ -73,6 +77,9 @@ class DBShopMethods {
      * @return  the highest order via MAX(shoporder)
      */
     int getHighestShopOrder() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int rv = 0;
         String columns[] = {
                DBConstants.SQLMAX +
@@ -92,6 +99,8 @@ class DBShopMethods {
             ));
         }
         csr.close();
+        msg = "Hightest Shop Order=" + Integer.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -103,10 +112,18 @@ class DBShopMethods {
      * @return cursor containing selected shops
      */
     Cursor getShops(String filter, String order) {
-        return DBCommonMethods.getTableRows(db,
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor rv;
+        rv = DBCommonMethods.getTableRows(db,
                 DBShopsTableConstants.SHOPS_TABLE,
                 filter,order
         );
+        msg = "Returning Shops Cursor with " +
+                Integer.toString(rv.getCount()) + " rows.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 
     /**************************************************************************
@@ -116,6 +133,11 @@ class DBShopMethods {
      * @return
      */
     Cursor getShopsWithAisles(String filter, String order) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+
+        Cursor rv;
         String sql = DBConstants.SQLSELECT +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_ORDER_COL_FULL + ", " +
@@ -140,7 +162,11 @@ class DBShopMethods {
         if (order.length() > 0) {
             sql = sql + DBConstants.SQLORDERBY + order;
         }
-        return db.rawQuery(sql,null);
+        rv = db.rawQuery(sql,null);
+        msg = "Returning Shops with Aisles Cursor with " +
+                Integer.toString(rv.getCount()) + " rows.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
     }
 
     /**************************************************************************
@@ -159,6 +185,9 @@ class DBShopMethods {
                            String shopcity,
                            String shopstate,
                            String shopnotes) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         long addedid;
 
@@ -178,6 +207,9 @@ class DBShopMethods {
             lastshopadded = addedid;
             lastshopaddok = true;
         }
+        msg = "Shop=" + shopname + " City=" + shopcity +
+                "Added=" + Boolean.toString(lastshopaddok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**
@@ -260,6 +292,9 @@ class DBShopMethods {
      * @return true if shopid exists, false if not
      */
     boolean doesShopExist(long shopid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
         String filter =  DBShopsTableConstants.SHOPS_ID_COL_FULL +
                     " = " + Long.toString(shopid) +
@@ -273,6 +308,9 @@ class DBShopMethods {
             rv = true;
         }
         csr.close();
+        msg = "ShopID=" + Long.toString(shopid) +
+                " Exists=" + Boolean.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -294,10 +332,15 @@ class DBShopMethods {
                     String shopcity,
                     String shopstate,
                     String shopnotes) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         /**
          * If the shop doesn't exist then return
          */
         if(!doesShopExist(shopid)) {
+            msg = "Shop=" + shopname + " ID=" + " does nto exist.";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             return;
         }
         int updatecount = 0;
@@ -330,11 +373,17 @@ class DBShopMethods {
          * if nothing to do then return
          */
         if (updatecount < 1 ) {
+            msg = "Nothing to Update. Not Updated";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             return;
         }
         String[] whereargs = {Long.toString(shopid )};
         String whereclause = DBShopsTableConstants.SHOPS_ID_COL + " = ?";
         lastshopupdateok = db.update(DBShopsTableConstants.SHOPS_TABLE, cv, whereclause, whereargs) > 0;
+        msg = "Shop=" + shopname + " City=" + shopcity +
+                " ID=" + Long.toString(shopid) +
+                " Updated=" + Boolean.toString(lastshopupdateok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -348,6 +397,9 @@ class DBShopMethods {
      * @return number of shops deleted
      */
     int deleteShop(long shopid, boolean intransaction) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int rv = 0;
 
         String filter = DBAislesTableConstants.AISLES_SHOPREF_COL +
@@ -359,11 +411,23 @@ class DBShopMethods {
                 "");
         if(!intransaction) {
             db.beginTransaction();
+            msg = "As not in an existing transaction, transaction started.";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
         while(aislescursor.moveToNext()) {
-            long aisleid = aislescursor.getLong(aislescursor.getColumnIndex(DBAislesTableConstants.AISLES_ID_COL));
+            long aisleid = aislescursor.getLong(
+                    aislescursor.getColumnIndex(
+                            DBAislesTableConstants.AISLES_ID_COL));
             new DBAisleMethods(context).deleteAisle(aisleid,true);
+            msg = "Aisle=" + aislescursor.getString(
+                    aislescursor.getColumnIndex(
+                            DBAislesTableConstants.AISLES_NAME_COL
+                    )) + " Deleted, as it references Shop."
+            ;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
+        msg = "Aisles deleted=" + Integer.toString(aislescursor.getCount());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         aislescursor.close();
 
         /**
@@ -377,9 +441,12 @@ class DBShopMethods {
         if(!intransaction) {
             db.setTransactionSuccessful();
             db.endTransaction();
+            msg = "Transaction SET and ENDED.";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         }
-        Log.i(LOGTAG,
-                Long.toString(rv) + " Shops Deleted for shopid " + Long.toString(shopid));
+        msg = "ShopID=" + Long.toString(shopid) +
+                " Deleted=" + Boolean.toString(rv > 0);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -390,6 +457,9 @@ class DBShopMethods {
      * @return String ArrayList of table rows that will be deleted
      */
     ArrayList<String> shopDeletedImpact(long shopid) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ArrayList<String> rv = new ArrayList<>();
 
         String shopfilter = DBShopsTableConstants.SHOPS_ID_COL_FULL +

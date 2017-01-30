@@ -101,10 +101,15 @@ public class ProductsActivity extends AppCompatActivity {
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
+    public static final String THISCLASS = ProductsActivity.class.getSimpleName();
+    private static final String LOGTAG = "SW_PA";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
         context = this;
@@ -113,6 +118,8 @@ public class ProductsActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
                 StandardAppConstants.INTENTKEY_CALLINGMODE,0);
+        msg = "Preparing Color Coding";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
         productfilter = "";
@@ -125,6 +132,8 @@ public class ProductsActivity extends AppCompatActivity {
         inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
         addFilterListener();
         messagebar = (TextView) findViewById(R.id.products_messagebar);
+
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
         /**
          * Apply Color Coding
@@ -144,6 +153,8 @@ public class ProductsActivity extends AppCompatActivity {
         inputproductfilterlabel.setTextColor(h1);
 
 
+        msg = "Preparing Databases";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
@@ -152,6 +163,8 @@ public class ProductsActivity extends AppCompatActivity {
         setDBCounts();
         this.setTitle(getResources().getString(R.string.productslabel));
 
+        msg = "Preparing ProductList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         plcsr = dbproductmethods.getProducts(productfilter,orderby );
         productlistadapter = new AdapterProductList(
                 this,
@@ -185,6 +198,9 @@ public class ProductsActivity extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onResume();
         setDBCounts();
         switch (resumestate) {
@@ -200,6 +216,8 @@ public class ProductsActivity extends AppCompatActivity {
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        msg = "Refreshing ProductList";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         plcsr = dbproductmethods.getProducts(productfilter,orderby);
         productlistadapter.swapCursor(plcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -211,6 +229,9 @@ public class ProductsActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.onDestroy();
         plcsr.close();
     }
@@ -221,8 +242,13 @@ public class ProductsActivity extends AppCompatActivity {
      * @param view The view (i.e the TextView that was clicked)
      */
     public void actionButtonClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.products_donebutton:
+                msg = "Finishing";
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 this.finish();
                 break;
             case R.id.products_newproductbutton:
@@ -239,6 +265,9 @@ public class ProductsActivity extends AppCompatActivity {
      *                  to be passed via the intent extras.
      */
     public void addProduct() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         Intent intent = new Intent(this,ProductsAddEditActivity.class);
         intent.putExtra(menucolorcode,passedmenucolorcode);
         intent.putExtra(
@@ -249,6 +278,9 @@ public class ProductsActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_ADD
         );
+        msg = "Starting Activity" + ProductsAddEditActivity.class.getSimpleName() +
+                " in ADD mode.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -259,6 +291,9 @@ public class ProductsActivity extends AppCompatActivity {
      *                  to be passed via the intent extras.
      */
     public void productEdit(RequestDialogParameters values) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ProductsActivity pa = (ProductsActivity) values.getPassedactivity();
         Intent intent = new Intent(this,ProductsAddEditActivity.class);
         intent.putExtra(
@@ -279,10 +314,21 @@ public class ProductsActivity extends AppCompatActivity {
                         )
                 ));
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        msg = "Starting Activity" + ProductsAddEditActivity.class.getSimpleName() +
+                " in EDIT mode. For Product=" +
+                plcsr.getString(
+                        plcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                " ID=" +
+                Long.toString(
+                        plcsr.getLong(
+                                plcsr.getColumnIndex(PRODUCTID_COLUMN)
+                        )
+                );
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         startActivity(intent);
     }
 
-    /**
+    /**************************************************************************
      * productDelete - method invoked from the request dialog to delete a
      *                  product along with any linked rows.
      *                  Linked are rows in other tables that reference the
@@ -295,6 +341,9 @@ public class ProductsActivity extends AppCompatActivity {
      *                  handler.
      */
     public void productDelete(RequestDialogParameters values) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         Activity activity = (values.getPassedactivity());
         ProductsActivity pa = (ProductsActivity) activity;
         pa.dbproductmethods.deleteProduct(values.getLong1(),false);
@@ -305,9 +354,15 @@ public class ProductsActivity extends AppCompatActivity {
                 " Deleted.",
                 true
         );
+        msg = "ProductID=" + Long.toString(values.getLong1()) +
+                " Deleted.";
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
     public void productStock(RequestDialogParameters values) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         long productid = values.getLong1();
         Intent intent = new Intent(this,StockActivity.class);
         intent.putExtra(
@@ -328,6 +383,15 @@ public class ProductsActivity extends AppCompatActivity {
                         )
                 ));
         intent.putExtra(menucolorcode,passedmenucolorcode);
+        msg = "Starting Activity " + StockActivity.class.getSimpleName() +
+                " for Product=" +
+                plcsr.getString(plcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
+                " ID=" +
+                Long.toString(
+                        plcsr.getLong(
+                                plcsr.getColumnIndex(PRODUCTID_COLUMN))
+                );
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         startActivity(intent);
     }
 
@@ -337,6 +401,9 @@ public class ProductsActivity extends AppCompatActivity {
      * @param view the view that was clicked
      */
     public void sortClick(View view) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         lastmessage = getResources().getString(R.string.productslabel) +
                 " sorted by ";
         switch (view.getId()) {
@@ -367,6 +434,9 @@ public class ProductsActivity extends AppCompatActivity {
      * @param id        The row id of the item that was clicked.
      */
     public void listItemClick(View view, int position, long id) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         long productid = plcsr.getLong(plcsr.getColumnIndex(PRODUCTID_COLUMN));
         currentproductname = plcsr.getString(
@@ -402,6 +472,9 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
     public void listItemLongClick(View view, int position, long id) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         long productid = plcsr.getLong(
                 plcsr.getColumnIndex(PRODUCTID_COLUMN)
@@ -448,6 +521,9 @@ public class ProductsActivity extends AppCompatActivity {
      *
      */
     public void addFilterListener() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         inputproductfilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -476,6 +552,9 @@ public class ProductsActivity extends AppCompatActivity {
      *                  tables.
      */
     private void setDBCounts() {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         shopcount = dbshopmethods.getShopCount();
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
@@ -491,6 +570,9 @@ public class ProductsActivity extends AppCompatActivity {
      * @param flag Message imnportant, if true Yellow text, esle green
      */
     public void setMessage(ProductsActivity activity, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         TextView messagebar = (TextView) activity.findViewById(R.id.products_messagebar);
         messagebar.setText(context.getResources().getString(
@@ -509,6 +591,9 @@ public class ProductsActivity extends AppCompatActivity {
      * @param neworderfld   the column as an integer as per constants
      */
     private void getOrderBy(String newcolumn, int neworderfld) {
+        String msg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         orderby = newcolumn;
         // If already sorted by this column then toggle between ascedning and
         // descending.
