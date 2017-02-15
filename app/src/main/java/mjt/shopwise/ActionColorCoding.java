@@ -425,14 +425,16 @@ class ActionColorCoding {
 
                 C[0],  B[0],            // Shopping, Rules
 
-                //DP[0],                  // Tools
+                DB[0],                  // Tools
 
-                //P[0],
-                //Z[0],
-                //DR[0],
-                //DY[0],
-                DB[0],
+
                 SG[0],   //Spares
+                DP[0],
+
+                P[0],
+                Z[0],
+                DR[0],
+                DY[0]
         };
         //Build an array of all colors
         int[] ac = {
@@ -448,16 +450,15 @@ class ActionColorCoding {
                 B[0], B[1], B[2], B[3], B[4],       // Rules
 
 
-                //DP[0], DP[1], DP[2], DP[3], DP[4],  // Tools
+                DB[0], DB[1], DB[2], DB[3], DB[4],  //Tools
 
 
-                                                    //Spares
-                //P[0], P[1], P[2], P[3], P[4],
-                //Z[0], Z[1], Z[2], Z[3], Z[4],
-                //DR[0], DR[1], DR[2], DR[3], DR[4],
-                //DY[0], DY[1], DY[2], DY[3], DY[4],
-                DB[0], DB[1], DB[2], DB[3], DB[4],
-                SG[0], SG[1], SG[2], SG[3], SG[4]
+                SG[0], SG[1], SG[2], SG[3], SG[4],  // Spares
+                DP[0], DP[1], DP[2], DP[3], DP[4],  // Tools
+                P[0], P[1], P[2], P[3], P[4],
+                Z[0], Z[1], Z[2], Z[3], Z[4],
+                DR[0], DR[1], DR[2], DR[3], DR[4],
+                DY[0], DY[1], DY[2], DY[3], DY[4]
         };
         primarycolors = pc;
         allcolors = ac;

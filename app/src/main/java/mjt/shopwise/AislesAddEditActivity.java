@@ -424,6 +424,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
      *                  is to be placed.
      * @param shopid    the shopid that this is relevant for
      */
+    @SuppressLint("SetTextI18n")
     private void setNewOrder(EditText edittext, Long shopid) {
         int highorder = dbaislemethods.getHighestAisleOrderPerShop(shopid) + 100;
         if (highorder < 1000) {

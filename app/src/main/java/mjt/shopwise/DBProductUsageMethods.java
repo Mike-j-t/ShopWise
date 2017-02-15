@@ -1,5 +1,6 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -30,6 +31,7 @@ class DBProductUsageMethods {
     private static boolean lastprdductusageupdateok = false;
     public static final String THISCLASS = DBProductUsageMethods.class.getSimpleName();
     private static final String LOGTAG = "SW_DBPUM";
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
 
     /**

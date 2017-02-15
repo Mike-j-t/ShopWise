@@ -1,5 +1,6 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.SimpleTimeZone;
-
 /**
  * DBRuleMethods - Database Methods for Rule Handling
  */
@@ -21,6 +20,7 @@ public class DBRuleMethods {
     private static long lastruleadded = -1;
     private static boolean lastruleaddok = false;
     private static boolean lastruleupdatedok = false;
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf = new SimpleDateFormat(
             StandardAppConstants.EXTENDED_DATE_FORMAT);
     public static final String THISCLASS = DBRuleMethods.class.getSimpleName();

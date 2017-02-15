@@ -1,6 +1,5 @@
 package mjt.shopwise;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,8 +13,6 @@ import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.lang.reflect.Method;
 
 import static mjt.shopwise.StandardAppConstants.AISLESAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.CHECKLISTAPPVALNAME;

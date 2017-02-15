@@ -119,7 +119,7 @@ class DBHelper extends SQLiteOpenHelper {
         } else {
             msg = dbunusable + "\n" +
                     DBConstants.SHOPWISE.getAllDBDatabaseProblemMsgs();
-            LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
         }
     }
 }
