@@ -2,7 +2,6 @@ package mjt.shopwise;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
 import static mjt.shopwise.DBAislesTableConstants.AISLESTABLE;
 import static mjt.shopwise.DBProductsTableConstants.PRODUCTSTABLE;

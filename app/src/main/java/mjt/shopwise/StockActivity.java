@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -922,7 +921,7 @@ public class StockActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView,
                                        View view,
-                                       int position, long rowid) {;
+                                       int position, long rowid) {
                 currentaisleid = rowid;
                 stockfilter = AISLEREF_FULLCOLUMN + " = " + Long.toString(rowid);
                 stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,

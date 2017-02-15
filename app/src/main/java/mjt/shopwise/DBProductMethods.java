@@ -298,7 +298,8 @@ class DBProductMethods {
      * ShopList entries and Rules that use the product
      *
      * @param productid     id of the product
-     * @param intransaction true if being called from within an existing db                      transaction.
+     * @param intransaction true if being called from within an existing db
+     *                      transaction.
      */
     void deleteProduct(long productid, boolean intransaction) {
         String msg = "Invoked for Product ID=" + productid;

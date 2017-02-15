@@ -89,7 +89,7 @@ public class CheckListActivity extends AppCompatActivity {
     private static final String PRODUCTUSAGEORDER_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL;
     private static final String PRODUCTUSAGEORDER_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL_FULL;
     private static final String PRODUCTUSAGECOST_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_COST_COL;
-    private static final String PRODUCTUSAGECOST_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL;
+    private static final String PRODUCTUSAGECOST_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL;
     private static final String CHECKLISTFLAG_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL;
     private static final String CHECKLISTFLAG_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL;
     private static final String CHECKLISTCOUNT_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTCOUNT_COL;
@@ -358,16 +358,17 @@ public class CheckListActivity extends AppCompatActivity {
                 lastmessage = lastmessage + " PRODUCT NAME (";
                 break;
             case R.id.checklist_checklist_heading_shopname:
-                getOrderBy(COST_FULLCOLUMN,BYSHOP);
+                getOrderBy(SHOPNAME_FULLCOLUMN,BYSHOP);
                 lastmessage = lastmessage + "  SHOP NAME (";
                 break;
             case R.id.checklist_checklist_heading_aislename:
-                getOrderBy(PRODUCTUSAGEORDER_FULLCOLUMN,BYAISLE);
+                getOrderBy(AISLENAME_FULLCOLUMN,BYAISLE);
                 lastmessage = lastmessage + " AISLE (";
                 break;
             case R.id.checklist_checklist_heading_cost:
                 getOrderBy(PRODUCTUSAGECOST_FULLCOLUMN,BYPRICE);
                 lastmessage = lastmessage + " PRICE (";
+                break;
             default:
                 break;
         }

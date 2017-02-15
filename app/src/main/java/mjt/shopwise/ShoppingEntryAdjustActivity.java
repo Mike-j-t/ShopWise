@@ -282,6 +282,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressLint("SetTextI18n")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

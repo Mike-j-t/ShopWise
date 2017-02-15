@@ -448,13 +448,9 @@ public class DBShopListMethods {
             }
             csr.close();
             cv.put(DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL,newnumbertoget);
-            if (db.update(
+            lastshoplistupdatedok = db.update(
                     DBShopListTableConstants.SHOPLIST_TABLE,
-                    cv,whereclause,whereargs) > 0) {
-                lastshoplistupdatedok = true;
-            } else {
-                lastshoplistupdatedok = false;
-            }
+                    cv, whereclause, whereargs) > 0;
             msg = "ShoppingList Entry AisleID=" + Long.toString(aisleid) +
                     " ProductID=" + Long.toString(productid) +
                     " Updated=" + Boolean.toString(lastshoplistupdatedok);

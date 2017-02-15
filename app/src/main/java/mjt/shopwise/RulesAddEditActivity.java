@@ -236,6 +236,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
     private GoogleApiClient client;
 
 
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

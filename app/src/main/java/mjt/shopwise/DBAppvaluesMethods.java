@@ -589,15 +589,19 @@ class DBAppvaluesMethods {
                                          boolean multipleallowed) {
         String msg = "Invoked (TEXT) for APPVALUENAME=" + appvaluename +
                 "APPVALUE=" + appvalue;
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                msg,
+                THISCLASS,
+                methodname);
 
-        if (!multipleallowed && checkDuplicateName(appvaluename)) {
-            return true;
-        }
-        return checkDuplicated(appvaluename,
-                DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL,
-                appvalue);
+        return !multipleallowed &&
+                checkDuplicateName(appvaluename) ||
+                checkDuplicated(appvaluename,
+                        DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL,
+                        appvalue);
     }
 
     /**
@@ -635,15 +639,19 @@ class DBAppvaluesMethods {
                                          boolean multipleallowed) {
         String msg = "Invoked (REAL) for APPVALUENAME=" + appvaluename +
                 " APPVALUE=" + Double.toString(appvalue);
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                msg,
+                THISCLASS,
+                methodname);
         boolean rv = true;
-        if (!multipleallowed && checkDuplicateName(appvaluename)) {
-            return true;
-        }
-        return checkDuplicated(appvaluename,
-                DBAppvaluesTableConstants.APPVALUES_REAL_COL_FULL,
-                Double.toString(appvalue));
+        return !multipleallowed &&
+                checkDuplicateName(appvaluename) ||
+                checkDuplicated(appvaluename,
+                        DBAppvaluesTableConstants.APPVALUES_REAL_COL_FULL,
+                        Double.toString(appvalue));
     }
 
     /**************************************************************************

@@ -40,7 +40,7 @@ public class LogMsg{
     /**
      * Disallow construction thus only allow methods to be invoked
      **/
-    private LogMsg() {};
+    private LogMsg() {}
 
 
     /**************************************************************************

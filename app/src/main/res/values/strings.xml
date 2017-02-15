@@ -5,6 +5,14 @@
     <string name="devmodeon">Note!!! Developer Mode is ON\n\n
         This indicates that this is not a release version.
     </string>
+    
+    <string name="colorswacth_primary_label">Pr</string>
+    <string name="colorswatch_H1_label">H1</string>
+    <string name="colorswatch_H2_label">H2</string>
+    <string name="colorswatch_H3_label">H3</string>
+    <string name="colorswatch_H4_label">H4</string>
+    <string name="colorswatch_optional">O</string>
+    <string name="colorswatch_required">R</string>
 
 
     <!-- Names of event handlers as invoked from layouts -->
