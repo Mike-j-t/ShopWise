@@ -330,7 +330,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     /**************************************************************************
      * productDelete - method invoked from the request dialog to delete a
-     *                  product along with any linked rows.
+     *                  product along with any linked/refrenced rows.
      *                  Linked are rows in other tables that reference the
      *                  product. These can be Product Usages, ShoppingList
      *                  entries and rules.
@@ -359,6 +359,10 @@ public class ProductsActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
+    /**************************************************************************
+     *
+     * @param values
+     */
     public void productStock(RequestDialogParameters values) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -471,6 +475,15 @@ public class ProductsActivity extends AppCompatActivity {
         );
     }
 
+    /**************************************************************************
+     *  handle list item long click - Delete a product or Cancel to not Delete
+     * @param view          The view that was clicked
+     * @param position      The position of the item in the list
+     * @param id            The id (_id value obtained from the cursor)
+     *
+     *                      Note invokes a dialog which will then invoke
+     *                      the productDelete method is Delete is Clicked
+     */
     public void listItemLongClick(View view, int position, long id) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -485,7 +498,7 @@ public class ProductsActivity extends AppCompatActivity {
         String title = "Delete Product - " + currentproductname;
 
         String positivebuttontext = getResources().getString(R.string.deletebutton);
-        String positiveaction = "productDelete";
+        String positiveaction = "productDelete";    //<== The method invoked
         String negativebuttontext = "";
         String negativeaction = "";
         String neutralbuttontext = getResources().getString(R.string.cancelbutton);

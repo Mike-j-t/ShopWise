@@ -61,7 +61,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_BACKUPACTIVITY = false;
     public static boolean DEVMODE_DBAPPVALUESMETHODS = false;
     public static boolean DEVMODE_DBHELPER = false;
-    public static boolean DEVMODE_DBPRODUCTMETHODS = false;
+    public static boolean DEVMODE_DBPRODUCTMETHODS = true;
     public static boolean DEVMODE_CHECKLISTACTIVITY = false;
     public static boolean DEVMODE_DBAISLEMETHODS = false;
     public static boolean DEVMODE_DBDAO = false;
@@ -72,7 +72,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_EXTERNALSTORAGEPERMISSIONS = false;
     public static boolean DEVMODE_INTEGRITYCHECKDBHELPER = false;
     public static boolean DEVMODE_ORDERACTIVITY = false;
-    public static boolean DEVMODE_PRODUCTSACTIVITY = false;
+    public static boolean DEVMODE_PRODUCTSACTIVITY = true;
     public static boolean DEVMODE_PRODUCTSADDEDITACTIVITY = false;
     public static boolean DEVMODE_PROMPTEDRULESACTIVITY = false;
     public static boolean DEVMODE_REQUESTDIALOG = false;

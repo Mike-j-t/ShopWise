@@ -329,7 +329,7 @@ class DBProductMethods {
              */
             pudeletes = db.delete(
                     DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
-                    DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL +
+                    DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL +
                             " = ?",
                     whereargs
             );

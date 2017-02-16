@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         dbrulemethods = new DBRuleMethods(this);
 
         //TODO remove following line, it is here for testing only
-        Cursor tr = dbrulemethods.getToolRules(false,2,1);
+        //Cursor tr = dbrulemethods.getToolRules(false,2,1);
         getDBCounts();
 
         /**
