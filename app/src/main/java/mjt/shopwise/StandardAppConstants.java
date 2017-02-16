@@ -40,7 +40,7 @@ public class StandardAppConstants{
      *          changed in order to allow debugging production app.
      *          Not yet implemented.
      */
-    public static boolean DEVMODE = true;
+    public static boolean DEVMODE = false;
     public static boolean DEVMODE_MAINACTIVITY = false;
     public static boolean DEVMODE_ACTIONCOLORCODING = false;
     public static boolean DEVMODE_ACTIVYMENUOPTION = false;
@@ -61,7 +61,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_BACKUPACTIVITY = false;
     public static boolean DEVMODE_DBAPPVALUESMETHODS = false;
     public static boolean DEVMODE_DBHELPER = false;
-    public static boolean DEVMODE_DBPRODUCTMETHODS = true;
+    public static boolean DEVMODE_DBPRODUCTMETHODS = false;
     public static boolean DEVMODE_CHECKLISTACTIVITY = false;
     public static boolean DEVMODE_DBAISLEMETHODS = false;
     public static boolean DEVMODE_DBDAO = false;
@@ -88,7 +88,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_STOCKACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTACTIVITY = false;
-    public static boolean DEVMODE_TOOLSACTIVITY = true;
+    public static boolean DEVMODE_TOOLSACTIVITY = false;
 
     /**
      * Intent keys (DB based i.e. used for passing DB derived values)
