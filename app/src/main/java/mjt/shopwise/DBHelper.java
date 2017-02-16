@@ -122,4 +122,7 @@ class DBHelper extends SQLiteOpenHelper {
             LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
         }
     }
+    public static void reopen(Context context) {
+        instance = new DBHelper(context);
+    }
 }

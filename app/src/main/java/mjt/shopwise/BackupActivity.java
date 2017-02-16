@@ -573,11 +573,11 @@ public class BackupActivity extends AppCompatActivity {
                     String msg = "Restore failed. Attempt to Copy original DB failed.\" +\n" +
                             "                            \" Original DB is being used.";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
-                }
+            }
                 if(copytaken && origdeleted && restoredone) {
                     errlist.add("Database successfully restored.");
                     resulttitle = "Restore was successful.";
-
+                    DBHelper.reopen(context);
                 }
                 for(int i = 0; i < errlist.size(); i++){
                     if(i > 0) {
@@ -623,7 +623,7 @@ public class BackupActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
         final String THIS_METHOD = "dataBaseIntegrityCheck";
-        String sqlstr_mstr = "SELECT name FROM sqlite_master WHERE type = 'table' AND name!='android_metadata' ORDER by name;";
+        //String sqlstr_mstr = "SELECT name FROM sqlite_master WHERE type = 'table' AND name!='android_metadata' ORDER by name;";
         Cursor iccsr;
         boolean rv = true;
 
@@ -650,9 +650,16 @@ public class BackupActivity extends AppCompatActivity {
             //
             IntegrityCheckDBHelper icdbh = new IntegrityCheckDBHelper(this,null,null,1,null);
             SQLiteDatabase icdb = icdbh.getReadableDatabase();
+            iccsr = icdb.query("sqlite_master",
+                    new String[]{"name"},
+                    "type=? AND name!=?",
+                    new String[] {"table", "android_metadata"},
+                    null, null,
+                    "name"
+            );
 
             //Check to see if there are any tables, if wrong file type shouldn't be any
-            iccsr = icdb.rawQuery(sqlstr_mstr,null);
+            //iccsr = icdb.rawQuery(sqlstr_mstr,null);
             if(iccsr.getCount() < 1) {
                 errlist.add("Integrity Check extract from sqlite_master returned nothing - Propsoed file is corrupt or not a database file.");
                 rv = false;
