@@ -306,6 +306,9 @@ public class StockListActivity extends AppCompatActivity {
         }
     }
 
+    /**************************************************************************
+     *
+     */
     public void stockAdd() {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -562,13 +565,13 @@ public class StockListActivity extends AppCompatActivity {
         String message = getResources().getString(R.string.availableoptions) +
                 getResources().getString(R.string.cancelbutton) +
                 getResources().getString(R.string.and) +
-                getResources().getString(R.string.editbutton) +
+                getResources().getString(R.string.deletebutton) +
                 getResources().getString(R.string.doublenewline) +
                 getResources().getString(R.string.tab1) +
                 getResources().getString(R.string.cancelbutton) +
                 getResources().getString(R.string.canceldoes) +
                 getResources().getString(R.string.doublenewline) +
-                getResources().getString(R.string.editbutton) +
+                getResources().getString(R.string.deletebutton) +
                 " allows the stocked item to be deleted." +
                 getResources().getString(R.string.doublenewline);
         String tmsg = "";

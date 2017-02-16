@@ -33,7 +33,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     private static final int BYPRODUCT = 0;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
-    private static String productfilter = "";
+    private String productfilter = "";
 
     Context context;
     ActionBar actionbar;
@@ -233,6 +233,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         switch (view.getId()) {
             case R.id.productaddedit_donebutton:
+                inputproductfilter.setText("");
                 msg = "Finishing";
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                 this.finish();
