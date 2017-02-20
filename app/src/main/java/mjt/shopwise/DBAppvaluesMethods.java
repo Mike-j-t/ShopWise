@@ -80,10 +80,9 @@ class DBAppvaluesMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        String sql = "SELECT * FROM " +
-                DBAppvaluesTableConstants.APPVALUES_TABLE +
-                " ;";
-        Cursor csr = db.rawQuery(sql,null);
+        Cursor csr;
+
+        csr = db.query(DBAppvaluesTableConstants.APPVALUES_TABLE,null,null,null,null,null,null);
         int rv = csr.getCount();
         csr.close();
         msg = "Returning Count of "+ Integer.toString(rv);
@@ -153,17 +152,14 @@ class DBAppvaluesMethods {
         String msg = "Invoked for APPVALUEID=" + Long.toString(appvalueid);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        Cursor csr;
         boolean rv = false;
-        String sql = "SELECT " +
-                    DBAppvaluesTableConstants.APPVALUES_ID_COL_FULL +
-                " FROM " +
-                    DBAppvaluesTableConstants.APPVALUES_TABLE +
-                " WHERE " +
-                    DBAppvaluesTableConstants.APPVALUES_ID_COL_FULL +
-                    " = " +
-                    Long.toString(appvalueid) +
-                " ;";
-        Cursor csr = db.rawQuery(sql,null);
+
+        csr = db.query(DBAppvaluesTableConstants.APPVALUES_TABLE,
+                new String[] {DBAppvaluesTableConstants.APPVALUES_ID_COL_FULL},
+                DBAppvaluesTableConstants.APPVALUES_ID_COL_FULL,
+                new String[] {Long.toString(appvalueid)},
+                null,null,null);
         if (csr.getCount() > 0 ) {
             rv = true;
         }

@@ -458,16 +458,15 @@ class DBAisleMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         ArrayList<String> rv = new ArrayList<>();
+        Cursor aislecsr;
 
-        String aislesql = DBConstants.SQLSELECTALLFROM +
-                DBAislesTableConstants.AISLES_TABLE +
-                DBConstants.SQLWHERE +
-                DBAislesTableConstants.AISLES_ID_COL_FULL +
-                " = " +
-                Long.toString(aisleid) +
-                DBConstants.SQLENDSTATEMENT;
-        Cursor aislecsr = db.rawQuery(aislesql, null);
+        aislecsr = db.query(DBAislesTableConstants.AISLES_TABLE,
+                null,
+                DBAislesTableConstants.AISLES_ID_COL_FULL + "=?",
+                new String[]{Long.toString(aisleid)},
+                null,null,null);
         if (aislecsr.getCount() > 0) {
+            Cursor pucsr, slcsr, rulecsr;
             while (aislecsr.moveToNext()) {
                 String aislename = aislecsr.getString(
                         aislecsr.getColumnIndex(
@@ -479,21 +478,17 @@ class DBAisleMethods {
                         " would be deleted."
                 );
 
-                String pusql = DBConstants.SQLSELECTALLFROM +
-                        DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                        " LEFT JOIN " +
+                pucsr = db.query(DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
+                        DBConstants.SQLLEFTJOIN +
                         DBProductsTableConstants.PRODUCTS_TABLE +
-                        " ON " +
-                        DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                        " = " +
-                        DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                        DBConstants.SQLWHERE +
-                        DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
-                        " = " +
-                        Long.toString(aisleid) +
-                        DBConstants.SQLENDSTATEMENT;
+                        DBConstants.SQLON +
+                        DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
+                        DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
+                        null,
+                        DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " =?",
+                        new String[] {Long.toString(aisleid)},
+                        null,null,null);
 
-                Cursor pucsr = db.rawQuery(pusql, null);
                 while (pucsr.moveToNext()) {
                     rv.add("TO GET for product -" +
                             pucsr.getString(
@@ -507,19 +502,14 @@ class DBAisleMethods {
                 }
                 pucsr.close();
 
-                String slsql = DBConstants.SQLSELECTALLFROM +
-                        DBShopListTableConstants.SHOPLIST_TABLE +
-                        " LEFT JOIN " + DBProductsTableConstants.PRODUCTS_TABLE +
-                        " ON " +
-                        DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                        " = " +
-                        DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL +
-                        DBConstants.SQLWHERE +
-                        DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
-                        " = " +
-                        Long.toString(aisleid) +
-                        DBConstants.SQLENDSTATEMENT;
-                Cursor slcsr = db.rawQuery(slsql, null);
+                slcsr = db.query(DBShopListTableConstants.SHOPLIST_TABLE +
+                        DBConstants.SQLLEFTJOIN +
+                        DBProductsTableConstants.PRODUCTS_TABLE +
+                        DBConstants.SQLON +
+                        DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL + " = " +
+                        DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
+                        null,DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL + " =?",new String[] {Long.toString(aisleid)},
+                        null,null,null);
                 while (slcsr.moveToNext()) {
                     rv.add(
                             "ShopList row for product " +
@@ -531,19 +521,16 @@ class DBAisleMethods {
                 }
                 slcsr.close();
 
-                String rulesql = DBConstants.SQLSELECTALLFROM +
-                        DBRulesTableConstants.RULES_TABLE +
-                        " LEFT JOIN " + DBProductsTableConstants.PRODUCTS_TABLE +
-                        " ON " +
-                        DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                        " = " +
-                        DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL +
-                        DBConstants.SQLWHERE +
-                        DBRulesTableConstants.RULES_AISLEREF_COL_FULL +
-                        " = " +
-                        Long.toString(aisleid) +
-                        DBConstants.SQLENDSTATEMENT;
-                Cursor rulecsr = db.rawQuery(rulesql, null);
+                rulecsr = db.query(DBRulesTableConstants.RULES_TABLE +
+                        DBConstants.SQLLEFTJOIN +
+                        DBProductsTableConstants.PRODUCTS_TABLE +
+                        DBConstants.SQLON +
+                        DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL + " = " +
+                        DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
+                        null,
+                        DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " =?",
+                        new String[]{ Long.toString(aisleid)},
+                        null,null,null);
                 while (rulecsr.moveToNext()) {
                     rv.add(
                             "Rule - " +

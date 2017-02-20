@@ -316,8 +316,7 @@ class DBDatabase {
         //sql = "--TDL_USESTART\n USE `" + this.database_name + "`;\n--TDL_USEFINISH\n";
         for(DBTable dbt : this.database_tables) {
             // Select all rows from the respective table into Cursor csr.
-            String sqlstr = " SELECT * FROM " + dbt.getDBTableName() + ";";
-            csr = db.rawQuery(sqlstr,null);
+            csr = db.query(dbt.getDBTableName(),null,null,null,null,null,null);
             // Skip if no rows
             if(csr.getCount() > 0 ){
                 int coli = 0;

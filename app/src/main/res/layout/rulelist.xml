@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/rulelist_productname"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="30"
+            android:layout_weight="34"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             />
@@ -36,7 +36,7 @@
         <TextView
             android:id="@+id/rulelist_nextdate"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="20"
+            android:layout_weight="24"
             android:textColor="@color/colorBlack"
             />
         <TextView
@@ -46,12 +46,8 @@
         <TextView
             android:id="@+id/rulelist_prompt"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="16"
+            android:layout_weight="10"
             android:textColor="@color/colorBlack"
-            />
-        <TextView
-            style="@style/listviewrowcol_standard"
-            android:layout_weight="2"
             />
     </LinearLayout>
     <LinearLayout
