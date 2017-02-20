@@ -65,7 +65,7 @@
         <TextView
             android:id="@+id/rules_rulelist_heading_productname"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="30"
+            android:layout_weight="34"
             android:text="@string/productnamelabel"
             />
         <TextView
@@ -75,7 +75,7 @@
         <TextView
             android:id="@+id/rules_rulelist_heading_acton"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="20"
+            android:layout_weight="24"
             android:text="@string/actonlabel"
             />
         <TextView
@@ -85,12 +85,8 @@
         <TextView
             android:id="@+id/rules_rulelist_heading_prompt"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="16"
+            android:layout_weight="10"
             android:text="@string/promptlabel"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
             />
     </LinearLayout>
     <ListView

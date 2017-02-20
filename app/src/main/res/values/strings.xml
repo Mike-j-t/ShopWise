@@ -60,7 +60,7 @@
     <string name="spentlabel">Spent</string>
     <string name="quantitylabel">Quantity</string>
     <string name="nextdatelabel">Next on</string>
-    <string name="promptlabel">Prompted</string>
+    <string name="promptlabel">Prompt</string>
     <string name="numbertogetlabel">Get</string>
     <string name="actonlabel">Add On</string>
     <string name="promptedruleslabel">Prompted Rules</string>

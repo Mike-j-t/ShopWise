@@ -33,7 +33,8 @@ public class DBRuleMethods {
     DBRuleMethods(Context ctxt) {
         String logmsg = "Constructing";
         String methodname = "Construct";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,logmsg,THISCLASS,methodname);
         this.context = ctxt;
         this.dbdao = new DBDAO(context);
         db = dbdao.db;
@@ -46,8 +47,10 @@ public class DBRuleMethods {
      */
     int getRuleCount() {
         String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,logmsg,THISCLASS,methodname);
         return DBCommonMethods.getTableRowCount(db,
                 DBRulesTableConstants.RULES_TABLE
         );
@@ -76,15 +79,18 @@ public class DBRuleMethods {
      */
     Cursor getRules(String filter, String order) {
         String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,logmsg,THISCLASS,methodname);
         Cursor rv = DBCommonMethods.getTableRows(db,
                 DBRulesTableConstants.RULES_TABLE,
                 filter,
                 order
         );
         logmsg = "Returnig Cursor with " + Integer.toString(rv.getCount()) + " rows.";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,logmsg,THISCLASS,methodname);
         return rv;
     }
 
@@ -113,8 +119,10 @@ public class DBRuleMethods {
                     int period,
                     int multiplier) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
 
         long addedid;
         lastruleaddok = false;
@@ -136,7 +144,8 @@ public class DBRuleMethods {
             lastruleaddok = true;
         }
         msg = "Rule " + rulename + " Update=" + Boolean.toString(lastruleaddok);
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -147,8 +156,10 @@ public class DBRuleMethods {
      */
     Cursor getRule(long ruleid) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         Cursor rv;
         String filter = DBRulesTableConstants.RULES_ID_COL_FULL +
                 " = " + Long.toString(ruleid) +
@@ -159,7 +170,8 @@ public class DBRuleMethods {
                 ""
         );
         msg = "Return Cursor with" + Integer.toString(rv.getCount()) + "rowws.";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -171,8 +183,10 @@ public class DBRuleMethods {
      */
     boolean doesRuleExistbyRuleid(long ruleid) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
          Cursor csr = getRule(ruleid);
         if (csr.getCount() > 0 ) {
@@ -181,7 +195,8 @@ public class DBRuleMethods {
         csr.close();
         msg = "Rule ID=" + Long.toString(ruleid) +
                 " Found=" + Boolean.toString(rv);
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -209,8 +224,10 @@ public class DBRuleMethods {
                     int period,
                     int multiplier) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
 
         String existing_rulename = "";
         int existing_uses = 0;
@@ -224,7 +241,8 @@ public class DBRuleMethods {
         if (csr.getCount() < 1) {
             csr.close();
             msg = "Rule=" + rulename + " ID=" + Long.toString(ruleid) + " not found.";
-            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                    LOGTAG,msg,THISCLASS,methodname);
             return;
         }
 
@@ -255,7 +273,8 @@ public class DBRuleMethods {
             csr.close();
             msg = "Rule=" + rulename + " ID=" + Long.toString(ruleid) +
                     " not found. Not Updated.";
-            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                    LOGTAG,msg,THISCLASS,methodname);
             return;
         }
 
@@ -289,15 +308,18 @@ public class DBRuleMethods {
         if (updatecount < 1) {
             msg = "Rule=" + rulename + " ID=" + Long.toString(ruleid) +
                     " no updates to do. Not Updated.";
-            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                    LOGTAG,msg,THISCLASS,methodname);
             return;
         }
         String[] whereargs = {Long.toString(ruleid)};
         String whereclause = DBRulesTableConstants.RULES_ID_COL + " = ?";
-        updatedcount = db.update(DBRulesTableConstants.RULES_TABLE,cv,whereclause,whereargs);
+        updatedcount = db.update(DBRulesTableConstants.RULES_TABLE,
+                cv,whereclause,whereargs);
         msg = "Rule=" + rulename + " ID=" + Long.toString(ruleid) +
                 " Updated=" + Boolean.toString(updatedcount > 0);
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -308,8 +330,10 @@ public class DBRuleMethods {
      */
     Cursor getExpandedRuleList(String filter, String orderby) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         Cursor rv;
         String sql = DBConstants.SQLSELECT +
                 DBRulesTableConstants.RULES_ID_COL_FULL + ", " +
@@ -343,7 +367,8 @@ public class DBRuleMethods {
                 DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
                 DBAislesTableConstants.AISLES_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN + DBProductsTableConstants.PRODUCTS_TABLE +
+                DBConstants.SQLLEFTJOIN +
+                DBProductsTableConstants.PRODUCTS_TABLE +
                 DBConstants.SQLON +
                 DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL + " = " +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
@@ -363,7 +388,8 @@ public class DBRuleMethods {
         sql = sql + DBConstants.SQLENDSTATEMENT;
         rv =  db.rawQuery(sql,null);
         msg = "Rules Extracted=" + Integer.toString(rv.getCount());
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -377,7 +403,8 @@ public class DBRuleMethods {
     public Cursor getPromptedRules(String filter,String orderby) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
 
         Cursor rv;
         filter = DBRulesTableConstants.RULES_ACTON_COL +
@@ -389,7 +416,8 @@ public class DBRuleMethods {
 
         rv = getExpandedRuleList(filter,orderby);
         msg = "Prompted Rules Extracted=" + Integer.toString(rv.getCount());
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         return rv;
     }
 
@@ -400,12 +428,16 @@ public class DBRuleMethods {
      */
     public void applyPromptedRule(long ruleid, boolean skipapply) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
 
         if (!doesRuleExistbyRuleid(ruleid)) {
-            msg = "Prompted Rule ID=" + Long.toString(ruleid) + " Not Found. Not Updated.";
-            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+            msg = "Prompted Rule ID=" +
+                    Long.toString(ruleid) + " Not Found. Not Updated.";
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                    LOGTAG,msg,THISCLASS,methodname);
             return;
         }
 
@@ -444,7 +476,8 @@ public class DBRuleMethods {
         adjustActOnDate(ruleid, actondate, period, multiplier);
         msg = "Prompted Rule ID+" + Long.toString(ruleid) +
                 "Applied and Adjusted";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
     }
 
     /**************************************************************************
@@ -453,8 +486,10 @@ public class DBRuleMethods {
      */
     public int applyAutoAddRules() {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
 
         int rulesaddedcount = 0;
         DBShopListMethods dbShopListMethods = new DBShopListMethods(context);
@@ -500,12 +535,14 @@ public class DBRuleMethods {
             }
             csr.close();
         }
-        msg = "Rule applied to the ShoppingList=" + Integer.toString(rulesaddedcount);
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        msg = "Rule applied to the ShoppingList=" +
+                Integer.toString(rulesaddedcount);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         return rulesaddedcount;
     }
 
-    /**
+    /**************************************************************************
      *
      * @param rulesexist
      * @param minimumruleperiodindays

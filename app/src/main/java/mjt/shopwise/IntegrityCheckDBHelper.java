@@ -31,7 +31,6 @@ class IntegrityCheckDBHelper extends SQLiteOpenHelper implements DatabaseErrorHa
         String methodname = "Construct";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.context = context;
-
     }
 
     public void onCreate(SQLiteDatabase db) {

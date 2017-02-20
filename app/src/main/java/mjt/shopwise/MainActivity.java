@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private DBAppvaluesMethods dbappvaluesmethods;
     private DBProductUsageMethods dbproductusagemethods;
     private DBRuleMethods dbrulemethods;
+    private DBShopListMethods dbshoplistmethods;
 
     private ListView options_listview;
     /**
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         dbappvaluesmethods = new DBAppvaluesMethods(this);
         dbproductusagemethods = new DBProductUsageMethods(this);
         dbrulemethods = new DBRuleMethods(this);
+        dbshoplistmethods = new DBShopListMethods(this);
 
         //TODO remove following line, it is here for testing only
         //Cursor tr = dbrulemethods.getToolRules(false,2,1);
@@ -208,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         aislecount = dbaislemethods.getAisleCount();
         productcount = dbproductmethods.getProductCount();
         productusagecount = dbproductusagemethods.getProductUsageCount();
-        shoplistcount = dbdao.getShoplistCount();
+        shoplistcount = dbshoplistmethods.getShopListCount();
         rulecount = dbrulemethods.getRuleCount();
         appvaluecount = dbappvaluesmethods.getAppvalueCount();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);

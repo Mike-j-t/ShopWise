@@ -43,7 +43,8 @@ public class DBDAO {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String sql = " SELECT * FROM " + tablename + " ;";
-        Cursor csr = db.rawQuery(sql,null);
+        Cursor csr = db.query(tablename,null,null,null,null,null,null);
+        //Cursor csr = db.rawQuery(sql,null);
         int rv = csr.getCount();
         csr.close();
         msg = "Returned " + Integer.toString(rv) +
@@ -77,34 +78,7 @@ public class DBDAO {
             sql = sql + " ORDER BY " + order;
         }
         sql = sql + " ;";
-        return db.rawQuery(sql,null);
-    }
-
-
-    /**
-     * getShopListCount
-     *
-     * @return number of ShopList entries
-     */
-    public int getShoplistCount() {
-        return getTableRowCount(DBShopListTableConstants.SHOPLIST_TABLE);
-    }
-
-    /**
-     * getRuleCount
-     *
-     * @return number of Rules
-     */
-    public int getRuleCount() {
-        return getTableRowCount(DBRulesTableConstants.RULES_TABLE);
-    }
-
-    /**
-     * getAppvalueCount
-     *
-     * @return number of Appvalue entries
-     */
-    public int getAppvalueCount() {
-        return getTableRowCount(DBAppvaluesTableConstants.APPVALUES_TABLE);
+        return db.query(table + joinclause,null,filter,null,null,null,order);
+        //return db.rawQuery(sql,null);
     }
 }

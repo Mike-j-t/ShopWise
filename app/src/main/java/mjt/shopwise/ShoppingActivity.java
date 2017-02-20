@@ -309,11 +309,17 @@ public class ShoppingActivity extends AppCompatActivity {
                 adjustdialog.dismiss();
                 refreshDisplay();
                 break;
+            case R.id.shoppinglist_deletetbutton:
+                doDelete((int) view.getTag());
+                break;
             default:
                 break;
         }
     }
 
+    /**
+     * Check for Prompted Rules, if any invoked PromptedRulesActivity
+     */
     public void doPromptedRules() {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -396,105 +402,6 @@ public class ShoppingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //TODO doAdjust should be removed
-    /**************************************************************************
-     *
-     * @param position
-     */
-    /**
-    @SuppressLint("SetTextI18n")
-    public void doAdjust(int position) {
-        String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        slcsr.moveToPosition(position);
-        adj_aisleid = slcsr.getLong(
-                slcsr.getColumnIndex(
-                        SHOPLISTAISLREF_COLUMN
-                )
-        );
-        adj_productid = slcsr.getLong(
-                slcsr.getColumnIndex(
-                        SHOPLISTPRODUCTREF_COLUMN
-                )
-        );
-        adj_orig_cost = slcsr.getDouble(
-                slcsr.getColumnIndex(
-                        PRODUCTUSAGECOST_COLUMN
-                )
-        );
-        adj_orig_quantity = slcsr.getInt(
-                slcsr.getColumnIndex(
-                        SHOPLISTNUMBERTOGET_COLUMN
-                )
-        );
-        adj_orig_productname = slcsr.getString(
-                slcsr.getColumnIndex(
-                        PRODUCTNAME_COLUMN
-                )
-        );
-
-        adjustdialog = new Dialog(this);
-        adjustdialog.setContentView(R.layout.activity_shoppingadjust);
-
-        adj_donebutton = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_donebutton);
-        adj_savebutton = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_savebutton);
-        adj_undobutton = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_undobutton);
-        adj_lessbutton = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_lessbutton);
-        adj_morebutton = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_morebutton);
-
-        adj_orig_productname_tv = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_orig_productname);
-        adj_orig_quantity_tv = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_orig_quantity);
-        adj_orig_cost_tv = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_orig_cost);
-        adj_orig_quantity_tv = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_orig_quantity);
-        adj_orig_total_tv = (TextView) adjustdialog.findViewById(R.id.shoppingadjust_orig_total);
-
-        ActionColorCoding.setActionButtonColor(adj_donebutton,primary_color);
-        ActionColorCoding.setActionButtonColor(adj_savebutton,primary_color);
-        ActionColorCoding.setActionButtonColor(adj_undobutton,primary_color);
-        ActionColorCoding.setActionButtonColor(adj_morebutton,primary_color);
-        ActionColorCoding.setActionButtonColor(adj_lessbutton,primary_color);
-        int bgcol = ActionColorCoding.getGroupColor(passedmenucolorcode,3) &
-                ActionColorCoding.transparency_optional;
-
-        adj_orig_productname_tv.setBackgroundColor(bgcol);
-        adj_orig_quantity_tv.setBackgroundColor(bgcol);
-        adj_orig_cost_tv.setBackgroundColor(bgcol);
-        adj_orig_total_tv.setBackgroundColor(bgcol);
-
-        adj_orig_productname_tv.setText(adj_orig_productname);
-        adj_orig_quantity_tv.setText(Integer.toString(adj_orig_quantity));
-        adj_orig_cost_tv.setText(Double.toString(adj_orig_cost));
-
-        int titleLayoutId = adjustdialog.getContext().getResources().
-                getIdentifier("topPanel", "id", "mjt.shopwise");
-
-        LinearLayout layout = (LinearLayout) adjustdialog.findViewById(titleLayoutId);
-        if (layout != null) {
-            layout.setBackgroundColor(primary_color);
-        }
-
-
-        adjustdialog.setTitle("Adjust Shopping List Entry");
-
-        adw  = adjustdialog.getWindow();
-
-        //adw.setTitleColor(primary_color);
-        adjustdialog.show();
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.width = (WindowManager.LayoutParams.MATCH_PARENT);
-        lp.height = (WindowManager.LayoutParams.WRAP_CONTENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            adw.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            adw.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            adw.setStatusBarColor(primary_color);
-            adw.setTitle("Adjust Shopping List Entry");
-        }
-        adjustdialog.show();
-        adw.setAttributes(lp);
-    }
-    **/
-
     /**************************************************************************
      * doBought i.e. buy a product
      * @param position      the position as per the button's tag of the
@@ -537,9 +444,30 @@ public class ShoppingActivity extends AppCompatActivity {
      */
     public void tidyShoppingList() {
         String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,logmsg,THISCLASS,methodname);
         dbshoplistmethods.tidyShoppingList();
+        refreshDisplay();
+    }
+
+    /**************************************************************************
+     * doDelete Delete a ShoppingList Entry
+     * (invoked when Delete button is clicked)
+     * @param position  position of the ShoppingList Entry
+     */
+    public void doDelete(int position) {
+        String logmsg = "Invoked";
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,logmsg,THISCLASS,methodname);
+        slcsr.moveToPosition(position);
+        long shoplistid = slcsr.getLong(
+                slcsr.getColumnIndex(SHOPLISTID_COLUMN));
+        dbshoplistmethods.deleteShopListEntry(shoplistid);
+        slcsr.close();
         refreshDisplay();
     }
 
