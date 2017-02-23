@@ -55,7 +55,8 @@ public class AdapterRuleList extends CursorAdapter {
     private static final String LOGTAG = "SW_ARL(CsrAdptr)";
 
     @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
+    private SimpleDateFormat sdf =
+            new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
 
     /**
      *
@@ -143,13 +144,13 @@ public class AdapterRuleList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
-        int evevrow = ActionColorCoding.setHeadingColor(ctxt,
+        int evenrow = ActionColorCoding.setHeadingColor(ctxt,
                 callerintent,
                 ActionColorCoding.getColorsPerGroup() - 1) &
                 ActionColorCoding.transparency_evenrow;
-        int oddrow = evevrow & ActionColorCoding.transparency_oddrow;
+        int oddrow = evenrow & ActionColorCoding.transparency_oddrow;
         if (position % 2 == 0) {
-            view.setBackgroundColor(evevrow);
+            view.setBackgroundColor(evenrow);
         } else {
             view.setBackgroundColor(oddrow);
         }
@@ -304,7 +305,8 @@ public class AdapterRuleList extends CursorAdapter {
         }
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,msg,THISCLASS,methodname);
         rules_ruleid_offset = csr.getColumnIndex(
                 DBRulesTableConstants.RULES_ID_COL
         );

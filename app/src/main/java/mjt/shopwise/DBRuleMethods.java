@@ -551,7 +551,7 @@ public class DBRuleMethods {
      */
     public Cursor getToolRules(boolean rulesexist,
                                int minimumruleperiodindays,
-                               int minimumbuycount) {
+                               int minimumbuycount,String filter, String orderby) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -570,11 +570,11 @@ public class DBRuleMethods {
                 DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL,
                 DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTCOUNT_COL,
 
-                "(" +
+                "((" +
                         DBProductusageTableConstants.PRODUCTUSAGE_LATESTBUYDATE_COL +
-                        "- " +
+                        " - " +
                         DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL +
-                        " / (86400000)" +
+                        ") / (86400000)" +
                         ") " + DBConstants.SQLAS + DBConstants.CALCULATED_RULEPERIODINDAYS,
 
                 DBProductsTableConstants.PRODUCTS_NAME_COL,
@@ -633,26 +633,31 @@ public class DBRuleMethods {
             ruleexistoption = ruleexistoption + DBConstants.SQLISNULL;
         }
 
-        String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL +
-                " = ?" +
-                DBConstants.SQLAND + ruleexistoption +
-                DBConstants.SQLAND +
-                "(" + DBConstants.CALCULATED_RULEPERIODINDAYS + " / ?) > 0" +
-                DBConstants.SQLAND +
-                DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL + " > ?";
 
-        if (minimumbuycount > 0) {
-            --minimumbuycount;
+        String whereclause = ruleexistoption +
+                DBConstants.SQLAND +
+                "(" + DBConstants.CALCULATED_RULEPERIODINDAYS + " - " +
+                Integer.toString(minimumruleperiodindays) +
+                ") >= 0" +
+                DBConstants.SQLAND +
+                DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL + " >= " + Integer.toString(minimumbuycount);
+        if (filter.length() > 0) {
+            whereclause = whereclause + DBConstants.SQLAND + filter;
         }
-        String[] whereargs = new String[] {
-                "0",
-                Integer.toString(minimumruleperiodindays),
-                Integer.toString(minimumbuycount)
-        };
         rv =  db.query(DBProductusageTableConstants.PRODUCTUSAGE_TABLE + joinclauses,
-                columns,whereclause,whereargs,null,null,null);
+                columns,whereclause,null,null,null,orderby);
         msg = "Returning Cursor Rules=" + Integer.toString(rv.getCount());
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        return rv;
+    }
+
+    public Cursor getDisabledRules(String orderby) {
+        Cursor rv;
+        String filter =
+                DBProductusageTableConstants.PRODUCTUSAGE_RULESUGGESTFLAG_COL_FULL +
+                " >= " +
+                DBProductusageTableConstants.RULESUGGESTFLAG_DISABLE;
+        rv = getToolRules(false, 0,0,filter,orderby);
         return rv;
     }
 
@@ -728,6 +733,7 @@ public class DBRuleMethods {
                 " as long=" + Long.toString(newdate) ;
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
+
     /**************************************************************************
      *
      * @param aisleid       id (long) of the aisle

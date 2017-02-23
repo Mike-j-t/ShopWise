@@ -72,13 +72,13 @@ public class StandardAppConstants{
     public static boolean DEVMODE_EXTERNALSTORAGEPERMISSIONS = false;
     public static boolean DEVMODE_INTEGRITYCHECKDBHELPER = false;
     public static boolean DEVMODE_ORDERACTIVITY = false;
-    public static boolean DEVMODE_PRODUCTSACTIVITY = true;
+    public static boolean DEVMODE_PRODUCTSACTIVITY = false;
     public static boolean DEVMODE_PRODUCTSADDEDITACTIVITY = false;
     public static boolean DEVMODE_PROMPTEDRULESACTIVITY = false;
     public static boolean DEVMODE_REQUESTDIALOG = false;
     public static boolean DEVMODE_REQUESTDIALOGPARAMETERS = false;
     public static boolean DEVMODE_RULESACTIVITY = false;
-    public static boolean DEVMODE_RULESADDEDITACTIVITY = false;
+    public static boolean DEVMODE_RULESADDEDITACTIVITY = true;
     public static boolean DEVMODE_RULETOOLSACTIVITY = false;
     public static boolean DEVMODE_SHOPPINGACTIVITY = false;
     public static boolean DEVMODE_SHOPPINGENTRYADJUSTACTIVITY = false;
@@ -89,6 +89,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTACTIVITY = false;
     public static boolean DEVMODE_TOOLSACTIVITY = false;
+    public static boolean DEVMODE_RULESUGGESTCHECKACTIVITY = false;
 
     /**
      * Intent keys (DB based i.e. used for passing DB derived values)
@@ -117,7 +118,7 @@ public class StandardAppConstants{
     public static final String INTENTKEY_RULEUSES = "ik_ruleuses";
     public static final String INTENTKEY_RULEPROMPT = "ik_ruleprompt";
     public static final String INTENTKEY_RULEACTON = "ik_ruleacton";
-    public static final String INTENKEY_RULEPERIOD = "ik_ruleperiod";
+    public static final String INTENTKEY_RULEPERIOD = "ik_ruleperiod";
     public static final String INTENTKEY_RULEMULTIPLIER = "ik_rulemulriplier";
 
     /**
@@ -134,6 +135,9 @@ public class StandardAppConstants{
     public static final int CM_STOCKFROMAISLE = 7;
     public static final int CM_STOCKFROMPRODUCT = 8;
     public static final int CM_STOCKFROMSTOCKLIST = 9;
+    public static final int CM_RULESUGGEST = 10;
+    public static final int CM_RULEACCURACY = 11;
+    public static final int CM_RULEDISABLED = 12;
 
 
     /**
