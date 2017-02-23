@@ -40,7 +40,7 @@ public class StandardAppConstants{
      *          changed in order to allow debugging production app.
      *          Not yet implemented.
      */
-    public static boolean DEVMODE = true;
+    public static boolean DEVMODE = false;
     public static boolean DEVMODE_MAINACTIVITY = false;
     public static boolean DEVMODE_ACTIONCOLORCODING = false;
     public static boolean DEVMODE_ACTIVYMENUOPTION = false;
@@ -66,13 +66,13 @@ public class StandardAppConstants{
     public static boolean DEVMODE_DBAISLEMETHODS = false;
     public static boolean DEVMODE_DBDAO = false;
     public static boolean DEVMODE_DBPRODUCTUSAGEMETHODS = false;
-    public static boolean DEVMODE_DBRULEMETHODS = true;
+    public static boolean DEVMODE_DBRULEMETHODS = false;
     public static boolean DEVMODE_DBSHOPLISTMETHODS = false;
     public static boolean DEVMODE_DBSHOPMETHODS = false;
     public static boolean DEVMODE_EXTERNALSTORAGEPERMISSIONS = false;
     public static boolean DEVMODE_INTEGRITYCHECKDBHELPER = false;
     public static boolean DEVMODE_ORDERACTIVITY = false;
-    public static boolean DEVMODE_PRODUCTSACTIVITY = true;
+    public static boolean DEVMODE_PRODUCTSACTIVITY = false;
     public static boolean DEVMODE_PRODUCTSADDEDITACTIVITY = false;
     public static boolean DEVMODE_PROMPTEDRULESACTIVITY = false;
     public static boolean DEVMODE_REQUESTDIALOG = false;
@@ -89,7 +89,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTACTIVITY = false;
     public static boolean DEVMODE_TOOLSACTIVITY = false;
-    public static boolean DEVMODE_RULESUGGESTCHECKACTIVITY = true;
+    public static boolean DEVMODE_RULESUGGESTCHECKACTIVITY = false;
 
     /**
      * Intent keys (DB based i.e. used for passing DB derived values)
