@@ -3,6 +3,7 @@ package mjt.shopwise;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,8 +38,10 @@ public class RuleToolsActivity extends AppCompatActivity{
     TextView donebutton;
     TextView suggestbutton;
     TextView checkbutton;
+    TextView disabledbutton;
     TextView suggestoverview;
     TextView checkoverview;
+    private DBRuleMethods dbRuleMethods;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
@@ -69,8 +72,20 @@ public class RuleToolsActivity extends AppCompatActivity{
         donebutton = (TextView) findViewById(R.id.ruletools_donebutton);
         suggestbutton = (TextView) findViewById(R.id.ruletools_rulesuggestionbutton);
         checkbutton = (TextView) findViewById(R.id.ruletools_checkbutton);
+        disabledbutton = (TextView) findViewById(R.id.ruletools_disabledrulesbutton);
         suggestoverview = (TextView) findViewById(R.id.ruletools_suggestoverview);
         checkoverview = (TextView) findViewById(R.id.ruletools_checkoverview);
+
+        dbRuleMethods = new DBRuleMethods(this);
+        Cursor dr = dbRuleMethods.getDisabledRules("");
+        int drcount = dr.getCount();
+        if (drcount < 1) {
+            disabledbutton.setVisibility(View.INVISIBLE);
+        } else {
+            disabledbutton.setVisibility(View.VISIBLE);
+        }
+        dr.close();
+
 
         /**
          * Apply Color Coding
@@ -116,6 +131,13 @@ public class RuleToolsActivity extends AppCompatActivity{
                 messagebar.setVisibility(View.INVISIBLE);
                 break;
         }
+        Cursor dr = dbRuleMethods.getDisabledRules("");
+        if (!(dr.getCount() > 0)) {
+            disabledbutton.setVisibility(View.INVISIBLE);
+        } else {
+            disabledbutton.setVisibility(View.VISIBLE);
+        }
+        dr.close();
     }
 
     /**************************************************************************
@@ -142,6 +164,7 @@ public class RuleToolsActivity extends AppCompatActivity{
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         Intent intent = null;
+        boolean callingmodeset = false;
         switch (view.getId()) {
             case R.id.ruletools_donebutton:
                 msg = "Finishing";
@@ -151,13 +174,33 @@ public class RuleToolsActivity extends AppCompatActivity{
             case R.id.tools_backupbutton:
                 intent = new Intent(this,BackupActivity.class);
                 break;
+            case R.id.ruletools_rulesuggestionbutton:
+                intent = new Intent(this,RuleSuggestCheckActivity.class);
+                intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
+                        StandardAppConstants.CM_RULESUGGEST);
+                callingmodeset = true;
+                break;
+            case R.id.ruletools_checkbutton:
+                intent = new Intent(this,RuleSuggestCheckActivity.class);
+                intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
+                        StandardAppConstants.CM_RULEACCURACY);
+                callingmodeset = true;
+                break;
+            case R.id.ruletools_disabledrulesbutton:
+                intent = new Intent(this,RuleSuggestCheckActivity.class);
+                intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
+                        StandardAppConstants.CM_RULEDISABLED);
+                callingmodeset = true;
             default:
                 break;
         }
         if (intent != null) {
             intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
-            intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,StandardAppConstants.CM_CLEAR);
-            intent.putExtra(menucolorcode,passedmenucolorcode + 1);
+            if (!callingmodeset) {
+                intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
+                        StandardAppConstants.CM_CLEAR);
+            }
+            intent.putExtra(menucolorcode,passedmenucolorcode);
             msg = "Starting Activty " + intent.getComponent().getShortClassName();
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             startActivity(intent);

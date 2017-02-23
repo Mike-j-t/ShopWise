@@ -23,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -229,11 +227,6 @@ public class RulesAddEditActivity extends AppCompatActivity {
     AdapterAisleList aislelistadapter;
     AdapterProductList productlistadapter;
     AdapterRulePeriodList ruleperiodlistadapter;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
 
     @SuppressLint("SetTextI18n")
@@ -354,6 +347,42 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 ruledate_input.setText(sdf.format(currentdate));
                 rulemultiplier_input.setText("1");
                 textruledate_input.setText("");
+                //String testRSCAname = RuleSuggestCheckActivity.class.getSimpleName();
+                //boolean textRSCAcompare = caller.equals(testRSCAname);
+                if (caller.equals(RuleSuggestCheckActivity.class.getSimpleName())) {
+                    currentaisleid = getIntent().getLongExtra(
+                            StandardAppConstants.INTENTKEY_AISLEID,0);
+                    currentproductid = getIntent().getLongExtra(
+                            StandardAppConstants.INTENTKEY_PRODUCTID,0
+                    );
+                    currentshopid = getIntent().getLongExtra(
+                            StandardAppConstants.INTENTKEY_SHOPID,0
+                    );
+                    rulename_input.setText(
+                            getIntent().getStringExtra(
+                                    StandardAppConstants.INTENTKEY_RULENAME
+                            )
+                    );
+                    numbertoget_input.setText(
+                            Integer.toString(
+                                    getIntent().getIntExtra(
+                                            StandardAppConstants.INTENTKEY_RULEUSES,1
+                                    )
+                            )
+                    );
+                    ruleperiod_input.setSelection(
+                            getIntent().getIntExtra(
+                                    StandardAppConstants.INTENTKEY_RULEPERIOD,0
+                            )
+                    );
+                    rulemultiplier_input.setText(
+                            Integer.toString(
+                                    getIntent().getIntExtra(
+                                            StandardAppConstants.INTENTKEY_RULEMULTIPLIER,1
+                                    )
+                            )
+                    );
+                }
                 break;
             case StandardAppConstants.CM_EDIT:
                 currentaisleid = getIntent().getLongExtra(
@@ -409,13 +438,18 @@ public class RulesAddEditActivity extends AppCompatActivity {
         addProductFilterListener();
         ruleperiodlistadapter = setupRulePeriodSpinner();
         setupTextRuleDateInput();
-        if (calledmode == StandardAppConstants.CM_EDIT) {
+        String callingactivity = RuleSuggestCheckActivity.class.getSimpleName();
+
+        if (calledmode == StandardAppConstants.CM_EDIT ||
+                (calledmode == StandardAppConstants.CM_ADD && caller.equals(
+                        RuleSuggestCheckActivity.class.getSimpleName()
+                ))) {
             shopspinner.setEnabled(false);
             aislespinner.setEnabled(false);
             productspinner.setEnabled(false);
             productfilter_input.setEnabled(false);
             ruleperiod_input.setSelection(getIntent().getIntExtra(
-                    StandardAppConstants.INTENKEY_RULEPERIOD,0
+                    StandardAppConstants.INTENTKEY_RULEPERIOD,0
             ));
         }
     }
@@ -621,7 +655,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 setMessage(this,"Rule " + newrulename + " updated.",false);
                 break;
             default:
-                logmsg = "Default Enetered. This SHOULD NOT happen.";
+                logmsg = "Default Entered. This SHOULD NOT happen.";
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
         }

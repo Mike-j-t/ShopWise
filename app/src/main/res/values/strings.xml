@@ -83,6 +83,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="word_for">for</string>
+    <string name="rulesuggestlist">Rule Suggestions List</string>
+    <string name="rulechecklist">Rule Accuracy Check List</string>
+    <string name="ruledisabledlist">Disabled Rule List</string>
 
     <!-- Button Text -->
     <string name="donebutton">DONE</string>
@@ -113,6 +116,9 @@
     <string name="rulesbutton">RULES</string>
     <string name="suggestbutton">SUGGEST</string>
     <string name="checkbutton">CHECK</string>
+    <string name="disablebutton">DISABLE</string>
+    <string name="disabledbutton">DISABLED</string>
+    <string name="enablebutton">ENABLE</string>
 
     <string name="backupbasefilename">ShopWiseDB</string>
     <string name="backupfileextension">.bkp</string>

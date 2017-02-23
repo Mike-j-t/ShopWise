@@ -459,7 +459,7 @@ public class RulesActivity extends AppCompatActivity {
                         rlcsr.getColumnIndex(
                                 RULEACTON_COLUMN)));
         intent.putExtra(
-                StandardAppConstants.INTENKEY_RULEPERIOD,
+                StandardAppConstants.INTENTKEY_RULEPERIOD,
                 rlcsr.getInt(
                         rlcsr.getColumnIndex(RULEPERIOD_COLUMN)));
         intent.putExtra(

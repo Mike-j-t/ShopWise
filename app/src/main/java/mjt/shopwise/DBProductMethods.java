@@ -120,16 +120,7 @@ class DBProductMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        String whereclause = DBProductsTableConstants.PRODUCTS_ID_COL_FULL + "=? ";
-        if (filter.length()> 0) {
-            whereclause = whereclause + DBConstants.SQLAND + filter;
-        }
-        String orderclause = null;
-        if (order.length() > 0 ) {
-            orderclause = order;
-        }
         //TODO Remove commented code (rawquery replaced with query)
-        /**
         String sql = DBConstants.SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
@@ -160,16 +151,7 @@ class DBProductMethods {
         if (order.length() > 0 ) {
             sql = sql + DBConstants.SQLORDERBY + order;
         }
-         **/
-        //return db.rawQuery(sql,null);
-        return db.query(true,DBProductsTableConstants.PRODUCTS_TABLE,
-                new String[] {DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
-                        DBProductsTableConstants.PRODUCTS_NAME_COL_FULL,
-                        DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL},
-                whereclause,new String[] { DBProductsTableConstants.PRODUCTS_ID_COL_FULL },
-                null,
-                orderclause,
-                null, null);
+        return db.rawQuery(sql,null);
     }
 
     /**************************************************************************

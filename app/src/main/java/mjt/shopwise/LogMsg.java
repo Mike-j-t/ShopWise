@@ -239,7 +239,9 @@ public class LogMsg{
                         (callingclass.equals(StockListActivity.THISCLASS) &&
                                 StandardAppConstants.DEVMODE_STOCKLISTACTIVITY) ||
                         (callingclass.equals(ToolsActivity.THISCLASS) &&
-                                StandardAppConstants.DEVMODE_TOOLSACTIVITY)
+                                StandardAppConstants.DEVMODE_TOOLSACTIVITY) ||
+                        (callingclass.equals(RuleSuggestCheckActivity.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_RULESUGGESTCHECKACTIVITY)
 
                 )
             )

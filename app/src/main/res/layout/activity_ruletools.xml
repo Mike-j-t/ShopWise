@@ -78,10 +78,19 @@
             android:layout_weight="18"
             android:text="@string/checkbutton"
             />
-
         <TextView
             style="@style/inputitemdummy"
-            android:layout_weight="62"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/ruletools_disabledrulesbutton"
+            style="@style/actionbutton"
+            android:layout_weight="18"
+            android:text="@string/disabledbutton"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="42"
             />
     </LinearLayout>
 </LinearLayout>
