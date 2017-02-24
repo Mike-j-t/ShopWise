@@ -33,25 +33,53 @@
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ruletoolssuggestoverview_linearlayout"
+        android:id="@+id/ruletoolsminperiod_linearlayout"
         style="@style/standard_linearlayout"
         >
         <TextView
-            android:id="@+id/ruletools_suggestoverview"
+            android:id="@+id/ruletools_minperiod_label"
             style="@style/inputitemlabel"
-            android:layout_weight="100"
-            android:text="@string/rulesuggestionoverview"
+            android:layout_weight="16"
+            android:text="Min Period"/>
+        <EditText
+            android:id="@+id/ruletools_minperiod"
+            style="@style/inputitem_order"
+            android:layout_weight="10"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/ruletools_minperiod_info"
+            style="@style/inputitemlabel"
+            android:layout_weight="72"
+            android:text="@string/minperiodinfo"
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ruletoolscheckoverview_linearlayout"
+        android:id="@+id/ruletoolsminbuy_linearlayout"
         style="@style/standard_linearlayout"
         >
         <TextView
-            android:id="@+id/ruletools_checkoverview"
+            android:id="@+id/ruletools_minbuy_label"
             style="@style/inputitemlabel"
-            android:layout_weight="100"
-            android:text="@string/ruleaccuracycheck"
+            android:layout_weight="16"
+            android:text="Min Bought"/>
+        <EditText
+            android:id="@+id/ruletools_minbuy"
+            style="@style/inputitem_order"
+            android:layout_weight="10"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/ruletools_minpbuy_info"
+            style="@style/inputitemlabel"
+            android:layout_weight="72"
+            android:text="@string/minbuyinfo"
             />
     </LinearLayout>
     <LinearLayout
@@ -91,6 +119,28 @@
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="42"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ruletoolssuggestoverview_linearlayout"
+        style="@style/standard_linearlayout"
+        >
+        <TextView
+            android:id="@+id/ruletools_suggestoverview"
+            style="@style/inputitemlabel"
+            android:layout_weight="100"
+            android:text="@string/rulesuggestionoverview"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ruletoolscheckoverview_linearlayout"
+        style="@style/standard_linearlayout"
+        >
+        <TextView
+            android:id="@+id/ruletools_checkoverview"
+            style="@style/inputitemlabel"
+            android:layout_weight="100"
+            android:text="@string/ruleaccuracycheck"
             />
     </LinearLayout>
 </LinearLayout>

@@ -482,7 +482,7 @@ class DBProductMethods {
                      **/
                     int text = pucsr.getCount();
                     while(pucsr.moveToNext()) {
-                        rv.add("Delete STOCK row for " +
+                        rv.add("Delete STOCK for " +
                                 productname +
                                 " Aisle " +
                                 pucsr.getString(

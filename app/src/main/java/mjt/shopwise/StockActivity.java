@@ -607,6 +607,11 @@ public class StockActivity extends AppCompatActivity {
             logmsg = "AisleID=" + Long.toString(aisleref) +
                     " ProductID=" + Long.toString(productref) +
                     " ADD=" + Boolean.toString(dbpumethods.ifProductUsageAdded());
+            if (dbpumethods.ifProductUsageAdded()) {
+                setMessage(this,
+                        "Product Added",
+                        false);
+            }
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                     logmsg,THISCLASS,methodname);
         } else {
@@ -619,6 +624,9 @@ public class StockActivity extends AppCompatActivity {
             logmsg = "AisleID=" + Long.toString(aisleref) +
                     " ProductID=" + Long.toString(productref) + "" +
                     " EDIT=" + Boolean.toString(dbpumethods.ifProductUsageUpdated());
+            if (dbpumethods.ifProductUsageUpdated()) {
+                setMessage(this,"Product Updated",false);
+            }
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             internalmode = EDITMODE;
         }
@@ -800,15 +808,14 @@ public class StockActivity extends AppCompatActivity {
         String classname = this.getClass().getCanonicalName();
         String positivebuttontext = getResources().getString(R.string.deletebutton);
         String positiveaction = "stockDelete";
-        String negativebuttontext = getResources().getString(R.string.movebutton);
-        String negativeaction = "doNothing";
+        String negativebuttontext = "";
+        String negativeaction = "";
         String neutralbuttontext = getResources().getString(R.string.cancelbutton);
         String neutralaction = "";
-        String title = "Delete or Move " + productname + " in Aisle " + aislename;
-        String message = "Available Options are CANCEL, DELETE and MOVE.\n\n" +
+        String title = "Delete " + productname + " in Aisle " + aislename;
+        String message = "Available Options are CANCE and DELETE.\n\n" +
                 "\tCANCEL returns to  STOCK, doing nothing.\n" +
-                "\tDELETE allows you to delete the stocked item.\n" +
-                "\tMOVE allows you to move the stocked item to another aisle/shop.\n\n";
+                "\tDELETE allows you to delete the stocked item.\n\n";
 
         ArrayList<String> impact = dbpumethods.stockDeleteImapct(aisleid,productid);
         impact.addAll(dbshoplistmethods.shopListEntryDeleteImpact(aisleid,productid));

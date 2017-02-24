@@ -490,7 +490,7 @@ class DBAisleMethods {
                         null,null,null);
 
                 while (pucsr.moveToNext()) {
-                    rv.add("TO GET for product -" +
+                    rv.add("STOCK for product -" +
                             pucsr.getString(
                                     pucsr.getColumnIndex(
                                             DBProductsTableConstants.PRODUCTS_NAME_COL

@@ -54,6 +54,8 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
     private boolean suggestmode = false;
     private boolean disabledmode = false;
     private boolean acccheckmode = false;
+    private int minbuy;
+    private int minprd;
 
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
@@ -98,6 +100,10 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGACTIVITY);
         calledmode = getIntent().getIntExtra(
                 StandardAppConstants.INTENTKEY_CALLINGMODE,0);
+        minbuy = getIntent().getIntExtra(
+                StandardAppConstants.INTENTKEY_RULETOOLMINBUY,5);
+        minprd = getIntent().getIntExtra(
+                StandardAppConstants.INTENTKEY_RULETOOLMINPERIOD,30);
         switch (calledmode) {
             case StandardAppConstants.CM_RULEACCURACY:
                 rulesexist = true;
@@ -218,10 +224,10 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
                 break;
         }
         if (suggestmode) {
-            rlcsr = dbrulemethods.getToolRules(rulesexist,1,1,filter,orderby);
+            rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
         }
         if (acccheckmode) {
-            rlcsr = dbrulemethods.getToolRules(rulesexist,0,0,filter,orderby);
+            rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
         }
         if (disabledmode) {
             rlcsr = dbrulemethods.getDisabledRules(orderby);
