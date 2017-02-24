@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -41,6 +42,12 @@ public class RuleToolsActivity extends AppCompatActivity{
     TextView disabledbutton;
     TextView suggestoverview;
     TextView checkoverview;
+    TextView minperiodinfo;
+    TextView minbuyinfo;
+    TextView minperiodlabel;
+    TextView minbuylabel;
+    EditText minperiod;
+    EditText minbuy;
     private DBRuleMethods dbRuleMethods;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -75,6 +82,14 @@ public class RuleToolsActivity extends AppCompatActivity{
         disabledbutton = (TextView) findViewById(R.id.ruletools_disabledrulesbutton);
         suggestoverview = (TextView) findViewById(R.id.ruletools_suggestoverview);
         checkoverview = (TextView) findViewById(R.id.ruletools_checkoverview);
+        minbuyinfo = (TextView) findViewById(R.id.ruletools_minpbuy_info);
+        minperiodinfo = (TextView) findViewById(R.id.ruletools_minperiod_info);
+        minbuylabel = (TextView) findViewById(R.id.ruletools_minbuy_label);
+        minperiodlabel = (TextView) findViewById(R.id.ruletools_minperiod_label);
+        minbuy = (EditText) findViewById(R.id.ruletools_minbuy);
+        minperiod = (EditText) findViewById(R.id.ruletools_minperiod);
+        minbuy.setText("5");
+        minperiod.setText("30");
 
         dbRuleMethods = new DBRuleMethods(this);
         Cursor dr = dbRuleMethods.getDisabledRules("");
@@ -100,8 +115,16 @@ public class RuleToolsActivity extends AppCompatActivity{
         ActionColorCoding.setActionButtonColor(donebutton,primary_color);
         ActionColorCoding.setActionButtonColor(suggestbutton,primary_color);
         ActionColorCoding.setActionButtonColor(checkbutton,primary_color);
-        suggestoverview.setTextColor(primary_color);
-        checkoverview.setTextColor(primary_color);
+        ActionColorCoding.setActionButtonColor(minbuy,
+                h2 & ActionColorCoding.transparency_requied);
+        ActionColorCoding.setActionButtonColor(minperiod,
+                h2 & ActionColorCoding.transparency_requied);
+        suggestoverview.setTextColor(h2);
+        checkoverview.setTextColor(h2);
+        minbuylabel.setTextColor(primary_color);
+        minperiodlabel.setTextColor(primary_color);
+        minbuyinfo.setTextColor(h2);
+        minperiodinfo.setTextColor(h2);
 
     }
 
@@ -164,6 +187,8 @@ public class RuleToolsActivity extends AppCompatActivity{
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         Intent intent = null;
+        Integer minimumbuy = new Integer(minbuy.getText().toString());
+        Integer minimumprd = new Integer(minperiod.getText().toString());
         boolean callingmodeset = false;
         switch (view.getId()) {
             case R.id.ruletools_donebutton:
@@ -196,6 +221,10 @@ public class RuleToolsActivity extends AppCompatActivity{
         }
         if (intent != null) {
             intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
+            intent.putExtra(StandardAppConstants.INTENTKEY_RULETOOLMINBUY,
+                    minimumbuy);
+            intent.putExtra(StandardAppConstants.INTENTKEY_RULETOOLMINPERIOD,
+                    minimumprd);
             if (!callingmodeset) {
                 intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,
                         StandardAppConstants.CM_CLEAR);

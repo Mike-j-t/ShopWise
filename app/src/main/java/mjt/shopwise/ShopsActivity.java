@@ -543,7 +543,7 @@ public class ShopsActivity extends AppCompatActivity {
         // and Rules for such product usages. Notes, products are not
         // to be deleted.
         ArrayList<String> impact = dbshopmethods.shopDeletedImpact(shopid);
-        String tmsg = "";
+        String tmsg = "\n";
         for (String msg: impact) {
             tmsg = tmsg + msg + "\n";
         }

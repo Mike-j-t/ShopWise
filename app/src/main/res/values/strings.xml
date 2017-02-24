@@ -143,6 +143,9 @@
     <string name="tab1">\t</string>
     <string name="tab2">\t\t</string>
 
+    <string name="minbuyinfo">At least this number must have been purchased</string>
+    <string name="minperiodinfo">At least this many days between first and last purchase</string>
+
     <string name="stockedproduct_edit_note1">Note! after Saving, the Product Selector is changed to another product\u0020
                 (stocked products, on a per aisle basis, are not selectable)\u0020
                 and the inputs are set to default values.\u0020
@@ -161,18 +164,31 @@
         Rule suggestion and accuracy checking.
     </string>
     <string name="rulesuggestionoverview">
-        Rule Suggestion - SUGGEST\n\n
-        Rule Suggestion will search for potential rules based upon the shopping history.\n
-        Suggested rules are then listed allowing them to be added as actual rules.\n
+        \nSUGGEST\n
+        \tList potential Rules based upon the shopping history.\n
+        \tADD allows the suggested Rule to be added\n
+        \tSKIP will temporarily remove the Entry from the List.\n
+        \tDISABLE permenantly (see DISABLED below) removes the entry from the list.\n\n
+        CHECK\n
+        \tList existing Rules detailing the Rule\'s accuracy compared with Shopping history.\n
+        \tAccuracy is shown as a percentage.\n
+        \t\t100 is exact.\n
+        \t\tLess than 100 indicates the Rule adds too few.\n
+        \t\tMore than 100 indicates the Rule addds too many.\n
+        \tMODIFY allows the Rule to be edited.\n\n
+        DISABLED\n
+        \tList Entries that have been Disabled.\n
+        \tENABLE wil re-enable the Entry.\n\n
+        NOTES\n
+        \tDISABLED will only be shown if there are Disabled Entries.\n\n
+        \tMin Period and Min Bought may cause nothing to be shown.\n
+        \tIf Min Bought and Min Period are both 0 then:-\n
+        \t\tResults may be not reliable.\n
+        \t\tSuggest will show all STOCK that does not have an existing Rule.\n
+        \t\tCheck will show all RULES.\n
+        \t\tResults may include NaN (Not a Number) due to divide by 0 handling.\n
+        \t\tIt is inadvisable to rely on low values (hence 30 and 5 as defaults).\n
     </string>
     <string name="ruleaccuracycheck">
-        Rule Accuracy Check - CHECK\n\n
-        Rule Accuracy Check searches existing rules and calculates their accruacy based upon\u0020
-        the shopping history.\n
-        The Rules are listed with an accuracy as a percentage.\n
-        A percentage that is less than 100, indicates that the rule does not add enough.\n
-        A percentage that is greater than 100, indictaes that the rule adds too many.\n
-        A percent of 100 indicates that the rule is correct.\n
-        The resultant list allows rules to be modified.
     </string>
 </resources>

@@ -85,7 +85,7 @@ public class StandardAppConstants{
     public static boolean DEVMODE_SHOPSACTIVITY = false;
     public static boolean DEVMODE_SHOPSADDEDITACTIVITY = false;
     public static boolean DEVMODE_SPINNERMOVE = false;
-    public static boolean DEVMODE_STOCKACTIVITY = false;
+    public static boolean DEVMODE_STOCKACTIVITY = true;
     public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTACTIVITY = false;
     public static boolean DEVMODE_TOOLSACTIVITY = false;
@@ -120,6 +120,8 @@ public class StandardAppConstants{
     public static final String INTENTKEY_RULEACTON = "ik_ruleacton";
     public static final String INTENTKEY_RULEPERIOD = "ik_ruleperiod";
     public static final String INTENTKEY_RULEMULTIPLIER = "ik_rulemulriplier";
+    public static final String INTENTKEY_RULETOOLMINBUY = "ik_ruletoolminbuy";
+    public static final String INTENTKEY_RULETOOLMINPERIOD = "ik_ruletoolminperiod";
 
     /**
      * Calling Modes as passed via intents.

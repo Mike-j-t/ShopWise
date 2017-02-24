@@ -481,10 +481,10 @@ public class AislesActivity extends AppCompatActivity{
         String neutralbuttontext = getResources().getString(R.string.cancelbutton);
         String neutralaction = "";
         String title = "Edit or Stock Aisle = " + currentaislename;
-        String message = "Available Options are " + neutralbuttontext + "," +
+        String message = "Available Options are " + neutralbuttontext + ", " +
                 positivebuttontext + " AND " + negativebuttontext + "\n\n" +
-                "\t" + neutralbuttontext + " returns to Aisles, doing nothing." +
-                "\t" + positivebuttontext + " allows the Aisle to be changed." +
+                "\t" + neutralbuttontext + " returns to Aisles, doing nothing.\n" +
+                "\t" + positivebuttontext + " allows the Aisle to be changed.\n" +
                 "\t" + negativebuttontext + " allows assignment of products to " +
                 "Aisles.";
         if ((aislecount < 1) || (productcount < 1)) {
@@ -525,7 +525,7 @@ public class AislesActivity extends AppCompatActivity{
         String neutralaction = "";
 
         ArrayList<String> impact = dbaislemethods.aisleDeleteImpact(aisleid);
-        String tmsg = "";
+        String tmsg = "\n";
         for (String msg: impact) {
             tmsg = tmsg + msg + "\n";
         }
