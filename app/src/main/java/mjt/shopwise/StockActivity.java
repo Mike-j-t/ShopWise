@@ -1,5 +1,6 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
  * StockActivity - Stock Aisles with products
  *
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class StockActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "StockActivity";
@@ -74,6 +76,19 @@ public class StockActivity extends AppCompatActivity {
     private static final String PRODUCTNAME_COLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL;
     private static final String PRODUCTID_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
     private static final String PRODUCTNAME_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    private static final String PRODUCTSTORAGEREF_COLUMN = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    private static final String PRODUCTSTORAGEREF_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
+    private static final String PRODUCTSTORAGEORDER_COLUMN = DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
+    private static final String PODUCTSTORAGEORDER_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
+
+    private static final String STORAGEID_COLUMN = DBStorageTableConstants.STORAGE_ID_COL;
+    private static final String STORAGEID_FULLCOLUMN = DBStorageTableConstants.STORAGE_ID_COL_FULL;
+    private static final String STORAGEID_ALTCOLUMN = DBStorageTableConstants.STORAGE_ALTID_COL;
+    private static final String STORAGEID_FULLALTCOLUMN = DBStorageTableConstants.STORAGE_ALTID_COL_FULL;
+    private static final String STORAGENAME_COLUMN = DBStorageTableConstants.STORAGE_NAME_COL;
+    private static final String STORAGENAME_FULLCOLUMN = DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    private static final String STORAGEORDER_COLUMN = DBStorageTableConstants.STORAGE_ORDER_COL;
+    private static final String STORAGEORDER_FULLCOLUMN = DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
     private static final String PRODUCTREF_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL;
     private static final String PRODUCTREF_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL;
@@ -234,6 +249,7 @@ public class StockActivity extends AppCompatActivity {
          *  i.e. the colors used will indicate the caller
          */
         actionbar = getSupportActionBar();
+        actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
         h1 = ActionColorCoding.setHeadingColor(this,getIntent(),1);
@@ -302,6 +318,7 @@ public class StockActivity extends AppCompatActivity {
                 logmsg = "Called from ShopID=" + Long.toString(currentshopid) +
                         " Aisle Filter=" + aislefilter;
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+                actionbar.setTitle(actionbar.getTitle().toString() + " - (from Shops)");
                 break;
             case StandardAppConstants.CM_STOCKFROMAISLE:
                 currentaisleid = getIntent().getLongExtra(StandardAppConstants.INTENTKEY_AISLEID,0);
@@ -311,6 +328,7 @@ public class StockActivity extends AppCompatActivity {
                         " with parent ShopID=" + Long.toString(currentshopid) +
                         "Aisle Filter=" + aislefilter;
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+                actionbar.setTitle(actionbar.getTitle().toString() + " - (from Aisles)");
                 break;
             case StandardAppConstants.CM_STOCKFROMPRODUCT:
                 currentproductid = getIntent().getLongExtra(StandardAppConstants.INTENTKEY_PRODUCTID,0);
@@ -326,6 +344,7 @@ public class StockActivity extends AppCompatActivity {
                         " AisledID set to=" + Long.toString(currentaisleid) +
                         " Aisle Filter=" + aislefilter;
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+                actionbar.setTitle(actionbar.getTitle().toString() + " - (from Products)");
                 break;
             default:
                 break;
@@ -460,7 +479,7 @@ public class StockActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        plcsr = dbproductmethods.getProducts(productfilter,productorderby);
+        plcsr = dbproductmethods.getExpandedProducts(productfilter,productorderby);
         productlistadapter.swapCursor(plcsr);
 
         SpinnerMove.moveToColumn(selectproduct,values.getLong2(),plcsr,PRODUCTID_COLUMN,true);
@@ -964,6 +983,7 @@ public class StockActivity extends AppCompatActivity {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+
         AdapterProductList rv = new AdapterProductList(this,
                 plcsr,0,this.getIntent(), true);
         selectproduct.setAdapter(rv);
@@ -974,6 +994,7 @@ public class StockActivity extends AppCompatActivity {
                 plcsr.getString(plcsr.getColumnIndex(PRODUCTNAME_COLUMN)) +
                 " ID=" + Long.toString(id);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+
         selectproduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long rowid) {
@@ -1021,7 +1042,6 @@ public class StockActivity extends AppCompatActivity {
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
-        sa.actionbar.setTitle(getResources().getString(R.string.stocklabel));
     }
 
     /**
@@ -1030,6 +1050,7 @@ public class StockActivity extends AppCompatActivity {
      * @param stockcost
      * @param stockchkcount
      */
+    @SuppressLint("SetTextI18n")
     private void setNewInput(EditText stockorder, EditText stockcost, EditText stockchkcount) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -1045,7 +1066,7 @@ public class StockActivity extends AppCompatActivity {
             highorder = 9999;
         }
         stockorder.setText(Integer.toString(highorder));
-        stockcost.setText("0.00");
+        stockcost.setText(context.getResources().getString(R.string.costdefault));
         stockchkcount.setText("1");
     }
 

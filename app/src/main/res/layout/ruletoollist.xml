@@ -28,7 +28,6 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             tools:background="@android:color/holo_orange_dark"
             android:background="@android:color/holo_orange_dark"/>
-            />
         <TextView
             style="@style/listviewrowcol_standard"
             android:layout_weight="0"
@@ -42,7 +41,6 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             tools:background="@android:color/holo_green_dark"
             android:background="@android:color/holo_green_dark"/>
-        />
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="0dp"
@@ -63,7 +61,7 @@
             style="@style/listviewrowcol_standard"
             android:layout_weight="30"
             android:textStyle="bold"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlue"/>
         <TextView
             style="@style/listviewrowcol_standard"
             android:layout_weight="2"
@@ -111,6 +109,7 @@
             android:id="@+id/ruletoollist_currentrule"
             style="@style/listviewrowcol_standard"
             android:layout_weight="60"
+            android:textSize="@dimen/text_size_small"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"/>
         <TextView
@@ -125,11 +124,17 @@
         style="@style/listviewrow_standard"
         >
         <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="2"
+            >
+        </TextView>
+        <TextView
             android:id="@+id/ruletoollist_ruleastext"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="56"
+            android:layout_weight="54"
             android:textStyle="bold"
             android:textColor="@color/colorBlue"
+            android:textSize="@dimen/text_size_small"
             >
         </TextView>
         <TextView
@@ -168,6 +173,4 @@
             android:layout_weight="1"
             />
     </LinearLayout>
-
-
 </LinearLayout>

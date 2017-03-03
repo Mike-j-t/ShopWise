@@ -17,6 +17,7 @@ import android.widget.TextView;
  * Created by Mike092015 on 12/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class PromptedRulesActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "PromptedRulesActivity";

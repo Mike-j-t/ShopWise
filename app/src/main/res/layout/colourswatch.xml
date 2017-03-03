@@ -11,7 +11,7 @@
 
     <TextView
         style="@style/inputitemlabel_primary"
-        android:text="@string/colorswacth_primary_label"
+        android:text="@string/colorswatch_primary_label"
         android:gravity="end"
         android:layout_weight="6"
         />

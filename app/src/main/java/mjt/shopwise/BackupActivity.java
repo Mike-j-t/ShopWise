@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,6 +35,7 @@ import java.util.Calendar;
  * Created by Mike092015 on 14/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class BackupActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "BackupActivity";
@@ -576,8 +578,9 @@ public class BackupActivity extends AppCompatActivity {
             }
                 if(copytaken && origdeleted && restoredone) {
                     errlist.add("Database successfully restored.");
-                    resulttitle = "Restore was successful.";
+                    resulttitle = "Restore was successful. Application wil be restarted.";
                     DBHelper.reopen(context);
+                    DBHelper.getHelper(context).expand(null,true);
                 }
                 for(int i = 0; i < errlist.size(); i++){
                     if(i > 0) {
@@ -585,6 +588,7 @@ public class BackupActivity extends AppCompatActivity {
                     }
                     finalmessage = finalmessage + errlist.get(i);
                 }
+
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -597,7 +601,14 @@ public class BackupActivity extends AppCompatActivity {
                         resultdialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                if (copytaken && origdeleted && restoredone) {
+                                    Intent i = getBaseContext().getPackageManager()
+                                            .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    finish();
+                                    startActivity(i);
+                                    System.exit(0);
+                                }
                             }
                         });
                         resultdialog.show();

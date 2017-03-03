@@ -15,13 +15,14 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 
 /**
- * Created by Mike092015 on 29/12/2016.
+ * ShoppingList Adapter
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class AdapterShoppingList extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
+    private final Intent callerintent;
+    private final Context ctxt;
     private Cursor cursor;
 
     private int shoplist_productref_offset = 0;
@@ -57,11 +58,11 @@ public class AdapterShoppingList extends CursorAdapter {
     private int shop_id_offset = 0;
 
     private int white = 0;
-    private ColorStateList defaultcolor;
+    private final ColorStateList defaultcolor;
     public static final String THISCLASS = AdapterShoppingList.class.getSimpleName();
     private static final String LOGTAG = "SW_ASgL(CsrAdptr)";
 
-    AdapterShoppingList(Context context, Cursor csr, int flags, Intent intent) {
+    AdapterShoppingList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
         super(context, csr, flags);
         String msg = "Constructing";
         String methodname = "Construct";

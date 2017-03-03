@@ -47,6 +47,7 @@ import java.util.ArrayList;
  * according to the default values and then stored in the Appvalues table
  * this is done when constructing an ActionColorCoding instance.
  */
+@SuppressWarnings("WeakerAccess")
 class ActionColorCoding {
 
     private static final String LOGTAG = "SW_AC";
@@ -84,7 +85,7 @@ class ActionColorCoding {
         }
         DBDAO dbdao = new DBDAO(context);
         SQLiteDatabase db = dbdao.db;
-        String sqlstr = "";
+        String sqlstr;
         if (loadedcounts.getInt1() != dfltcounts.getInt1()) {
             String msg = "Loaded/Default Primary Colors mismatch." +
                     " Loaded=" + Integer.toString(loadedcounts.getInt1()) +
@@ -222,7 +223,7 @@ class ActionColorCoding {
      * @param groupoffset   the offset from the primary color
      * @return              the color
      */
-    public static int getGroupColor(int group, int groupoffset) {
+    public static int getGroupColor(int group, @SuppressWarnings("SameParameterValue") int groupoffset) {
         return allcolors[(((group % primarycolors.length) *
                 colorspergroup) +
                 (groupoffset % colorspergroup))];
@@ -245,16 +246,12 @@ class ActionColorCoding {
             Intent intent,
             int offset) {
 
-        /**
-         * Get the color code from the passed intent
-         */
+        //Get the color code from the passed intent
         int passedoption = intent.getIntExtra(
                 StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                 -1
         );
-        /**
-         * Calculate how many shades per color
-         */
+        //Calculate how many shades per color
         int colorspergroup = allcolors.length / primarycolors.length;
         /**
          * offset can be a maximum of the number of colors per group
@@ -263,9 +260,7 @@ class ActionColorCoding {
         if (offset > (colorspergroup -1)) {
             offset = colorspergroup -1;
         }
-        /**
-         * return the respective color
-         */
+        //return the respective color
         return allcolors[
                 (
                         (passedoption * colorspergroup)

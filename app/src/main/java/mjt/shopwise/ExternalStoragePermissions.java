@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 
+@SuppressWarnings("WeakerAccess")
 class ExternalStoragePermissions {
 
     public int API_VERSION = Build.VERSION.SDK_INT;

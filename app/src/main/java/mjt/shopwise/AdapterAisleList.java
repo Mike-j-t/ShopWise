@@ -14,10 +14,11 @@ import android.widget.TextView;
  *                      Note has been written for ListView and Spinner
  *                      i.e. includes overridden getDropDownView method.
  */
+@SuppressWarnings({"WeakerAccess", "FieldCanBeLocal"})
 public class AdapterAisleList extends CursorAdapter{
 
     private Intent callerintent;
-    private Context ctxt;
+    private final Context ctxt;
     private boolean fromspinner;
     private Cursor cursor;
 
@@ -38,7 +39,7 @@ public class AdapterAisleList extends CursorAdapter{
      * @param flags       the flags
      * @param intent      the intent
      */
-    AdapterAisleList(Context context, Cursor csr, int flags, Intent intent) {
+    AdapterAisleList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -61,7 +62,7 @@ public class AdapterAisleList extends CursorAdapter{
                      Cursor csr,
                      int flags,
                      Intent intent,
-                     boolean fromspinner) {
+                     @SuppressWarnings("SameParameterValue") boolean fromspinner) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

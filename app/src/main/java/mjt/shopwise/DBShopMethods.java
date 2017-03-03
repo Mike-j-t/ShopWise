@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**
  * DBShopMethods - Database Methods specific to Shop handling
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 class DBShopMethods {
 
     private static final String LOGTAG = "SW-DBSM";
@@ -99,7 +100,12 @@ class DBShopMethods {
         }
         csr.close();
         msg = "Hightest Shop Order=" + Integer.toString(rv);
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                msg,
+                THISCLASS,
+                methodname
+        );
         return rv;
     }
 
@@ -179,11 +185,11 @@ class DBShopMethods {
      * @param shopnotes  motes about the shop
      */
     void insertShop(String shopname,
-                           int shoporder,
-                           String shopstreet,
-                           String shopcity,
-                           String shopstate,
-                           String shopnotes) {
+                    int shoporder,
+                    String shopstreet,
+                    String shopcity,
+                    String shopstate,
+                    @SuppressWarnings("SameParameterValue") String shopnotes) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -222,10 +228,10 @@ class DBShopMethods {
      * @param shopstate  state/county of the shop
      */
     void insertShop(String shopname,
-                           int shoporder,
-                           String shopstreet,
-                           String shopcity,
-                           String shopstate) {
+                    int shoporder,
+                    String shopstreet,
+                    String shopcity,
+                    @SuppressWarnings("SameParameterValue") String shopstate) {
         insertShop(shopname, shoporder, shopstreet, shopcity, shopstate,"");
     }
 
@@ -239,23 +245,23 @@ class DBShopMethods {
      * @param shopcity   city/location of the shop
      */
     void insertShop(String shopname,
-                           int shoporder,
-                           String shopstreet,
-                           String shopcity) {
+                    int shoporder,
+                    String shopstreet,
+                    @SuppressWarnings("SameParameterValue") String shopcity) {
         insertShop(shopname, shoporder, shopstreet, shopcity, "");
     }
 
     /**
      * ------------------------------------------------------------------------
-     * alternative insertShop method (notes, shopstate and hhopcity blank)
+     * alternative insertShop method (notes, shopstate and shopcity blank)
      *
      * @param shopname   name of the shop
      * @param shoporder  order of the shop (lowest first)
      * @param shopstreet street part of the address of the shop
      */
     void insertShop(String shopname,
-                           int shoporder,
-                           String shopstreet) {
+                    int shoporder,
+                    @SuppressWarnings("SameParameterValue") String shopstreet) {
         insertShop(shopname, shoporder, shopstreet, "");
     }
 
@@ -327,10 +333,10 @@ class DBShopMethods {
     void modifyShop(long shopid,
                     int shoporder,
                     String shopname,
-                    String shopstreet,
+                    @SuppressWarnings("SameParameterValue") String shopstreet,
                     String shopcity,
-                    String shopstate,
-                    String shopnotes) {
+                    @SuppressWarnings("SameParameterValue") String shopstate,
+                    @SuppressWarnings("SameParameterValue") String shopnotes) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -338,7 +344,7 @@ class DBShopMethods {
          * If the shop doesn't exist then return
          */
         if(!doesShopExist(shopid)) {
-            msg = "Shop=" + shopname + " ID=" + " does nto exist.";
+            msg = "Shop=" + shopname + " ID=" + " does not exist.";
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             return;
         }
@@ -395,7 +401,7 @@ class DBShopMethods {
      * @param intransaction the intransaction
      * @return number of shops deleted
      */
-    int deleteShop(long shopid, boolean intransaction) {
+    int deleteShop(long shopid, @SuppressWarnings("SameParameterValue") boolean intransaction) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

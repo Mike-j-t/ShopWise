@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 /**
  * RequestDialog - generic Build and handle standard Alert Dialog
  */
+@SuppressWarnings("FieldCanBeLocal")
 class RequestDialog {
     private AlertDialog.Builder rdialog;
     private Object obj = null;

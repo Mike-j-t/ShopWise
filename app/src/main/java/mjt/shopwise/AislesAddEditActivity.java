@@ -20,15 +20,16 @@ import android.widget.TextView;
 import static mjt.shopwise.ActionColorCoding.transparency_requied;
 
 /**
- * Created by Mike092015 on 12/12/2016.
+ * Add or Edit an Aisle
  */
 
+@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal", "WeakerAccess"})
 public class AislesAddEditActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "AislesAddEditActivity";
     private static String caller;
     private static int calledmode;
-    private static String defaultorder = "1000";
+    private static final String defaultorder = "1000";
 
     private static final int BYAISLE = 0;
     private static final int BYORDER = 1;
@@ -101,7 +102,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
     long passedshopref = 0;
 
     static String orderby = AISLENAME_FULLCOLUMN + SORTASCENDING;
-    static String shopsorderby = SHOPNAME_FULLCOLUMN + SORTASCENDING;
+    static final String shopsorderby = SHOPNAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYAISLE;
     static boolean ordertype = true;
     static boolean sortchanged = false;
@@ -113,7 +114,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
     static String currenttitle = "";
 
     static int shopcount = 0;
-    static int aislecount = 0;
+    static final int aislecount = 0;
     static int productcount = 0;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;

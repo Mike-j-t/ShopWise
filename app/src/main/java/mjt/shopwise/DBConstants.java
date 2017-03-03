@@ -10,11 +10,13 @@ import static mjt.shopwise.DBRulesTableConstants.RULESTABLE;
 import static mjt.shopwise.DBShopListTableConstants.SHOPLISTTABLE;
 import static mjt.shopwise.DBShopsTableConstants.SHOPSTABLE;
 import static mjt.shopwise.DBAppvaluesTableConstants.APPVALUESTABLE;
+import static mjt.shopwise.DBStorageTableConstants.STORAGETABLE;
 
 /**
  * Constans used for DB construction and usage. Note that many values are
  * obtained from the underlying DB????TableConstants interfaces
  */
+@SuppressWarnings("WeakerAccess")
 final class DBConstants {
 
     /**
@@ -153,7 +155,8 @@ final class DBConstants {
                     PRODUCTUSAGETABLE,
                     SHOPLISTTABLE,
                     RULESTABLE,
-                    APPVALUESTABLE
+                    APPVALUESTABLE,
+                    STORAGETABLE
             ));
     /**
      * The Shopwise.

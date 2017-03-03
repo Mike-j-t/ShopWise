@@ -22,6 +22,7 @@ import java.text.NumberFormat;
  * Created by Mike092015 on 29/12/2016.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ShoppingActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "ShoppingActivity";
@@ -356,7 +357,7 @@ public class ShoppingActivity extends AppCompatActivity {
         Intent intent = new Intent(this,ShoppingEntryAdjustActivity.class);
         intent.putExtra(StandardAppConstants.INTENTKEY_MENUCOLORCODE,passedmenucolorcode);
         intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
-        intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,(int)0);
+        intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,0);
         int cpos = slcsr.getPosition();
         slcsr.moveToPosition(position);
         intent.putExtra(StandardAppConstants.INTENTKEY_AISLEID,

@@ -30,6 +30,7 @@ import static mjt.shopwise.DBConstants.REAL;
  * productusagechecklistcount   The number of items to check for in the
  *                                  checklist.
  */
+@SuppressWarnings("WeakerAccess")
 public class DBProductusageTableConstants {
     /**
      * productusage table - Note many to many between aisles and products

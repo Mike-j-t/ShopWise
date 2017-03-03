@@ -23,6 +23,7 @@ import android.widget.TextView;
  * shopping list. With product filter and single click to add a product.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class OrderActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "OrderActivity";

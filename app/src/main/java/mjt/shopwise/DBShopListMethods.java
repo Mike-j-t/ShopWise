@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Created by Mike092015 on 18/12/2016.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class DBShopListMethods {
 
     private static final String LOGTAG = "SW-DBSLM";
@@ -128,7 +129,6 @@ public class DBShopListMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = false;
-        ContentValues cv = new ContentValues();
         String whereargs[] = new String[] {Long.toString(aisleid),
                 Long.toString(productid)};
         String whereclause = DBShopListTableConstants.SHOPLIST_AISLEREF_COL +
@@ -178,7 +178,7 @@ public class DBShopListMethods {
      * @return          returns a TRPLDBL (3 doubles) with totalcost,
      *                  remaining cost and amount spent
      */
-    TRPLDBL getTotals(String filter) {
+    TRPLDBL getTotals(@SuppressWarnings("SameParameterValue") String filter) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -274,7 +274,7 @@ public class DBShopListMethods {
      * @param orderby
      * @return
      */
-    Cursor getShopListEntries(String filter, String orderby) {
+    Cursor getShopListEntries(String filter, @SuppressWarnings("SameParameterValue") String orderby) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -401,7 +401,7 @@ public class DBShopListMethods {
     void addOrUpdateShopListEntry(long aisleid,
                                   long productid,
                                   int numbertoget,
-                                  boolean incrementifexists,
+                                  @SuppressWarnings("SameParameterValue") boolean incrementifexists,
                                   boolean adjustdone) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

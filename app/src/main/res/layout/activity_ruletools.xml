@@ -40,7 +40,7 @@
             android:id="@+id/ruletools_minperiod_label"
             style="@style/inputitemlabel"
             android:layout_weight="16"
-            android:text="Min Period"/>
+            android:text="@string/minperiodlabel"/>
         <EditText
             android:id="@+id/ruletools_minperiod"
             style="@style/inputitem_order"
@@ -55,6 +55,7 @@
             style="@style/inputitemlabel"
             android:layout_weight="72"
             android:text="@string/minperiodinfo"
+            android:textSize="@dimen/text_size_small"
             />
     </LinearLayout>
     <LinearLayout
@@ -65,7 +66,7 @@
             android:id="@+id/ruletools_minbuy_label"
             style="@style/inputitemlabel"
             android:layout_weight="16"
-            android:text="Min Bought"/>
+            android:text="@string/minbuylabel"/>
         <EditText
             android:id="@+id/ruletools_minbuy"
             style="@style/inputitem_order"
@@ -80,6 +81,7 @@
             style="@style/inputitemlabel"
             android:layout_weight="72"
             android:text="@string/minbuyinfo"
+            android:textSize="@dimen/text_size_small"
             />
     </LinearLayout>
     <LinearLayout
@@ -130,6 +132,7 @@
             style="@style/inputitemlabel"
             android:layout_weight="100"
             android:text="@string/rulesuggestionoverview"
+            android:textSize="@dimen/text_size_small"
             />
     </LinearLayout>
     <LinearLayout

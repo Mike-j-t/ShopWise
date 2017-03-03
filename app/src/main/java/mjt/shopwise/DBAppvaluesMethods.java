@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * methods to retrieve values from duplicated names will result in only
  * 1 value being returned.
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 class DBAppvaluesMethods {
 
     /**
@@ -185,12 +186,13 @@ class DBAppvaluesMethods {
      * @param appvaluesettingsinfo          search arg for settingsinfo
      * @return
      */
+    @SuppressWarnings("ConstantConditions")
     boolean doesExtendedAppValueExist(String appvaluename,
-                                      String appvaluetype,
-                                      String appvalueint,
-                                      String appvaluereal,
-                                      String appvaluetext,
-                                      String appvalueincludeinsettings,
+                                      @SuppressWarnings("SameParameterValue") String appvaluetype,
+                                      @SuppressWarnings("SameParameterValue") String appvalueint,
+                                      @SuppressWarnings("SameParameterValue") String appvaluereal,
+                                      @SuppressWarnings("SameParameterValue") String appvaluetext,
+                                      @SuppressWarnings("SameParameterValue") String appvalueincludeinsettings,
                                       String appvaluesettingsinfo) {
 
         String msg = "Invoked";
@@ -327,9 +329,9 @@ class DBAppvaluesMethods {
      */
     void insertAppvalue(String appvaluename,
                         String appvalue,
-                        boolean allowmultiple,
-                        boolean includeinsettings,
-                        String settingsinfo) {
+                        @SuppressWarnings("SameParameterValue") boolean allowmultiple,
+                        @SuppressWarnings("SameParameterValue") boolean includeinsettings,
+                        @SuppressWarnings("SameParameterValue") String settingsinfo) {
         String msg = "Invoked (TEXT) for APPVALUENAME=" +
                 " APPVALUE=" + appvalue;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -426,7 +428,7 @@ class DBAppvaluesMethods {
      */
     void insertAppvalue(String appvaluename,
                         int appvalue,
-                        boolean allowmultiple,
+                        @SuppressWarnings("SameParameterValue") boolean allowmultiple,
                         boolean includeinsettings,
                         String settingsinfo) {
         String msg = "Invoked (LONG (Note! stored as INTEGER in DB)) for APPVALUENAME=" +
@@ -529,11 +531,11 @@ class DBAppvaluesMethods {
      * @param includeinsettings the includeinsettings
      * @param settingsinfo      the settingsinfo
      */
-    void insertStringAndIntAppvalue(String appvaluename,
-                               String appvalue,
-                               int extraintvalue,
-                               boolean allowmultiple,
-                               boolean includeinsettings,
+    void insertStringAndIntAppvalue(@SuppressWarnings("SameParameterValue") String appvaluename,
+                                    String appvalue,
+                                    int extraintvalue,
+                                    @SuppressWarnings("SameParameterValue") boolean allowmultiple,
+                                    @SuppressWarnings("SameParameterValue") boolean includeinsettings,
                                     String settingsinfo) {
         String msg = "Invoked (TEXT and INTEGER specal case) for APPVALUENAME=" +
                 appvaluename +
@@ -615,10 +617,7 @@ class DBAppvaluesMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean rv = true;
-        if (!multipleallowed && checkDuplicateName(appvaluename)) {
-            return true;
-        }
-        return checkDuplicated(appvaluename,
+        return !multipleallowed && checkDuplicateName(appvaluename) || checkDuplicated(appvaluename,
                 DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL,
                 Long.toString(appvalue));
     }

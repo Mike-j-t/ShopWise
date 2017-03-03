@@ -14,11 +14,12 @@ import android.widget.TextView;
  *                      Note has been written for ListView and Spinner
  *                      i.e. includes overridden getDropDownView method.
  */
+@SuppressWarnings("WeakerAccess")
 class AdapterShopList extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
-    private boolean fromspinner;
+    private final Intent callerintent;
+    private final Context ctxt;
+    private final boolean fromspinner;
     private Cursor cursor;
 
     private int shops_shopid_offset = -1;
@@ -28,7 +29,8 @@ class AdapterShopList extends CursorAdapter {
     private int shops_shopstate_offset = 0;
     private int shops_shopnotes_offset = 0;
     private int shops_shoporder_offset = 0;
-    public static final String THISCLASS = AdapterShopList.class.getSimpleName();
+    public static final String THISCLASS =
+            AdapterShopList.class.getSimpleName();
     private static final String LOGTAG = "SW_SL(CsrAdptr)";
 
 
@@ -81,7 +83,7 @@ class AdapterShopList extends CursorAdapter {
     /**
      * newView - inflates the layout used for the selector
      * @param context   The context from the invoking activity
-     * @param csr       The cusros containing the data rows
+     * @param csr       The cusror containing the data rows
      * @param parent    The parent Viewgroup
      * @return          The modified/inflated view
      */

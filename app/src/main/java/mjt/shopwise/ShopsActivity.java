@@ -27,6 +27,7 @@ import java.util.ArrayList;
  * will only be available when at least 1 aisle and 1 product
  * exists.
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ShopsActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ShopsActivity";
@@ -77,14 +78,22 @@ public class ShopsActivity extends AppCompatActivity {
     DBProductMethods dbproductmethods;
     Cursor slcsr;
 
-    private static final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
-    private static final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
-    private static final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
-    private static final String SHOPORDER_COLUMN = DBShopsTableConstants.SHOPS_ORDER_COL;
-    private static final String SHOPID_FULLCOLUMN = DBShopsTableConstants.SHOPS_ID_COL_FULL;
-    private static final String SHOPNAME_FULLCOLUMN = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
-    private static final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
-    private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
+    private static final String SHOPID_COLUMN =
+            DBShopsTableConstants.SHOPS_ID_COL;
+    private static final String SHOPNAME_COLUMN =
+            DBShopsTableConstants.SHOPS_NAME_COL;
+    private static final String SHOPCITY_COLUMN =
+            DBShopsTableConstants.SHOPS_CITY_COL;
+    private static final String SHOPORDER_COLUMN =
+            DBShopsTableConstants.SHOPS_ORDER_COL;
+    private static final String SHOPID_FULLCOLUMN =
+            DBShopsTableConstants.SHOPS_ID_COL_FULL;
+    private static final String SHOPNAME_FULLCOLUMN =
+            DBShopsTableConstants.SHOPS_NAME_COL_FULL;
+    private static final String SHOPCITY_FULLCOLUMN =
+            DBShopsTableConstants.SHOPS_CITY_COL_FULL;
+    private static final String SHOPORDER_FULLCOLUMN =
+            DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
     static String orderby = SHOPNAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYSHOP;
@@ -158,7 +167,7 @@ public class ShopsActivity extends AppCompatActivity {
         );
 
          **/
-        ActionColorCoding.setSwatches((View) findViewById(android.R.id.content),this.getIntent());
+        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
         //dbdao = new DBDAO(this);
         logmsg = "Preparing Database";
@@ -285,7 +294,8 @@ public class ShopsActivity extends AppCompatActivity {
      */
     public void addShop() {
         String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         Intent intent = new Intent(this,ShopsAddEditActivity.class);
         intent.putExtra(menucolorcode,passedmenucolorcode);
@@ -297,7 +307,7 @@ public class ShopsActivity extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_ADD);
         logmsg = "Starting " + ShopsAddEditActivity.class.getSimpleName() +
-                "in ADD mode";
+                " in ADD mode.";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         startActivity(intent);
     }

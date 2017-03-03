@@ -28,6 +28,7 @@ import android.widget.TextView;
  *  having to remeber the shop/aisle in which a product is stocked.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class StockListActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "StockListActivity";
@@ -179,6 +180,7 @@ public class StockListActivity extends AppCompatActivity {
 
 
         actionbar = getSupportActionBar();
+        actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
         h1 = ActionColorCoding.setHeadingColor(this,getIntent(),1);
@@ -192,7 +194,7 @@ public class StockListActivity extends AppCompatActivity {
         stocklistheading.setBackgroundColor(h1);
         inputproductfilterlabel.setTextColor(h2);
 
-        this.setTitle(getResources().getString(R.string.stocklabel));
+        //this.setTitle(getResources().getString(R.string.stocklabel));
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 
 

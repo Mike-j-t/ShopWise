@@ -36,6 +36,7 @@ import java.util.ArrayList;
 //         usability criteria.
 //==================================================================================================
 //================================================================================================*/
+@SuppressWarnings("WeakerAccess")
 class DBTable {
     private boolean usable;                         //* Flag to denote if this object can be used
     private String table_name;                      // The table name
@@ -355,7 +356,7 @@ class DBTable {
      * @return the sql table create as string
      */
 //==============================================================================================
-    public String getSQLTableCreateAsString(Boolean doasmysql) {
+    public String getSQLTableCreateAsString(@SuppressWarnings("SameParameterValue") Boolean doasmysql) {
 
         // Extract Columns that are flagged as PRIMARY INDEXES so we have a count
         // More than one has to be handled differently

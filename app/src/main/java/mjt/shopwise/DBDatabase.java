@@ -72,6 +72,7 @@ import java.util.ArrayList;
  * NOTE!!! ALTER statements should now not be generated if the table to which they relate does
  * not exist in the actual database
  */
+@SuppressWarnings("WeakerAccess")
 class DBDatabase {
     private boolean usable;
     private String database_name;
@@ -126,7 +127,7 @@ class DBDatabase {
      * @param database_name   the database name
      * @param database_tables the database tables
      */
-    public DBDatabase(String database_name, ArrayList<DBTable> database_tables) {
+    public DBDatabase(@SuppressWarnings("SameParameterValue") String database_name, @SuppressWarnings("SameParameterValue") ArrayList<DBTable> database_tables) {
         this();
         this.database_name = database_name;
         this.problem_msg = "";

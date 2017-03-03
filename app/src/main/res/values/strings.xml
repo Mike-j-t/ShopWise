@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ShopWise</string>
     <string name="app_catchphrase">Making Shopping a Little Easier</string>
 
@@ -6,7 +6,7 @@
         This indicates that this is not a release version.
     </string>
     
-    <string name="colorswacth_primary_label">Pr</string>
+    <string name="colorswatch_primary_label">Pr</string>
     <string name="colorswatch_H1_label">H1</string>
     <string name="colorswatch_H2_label">H2</string>
     <string name="colorswatch_H3_label">H3</string>
@@ -18,7 +18,7 @@
     <!-- Names of event handlers as invoked from layouts -->
     <string name="actionbuttonclick">actionButtonClick</string>
     <string name="sortclick">sortClick</string>
-    <string name="listitemclick">listItemClick</string>
+    <string name="listitemclick" tools:ignore="UnusedResources">listItemClick</string>
 
     <!-- Options Menu ListView headings (not used)  -->
     <string name="optionsmenu_actionbutton_heading">Option</string>
@@ -30,14 +30,14 @@
     <string name="shoplabel">Shop</string>
     <string name="shopnamelabel">Shop Name</string>
     <string name="shopaddlabel">Shops - Add</string>
-    <string name="shopeditLabel">Shops - Edit</string>
+    <string name="shopeditLabel" tools:ignore="UnusedResources">Shops - Edit</string>
     <string name="citylabel">City</string>
-    <string name="streetlabel">Street</string>
-    <string name="statelabel">State</string>
+    <string name="streetlabel" tools:ignore="UnusedResources">Street</string>
+    <string name="statelabel" tools:ignore="UnusedResources">State</string>
     <string name="aisleslabel">Aisles</string>
     <string name="aislelabel">Aisle</string>
     <string name="aisleaddlabel">Aisle - Add</string>
-    <string name="aisleeditlabel">Aisle - Edit</string>
+    <string name="aisleeditlabel" tools:ignore="UnusedResources">Aisle - Edit</string>
     <string name="aislenamelabel">Aisle Name</string>
     <string name="productslabel">Products</string>
     <string name="productlabel">Product</string>
@@ -48,10 +48,10 @@
     <string name="rulelabel">Rule</string>
     <string name="orderlabel">Order</string>
     <string name="orderslabel">Orders</string>
-    <string name="noteslabel">Notes</string>
+    <string name="noteslabel" tools:ignore="UnusedResources">Notes</string>
     <string name="filterlabel">Filter</string>
     <string name="stocklevellabel">Level</string>
-    <string name="orderlevellabel">List#</string>
+    <string name="orderlevellabel" tools:ignore="UnusedResources">List#</string>
     <string name="checklistlabel">Check List</string>
     <string name="shoppinglabel">Shopping List</string>
     <string name="inshoppinglist"># In List</string>
@@ -59,12 +59,16 @@
     <string name="remainingcostlabel">Left</string>
     <string name="spentlabel">Spent</string>
     <string name="quantitylabel">Quantity</string>
-    <string name="nextdatelabel">Next on</string>
+    <string name="nextdatelabel" tools:ignore="UnusedResources">Next on</string>
     <string name="promptlabel">Prompt</string>
     <string name="numbertogetlabel">Get</string>
     <string name="actonlabel">Add On</string>
     <string name="promptedruleslabel">Prompted Rules</string>
     <string name="toolslabel">Tools</string>
+    <string name="storagelabel">Storage</string>
+    <string name="storageaddlabel">Storage - Add</string>
+    <string name="storageeditlabel">Storage - Edit</string>
+
     <string name="backupdirectory">Backup Directory</string>
     <string name="datetimepart">Date/Time part</string>
     <string name="basepart">Base Filename</string>
@@ -80,30 +84,32 @@
     <string name="rulemultiplierlabel">Multiplier</string>
     <string name="checklistflaglabel">Checklist</string>
     <string name="checklistcountlabel">Count</string>
-    <string name="yes">Yes</string>
+    <string name="minperiodlabel">Min Period</string>
+    <string name="minbuylabel">Min Bought</string>
+    <string name="yes" tools:ignore="UnusedResources">Yes</string>
     <string name="no">No</string>
-    <string name="word_for">for</string>
+    <string name="word_for" tools:ignore="UnusedResources">for</string>
     <string name="rulesuggestlist">Rule Suggestions List</string>
     <string name="rulechecklist">Rule Accuracy Check List</string>
     <string name="ruledisabledlist">Disabled Rule List</string>
 
     <!-- Button Text -->
     <string name="donebutton">DONE</string>
-    <string name="newbutton">NEW</string>
+    <string name="newbutton" tools:ignore="UnusedResources">NEW</string>
     <string name="addbutton">ADD</string>
     <string name="lessbutton">LESS</string>
     <string name="savebutton">SAVE</string>
-    <string name="cancelbutton">CANCEL</string>
+    <string name="cancelbutton" tools:ignore="ButtonCase">CANCEL</string>
     <string name="deletebutton">DELETE</string>
     <string name="stockbutton">STOCK</string>
     <string name="adjustbutton">ADJUST</string>
     <string name="boughtbutton">BOUGHT</string>
     <string name="modifybutton">MODIFY</string>
     <string name="editbutton">EDIT</string>
-    <string name="copybutton">COPY</string>
-    <string name="movebutton">MOVE</string>
-    <string name="order1button">ADD 1</string>
-    <string name="orderallbutton">ADD</string>
+    <string name="copybutton" tools:ignore="UnusedResources">COPY</string>
+    <string name="movebutton" tools:ignore="UnusedResources">MOVE</string>
+    <string name="order1button" tools:ignore="UnusedResources">ADD 1</string>
+    <string name="orderallbutton" tools:ignore="UnusedResources">ADD</string>
     <string name="checkoffbutton">Check-off</string>
     <string name="uncheckbutton">UNCHECK</string>
     <string name="resetbutton">RESET</string>
@@ -136,12 +142,19 @@
     <string name="availableoptions">"Available options are "\u0020</string>
     <string name="and">\u0020"and"\u0020</string>
     <string name="canceldoes">\u0020returns, doing nothing.</string>
+    <string name="rulenametext">#%1$s</string>
+    <string name="aislenametext">Aisle=%1$s</string>
+    <string name="ruleastext" tools:ignore="PluralsCandidate">1 per %1$d days(%2$d in %3$d days, 1 per %4$s days)</string>
+    <string name="rulestats" tools:ignore="PluralsCandidate">%1$d per %2$s (1 per %3$s days) Accuracy=%4$s%%</string>
+    <string name="minbuydefault">5</string>
+    <string name="minperioddefault">30</string>
+    <string name="costdefault">0.00</string>
 
     <!-- Formatting -->
     <string name="newline">"\n"</string>
     <string name="doublenewline">\n\n</string>
     <string name="tab1">\t</string>
-    <string name="tab2">\t\t</string>
+    <string name="tab2" tools:ignore="UnusedResources">\t\t</string>
 
     <string name="minbuyinfo">At least this number must have been purchased</string>
     <string name="minperiodinfo">At least this many days between first and last purchase</string>
@@ -168,7 +181,7 @@
         \tList potential Rules based upon the shopping history.\n
         \tADD allows the suggested Rule to be added\n
         \tSKIP will temporarily remove the Entry from the List.\n
-        \tDISABLE permenantly (see DISABLED below) removes the entry from the list.\n\n
+        \tDISABLE permanently (see DISABLED below) removes the entry from the list.\n\n
         CHECK\n
         \tList existing Rules detailing the Rule\'s accuracy compared with Shopping history.\n
         \tAccuracy is shown as a percentage.\n

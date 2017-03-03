@@ -13,9 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 24/12/2016.
+ * StockList Add or Edit a Stocked Item from the StockList (note alternative)
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class StockLisEditActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "StockListEditActivity";
@@ -172,6 +173,7 @@ public class StockLisEditActivity extends AppCompatActivity {
         logmsg = "Preparing Color Coding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         actionbar = getSupportActionBar();
+        actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         messagebar = (TextView) findViewById(R.id.stocklistedit_messagebar);
         donebutton = (TextView) findViewById(R.id.stocklistedit_donebutton);
         savebutton = (TextView) findViewById(R.id.stocklistedit_savebutton);
@@ -363,7 +365,7 @@ public class StockLisEditActivity extends AppCompatActivity {
         dbpumethods.modifyProductUsage(currentproductid,currentaisleid,
                 newcost,neworder,inputchecklistflag.isChecked(),newchklistcount);
         dbproductmethods.modifyProduct(currentproductid,
-                productname.getText().toString(),"");
+                productname.getText().toString(),"",0,0);
         setMessage(this,getResources().getString(R.string.editedok),false);
         logmsg = "Stock and underlying Product have been modifed. " +
                 "Lists have been refreshed";
@@ -433,7 +435,6 @@ public class StockLisEditActivity extends AppCompatActivity {
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
-        slea.actionbar.setTitle(getResources().getString(R.string.stocklabel));
     }
 
 

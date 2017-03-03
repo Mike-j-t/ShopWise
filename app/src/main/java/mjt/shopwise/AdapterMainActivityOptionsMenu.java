@@ -33,17 +33,18 @@ import android.widget.TextView;
  * and then using the remainder as the array index.
  * i.e. setColor(colortlist[posistion % colorlist.length()])
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 class AdapterMainActivityOptionsMenu extends CursorAdapter {
 
-    private int[] colorlist;
-    private DBShopMethods dbshops;
-    private DBAisleMethods dbaisles;
-    private DBProductMethods dbproducts;
-    private DBProductUsageMethods dbprodusages;
-    private DBShopListMethods dbshoplist;
-    private DBRuleMethods dbrules;
-    private Context ctxt;
-    private Intent callerintent;
+    private final int[] colorlist;
+    private final DBShopMethods dbshops;
+    private final DBAisleMethods dbaisles;
+    private final DBProductMethods dbproducts;
+    private final DBProductUsageMethods dbprodusages;
+    private final DBShopListMethods dbshoplist;
+    private final DBRuleMethods dbrules;
+    private final Context ctxt;
+    private final Intent callerintent;
     public static final String THISCLASS = AdapterMainActivityOptionsMenu.class.getSimpleName();
     public static final String LOGTAG = "SW_AMAOM(CsrAdpt)";
 
@@ -55,7 +56,7 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
      * @param csr     the csr
      * @param flags   the flags
      */
-    AdapterMainActivityOptionsMenu(Context context, Cursor csr, int flags, Intent intent) {
+    AdapterMainActivityOptionsMenu(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

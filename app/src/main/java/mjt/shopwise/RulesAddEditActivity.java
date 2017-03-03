@@ -32,6 +32,7 @@ import java.util.Date;
  * Created by Mike092015 on 7/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class RulesAddEditActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "RulesAddeditActivity";
@@ -559,7 +560,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
             sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
         }
         try {
-            d = (Date)sdf.parse(newruledate_str);
+            d = sdf.parse(newruledate_str);
         } catch (ParseException e) {
             e.printStackTrace();
             setMessage(this,"Cannot add Rule. Error converting Date to numeric.",true);

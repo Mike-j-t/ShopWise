@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * exists.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ProductsActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ShopsActivity";
@@ -42,6 +43,8 @@ public class ProductsActivity extends AppCompatActivity {
      * Sorting Productlist columns
      */
     private static final int BYPRODUCT = 0;
+    private static final int BYSTORAGE = 1;
+    private static final int BYORDER = 2;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
 
@@ -83,10 +86,30 @@ public class ProductsActivity extends AppCompatActivity {
     DBProductMethods dbproductmethods;
     Cursor plcsr;
 
-    private static final String PRODUCTID_COLUMN = DBProductsTableConstants.PRODUCTS_ID_COL;
-    private static final String PRODUCTNAME_COLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL;
-    private static final String PRODUCTID_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
-    private static final String PRODUCTNAME_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    private static final String PRODUCTID_COLUMN =
+            DBProductsTableConstants.PRODUCTS_ID_COL;
+    private static final String PRODUCTNAME_COLUMN =
+            DBProductsTableConstants.PRODUCTS_NAME_COL;
+    private static final String PRODUCTID_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
+    private static final String PRODUCTNAME_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    private static final String PRODUCTSTORAGEREF_COLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    private static final String PRODUCTSTORAGEREF_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
+    private static final String PRODUCTSTORAGEORDER_COLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
+    private static final String PRODUCTSTORAGEORDER_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
+    private static final String STORAGENAME_COLUMN =
+            DBStorageTableConstants.STORAGE_NAME_COL;
+    private static final String STORAGENAME_FULLCOLUMN =
+            DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    private static final String STORAGEORDER_COLUMN =
+            DBStorageTableConstants.STORAGE_ORDER_COL;
+    private static final String STORAGEORDER_FULLCOLUMN =
+            DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
     static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYPRODUCT;
@@ -133,7 +156,7 @@ public class ProductsActivity extends AppCompatActivity {
         addFilterListener();
         messagebar = (TextView) findViewById(R.id.products_messagebar);
 
-        ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
+        //ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
         /**
          * Apply Color Coding
@@ -165,7 +188,7 @@ public class ProductsActivity extends AppCompatActivity {
 
         msg = "Preparing ProductList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        plcsr = dbproductmethods.getProducts(productfilter,orderby );
+        plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby );
         productlistadapter = new AdapterProductList(
                 this,
                 plcsr,
@@ -218,7 +241,7 @@ public class ProductsActivity extends AppCompatActivity {
         }
         msg = "Refreshing ProductList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        plcsr = dbproductmethods.getProducts(productfilter,orderby);
+        plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
         productlistadapter.swapCursor(plcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     }
@@ -313,6 +336,14 @@ public class ProductsActivity extends AppCompatActivity {
                         plcsr.getColumnIndex(PRODUCTNAME_COLUMN
                         )
                 ));
+        intent.putExtra(StandardAppConstants.INTENTKEY_STORAGEID,
+                plcsr.getLong(
+                        plcsr.getColumnIndex(PRODUCTSTORAGEREF_COLUMN)
+                ));
+        intent.putExtra(StandardAppConstants.INTENTKEY_STORAGEORDER,
+                plcsr.getInt(
+                        plcsr.getColumnIndex(PRODUCTSTORAGEORDER_COLUMN)
+                ));
         intent.putExtra(menucolorcode,passedmenucolorcode);
         msg = "Starting Activity" + ProductsAddEditActivity.class.getSimpleName() +
                 " in EDIT mode. For Product=" +
@@ -347,7 +378,7 @@ public class ProductsActivity extends AppCompatActivity {
         Activity activity = (values.getPassedactivity());
         ProductsActivity pa = (ProductsActivity) activity;
         pa.dbproductmethods.deleteProduct(values.getLong1(),false);
-        pa.plcsr = dbproductmethods.getProducts(productfilter,orderby);
+        pa.plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
         pa.productlistadapter.swapCursor(plcsr);
         pa.setMessage(pa,"Product" +
                 currentproductname +
@@ -413,13 +444,21 @@ public class ProductsActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.products_productlist_heading_productname:
                 getOrderBy(PRODUCTNAME_FULLCOLUMN,BYPRODUCT);
-                lastmessage = lastmessage + " SHOP NAME (";
+                lastmessage = lastmessage + " PRODUCT NAME (";
+                break;
+            case R.id.products_productlist_heading_productstorage:
+                getOrderBy(STORAGENAME_FULLCOLUMN,BYSTORAGE);
+                lastmessage = lastmessage + " STORAGE NAME (";
+                break;
+            case R.id.products_productlist_heading_productorder:
+                getOrderBy(PRODUCTSTORAGEORDER_FULLCOLUMN,BYORDER);
+                lastmessage = lastmessage + " ORDER (";
                 break;
             default:
                 break;
         }
         if (sortchanged) {
-            plcsr = dbproductmethods.getProducts(productfilter,orderby);
+            plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
             productlistadapter.swapCursor(plcsr);
             if (ordertype) {
                 lastmessage = lastmessage + "ascending)";
@@ -549,7 +588,7 @@ public class ProductsActivity extends AppCompatActivity {
                         DBConstants.SQLLIKECHARSTART +
                         inputproductfilter.getText().toString() +
                         DBConstants.SQLLIKECHAREND;
-                plcsr = dbproductmethods.getProducts(productfilter,orderby);
+                plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
                 productlistadapter.swapCursor(plcsr);
             }
 

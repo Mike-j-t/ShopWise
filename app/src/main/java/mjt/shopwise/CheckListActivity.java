@@ -16,6 +16,7 @@ import android.widget.TextView;
  * Created by Mike092015 on 27/12/2016.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class CheckListActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "CheckListActivity";
@@ -49,7 +50,7 @@ public class CheckListActivity extends AppCompatActivity {
     DBProductUsageMethods dbpumethods;
     DBShopListMethods dbshoplistmethods;
     DBRuleMethods dbrulemethods;
-
+    DBStorageMethods dbstoragemethods;
 
     private final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
     private final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
@@ -73,6 +74,19 @@ public class CheckListActivity extends AppCompatActivity {
     private static final String PRODUCTNAME_COLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL;
     private static final String PRODUCTID_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
     private static final String PRODUCTNAME_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    private static final String PRODUCTSTORAGEREF_COLUMH = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    private static final String PRODUCTSTORAGEREF_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
+    private static final String PRODUCTSTORAGEORDER_COLUMN = DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
+    private static final String PRODUCTSTORAGEORDER_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
+
+    private static final String STORAGEID_COLUMN = DBStorageTableConstants.STORAGE_ID_COL;
+    private static final String STORAGEDID_FULLCOLUMN = DBStorageTableConstants.STORAGE_ID_COL_FULL;
+    private static final String STORAGEID_ALTCOLUMN = DBStorageTableConstants.STORAGE_ALTID_COL;
+    private static final String STORAGEID_ALTFULLCOLUMN = DBStorageTableConstants.STORAGE_ALTID_COL_FULL;
+    private static final String STORAGENAME_COLUMN = DBStorageTableConstants.STORAGE_NAME_COL;
+    private static final String STORAGENAME_FULLCOLUMN = DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    private static final String STORAGEORDER_COLUMN = DBStorageTableConstants.STORAGE_ORDER_COL;
+    private static final String STORAGEORDER_FULLCOLUMN = DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
     private static final String PRODUCTREF_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL;
     private static final String PRODUCTREF_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL;
@@ -103,6 +117,9 @@ public class CheckListActivity extends AppCompatActivity {
     private static final int BYSHOP = 1;
     private static final int BYAISLE = 2;
     private static final int BYPRICE = 3;
+    private static final int BYSTORAGENAME = 4;
+    private static final int BYSTORAGEORDER = 5;
+    private static final int BYPRODUCTSTORAGEORDER = 6;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
     private static String filter = "";
@@ -111,14 +128,6 @@ public class CheckListActivity extends AppCompatActivity {
     private static boolean ordertype = true;
     private static boolean sortchanged = false;
     private static String lastmessage = "";
-
-    private static String currentproductname = "";
-    private static String currentshopname = "";
-    private static String currentaislename = "";
-
-    long currentproductid = 0;
-    long currentshopid = 0;
-    long currentaisleid = 0;
 
     TextView messagebar;
     TextView donebutton;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 /**
  * DBHelper
  */
+@SuppressWarnings("WeakerAccess")
 class DBHelper extends SQLiteOpenHelper {
 
     private static final String LOGTAG = "SW-DBHelper";
@@ -34,7 +35,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param factory cursorfactory
      * @param version database version
      */
-    DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    DBHelper(Context context, @SuppressWarnings("SameParameterValue") String name, @SuppressWarnings("SameParameterValue") SQLiteDatabase.CursorFactory factory, @SuppressWarnings("SameParameterValue") int version) {
         super(context, name, factory, version);
     }
 
@@ -92,7 +93,6 @@ class DBHelper extends SQLiteOpenHelper {
         if(db == null) {
             db = instance.getWritableDatabase();
         }
-        //db.execSQL("DROP TABLE IF EXISTS " + DBRulesTableConstants.RULES_TABLE);
         // Build Tables to reflect schema (SHOPWISE) only if schema is usable
         if(DBConstants.SHOPWISE.isDBDatabaseUsable()) {
             // Check to see if any tables need to be added

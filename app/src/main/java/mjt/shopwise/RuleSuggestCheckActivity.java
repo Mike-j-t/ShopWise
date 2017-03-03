@@ -22,6 +22,7 @@ import android.widget.TextView;
  *                              modified (accuracy check)
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class RuleSuggestCheckActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "RuleSuggestCheckActivity";
@@ -180,10 +181,10 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         logmsg = "Preparing Rulelist";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,logmsg,THISCLASS,methodname);
         if (suggestmode) {
-            rlcsr = dbrulemethods.getToolRules(rulesexist,1,1,filter,orderby);
+            rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
         }
         if (acccheckmode) {
-            rlcsr = dbrulemethods.getToolRules(rulesexist,0,0,filter,orderby);
+            rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
         }
         if (disabledmode) {
             rlcsr = dbrulemethods.getDisabledRules(orderby);
@@ -426,10 +427,10 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         dbpumethods.setRuleSuggestFlag(productref, aisleref, mode);
         // Refresh the cursor and then swap to the new cursor
         if (suggestmode) {
-            rlcsr = dbrulemethods.getToolRules(rulesexist,1,1,filter,orderby);
+            rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
         }
         if (acccheckmode) {
-            rlcsr = dbrulemethods.getToolRules(rulesexist,0,0,filter,orderby);
+            rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
         }
         if (disabledmode) {
             rlcsr = dbrulemethods.getDisabledRules(orderby);
@@ -471,10 +472,10 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         if (sortchanged) {
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Sorting",this,methodname);
             if (suggestmode) {
-                rlcsr = dbrulemethods.getToolRules(rulesexist,1,1,filter,orderby);
+                rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
             }
             if (acccheckmode) {
-                rlcsr = dbrulemethods.getToolRules(rulesexist,0,0,filter,orderby);
+                rlcsr = dbrulemethods.getToolRules(rulesexist,minprd,minbuy,filter,orderby);
             }
             if (disabledmode) {
                 rlcsr = dbrulemethods.getDisabledRules(orderby);
@@ -497,6 +498,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
      * @param newcolumn     the DB column to sort by
      * @param neworderfld   the column as an integer as per constants
      */
+    @SuppressWarnings("ConstantConditions")
     private void getOrderBy(String newcolumn, int neworderfld) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);

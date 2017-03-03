@@ -19,6 +19,7 @@ import android.widget.TextView;
  * Created by Mike092015 on 7/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class RulesActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "RulesActivity";

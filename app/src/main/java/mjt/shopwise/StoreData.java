@@ -76,6 +76,7 @@ import java.util.Comparator;
  *  String = obj.getErrorMessages()
  *      Returns a string list the current error messages, 1 per line.
  */
+@SuppressWarnings("WeakerAccess")
 class StoreData {
 
     private String directory; //Note built internally and includes subdirectory
@@ -110,7 +111,7 @@ class StoreData {
      *
      *  Note!! existcheck, if true, will not try to create the file
      */
-    public StoreData(String subdirectory, String filename, boolean existcheck) {
+    public StoreData(String subdirectory, @SuppressWarnings("SameParameterValue") String filename, boolean existcheck) {
         fileexists = false;
         direxists = false;
         mounted = false;
@@ -253,6 +254,7 @@ class StoreData {
         boolean x = f.delete();
     }
 
+    @SuppressWarnings("ConstantConditions")
     public boolean refreshOtherFilesInDirectory() {
         boolean rv = true;
         File dir = new File(directory);

@@ -3,6 +3,7 @@ package mjt.shopwise;
 /**
  * MixTripleLongTripleInt A triple integer and a triple long
  */
+@SuppressWarnings("WeakerAccess")
 public class MixTripleLongTripleInt {
 
     private TRPLINT trint;
@@ -26,7 +27,7 @@ public class MixTripleLongTripleInt {
      * @param int2  the int 2
      * @param int3  the int 3
      */
-    public void setMIXTRPPLONGINT(long long1, long long2, long long3, int int1, int int2, int int3) {
+    public void setMIXTRPPLONGINT(long long1, long long2, long long3, int int1, @SuppressWarnings("SameParameterValue") int int2, @SuppressWarnings("SameParameterValue") int int3) {
         trlong.setTRPLLONG(long1, long2, long3);
         trint.setTRPLINT(int1, int2, int3);
     }
