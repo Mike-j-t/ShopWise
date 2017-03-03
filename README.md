@@ -4,14 +4,17 @@ A funcional ShoppingList App, designed for Tablets with consideration for less a
 It is "icnless"with buttons and color coding to assist with navigation.
 
 Prime features are :-
+
     A **Shopping List** sorted by Shop/Aisle/Item.
          Buttons to Buy, Adjust or Delete Products.
          When the number to buy have been Bought the Product is crossed off (Adjust can re-instate).
          Tidy button, removes crossed-off Products (e.g. after Shopping completion).
+         
     A Checklist sorted by Storage location.
          Porducts can be added or removed.
          CheckList rows can be checked-off (Uncheck re-instates).
          Reset re-instates all (before doing the "Weekly" check).
+         
     Automatic and Prompted addition of Items via Rules.
     Database backup and restore.
     Rule Suggestion and Accuracy Checking based upon Shopping history.
