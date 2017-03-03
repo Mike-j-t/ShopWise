@@ -7,6 +7,7 @@ import android.widget.TextView;
 /**
  * Created by Mike092015 on 28/11/2016.
  */
+@SuppressWarnings("WeakerAccess")
 public class TestAction extends AppCompatActivity {
 
     /**

@@ -14,12 +14,12 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         >
         <TextView
-            android:id="@+id/productssaddedit_messagebar"
+            android:id="@+id/storageaddedit_messagebar"
             style="@style/messagebar"
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/inputproductname_linearlayout"
+        android:id="@+id/inputstoragename_linearlayout"
         style="@style/standard_linearlayout"
         >
         <TextView
@@ -27,17 +27,17 @@
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/inputproductname_label"
+            android:id="@+id/inputstoragename_label"
             style="@style/inputitemlabel_primary"
             android:layout_weight="16"
-            android:text="@string/productlabel"
+            android:text="@string/storagelabel"
             />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <EditText
-            android:id="@+id/inputproductname"
+            android:id="@+id/inputstoragename"
             style="@style/inputitem"
             android:layout_weight="80"
             android:hint=""
@@ -45,39 +45,18 @@
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/inputproductstorage_linearlayout"
-        style="@style/standard_linearlayout">
+        android:id="@+id/inputstorageorder_linearlayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0dp">
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/inputproductstorage_label"
-            style="@style/inputitemlabel_primary"
-            android:layout_weight="16"
-            android:text="@string/storagelabel"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <Spinner
-            android:id="@+id/inputproductstorage_spinner"
-            style="@style/spinner_selector"
-            android:layout_weight="80"
-            >
-        </Spinner>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/inputproductorder_linearlayout"
-        style="@style/standard_linearlayout">
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/inputproductorder_label"
-            style="@style/inputitemlabel_primary"
+            android:id="@+id/inputstorageorder_label"
+            style="@style/inputitemlabel"
             android:layout_weight="16"
             android:text="@string/orderlabel"
             />
@@ -86,9 +65,11 @@
             android:layout_weight="2"
             />
         <EditText
-            android:id="@+id/inputproductorder"
+            android:id="@+id/inputstorageorder"
             style="@style/inputitem_order"
             android:layout_weight="10"
+            android:hint=""
+            android:inputType="text"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -96,97 +77,66 @@
             />
     </LinearLayout>
     <LinearLayout
-        style="@style/standard_linearlayout">
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/productaddedit_buttons_linearlayout"
-        style="@style/standard_linearlayout"
-        >
+        android:id="@+id/storageaddedit_buttons_linearlayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
         <TextView
-            android:id="@+id/productaddedit_savebutton"
+            android:id="@+id/storageaddedit_savebutton"
             style="@style/actionbutton"
             android:layout_weight="18"
             android:text="@string/savebutton"
             />
+
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/productaddedit_donebutton"
+            android:id="@+id/storageaddedit_donebutton"
             style="@style/actionbutton"
             android:layout_weight="18"
             android:text="@string/donebutton"
             />
+
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="62"
             />
     </LinearLayout>
     <LinearLayout
-        style="@style/standard_linearlayout">
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/productaddedit_filter_linearlayout"
-        style="@style/standard_linearlayout"
-        >
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/productaddedit_productfilterlabel"
-            style="@style/inputitemlabel"
-            android:layout_weight="16"
-            android:text="@string/filterlabel"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <EditText
-            android:id="@+id/productaddedit_inputfilter"
-            style="@style/inputitem"
-            android:layout_weight="80"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/productaddedit_productlist_heading"
+        android:id="@+id/storageaddedit_storagelist_heading"
         style="@style/listview_heading_standard"
         >
         <TextView
-            style="@style/inputitemdummy"
+            style="@style/listview_heading_col_standard"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/productaddedit_productlist_heading_productname"
+            android:id="@+id/storageaddedit_storagelist_heading_storagename"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="42"
-            android:text="@string/productslabel"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/productaddedit_productlist_heading_productstorage"
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="42"
+            android:layout_weight="84"
             android:text="@string/storagelabel"
             />
         <TextView
-            style="@style/inputitemdummy"
+            style="@style/listview_heading_col_standard"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/productaddedit_productlist_heading_productorder"
+            android:id="@+id/storageaddedit_storagelist_heading_storageorder"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="10"
+            android:layout_weight="8"
             android:text="@string/orderlabel"
+            />
+        <TextView
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="2"
             />
     </LinearLayout>
     <ListView
-        android:id="@+id/productaddedit_productlist"
+        android:id="@+id/storageaddedit_storagelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >

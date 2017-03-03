@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -17,11 +18,12 @@ import java.text.NumberFormat;
  * Created by Mike092015 on 27/12/2016.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class AdapterChecklist extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
-    private boolean fromspinner;
+    private final Intent callerintent;
+    private final Context ctxt;
+    private final boolean fromspinner;
     private Cursor cursor;
 
     private int productusage_productref_offset = -1;
@@ -34,6 +36,9 @@ public class AdapterChecklist extends CursorAdapter {
     private int productusage_rulesuggestflag_offset = 0;
     private int productusage_checklistflag_offset = 0;
     private int productusage_checklistcount_offset = 0;
+    private int storagename_offset = 0;
+
+    private String laststoragename = "";
 
     private int calculated_orderedcount_offset = 0;
 
@@ -50,7 +55,7 @@ public class AdapterChecklist extends CursorAdapter {
     public static final String THISCLASS = AdapterChecklist.class.getSimpleName();
     public static final String LOGTAG = "SW_ACL(CsrAdpt)";
 
-    AdapterChecklist(Context context, Cursor csr, int flags, Intent intent) {
+    AdapterChecklist(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
         super(context, csr, flags);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -105,7 +110,11 @@ public class AdapterChecklist extends CursorAdapter {
         TextView order1 = (TextView) view.findViewById(R.id.checklist_order1_button);
         TextView less1 = (TextView) view.findViewById(R.id.checklist_less1_button);
         TextView checkoff = (TextView) view.findViewById(R.id.checklist_checkoff_button);
+        LinearLayout storagelinearlayout =
+                (LinearLayout) view.findViewById(R.id.checklist_storage_linearlayout);
+        TextView storage = (TextView) view.findViewById(R.id.checklist_storage);
         int primary_color = ActionColorCoding.setHeadingColor(ctxt,callerintent,0);
+        int h1 = ActionColorCoding.setHeadingColor(ctxt,callerintent,1);
 
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,
                 callerintent,
@@ -118,6 +127,25 @@ public class AdapterChecklist extends CursorAdapter {
         } else {
             view.setBackgroundColor(oddrow);
         }
+
+        Cursor csr = this.getCursor();
+        if (position > 0) {
+            csr.moveToPrevious();
+            String previoustoragename = csr.getString(storagename_offset);
+            csr.moveToNext();
+            String currentstoragename = csr.getString(storagename_offset);
+            if (previoustoragename.equals(currentstoragename)) {
+                storagelinearlayout.setVisibility(View.GONE);
+            } else {
+                storage.setText(currentstoragename);
+                storagelinearlayout.setVisibility(View.VISIBLE);
+                storagelinearlayout.setBackgroundColor(h1);
+            }
+        } else {
+            storagelinearlayout.setVisibility(View.VISIBLE);
+            storagelinearlayout.setBackgroundColor(h1);
+            storage.setText(csr.getString(storagename_offset));
+        }
         ActionColorCoding.setActionButtonColor(order1,primary_color);
         ActionColorCoding.setActionButtonColor(checkoff,primary_color);
         ActionColorCoding.setActionButtonColor(less1,primary_color);
@@ -129,6 +157,7 @@ public class AdapterChecklist extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String storagename;
         TextView productname = (TextView) view.findViewById(R.id.checklist_productname);
         TextView shopname = (TextView) view.findViewById(R.id.checklist_shopname);
         TextView aislename = (TextView) view.findViewById(R.id.checklist_aislename);
@@ -138,6 +167,8 @@ public class AdapterChecklist extends CursorAdapter {
         TextView order1 = (TextView) view.findViewById(R.id.checklist_order1_button);
         TextView less1 = (TextView) view.findViewById(R.id.checklist_less1_button);
         TextView checkoff = (TextView) view.findViewById(R.id.checklist_checkoff_button);
+        LinearLayout storagelayout = (LinearLayout) view.findViewById(R.id.checklist_storage_linearlayout);
+        TextView storage = (TextView) view.findViewById(R.id.checklist_storage);
 
         productname.setText(csr.getString(product_name_offset));
         shopname.setText(csr.getString(shop_name_offset));
@@ -148,6 +179,9 @@ public class AdapterChecklist extends CursorAdapter {
         order1.setTag(csr.getPosition());
         less1.setTag(csr.getPosition());
         checkoff.setTag(csr.getPosition());
+        storagename = csr.getString(storagename_offset);
+        storage.setText(storagename);
+
         msg = "Setting Product name=" + productname.getText().toString() +
                 " Shop=" + shopname.getText().toString() +
                 " Aisle=" + aislename.getText().toString() +
@@ -221,5 +255,7 @@ public class AdapterChecklist extends CursorAdapter {
         shop_name_offset = cursor.getColumnIndex(DBShopsTableConstants.SHOPS_NAME_COL);
         shop_city_offset = cursor.getColumnIndex(DBShopsTableConstants.SHOPS_CITY_COL);
         shop_order_offset = cursor.getColumnIndex(DBShopsTableConstants.SHOPS_ORDER_COL);
+
+        storagename_offset = cursor.getColumnIndex(DBStorageTableConstants.STORAGE_NAME_COL);
     }
 }

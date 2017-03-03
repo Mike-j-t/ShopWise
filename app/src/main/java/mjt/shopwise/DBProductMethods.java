@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**
  * DBProductMethods - Dtabase methods specific to Product Handling
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 class DBProductMethods {
 
     private Context context;
@@ -111,6 +112,90 @@ class DBProductMethods {
 
     /**************************************************************************
      *
+     * @param filter    filter string less WHERE keyword
+     * @param order     order String less ORDER and BY kewords
+     * @return
+     */
+    Cursor getExpandedProducts(String filter, String order) {
+        Cursor rv;
+        String[] columns = new String[] {
+                DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
+                DBProductsTableConstants.PRODUCTS_NAME_COL_FULL,
+                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL,
+                DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL,
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL,
+                DBStorageTableConstants.STORAGE_ID_COL_FULL +
+                        DBConstants.SQLAS + DBStorageTableConstants.STORAGE_ALTID_COL,
+                DBStorageTableConstants.STORAGE_NAME_COL_FULL,
+                DBStorageTableConstants.STORAGE_ORDER_COL_FULL
+        };
+        String table = DBProductsTableConstants.PRODUCTS_TABLE +
+                DBConstants.SQLLEFTJOIN +
+                DBStorageTableConstants.STORAGE_TABLE +
+                DBConstants.SQLON +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL +
+                " = " +
+                DBStorageTableConstants.STORAGE_ID_COL_FULL;
+        rv = db.query(table,columns,filter,null,null,null,order);
+        return rv;
+    }
+
+    /**************************************************************************
+     *
+     * @param storageref    id of the Storage being checked
+     * @return              the highest Order for the specified Storage
+     */
+    int getHighestProductOrderPerStorage(long storageref) {
+        String logmsg = "Invoked";
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname
+        );
+        int rv = 0;
+        String whereclause = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL +
+                " = ?";
+        String[] whereargs = new String[] { Long.toString(storageref)};
+
+        String columns[] = {
+                DBConstants.SQLMAX +
+                        DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL +
+                        DBConstants.SQLMAXCLOSE +
+                        DBConstants.SQLAS +
+                        DBProductsTableConstants.PRODUCTSSMAXORDERCOLUMN
+        };
+        Cursor csr = db.query(
+                DBProductsTableConstants.PRODUCTS_TABLE,
+                columns,
+                whereclause,
+                whereargs,
+                null,
+                null,
+                null
+        );
+        if (csr.getCount() > 0 ) {
+            csr.moveToFirst();
+            rv = csr.getInt(csr.getColumnIndex(
+                    DBProductsTableConstants.PRODUCTSSMAXORDERCOLUMN
+            ));
+        }
+        csr.close();
+        logmsg = "Highest Product Storage Order=" + Integer.toString(rv);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname
+        );
+        return rv;
+    }
+
+
+    /**************************************************************************
+     *
      * @param aisleid
      * @param filter
      * @param order
@@ -120,13 +205,24 @@ class DBProductMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        //TODO Remove commented code (rawquery replaced with query)
         String sql = DBConstants.SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
-                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + " " +
+                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + ", " +
+                DBStorageTableConstants.STORAGE_ID_COL_FULL +
+                DBConstants.SQLAS +
+                DBStorageTableConstants.STORAGE_ALTID_COL + ", " +
+                DBStorageTableConstants.STORAGE_NAME_COL_FULL + ", " +
+                DBStorageTableConstants.STORAGE_ORDER_COL_FULL +
                 DBConstants.SQLFROM +
                 DBProductsTableConstants.PRODUCTS_TABLE +
+                DBConstants.SQLLEFTJOIN +
+                DBStorageTableConstants.STORAGE_TABLE +
+                DBConstants.SQLON +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + " = " +
+                DBStorageTableConstants.STORAGE_ID_COL_FULL +
                 DBConstants.SQLWHERE +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
                 DBConstants.SQLIN + "(" +
@@ -165,14 +261,25 @@ class DBProductMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        //TODO remove commented out code (coverted rawquery to query)
-        /**
+
         String sql = DBConstants.SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
-                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + " " +
+                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + ", " +
+                DBStorageTableConstants.STORAGE_ID_COL_FULL +
+                DBConstants.SQLAS +
+                DBStorageTableConstants.STORAGE_ALTID_COL + ", " +
+                DBStorageTableConstants.STORAGE_NAME_COL_FULL + ", " +
+                DBStorageTableConstants.STORAGE_ORDER_COL_FULL +
                 DBConstants.SQLFROM +
                 DBProductsTableConstants.PRODUCTS_TABLE +
+                DBConstants.SQLLEFTJOIN +
+                DBStorageTableConstants.STORAGE_TABLE +
+                DBConstants.SQLON +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + " = " +
+                DBStorageTableConstants.STORAGE_ID_COL_FULL +
                 DBConstants.SQLWHERE +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
                 DBConstants.SQLNOTIN + "(" +
@@ -198,7 +305,7 @@ class DBProductMethods {
             sql = sql + DBConstants.SQLORDERBY + order;
         }
         return db.rawQuery(sql,null);
-        **/
+        /**
         String whereclause = DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
                 DBConstants.SQLNOTIN  + "(" +
                 DBConstants.SQLSELECT +
@@ -227,6 +334,7 @@ class DBProductMethods {
                 null,null,
                 orderclause,
                 null, null);
+         **/
     }
 
     /**************************************************************************
@@ -268,7 +376,10 @@ class DBProductMethods {
      * @param productname  name of the Product
      * @param productnotes notes about the Product
      */
-    void insertProduct(String productname, String productnotes) {
+    void insertProduct(String productname,
+                       @SuppressWarnings("SameParameterValue") String productnotes,
+                       long storageref,
+                       int storageorderorder) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -276,6 +387,8 @@ class DBProductMethods {
         ContentValues cv = new ContentValues();
         cv.put(DBProductsTableConstants.PRODUCTS_NAME_COL,productname);
         cv.put(DBProductsTableConstants.PRODUCTS_NOTES_COL,productnotes);
+        cv.put(DBProductsTableConstants.PRODUCTS_STORAGEREF_COL,storageref);
+        cv.put(DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL,storageorderorder);
         addedid = db.insert(DBProductsTableConstants.PRODUCTS_TABLE,
                 null,
                 cv);
@@ -298,7 +411,11 @@ class DBProductMethods {
      * @param productname  New name (if blank then not changed)
      * @param productnotes New notes (always changed to allow blank)
      */
-    void modifyProduct(long productid, String productname, String productnotes) {
+    void modifyProduct(long productid,
+                       String productname,
+                       @SuppressWarnings("SameParameterValue") String productnotes,
+                       long storageref,
+                       int storageorder) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -310,6 +427,12 @@ class DBProductMethods {
             cv.put(DBProductsTableConstants.PRODUCTS_NAME_COL,productname);
         }
         cv.put(DBProductsTableConstants.PRODUCTS_NOTES_COL,productnotes);
+        if (storageref > 0 ) {
+            cv.put(DBProductsTableConstants.PRODUCTS_STORAGEREF_COL,storageref);
+        }
+        if (storageorder > 0) {
+            cv.put(DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL, storageorder);
+        }
         String whereargs[] = { Long.toString(productid)};
         String whereclause = DBProductsTableConstants.PRODUCTS_ID_COL + " = ?";
         lastproductupdatedok = db.update(DBProductsTableConstants.PRODUCTS_TABLE,
@@ -330,7 +453,7 @@ class DBProductMethods {
      * @param intransaction true if being called from within an existing db
      *                      transaction.
      */
-    void deleteProduct(long productid, boolean intransaction) {
+    void deleteProduct(long productid, @SuppressWarnings("SameParameterValue") boolean intransaction) {
         String msg = "Invoked for Product ID=" + productid;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

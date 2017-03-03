@@ -12,6 +12,7 @@ import java.util.ArrayList;
 /**
  * DBAisleMethods - Databse Methods for Aisle handling
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 class DBAisleMethods {
 
     private static final String LOGTAG = "SW_DBAM";
@@ -65,7 +66,7 @@ class DBAisleMethods {
      * @param order  sql order string less ORDER BY
      * @return cursor containing selected Aisles
      */
-    Cursor getAisles(String filter, String order, boolean adddummyrowifempty) {
+    Cursor getAisles(String filter, String order, @SuppressWarnings("SameParameterValue") boolean adddummyrowifempty) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

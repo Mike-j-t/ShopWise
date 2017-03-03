@@ -15,11 +15,12 @@ import java.text.NumberFormat;
  * Created by Mike092015 on 29/12/2016.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class AdapterOrderList extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
-    private boolean fromspinner;
+    private final Intent callerintent;
+    private final Context ctxt;
+    private final boolean fromspinner;
     private Cursor cursor;
 
     private int productusage_productref_offset = -1;
@@ -60,8 +61,8 @@ public class AdapterOrderList extends CursorAdapter {
         setOrderlistOffsets();
     }
 
-    AdapterOrderList(Context context, Cursor csr, int flags, Intent intent,
-                     boolean fromspinner) {
+    AdapterOrderList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent,
+                     @SuppressWarnings("SameParameterValue") boolean fromspinner) {
         super(context, csr, flags);
         String msg = "Constructing";
         String methodname = "Construct";

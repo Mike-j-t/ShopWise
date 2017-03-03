@@ -4,6 +4,7 @@ package mjt.shopwise;
  * validate Input Class for the validation of input
  */
 
+@SuppressWarnings("WeakerAccess")
 public class ValidateInput {
 
     /**

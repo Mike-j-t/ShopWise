@@ -16,6 +16,7 @@ import static mjt.shopwise.DBConstants.TXT;
  * The Aisles table is used to represent a location withint a shop/store into
  * which products can be found.
  */
+@SuppressWarnings("WeakerAccess")
 public class DBAislesTableConstants {
     /**
      * AISLES TABLE

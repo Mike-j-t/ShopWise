@@ -23,7 +23,7 @@ public class TRPLLONG {
      * @param v2 the v 2
      * @param v3 the v 3
      */
-    public TRPLLONG(long v1, long v2, long v3) {
+    public TRPLLONG(@SuppressWarnings("SameParameterValue") long v1, @SuppressWarnings("SameParameterValue") long v2, @SuppressWarnings("SameParameterValue") long v3) {
         setTRPLLONG(v1,v2,v3);
     }
 

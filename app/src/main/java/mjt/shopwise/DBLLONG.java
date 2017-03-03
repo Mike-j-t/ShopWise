@@ -3,6 +3,7 @@ package mjt.shopwise;
 /**
  * DBLLONG two longs
  */
+@SuppressWarnings("WeakerAccess")
 public class DBLLONG {
     private long long1;
     private long long2;

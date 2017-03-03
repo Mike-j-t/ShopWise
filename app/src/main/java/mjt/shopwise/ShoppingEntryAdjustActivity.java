@@ -16,6 +16,7 @@ import android.widget.TextView;
  * Created by Mike092015 on 5/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ShoppingEntryAdjustActivity extends AppCompatActivity {
 
     private final String THIS_ACTIVITY = "ShoppingEntryAdjustActivity";
@@ -404,7 +405,11 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 msg = msg + " ";
             }
             msg = msg + "Prodcut Name. ";
-            dbproductmethods.modifyProduct(orig_productid, new_productname_et.getText().toString(),"");
+            dbproductmethods.modifyProduct(orig_productid,
+                    new_productname_et.getText().toString(),
+                    "",
+                    0,
+                    0);
             if (dbproductmethods.ifProductUpdated()) {
                 msg = msg + "Updated OK.";
             } else {

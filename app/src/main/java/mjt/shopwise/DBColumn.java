@@ -34,6 +34,7 @@ package mjt.shopwise;
 //         usability criteria.
 //==================================================================================================
 //================================================================================================*/
+@SuppressWarnings("WeakerAccess")
 class DBColumn {
     private boolean usable;
     private String column_name;

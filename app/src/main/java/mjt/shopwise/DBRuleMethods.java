@@ -12,6 +12,7 @@ import java.util.Calendar;
 /**
  * DBRuleMethods - Database Methods for Rule Handling
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class DBRuleMethods {
     private static final  String LOGTAG = "SW-DBRM";
     private Context context;
@@ -77,7 +78,7 @@ public class DBRuleMethods {
      * @param order  sql sort string less ORDER BY
      * @return cursor containing selected rules
      */
-    Cursor getRules(String filter, String order) {
+    Cursor getRules(String filter, @SuppressWarnings("SameParameterValue") String order) {
         String logmsg = "Invoked";
         String methodname =
                 new Object(){}.getClass().getEnclosingMethod().getName();
@@ -400,7 +401,7 @@ public class DBRuleMethods {
      * @return  cursor consisting of rules that will be prompted for
      *          (according to the current day)
      */
-    public Cursor getPromptedRules(String filter,String orderby) {
+    public Cursor getPromptedRules(@SuppressWarnings({"ParameterCanBeLocal", "SameParameterValue"}) String filter, String orderby) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,

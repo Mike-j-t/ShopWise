@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by Mike092015 on 6/12/2016.
  */
+@SuppressWarnings("WeakerAccess")
 public class DBCommonMethods {
 
 
@@ -25,7 +26,7 @@ public class DBCommonMethods {
     static int getTableRowCount(SQLiteDatabase db,
                                 String tablename,
                                 String filter,
-                                String order) {
+                                @SuppressWarnings("SameParameterValue") String order) {
         Cursor csr = getTableRows(db,tablename,filter,order);
         int rv = csr.getCount();
         csr.close();
@@ -74,13 +75,13 @@ public class DBCommonMethods {
      * @return the table rows
      */
     static Cursor getTableRows(SQLiteDatabase db,
-                               String columns,
+                               @SuppressWarnings("SameParameterValue") String columns,
                                String table,
-                               String joinclauses,
+                               @SuppressWarnings("SameParameterValue") String joinclauses,
                                String filter,
-                               String groupclause,
+                               @SuppressWarnings("SameParameterValue") String groupclause,
                                String order,
-                               int limit) {
+                               @SuppressWarnings("SameParameterValue") int limit) {
         if (columns.length() < 1 ) {
             columns = " * ";
         }

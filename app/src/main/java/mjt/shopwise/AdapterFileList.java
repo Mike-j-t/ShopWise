@@ -19,20 +19,21 @@ import java.util.List;
  * Created by Mike092015 on 14/01/2017.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class AdapterFileList extends ArrayAdapter<File> {
 
-    private Intent callerintent;
-    private Activity context;
-    private List<File> flst;
+    private final Intent callerintent;
+    private final Activity context;
+    private final List<File> flst;
 
     private TextView tv_filename;
     private TextView tv_filemod;
     @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy 'at' HH:mm");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy 'at' HH:mm");
     public static final String THISCLASS = AdapterFileList.class.getSimpleName();
     public static final String LOGTAG = "SW_AFL(CsrAdpt)";
 
-    AdapterFileList(Activity context, int layout, ArrayList<File> flst, Intent intent) {
+    AdapterFileList(Activity context, @SuppressWarnings("SameParameterValue") int layout, ArrayList<File> flst, Intent intent) {
         super(context, layout, flst);
         String msg = "Constructing";
         String methodname = "Construct";

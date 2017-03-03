@@ -4,6 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/checklist_storage_linearlayout"
+        style="@style/listviewrow_standard"
+        android:background="@color/colorBlue"
+        >
+        <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/checklist_storage"
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="98"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/checklist_listview"
         style="@style/listviewrow_standard"
         >

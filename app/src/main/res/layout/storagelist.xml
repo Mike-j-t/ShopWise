@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/productlist_listview"
+        android:id="@+id/storgaelist_listview"
         style="@style/listviewrow_standard"
         >
         <TextView
@@ -12,9 +12,9 @@
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/productlist_name"
+            android:id="@+id/storagelist_name"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="42"
+            android:layout_weight="86"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             />
@@ -23,20 +23,13 @@
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/productlist_storage"
+            android:id="@+id/storagelist_order"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="42"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlack"
+            android:layout_weight="8"
             />
         <TextView
             style="@style/listviewrowcol_standard"
             android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/productlist_order"
-            style="@style/listviewrowcol_standard"
-            android:layout_weight="10"
             />
     </LinearLayout>
 </LinearLayout>

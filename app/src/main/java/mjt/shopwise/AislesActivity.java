@@ -29,6 +29,7 @@ import java.util.ArrayList;
  * exists.
  */
 
+@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal", "WeakerAccess"})
 public class AislesActivity extends AppCompatActivity{
 
     private static final String THIS_ACTIVITY = "AislesActivity";
@@ -100,7 +101,7 @@ public class AislesActivity extends AppCompatActivity{
     private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
     static String orderby = AISLENAME_FULLCOLUMN + DBConstants.SQLORDERASCENDING;
-    static String shopsorderby = SHOPNAME_FULLCOLUMN + DBConstants.SQLORDERASCENDING;
+    static final String shopsorderby = SHOPNAME_FULLCOLUMN + DBConstants.SQLORDERASCENDING;
     static int orderfld = BYAISLE;
     static boolean ordertype = true;
     static boolean sortchanged = false;

@@ -16,10 +16,11 @@ import java.text.NumberFormat;
  * Created by Mike092015 on 16/12/2016.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class AdapterStockList extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
+    private final Intent callerintent;
+    private final Context ctxt;
     private boolean fromspinner;
     private Cursor cursor;
 
@@ -55,7 +56,7 @@ public class AdapterStockList extends CursorAdapter {
         setStockOffsets();
     }
 
-    AdapterStockList(Context context, Cursor csr, int flags,Intent intent, boolean fromspinner) {
+    AdapterStockList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent, @SuppressWarnings("SameParameterValue") boolean fromspinner) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

@@ -10,6 +10,7 @@ import android.widget.Spinner;
  * Note this is for spinners that are based upon a cursor
  */
 
+@SuppressWarnings("WeakerAccess")
 public class SpinnerMove {
 
     public static final String THISCLASS = SpinnerMove.class.getSimpleName();
@@ -43,7 +44,7 @@ public class SpinnerMove {
                              long movetovalue,
                              Cursor csr,
                              String column,
-                             boolean animatespinner
+                             @SuppressWarnings("SameParameterValue") boolean animatespinner
     )
     {
         String logmsg = "Invoked";
@@ -53,6 +54,7 @@ public class SpinnerMove {
         if (movetovalue > 0 ) {
             csr.moveToPosition(-1);
             while (csr.moveToNext()) {
+                long cv = csr.getLong(csr.getColumnIndex(column));
                 if (csr.getLong(
                         csr.getColumnIndex(column)
                 ) == movetovalue) {

@@ -12,6 +12,7 @@ import static mjt.shopwise.DBConstants.STD_ID;
 /**
  * Shoplist table - List of products to be purchased or have been purchased
  */
+@SuppressWarnings("WeakerAccess")
 public class DBShopListTableConstants {
 
     /**

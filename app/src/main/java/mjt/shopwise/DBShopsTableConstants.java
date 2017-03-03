@@ -13,6 +13,7 @@ import static mjt.shopwise.DBConstants.TXT;
 /**
  * Created by Mike092015 on 16/11/2016.
  */
+@SuppressWarnings("WeakerAccess")
 public class DBShopsTableConstants {
     /**************************************************************************
      * SHOPS TABLE -

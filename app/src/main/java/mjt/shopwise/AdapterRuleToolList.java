@@ -3,6 +3,7 @@ package mjt.shopwise;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +20,17 @@ import java.text.SimpleDateFormat;
  * Created by Mike on 21/02/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class AdapterRuleToolList extends CursorAdapter{
 
-    private Intent callerintent;
-    private Context ctxt;
-    private boolean fromspinner;
+    private final Intent callerintent;
+    private final Context ctxt;
+    private final boolean fromspinner;
     private Cursor cursor;
     private boolean suggestmode = false;
     private boolean acccheckmode = false;
     private boolean disabledmode = false;
+    private Resources res;
 
     private int productusage_productref_offset = -1;
     private int productusage_aisleref_offset = 0;
@@ -72,9 +75,9 @@ public class AdapterRuleToolList extends CursorAdapter{
 
     AdapterRuleToolList(Context context,
                         Cursor csr,
-                        int flags,
+                        @SuppressWarnings("SameParameterValue") int flags,
                         Intent intent,
-                        boolean fromspinner,
+                        @SuppressWarnings("SameParameterValue") boolean fromspinner,
                         int mode) {
         super(context, csr, 0);
         String logmsg = "Constructing";
@@ -148,7 +151,7 @@ public class AdapterRuleToolList extends CursorAdapter{
         if (acccheckmode) {
             accuracybar.setVisibility(View.VISIBLE);
             addbutton.setVisibility(View.INVISIBLE);
-            skipbutton.setVisibility(view.INVISIBLE);
+            skipbutton.setVisibility(View.INVISIBLE);
             disablebutton.setText(ctxt.getResources().getString(R.string.modifybutton));
         } else {
             accuracybar.setVisibility(View.GONE);
@@ -206,7 +209,9 @@ public class AdapterRuleToolList extends CursorAdapter{
         realquantityperday = overdays / buycount;
 
         if (suggestmode || disabledmode) {
-            rulename.setText("#" + csr.getString(product_name_offset));
+            rulename.setText(ctxt.getResources().getString(
+                    R.string.rulenametext,
+                    csr.getString(product_name_offset)));
             currentrule.setText("");
         } else {
             rulename.setText(csr.getString(rule_name_offset));
@@ -227,14 +232,24 @@ public class AdapterRuleToolList extends CursorAdapter{
             ));
             rulequantityperday = (ruleperiod * rulemultiplier) / rulecount;
             ruleaccuracy = ((realquantityperday / rulequantityperday) * 100);
-            currentrule.setText("Add " + csr.getInt(csr.getColumnIndex(
+
+            currentrule.setText(ctxt.getResources().getString(
+                    R.string.rulestats,
+                    csr.getInt(csr.getColumnIndex(
+                            DBRulesTableConstants.RULES_USES_COL)),
+                    RulePeriodAsString(ruleperiodasint,rulemultiplierasint),
+                    df.format(rulequantityperday),
+                    df.format(ruleaccuracy)));
+            /**
+            currentrule.setText(csr.getInt(csr.getColumnIndex(
                     DBRulesTableConstants.RULES_USES_COL)) +
-                    " each " + RulePeriodAsString(ruleperiodasint,rulemultiplierasint) +
+                    " per " + RulePeriodAsString(ruleperiodasint,rulemultiplierasint) +
                     "(1 per " +
                     df.format(rulequantityperday) +
                     " days) Accuracy=" +
                     df.format(ruleaccuracy)
             );
+             **/
             accuracylow.setProgress(100);
             accuracyhigh.setProgress(0);
             if (ruleaccuracy < 100) {
@@ -249,7 +264,10 @@ public class AdapterRuleToolList extends CursorAdapter{
 
         productname.setText(csr.getString(product_name_offset));
         shopname.setText(csr.getString(shop_name_offset));
-        aislename.setText(" from aisle " + csr.getString(aisle_name_offset));
+        //aislename.setText(" from aisle " + csr.getString(aisle_name_offset));
+        aislename.setText(ctxt.getResources().getString(
+                R.string.aislenametext,
+                csr.getString(aisle_name_offset)));
 
 
 
@@ -257,14 +275,22 @@ public class AdapterRuleToolList extends CursorAdapter{
         if (periodfor1 < 1) {
             periodfor1 = periodfor1 * (1 / periodfor1);
         }
+        ruletext.setText(ctxt.getResources().getString(
+                R.string.ruleastext,
+                periodfor1.intValue(),
+                csr.getInt(productusage_buycount_offset),
+                csr.getInt(calculated_ruleperiod_offset),
+                df.format(realquantityperday)
+        ));
 
-        ruletext.setText("Add 1 " +
-                " Every " + Integer.toString(periodfor1.intValue()) + " days (" +
-                csr.getInt(productusage_buycount_offset) + " over " +
-                csr.getInt(calculated_ruleperiod_offset) + " days = 1 per " +
+        /**
+        ruletext.setText("1 per " + Integer.toString(periodfor1.intValue()) + " days (" +
+                csr.getInt(productusage_buycount_offset) + " in " +
+                csr.getInt(calculated_ruleperiod_offset) + " days,1 per " +
                 df.format((realquantityperday)) +
                 " days)"
         );
+         **/
 
         return view;
     }

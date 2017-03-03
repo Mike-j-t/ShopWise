@@ -4,6 +4,7 @@ package mjt.shopwise;
  * TRPLDBL 3 doubles
  */
 
+@SuppressWarnings("WeakerAccess")
 public class TRPLDBL {
     private double dbl1;
     private double dbl2;

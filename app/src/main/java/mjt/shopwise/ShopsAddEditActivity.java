@@ -1,5 +1,6 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import static mjt.shopwise.ActionColorCoding.transparency_requied;
 /**
  * ShopAddEditAcitivty - Add or Edit shops
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ShopsAddEditActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ShopsAddEditActivity";
@@ -119,6 +121,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     private Activity thisactivity;
 
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -288,6 +291,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     /**************************************************************************
      *
      */
+    @SuppressWarnings("ConstantConditions")
     public void shopsave() {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -432,6 +436,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      *
      * @param edittext
      */
+    @SuppressLint("SetTextI18n")
     private void setNewOrder(EditText edittext) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

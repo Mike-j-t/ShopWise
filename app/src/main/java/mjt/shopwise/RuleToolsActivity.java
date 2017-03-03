@@ -15,6 +15,7 @@ import android.widget.TextView;
  * Created by Mike092015 on 19/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class RuleToolsActivity extends AppCompatActivity{
 
     private static final String THIS_ACTIVITY = "RuleToolsActivity";
@@ -88,8 +89,8 @@ public class RuleToolsActivity extends AppCompatActivity{
         minperiodlabel = (TextView) findViewById(R.id.ruletools_minperiod_label);
         minbuy = (EditText) findViewById(R.id.ruletools_minbuy);
         minperiod = (EditText) findViewById(R.id.ruletools_minperiod);
-        minbuy.setText("5");
-        minperiod.setText("30");
+        minbuy.setText(context.getResources().getString(R.string.minbuydefault));
+        minperiod.setText(context.getResources().getString(R.string.minperioddefault));
 
         dbRuleMethods = new DBRuleMethods(this);
         Cursor dr = dbRuleMethods.getDisabledRules("");
@@ -187,8 +188,10 @@ public class RuleToolsActivity extends AppCompatActivity{
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         Intent intent = null;
-        Integer minimumbuy = new Integer(minbuy.getText().toString());
-        Integer minimumprd = new Integer(minperiod.getText().toString());
+        //Integer minimumbuy = new Integer(minbuy.getText().toString());
+        Integer minimumbuy = Integer.valueOf(minbuy.getText().toString());
+        //Integer minimumprd = new Integer(minperiod.getText().toString());
+        Integer minimumprd = Integer.valueOf(minperiod.getText().toString());
         boolean callingmodeset = false;
         switch (view.getId()) {
             case R.id.ruletools_donebutton:

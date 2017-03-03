@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="text_size_tiny">15sp</dimen>
+    <dimen name="text_size_tiny" tools:ignore="UnusedResources">15sp</dimen>
     <dimen name="text_size_small">17sp</dimen>
     <dimen name="text_size_normal">19sp</dimen>
     <dimen name="text_size_large">21sp</dimen>
@@ -11,18 +11,18 @@
     <dimen name="text_size_superextra_large">33sp</dimen>
 
     <dimen name="listview_vertical_padding_normal">17dp</dimen>
-    <dimen name="listview_vertical_padding_large">19dp</dimen>
-    <dimen name="listview_vertical_padding_extra_large">23dp</dimen>
+    <dimen name="listview_vertical_padding_large" tools:ignore="UnusedResources">19dp</dimen>
+    <dimen name="listview_vertical_padding_extra_large" tools:ignore="UnusedResources">23dp</dimen>
 
-    <dimen name="listview_vertical_rowpadding_normal">8dp</dimen>
-    <dimen name="listview_vertical_rowpadding_large">9dp</dimen>
-    <dimen name="listview_vertical_rowpadding_extra_large">11dp</dimen>
-    <dimen name="listview_vertical_rowpadding_superextra_large">14dp</dimen>
+    <dimen name="listview_vertical_rowpadding_normal" tools:ignore="UnusedResources">8dp</dimen>
+    <dimen name="listview_vertical_rowpadding_large" tools:ignore="UnusedResources">9dp</dimen>
+    <dimen name="listview_vertical_rowpadding_extra_large" tools:ignore="UnusedResources">11dp</dimen>
+    <dimen name="listview_vertical_rowpadding_superextra_large" tools:ignore="UnusedResources">14dp</dimen>
 
-    <dimen name="listview_rowheight_tiny">25dp</dimen>
-    <dimen name="listview_rowheight_small">28dp</dimen>
-    <dimen name="listview_rowheight_normal">31dp</dimen>
-    <dimen name="listview_rowheight_large">34dp</dimen>
+    <dimen name="listview_rowheight_tiny" tools:ignore="UnusedResources">25dp</dimen>
+    <dimen name="listview_rowheight_small" tools:ignore="UnusedResources">28dp</dimen>
+    <dimen name="listview_rowheight_normal" tools:ignore="UnusedResources">31dp</dimen>
+    <dimen name="listview_rowheight_large" tools:ignore="UnusedResources">34dp</dimen>
     <dimen name="listview_rowheight_extra_large">40dp</dimen>
     <dimen name="listview_rowheight_superextra_large">50dp</dimen>
 </resources>

@@ -12,6 +12,7 @@ import static mjt.shopwise.DBConstants.TXT;
 /**
  * Rules Table - Rules add shopping list entries regularly
  */
+@SuppressWarnings("WeakerAccess")
 public class DBRulesTableConstants {
 
     /**

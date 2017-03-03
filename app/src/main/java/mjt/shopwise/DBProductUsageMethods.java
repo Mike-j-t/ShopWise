@@ -21,6 +21,7 @@ import java.util.Date;
  * (a many-many relationship) other values that are store/aisle specfifc
  * are held in this table. e.g. cost and order.
  */
+@SuppressWarnings("WeakerAccess")
 class DBProductUsageMethods {
     private Context context;
     private DBDAO dbdao;
@@ -235,7 +236,7 @@ class DBProductUsageMethods {
      * @param order  order clause, if required, LESS ORDER BY keywords
      * @return product usages
      */
-    Cursor getProductUsages(String filter, String order) {
+    Cursor getProductUsages(String filter, @SuppressWarnings("SameParameterValue") String order) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -285,6 +286,12 @@ class DBProductUsageMethods {
                 + ", " +
 
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL + ", " +
+                DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + ", " +
+
+                DBStorageTableConstants.STORAGE_NAME_COL_FULL + ", " +
+                DBStorageTableConstants.STORAGE_ORDER_COL_FULL + ", " +
 
                 DBAislesTableConstants.AISLES_SHOPREF_COL_FULL + ", " +
                 DBAislesTableConstants.AISLES_NAME_COL_FULL + ", " +
@@ -321,13 +328,27 @@ class DBProductUsageMethods {
                 DBConstants.SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = " +
                 DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
+
+                DBConstants.SQLLEFTJOIN +
+                DBStorageTableConstants.STORAGE_TABLE +
+                DBConstants.SQLON +
+                DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + " = " +
+                DBStorageTableConstants.STORAGE_ID_COL_FULL +
+
                 DBConstants.SQLWHERE +
-                DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL + " > 0 ";
+                DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL + " > 0 " +
+                DBConstants.SQLAND +
+                DBStorageTableConstants.STORAGE_NAME_COL_FULL +
+                DBConstants.SQLISNOTNULL;
         if (filter.length() > 0 ) {
             sql = sql + DBConstants.SQLAND + filter;
         }
         if (order.length() > 0 ) {
-            sql = sql + DBConstants.SQLORDERBY + order;
+            sql = sql + DBConstants.SQLORDERBY +
+                    DBStorageTableConstants.STORAGE_ORDER_COL_FULL +
+                    DBConstants.SQLORDERASCENDING + ", " +
+                    DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL +
+                    DBConstants.SQLORDERASCENDING;
         }
         sql = sql + DBConstants.SQLENDSTATEMENT;
 
@@ -483,7 +504,7 @@ class DBProductUsageMethods {
      * @param intransaction
      * @return
      */
-    int deleteStock(long aisled, long productid, boolean intransaction) {
+    int deleteStock(long aisled, long productid, @SuppressWarnings("SameParameterValue") boolean intransaction) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -593,7 +614,7 @@ class DBProductUsageMethods {
      */
     void amendPurchasedProductUsage(long aisleid,
                                     long productid,
-                                    int numberpurchased) {
+                                    @SuppressWarnings("SameParameterValue") int numberpurchased) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

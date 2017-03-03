@@ -13,11 +13,12 @@ import android.widget.TextView;
  * Created by Mike092015 on 8/01/2017.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class AdapterRulePeriodList extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
-    private boolean fromspinner;
+    private final Intent callerintent;
+    private final Context ctxt;
+    private final boolean fromspinner;
     private Cursor cursor;
 
     private int appvalues_name_offset = -1;
@@ -36,8 +37,8 @@ public class AdapterRulePeriodList extends CursorAdapter {
         setRulePeriodOffsets(csr);
     }
 
-    AdapterRulePeriodList(Context context, Cursor csr, int flags, Intent intent,
-                          boolean fromspinner) {
+    AdapterRulePeriodList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent,
+                          @SuppressWarnings("SameParameterValue") boolean fromspinner) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

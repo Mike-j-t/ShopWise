@@ -25,6 +25,7 @@ import android.util.Log;
  *              <message> is the supplied message
  *
  */
+@SuppressWarnings("WeakerAccess")
 public class LogMsg{
 
     /**
@@ -67,9 +68,9 @@ public class LogMsg{
      * @param classname     The provided ClassName
      * @param methodname    The provided MethodName
      */
-    public static void LogMsg(int logtype,
+    public static void LogMsg(@SuppressWarnings("SameParameterValue") int logtype,
                               String msg,
-                              String classname,
+                              @SuppressWarnings("SameParameterValue") String classname,
                               String methodname
     ) {
         LogMsg(logtype, LOGTAG_DEFAULT, msg, null, classname, methodname);
@@ -83,7 +84,7 @@ public class LogMsg{
      * @param context       The context from which the ClassName is extracted
      * @param methodname    The provided MethodName
      */
-    public static void LogMsg(int logtype,
+    public static void LogMsg(@SuppressWarnings("SameParameterValue") int logtype,
                               String logtag,
                               String msg,
                               Context context,
@@ -143,9 +144,10 @@ public class LogMsg{
          * Only allow logging if the calling class has it's devmode set to true
          * Note set thses in StandardAppsConstants
          */
-        if ( !(
-                (callingclass.equals(MainActivity.THISCLASS) &&
-                        StandardAppConstants.DEVMODE_MAINACTIVITY) ||
+        if ( !
+                (
+                        (callingclass.equals(MainActivity.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_MAINACTIVITY) ||
                         (callingclass.equals(ActionColorCoding.THISCLASS) &&
                                 StandardAppConstants.DEVMODE_ACTIONCOLORCODING) ||
                         (callingclass.equals(ActivityMenuOption.THISCLASS) &&
@@ -241,10 +243,16 @@ public class LogMsg{
                         (callingclass.equals(ToolsActivity.THISCLASS) &&
                                 StandardAppConstants.DEVMODE_TOOLSACTIVITY) ||
                         (callingclass.equals(RuleSuggestCheckActivity.THISCLASS) &&
-                                StandardAppConstants.DEVMODE_RULESUGGESTCHECKACTIVITY)
+                                StandardAppConstants.DEVMODE_RULESUGGESTCHECKACTIVITY) ||
+                        (callingclass.equals(AdapterStorageList.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_ADAPTERSTORAGELIST) ||
+                        (callingclass.equals(DBStorageMethods.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_DBSTORAGEMETHODS) ||
+                                (callingclass.equals(StorageActivity.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_STORAGEACTIVITY)
+                )
 
                 )
-            )
         {
             return;
         }

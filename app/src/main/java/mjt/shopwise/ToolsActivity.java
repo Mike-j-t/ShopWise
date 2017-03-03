@@ -15,6 +15,7 @@ import android.widget.TextView;
  * thus allowing the respective tool activities to be started/used.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ToolsActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ToolsActivity";

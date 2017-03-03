@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Database Access Object
  */
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class DBDAO {
 
     /**
@@ -63,7 +64,7 @@ public class DBDAO {
      * @param order      Order clause less ORDER BY keywords, skipped if blank
      * @return Cursor with extracted rows, if any.
      */
-    public Cursor getTableRows(String table, String joinclause, String filter, String order) {
+    public Cursor getTableRows(String table, @SuppressWarnings("SameParameterValue") String joinclause, String filter, String order) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

@@ -16,16 +16,16 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         >
         <TextView
-            android:id="@+id/rules_messagebar"
+            android:id="@+id/storage_messagebar"
             style="@style/messagebar"
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/actions"
         style="@style/standard_linearlayout"
+        android:id="@+id/actions"
         >
         <TextView
-            android:id="@+id/rules_donebutton"
+            android:id="@+id/storage_donebutton"
             android:layout_weight="18"
             style="@style/actionbutton"
             android:text="@string/donebutton"
@@ -35,7 +35,7 @@
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/rules_addbutton"
+            android:id="@+id/storage_newstorgaebutton"
             android:layout_weight="18"
             style="@style/actionbutton"
             android:text="@string/addbutton"
@@ -46,52 +46,36 @@
             />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/rules_rulelist_heading"
+        android:id="@+id/storage_storagelist_heading"
         style="@style/listview_heading_standard"
         >
         <TextView
-            style="@style/inputitemdummy"
+            style="@style/listview_heading_col_standard"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/rules_rulelist_heading_rulename"
+            android:id="@+id/storage_storagelist_heading_storagename"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="24"
-            android:text="@string/rulelabel"
+            android:layout_weight="84"
+            android:text="@string/storagelabel"
             />
         <TextView
-            style="@style/inputitemdummy"
+            style="@style/listview_heading_col_standard"
             android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/rules_rulelist_heading_productname"
+            android:id="@+id/storage_storagelist_heading_storageorder"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="34"
-            android:text="@string/productnamelabel"
+            android:layout_weight="8"
+            android:text="@string/orderlabel"
             />
         <TextView
-            style="@style/inputitemdummy"
+            style="@style/listview_heading_col_standard"
             android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/rules_rulelist_heading_acton"
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="24"
-            android:text="@string/actonlabel"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/rules_rulelist_heading_prompt"
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="10"
-            android:text="@string/promptlabel"
             />
     </LinearLayout>
     <ListView
-        android:id="@+id/rules_rulelist"
+        android:id="@+id/storage_storagelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >

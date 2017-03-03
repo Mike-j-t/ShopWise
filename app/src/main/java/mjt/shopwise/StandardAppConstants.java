@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 /**
  * Standard Application Constants
  */
+@SuppressWarnings("WeakerAccess")
 public class StandardAppConstants{
 
     /**
@@ -78,18 +79,21 @@ public class StandardAppConstants{
     public static boolean DEVMODE_REQUESTDIALOG = false;
     public static boolean DEVMODE_REQUESTDIALOGPARAMETERS = false;
     public static boolean DEVMODE_RULESACTIVITY = false;
-    public static boolean DEVMODE_RULESADDEDITACTIVITY = true;
+    public static boolean DEVMODE_RULESADDEDITACTIVITY = false;
     public static boolean DEVMODE_RULETOOLSACTIVITY = false;
     public static boolean DEVMODE_SHOPPINGACTIVITY = false;
     public static boolean DEVMODE_SHOPPINGENTRYADJUSTACTIVITY = false;
     public static boolean DEVMODE_SHOPSACTIVITY = false;
     public static boolean DEVMODE_SHOPSADDEDITACTIVITY = false;
     public static boolean DEVMODE_SPINNERMOVE = false;
-    public static boolean DEVMODE_STOCKACTIVITY = true;
+    public static boolean DEVMODE_STOCKACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTACTIVITY = false;
     public static boolean DEVMODE_TOOLSACTIVITY = false;
     public static boolean DEVMODE_RULESUGGESTCHECKACTIVITY = false;
+    public static boolean DEVMODE_ADAPTERSTORAGELIST = false;
+    public static boolean DEVMODE_DBSTORAGEMETHODS = false;
+    public static boolean DEVMODE_STORAGEACTIVITY = false;
 
     /**
      * Intent keys (DB based i.e. used for passing DB derived values)
@@ -122,6 +126,9 @@ public class StandardAppConstants{
     public static final String INTENTKEY_RULEMULTIPLIER = "ik_rulemulriplier";
     public static final String INTENTKEY_RULETOOLMINBUY = "ik_ruletoolminbuy";
     public static final String INTENTKEY_RULETOOLMINPERIOD = "ik_ruletoolminperiod";
+    public static final String INTENTKEY_STORAGEID = "ik_storageid";
+    public static final String INTENTKEY_STORAGENAME = "ik_storagename";
+    public static final String INTENTKEY_STORAGEORDER = "ik_storageorder";
 
     /**
      * Calling Modes as passed via intents.
@@ -227,20 +234,22 @@ public class StandardAppConstants{
     public static final int SHOPSAPPVALORDER = 0;
     public static final String AISLESAPPVALNAME = "AISLES";
     public static final int AISLESAPPVALORDER = 1;
+    public static final String STORAGEAPPVALNAME = "STORAGE";
+    public static final int STORAGEAPPVALORDER = 2;
     public static final String PRODUCTSAPPVALNAME = "PRODUCTS";
-    public static final int PRODUCTSAPPVALORDER = 2;
+    public static final int PRODUCTSAPPVALORDER = 3;
     public static final String STOCKAPPVALNAME = "STOCK";
-    public static final int STOCKAPPVALORDER = 3;
+    public static final int STOCKAPPVALORDER = 4;
     public static final String ORDERAPPVALNAME = "ORDER";
-    public static final int ORDERAPPVALORDER = 4;
+    public static final int ORDERAPPVALORDER = 5;
     public static final String CHECKLISTAPPVALNAME = "CHECKLIST";
-    public static final int CHECKLISTAPPVALORDER = 5;
+    public static final int CHECKLISTAPPVALORDER = 6;
     public static final String SHOPPINGAPPVALNAME = "SHOPPING";
-    public static final int SHOPPINGAPPVALORDER = 6;
+    public static final int SHOPPINGAPPVALORDER = 7;
     public static final String RULESAPPVALNAME = "RULES";
-    public static final int RULESAPPVALORDER = 7;
+    public static final int RULESAPPVALORDER = 8;
     public static final String TOOLSAPPVALNAME = "TOOLS";
-    public static final int TOOLSAPPVALORDER = 8;
+    public static final int TOOLSAPPVALORDER = 9;
     /**
      * The constant MAINACTIVITYOPTIONLIST.
      */
@@ -251,14 +260,17 @@ public class StandardAppConstants{
             new ActivityMenuOption(AISLESAPPVALNAME,
                     "ADD, DELETE and EDIT Aisles, also STOCK Products.",
                     AISLESAPPVALORDER),
+            new ActivityMenuOption(STORAGEAPPVALNAME,
+                    "ADD, DELETE and Edit Product Storage Locations.",
+                    STORAGEAPPVALORDER),
             new ActivityMenuOption(PRODUCTSAPPVALNAME,
                     "ADD, DELETE and EDIT products, also STOCK Products.",
                     PRODUCTSAPPVALORDER),
             new ActivityMenuOption(STOCKAPPVALNAME,
-                    "ADD, EDIT or DELETE STOCK",
+                    "ADD, EDIT or DELETE STOCK.",
                     STOCKAPPVALORDER),
             new ActivityMenuOption(CHECKLISTAPPVALNAME,
-                    "Check potential Shopping List additions.",
+                    "Check what you have and Add to the Shopping List.",
                     CHECKLISTAPPVALORDER),
             new ActivityMenuOption(ORDERAPPVALNAME,
                     "Add to the Shopping List.",

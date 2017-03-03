@@ -20,11 +20,12 @@ import java.text.SimpleDateFormat;
  * Created by Mike092015 on 12/01/2017.
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class AdapterPromptedRuleList extends CursorAdapter {
 
-    private Intent callerintent;
-    private Context ctxt;
-    private boolean fromspinner;
+    private final Intent callerintent;
+    private final Context ctxt;
+    private final boolean fromspinner;
     private Cursor cursor;
 
     private int rules_ruleid_offset = -1;
@@ -54,9 +55,9 @@ public class AdapterPromptedRuleList extends CursorAdapter {
     private static final String LOGTAG = "SW_APRL(CsrAdptr)";
 
     @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
+    private final SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
 
-    AdapterPromptedRuleList(Context context, Cursor csr, int flags, Intent intent) {
+    AdapterPromptedRuleList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

@@ -14,7 +14,7 @@ class Emsg {
         this.error_number = 0;
         this.error_message = "";
     }
-    Emsg(boolean error_indicator, int error_number, String error_message) {
+    Emsg(@SuppressWarnings("SameParameterValue") boolean error_indicator, @SuppressWarnings("SameParameterValue") int error_number, @SuppressWarnings("SameParameterValue") String error_message) {
         this.error_indicator = error_indicator;
         this.error_number = error_number;
         this.error_message = error_message;
@@ -37,7 +37,7 @@ class Emsg {
     public void setErrorMessage(String error_message) {
         this.error_message = error_message;
     }
-    public void setAll(boolean error_indicator, int error_number, String error_message) {
+    public void setAll(@SuppressWarnings("SameParameterValue") boolean error_indicator, int error_number, String error_message) {
         this.error_indicator = error_indicator;
         this.error_number = error_number;
         this.error_message = error_message;

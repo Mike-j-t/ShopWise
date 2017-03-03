@@ -1,5 +1,6 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,19 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import static mjt.shopwise.ActionColorCoding.transparency_optional;
 import static mjt.shopwise.ActionColorCoding.transparency_requied;
 
 /**
- * Created by Mike092015 on 13/12/2016.
+ * Add or Edit a Product
  */
 
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 public class ProductsAddEditActivity  extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ProductsAddEditActivity";
@@ -31,6 +35,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     //private static String defaultorder = "1000";
 
     private static final int BYPRODUCT = 0;
+    private static final int BYSTORAGE = 1;
+    private static final int BYORDER = 2;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
     private String productfilter = "";
@@ -50,6 +56,13 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     LinearLayout inputproductname_linearlayout;
     TextView inputproductname_label;
     EditText inputproductname;
+    LinearLayout inputproductstorage_linearlayout;
+    TextView inputproductstorage_label;
+    Spinner inputproductstorage_spinner;
+    AdapterStorageList storagelistadapter;
+    LinearLayout inputproductorder_linearlayout;
+    TextView inputproductorder_label;
+    EditText inputproductorder;
     LinearLayout productaddeditbuttons_linearlayout;
     TextView savebutton;
     TextView donebutton;
@@ -65,20 +78,53 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
     DBProductMethods dbproductmethods;
+    DBStorageMethods dbstoragemethods;
     Cursor plcsr;
+    Cursor stcsr;
 
     long passedproductid;
     String passedproductname;
+    long passedstorageid;
+    String passedstoragname;
+    int passedorder;
+    long currentstoragref;
+    int currenthigheststorageorder;
 
-    private static final String PRODUCTID_COLUMN = DBProductsTableConstants.PRODUCTS_ID_COL;
-    private static final String PRODUCTNAME_COLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL;
-    private static final String PRODUCTID_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
-    private static final String PRODUCTNAME_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    private static final String PRODUCTID_COLUMN =
+            DBProductsTableConstants.PRODUCTS_ID_COL;
+    private static final String PRODUCTNAME_COLUMN =
+            DBProductsTableConstants.PRODUCTS_NAME_COL;
+    private static final String PRODUCTID_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
+    private static final String PRODUCTNAME_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    private static final  String PRODUCTORDER_COLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
+    private static final String PRODUCTORDER_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
+    private static final String PRODUCTSTORAGEREF_COLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    private static final String PRODUCTSTORAGEREF_FULLCOLUMN =
+            DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
+    private static final String STORAGEID_COLUMN =
+            DBStorageTableConstants.STORAGE_ID_COL;
+    private static final String STORAGENAME_COLUMN =
+            DBStorageTableConstants.STORAGE_NAME_COL;
+    private static final String STORAGEORDER_COLUMN =
+            DBStorageTableConstants.STORAGE_ORDER_COL;
+    private static final String STORAGEID_FULLCOLUMN =
+            DBStorageTableConstants.STORAGE_ID_COL_FULL;
+    private static final String STORAGENAME_FULLCOLUMN =
+            DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    private static final String STORAGEORDER_FULLCOLUMN =
+            DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
     static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
+    static String storageorderby = STORAGENAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYPRODUCT;
     static boolean ordertype = true;
     static boolean sortchanged = false;
+    static String storagefilter = "";
 
     static String lastmessage = "";
     static String currentproductname = "";
@@ -92,6 +138,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     public static final String THISCLASS = ProductsAddEditActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_PAEA";
 
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -106,6 +153,12 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         inputproductname_linearlayout = (LinearLayout) findViewById(R.id.inputproductname_linearlayout);
         inputproductname_label = (TextView) findViewById(R.id.inputproductname_label);
         inputproductname = (EditText) findViewById(R.id.inputproductname);
+        inputproductstorage_linearlayout = (LinearLayout) findViewById(R.id.inputproductstorage_linearlayout);
+        inputproductstorage_label = (TextView) findViewById(R.id.inputproductstorage_label);
+        inputproductstorage_spinner = (Spinner) findViewById(R.id.inputproductstorage_spinner);
+        inputproductorder_linearlayout = (LinearLayout) findViewById(R.id.inputproductorder_linearlayout);
+        inputproductorder_label = (TextView) findViewById(R.id.inputproductorder_label);
+        inputproductorder = (EditText) findViewById(R.id.inputproductorder);
         addFilterListener(inputproductname);
         inputproductfilter = (EditText) findViewById(R.id.productaddedit_inputfilter);
         addFilterListener(inputproductfilter);
@@ -129,10 +182,13 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(savebutton, primary_color);
         ActionColorCoding.setActionButtonColor(inputproductname,h2 & transparency_requied);
+        ActionColorCoding.setActionButtonColor(inputproductstorage_spinner,h2);
+        ActionColorCoding.setActionButtonColor(inputproductorder,h2 & transparency_requied);
         ActionColorCoding.setActionButtonColor(inputproductfilter,h4 & transparency_optional);
         productlistheading.setBackgroundColor(h1);
         inputproductname_label.setTextColor(primary_color);
         productfilterlabel.setTextColor(h2);
+
 
         msg = "Preparing DataBases";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -140,12 +196,13 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         dbshopmethods = new DBShopMethods(this);
         dbaislemethods = new DBAisleMethods(this);
         dbproductmethods = new DBProductMethods(this);
+        dbstoragemethods = new DBStorageMethods(this);
         setDBCounts();
         this.setTitle(getResources().getString(R.string.productslabel));
 
         msg = "Preparing ProductList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        plcsr = dbproductmethods.getProducts(productfilter,orderby);
+        plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
         productlistadapter = new AdapterProductList(this,
                 plcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
@@ -153,6 +210,14 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 false
         );
         productlist.setAdapter(productlistadapter);
+
+        stcsr = dbstoragemethods.getStorage(storagefilter,storageorderby);
+        storagelistadapter = new AdapterStorageList(this,
+                stcsr,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
+                this.getIntent(),
+                true);
+        inputproductstorage_spinner.setAdapter(storagelistadapter);
 
         msg = "Extracting and applying Intent Extras";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -163,6 +228,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 StandardAppConstants.INTENTKEY_CALLINGMODE,
                 StandardAppConstants.CM_CLEAR
         );
+        passedstorageid = 0;
         if (calledmode == StandardAppConstants.CM_EDIT) {
             passedproductid = getIntent().getLongExtra(
                     StandardAppConstants.INTENTKEY_PRODUCTID,
@@ -172,7 +238,29 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                     StandardAppConstants.INTENTKEY_PRODUCTNAME
             );
             inputproductname.setText(passedproductname);
+            passedorder = getIntent().getIntExtra(
+                    StandardAppConstants.INTENTKEY_STORAGEORDER,0
+            );
+            inputproductorder.setText(Integer.toString(passedorder));
+            passedstorageid = getIntent().getLongExtra(
+                    StandardAppConstants.INTENTKEY_STORAGEID,0
+            );
+            passedstoragname = getIntent().getStringExtra(
+                    StandardAppConstants.INTENTKEY_STORAGENAME
+            );
+            inputproductfilter.setText("");
         }
+        stcsr.moveToPosition(-1);
+        while (stcsr.moveToNext()) {
+            if (stcsr.getLong(stcsr.getColumnIndex(
+                    STORAGEID_COLUMN
+            )) == passedstorageid) {
+                inputproductstorage_spinner.setSelection(stcsr.getPosition());
+                break;
+            }
+        }
+        setSelectStorageListener();
+
     }
 
     /**************************************************************************
@@ -204,7 +292,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         }
         msg = "Refreshing ProductList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        plcsr = dbproductmethods.getProducts(productfilter,orderby);
+        plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
         productlistadapter.swapCursor(plcsr);
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     }
@@ -251,12 +339,14 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     /**************************************************************************
      * productSave - Save the Product being added or edited
      */
+    @SuppressWarnings("ConstantConditions")
     public void productSave() {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         boolean notdoneok = true;
         String productname = inputproductname.getText().toString();
+        String productorder = inputproductorder.getText().toString();
         String productnamelabel = getResources().getString(
                 R.string.productnamelabel) + " ";
         String notsaved = getResources().getString(R.string.notsaved);
@@ -272,6 +362,19 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
             return;
         }
 
+        if (productorder.length() < 1) {
+            msg = inputproductorder_label.getText().toString() +
+                    getResources().getString(R.string.inputblank) +
+                    productname + " " + notsaved;
+            setMessage(this,msg,notdoneok);
+            return;
+        }
+
+        stcsr.moveToPosition(inputproductstorage_spinner.getSelectedItemPosition());
+        long productstorageref = stcsr.getLong(stcsr.getColumnIndex(
+                STORAGEID_COLUMN
+        ));
+
         msg = getResources().getString(R.string.productlabel) + " " +
                 inputproductname.getText().toString() + " was ";
         switch (calledmode) {
@@ -280,7 +383,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbproductmethods.insertProduct(
                         inputproductname.getText().toString(),
-                        ""
+                        "",
+                        productstorageref,
+                        Integer.valueOf(productorder)
                 );
 
                 if (dbproductmethods.ifProductAdded()) {
@@ -299,7 +404,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 dbproductmethods.modifyProduct(passedproductid,
                         inputproductname.getText().toString(),
-                        ""
+                        "",
+                        productstorageref,
+                        Integer.valueOf(productorder)
                 );
                 if (dbproductmethods.ifProductUpdated()) {
                     msg = msg + getResources().getString(R.string.editedok);
@@ -314,7 +421,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         }
         logmsg = "Refreshing ProductList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        plcsr = dbproductmethods.getProducts(productfilter,orderby);
+        plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
         productlistadapter.swapCursor(plcsr);
         setMessage(this,msg,notdoneok);
     }
@@ -328,17 +435,25 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        lastmessage = "List of Shops sorted by ";
+        lastmessage = "List of Products sorted by ";
         switch (view.getId()) {
             case R.id.productaddedit_productlist_heading_productname:
                 getOrderBy(PRODUCTNAME_FULLCOLUMN,BYPRODUCT);
                 lastmessage = lastmessage + " PRODUCT NAME in ";
                 break;
+            case R.id.productaddedit_productlist_heading_productstorage:
+                getOrderBy(STORAGENAME_FULLCOLUMN,BYSTORAGE);
+                lastmessage = lastmessage + " STORAGE in ";
+                break;
+            case R.id.productaddedit_productlist_heading_productorder:
+                getOrderBy(PRODUCTORDER_FULLCOLUMN,BYORDER);
+                lastmessage = lastmessage + " ORDER in ";
+                break;
             default:
                 break;
         }
         if (sortchanged) {
-            plcsr = dbproductmethods.getProducts(productfilter,orderby);
+            plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
             productlistadapter.swapCursor(plcsr);
             if (ordertype) {
                 lastmessage = lastmessage + " ascending order.";
@@ -372,7 +487,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                         DBConstants.SQLLIKECHARSTART +
                         edittext.getText().toString() +
                         DBConstants.SQLLIKECHAREND;
-                plcsr = dbproductmethods.getProducts(productfilter,orderby);
+                plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
                 productlistadapter.swapCursor(plcsr);
             }
             @Override
@@ -448,5 +563,41 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         }
         orderfld = neworderfld;
         sortchanged = true;
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setSelectStorageListener() {
+        inputproductstorage_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view,
+                                       int position,
+                                       long id) {
+                currentstoragref = stcsr.getLong(stcsr.getColumnIndex(
+                        STORAGEID_COLUMN
+                ));
+                int highorder =
+                        dbproductmethods.getHighestProductOrderPerStorage(
+                                currentstoragref
+                        ) + 100;
+                if(highorder < 1000) {
+                    highorder = 1000;
+                }
+                if (highorder > 9999) {
+                    highorder = highorder - 100 + 1;
+                    if (highorder > 9999) {
+                        highorder = 9999;
+                    }
+                }
+                if (calledmode == StandardAppConstants.CM_ADD) {
+                    inputproductorder.setText(Integer.toString(highorder));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

@@ -13,6 +13,7 @@ import static mjt.shopwise.DBConstants.TXT;
 /**
  * DBAppvaluesTableConstants - Values Table (stores values)
  */
+@SuppressWarnings("WeakerAccess")
 public class DBAppvaluesTableConstants {
 
     /**

@@ -26,11 +26,13 @@ import static mjt.shopwise.StandardAppConstants.RULESAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.SHOPPINGAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.SHOPSAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.STOCKAPPVALNAME;
+import static mjt.shopwise.StandardAppConstants.STORAGEAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.TOOLSAPPVALNAME;
 
 /**
  * Main/Start Activity for ShopWise
  */
+@SuppressWarnings("WeakerAccess")
 public class MainActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "MainActivity";
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private DBProductUsageMethods dbproductusagemethods;
     private DBRuleMethods dbrulemethods;
     private DBShopListMethods dbshoplistmethods;
+    private DBStorageMethods dbstoragemethods;
 
     private ListView options_listview;
     /**
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     static int shoplistcount = 0;
     static int rulecount = 0;
     static int appvaluecount = 0;
+    static int storagecount = 0;
 
     private static int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
 
@@ -88,9 +92,16 @@ public class MainActivity extends AppCompatActivity {
         dbproductusagemethods = new DBProductUsageMethods(this);
         dbrulemethods = new DBRuleMethods(this);
         dbshoplistmethods = new DBShopListMethods(this);
-
-        //TODO remove following line, it is here for testing only
-        //Cursor tr = dbrulemethods.getToolRules(false,2,1);
+        dbstoragemethods = new DBStorageMethods(this);
+        /**
+         * Expand the Database if necessary
+         * i.e. allows addition of columns and tables. This being based upon
+         * a comparison of the DataBase schema against the actual Database
+         * (see
+         */
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "expanding Database (if required)", this, methodname);
+        db.expand(null, true);
         getDBCounts();
 
         /**
@@ -106,16 +117,6 @@ public class MainActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Setting Layout", this, methodname);
         setContentView(R.layout.activity_main);
-
-        /**
-         * Expand the Database if necessary
-         * i.e. allows addition of columns and tables. This being based upon
-         * a comparison of the DataBase schema against the actual Database
-         * (see
-         */
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
-                "expanding Database (if required)", this, methodname);
-        db.expand(null, true);
 
         /**
          * Prepare to use a ListView as the Main Options Menu and then build
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         buildMenu();
         buildMenu();
 
+        //Notify if in Development Mode (loggin has been turned on)
         if (StandardAppConstants.DEVMODE) {
             Toast.makeText(this,getResources().getString(R.string.devmodeon),Toast.LENGTH_LONG).show();
             final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION,100);
@@ -213,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         shoplistcount = dbshoplistmethods.getShopListCount();
         rulecount = dbrulemethods.getRuleCount();
         appvaluecount = dbappvaluesmethods.getAppvalueCount();
+        storagecount = dbstoragemethods.getStorageCount();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
 
@@ -278,37 +281,39 @@ public class MainActivity extends AppCompatActivity {
         String include_tools = "( " +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + TOOLSAPPVALNAME + "') ";
-
+        String include_storage = "( " +
+                DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
+                " = '" + STORAGEAPPVALNAME + "') ";
+        /**
         String filter =
                 DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                         " = '" + MENUOPTIONS + "' " +
                         DBConstants.SQLAND;
+         **/
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Determening Options to use", this, methodname);
 
         /**
          * Inclusion/visiblity of menuoption logic
-         * If no data at all then show Shops and Products only
+         * If no data at all then show Shops, Storage, Products and Tools
          * If 1 or more Shops then add Aisles
-         * If at least 1 Shop, Product and Aisle then add Stock
+         * If at least 1 Shop, Product and Aisle then also show Stock
          * It at least 1 stocked product (i.e. product assigned to an aisle)
-         *      stocked product aka productusage
          * then show all others (even though they may show nothing)
          */
-        if (shopcount < 1) {
-            filter = filter + "(" +
-                    include_shops +
-                    DBConstants.SQLOR + include_products +
-                    DBConstants.SQLOR + include_tools +
-                    ")";
+        String filter = "(" +
+                include_shops +
+                DBConstants.SQLOR + include_storage +
+                DBConstants.SQLOR + include_tools;
+        if (storagecount > 0 ) {
+            filter = filter +
+                    DBConstants.SQLOR + include_products;
         }
         if (shopcount > 0) {
-            filter = filter + "(" +
-                    include_shops +
-                    DBConstants.SQLOR + include_products +
-                    DBConstants.SQLOR + include_aisles +
-                    DBConstants.SQLOR + include_tools;
-            if (productcount > 0 && aislecount > 0)
+            filter = filter +
+                    DBConstants.SQLOR + include_aisles;
+        }
+        if (shopcount > 0 && productcount > 0 && storagecount > 0 && aislecount > 0) {
                 filter = filter +
                     DBConstants.SQLOR + include_stock;
             if (productusagecount > 0) {
@@ -318,11 +323,11 @@ public class MainActivity extends AppCompatActivity {
                         DBConstants.SQLOR + include_shopping +
                         DBConstants.SQLOR + include_rules;
                 }
-            filter = filter + ")";
         }
+        filter = filter + ")";
 
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
-                "Extracting current APPVALUES Table",
+                "Extracting current APPVALUES Table\n\tfilter=" + filter,
                 this, methodname);
         // Get a cursor with the relevant rows according to the filter
         Cursor csr =  dbdao.getTableRows(
@@ -344,6 +349,7 @@ public class MainActivity extends AppCompatActivity {
         boolean optionmatch;
         boolean notesmatch;
         boolean ordermatch;
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < MAINACTIVITYOPTIONLIST.length; i++) {
             String msg = "Comparing DEFINED Option Named " + MAINACTIVITYOPTIONLIST[i].getMenuOptionName();
             // compare cursor values and array equivalents
@@ -395,6 +401,7 @@ public class MainActivity extends AppCompatActivity {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                         msg,
                         this, methodname);
+
                 dbappvaluesmethods.insertStringAndIntAppvalue(
                         MENUOPTIONS,
                         MAINACTIVITYOPTIONLIST[i].getMenuOptionName(),
@@ -431,6 +438,7 @@ public class MainActivity extends AppCompatActivity {
         csr.moveToPosition(-1);
         while (csr.moveToNext()) {
             optionmatch = false;
+            //noinspection ForLoopReplaceableByForEach
             for (int i = 0; i < MAINACTIVITYOPTIONLIST.length; i++) {
                 if (csr.getString(
                         csr.getColumnIndex(
@@ -485,6 +493,16 @@ public class MainActivity extends AppCompatActivity {
                 filter,
                 order
         );
+        String appvoption ="";
+        String appvorder = "";
+        while (mocsr.moveToNext()) {
+            appvoption = mocsr.getString(mocsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_TEXT_COL));
+            appvorder = mocsr.getString(mocsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_INT_COL));
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                    LOGTAG,
+                    "Option=" + appvoption + " Order=" + appvorder,
+                    THISCLASS,methodname);
+        }
         options_adapter = new AdapterMainActivityOptionsMenu(
                 this,
                 mocsr,
@@ -522,42 +540,48 @@ public class MainActivity extends AppCompatActivity {
                         StandardAppConstants.AISLESAPPVALORDER);
                 break;
             case 2:
+                intent = new Intent(this,StorageActivity.class);
+                intent.putExtra(
+                        StandardAppConstants.INTENTKEY_MENUCOLORCODE,
+                        StandardAppConstants.STORAGEAPPVALORDER);
+                break;
+            case 3:
                 intent = new Intent(this,ProductsActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                         StandardAppConstants.PRODUCTSAPPVALORDER);
                 break;
-            case 3:
+            case 4:
                 intent = new Intent(this,StockListActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                         StandardAppConstants.STOCKAPPVALORDER);
                 break;
-            case 4:
+            case 5:
                 intent = new Intent(this,OrderActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                         StandardAppConstants.ORDERAPPVALORDER);
                 break;
-            case 5:
+            case 6:
                 intent = new Intent(this,CheckListActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                         StandardAppConstants.CHECKLISTAPPVALORDER);
                 break;
-            case 6:
+            case 7:
                 intent = new Intent(this,ShoppingActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                         StandardAppConstants.SHOPPINGAPPVALORDER);
                 break;
-            case 7:
+            case 8:
                 intent = new Intent(this,RulesActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
                         StandardAppConstants.RULESAPPVALORDER);
                 break;
-            case 8:
+            case 9:
                 intent = new Intent(this,ToolsActivity.class);
                 intent.putExtra(
                         StandardAppConstants.INTENTKEY_MENUCOLORCODE,
@@ -567,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, TestAction.class);
         }
         intent.putExtra(INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
-        intent.putExtra(INTENTKEY_CALLINGMODE,(int)0);
+        intent.putExtra(INTENTKEY_CALLINGMODE,0);
         startActivity(intent);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Ending",this,methodname);
     }
