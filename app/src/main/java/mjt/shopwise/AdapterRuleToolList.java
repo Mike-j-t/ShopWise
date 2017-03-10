@@ -25,22 +25,33 @@ public class AdapterRuleToolList extends CursorAdapter{
 
     private final Intent callerintent;
     private final Context ctxt;
+    @SuppressWarnings("unused")
     private final boolean fromspinner;
+    @SuppressWarnings("unused")
     private Cursor cursor;
     private boolean suggestmode = false;
     private boolean acccheckmode = false;
     private boolean disabledmode = false;
+    @SuppressWarnings("unused")
     private Resources res;
 
     private int productusage_productref_offset = -1;
+    @SuppressWarnings("unused")
     private int productusage_aisleref_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_cost_offset = 0;
     private int productusage_buycount_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_firstbuydate_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_latestbuydate_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_order_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_rulesuggestflag_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_checklistflag_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_checklistcount_offset = 0;
 
     private int calculated_ruleperiod_offset = 0;
@@ -48,27 +59,40 @@ public class AdapterRuleToolList extends CursorAdapter{
     private int product_name_offset = 0;
 
     private int aisle_name_offset = 0;
+    @SuppressWarnings("unused")
     private int aisle_order_offset = 0;
+    @SuppressWarnings("unused")
     private int aisle_shopref_offset = 0;
 
     private int shop_name_offset = 0;
+    @SuppressWarnings("unused")
     private int shop_city_offset = 0;
+    @SuppressWarnings("unused")
     private int shop_order_offset = 0;
 
+    @SuppressWarnings("unused")
     private int rule_id_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_aisleref_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_productref_offset = 0;
     private int rule_name_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_uses_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_prompt_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_acton_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_period_offset = 0;
+    @SuppressWarnings("unused")
     private int rule_multiplier_offset = 0;
 
     public static final DecimalFormat df = new DecimalFormat("#.###");
     public static final String THISCLASS = AdapterRuleToolList.class.getSimpleName();
     public static final String LOGTAG = "SW_ARTL(CsrAdptr)";
 
+    @SuppressWarnings("unused")
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf =
             new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);

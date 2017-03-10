@@ -30,7 +30,7 @@ public class AdapterStorageList extends CursorAdapter {
 
     AdapterStorageList(Context context,
                        Cursor csr,
-                       int flags,
+                       @SuppressWarnings("SameParameterValue") int flags,
                        Intent intent,
                        boolean fromspinner) {
         super(context, csr, 0);

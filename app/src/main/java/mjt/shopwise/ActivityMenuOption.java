@@ -34,6 +34,7 @@ public class ActivityMenuOption {
      *
      * @param menuoptioname the menuoptioname
      */
+    @SuppressWarnings("unused")
     public void setMenuOptionName(String menuoptioname) {
         this.mMenuOptionName = menuoptioname;
     }
@@ -43,6 +44,7 @@ public class ActivityMenuOption {
      *
      * @param menuoptioninfo the menuoptioninfo
      */
+    @SuppressWarnings("unused")
     public void setMenuOptionInfo(String menuoptioninfo) {
         this.mMenuOptionInfo = menuoptioninfo;
     }
@@ -52,6 +54,7 @@ public class ActivityMenuOption {
      *
      * @param menuoptionorder the menuoptionorder
      */
+    @SuppressWarnings("unused")
     public void setMenuOptionOrder(int menuoptionorder) {
         this.mMenuOptionOrder = menuoptionorder;
     }

@@ -21,10 +21,12 @@ import static mjt.shopwise.ActionColorCoding.transparency_requied;
  * Add or Edit Storage
  */
 
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class StorageAddEditActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     private static final String THIS_ACTIVITY = "StorageAddEditActivity";
+    @SuppressWarnings("unused")
     private static String caller;
     private static int calledmode;
     /**
@@ -48,40 +50,52 @@ public class StorageAddEditActivity extends AppCompatActivity {
      */
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     public static final String THISCLASS = StorageAddEditActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_STAEA";
 
+    @SuppressWarnings("unused")
     LinearLayout inputstoragename_linearlayout;
     TextView inputstoragename_label;
     EditText inputstoragename;
 
+    @SuppressWarnings("unused")
     LinearLayout inputstorageorder_linearlayout;
     TextView inputstorageorder_label;
     EditText inputstorageorder;
 
+    @SuppressWarnings("unused")
     LinearLayout storageaddedit_buttons_linearlayout;
     TextView savebutton;
     TextView donebutton;
 
     LinearLayout storagelist_heading;
+    @SuppressWarnings("unused")
     TextView storagelist_storagename;
+    @SuppressWarnings("unused")
     TextView storagelist_storageorder;
     ListView storagelist;
     AdapterStorageList storagelistadapter;
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBStorageMethods dbstoragemethods;
     Cursor stcsr;
 
+    @SuppressWarnings("unused")
     private static final String STORAGEID_COLUMN =
             DBStorageTableConstants.STORAGE_ID_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGENAME_COLUMN =
             DBStorageTableConstants.STORAGE_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_COLUMN =
             DBStorageTableConstants.STORAGE_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEID_FULLCOLUMN =
             DBStorageTableConstants.STORAGE_ID_COL_FULL;
     private static final String STORAGENAME_FULLCOLUMN =
@@ -100,6 +114,7 @@ public class StorageAddEditActivity extends AppCompatActivity {
     int passedstorageorder;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
 
 
@@ -285,6 +300,7 @@ public class StorageAddEditActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname =
@@ -418,6 +434,7 @@ public class StorageAddEditActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

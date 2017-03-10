@@ -38,6 +38,7 @@ public class DBShopListTableConstants {
     /**
      * The constant SHOPLIST_ALTID_COL_FULL.
      */
+    @SuppressWarnings("unused")
     public static final String SHOPLIST_ALTID_COL_FULL = SHOPLIST_TABLE +
             PERIOD +
             SHOPLIST_ALTID_COL;

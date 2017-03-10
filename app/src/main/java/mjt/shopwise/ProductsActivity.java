@@ -32,11 +32,13 @@ import java.util.ArrayList;
  * exists.
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class ProductsActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ShopsActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
 
     /**
@@ -55,7 +57,9 @@ public class ProductsActivity extends AppCompatActivity {
      * Colours
      */
     private static int h1;
+    @SuppressWarnings("unused")
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
     private static int h4;
     private static int primary_color;
@@ -80,6 +84,7 @@ public class ProductsActivity extends AppCompatActivity {
     /**
      * Database objects
      */
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
@@ -90,24 +95,29 @@ public class ProductsActivity extends AppCompatActivity {
             DBProductsTableConstants.PRODUCTS_ID_COL;
     private static final String PRODUCTNAME_COLUMN =
             DBProductsTableConstants.PRODUCTS_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTID_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
     private static final String PRODUCTNAME_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
     private static final String PRODUCTSTORAGEREF_COLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEREF_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
     private static final String PRODUCTSTORAGEORDER_COLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
     private static final String PRODUCTSTORAGEORDER_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String STORAGENAME_COLUMN =
             DBStorageTableConstants.STORAGE_NAME_COL;
     private static final String STORAGENAME_FULLCOLUMN =
             DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_COLUMN =
             DBStorageTableConstants.STORAGE_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_FULLCOLUMN =
             DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
@@ -118,6 +128,7 @@ public class ProductsActivity extends AppCompatActivity {
     static String lastmessage = "";
     static String currentproductname = "";
     static String productfilter = "";
+    @SuppressWarnings("unused")
     static int shopcount = 0;
     static int aislecount = 0;
     static int productcount = 0;
@@ -264,6 +275,7 @@ public class ProductsActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -313,6 +325,7 @@ public class ProductsActivity extends AppCompatActivity {
      *                  setting up the intent with the respective data
      *                  to be passed via the intent extras.
      */
+    @SuppressWarnings("unused")
     public void productEdit(RequestDialogParameters values) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -371,6 +384,7 @@ public class ProductsActivity extends AppCompatActivity {
      *                  dialog is called on the ListView's item onLongClick
      *                  handler.
      */
+    @SuppressWarnings("unused")
     public void productDelete(RequestDialogParameters values) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -394,6 +408,7 @@ public class ProductsActivity extends AppCompatActivity {
      *
      * @param values
      */
+    @SuppressWarnings("unused")
     public void productStock(RequestDialogParameters values) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -435,6 +450,7 @@ public class ProductsActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -671,6 +687,7 @@ public class ProductsActivity extends AppCompatActivity {
      *
      * @param values the values
      */
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public void doNothing(RequestDialogParameters values) {
     }
 

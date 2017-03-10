@@ -19,11 +19,13 @@ import android.widget.TextView;
  * Storage Activity
  */
 
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class StorageActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "StorageActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
     public static final String THISCLASS = StorageActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_STA";
@@ -37,8 +39,11 @@ public class StorageActivity extends AppCompatActivity {
     ActionBar actionbar;
 
     private static int h1;
+    @SuppressWarnings("unused")
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
@@ -51,6 +56,7 @@ public class StorageActivity extends AppCompatActivity {
     LinearLayout storagelistheading;
     AdapterStorageList storagelistadapter;
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBStorageMethods dbstoragemethods;
     Cursor stcsr;
@@ -224,6 +230,7 @@ public class StorageActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -277,6 +284,7 @@ public class StorageActivity extends AppCompatActivity {
      *
      * @param values parameters passed
      */
+    @SuppressWarnings("unused")
     public void storageUpdate(RequestDialogParameters values) {
         String logmsg = "Invoked";
         String methodname =
@@ -323,6 +331,7 @@ public class StorageActivity extends AppCompatActivity {
      *
      * @param values    The paaremeters passed from the requestdialog
      */
+    @SuppressWarnings("unused")
     public void storageDelete(RequestDialogParameters values) {
         String logmsg = "Invoked";
         String methodname =
@@ -440,6 +449,7 @@ public class StorageActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

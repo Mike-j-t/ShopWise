@@ -51,6 +51,7 @@ public class DBAppvaluesTableConstants {
     /**
      * The constant APPVALUES_ALTID_COL_FULL.
      */
+    @SuppressWarnings("unused")
     public static final String APPVALUES_ALTID_COL_FULL = APPVALUES_TABLE +
             PERIOD +
             APPVALUES_ALTID_COL;
@@ -188,6 +189,7 @@ public class DBAppvaluesTableConstants {
     /**
      * The constant APPVALUES_TEXT_TYPE.
      */
+    @SuppressWarnings("unused")
     public static final String APPVALUES_TEXT_TYPE = TXT;
     /**
      * The constant APPVALUES_TEXT_PRIMARY_INDEX.

@@ -76,7 +76,7 @@ import java.util.Comparator;
  *  String = obj.getErrorMessages()
  *      Returns a string list the current error messages, 1 per line.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 class StoreData {
 
     private String directory; //Note built internally and includes subdirectory
@@ -91,6 +91,7 @@ class StoreData {
     private ArrayList<File> otherfilesindirectory = new ArrayList<>();
 
     // Need to be aware of the API
+    @SuppressWarnings("unused")
     public static final int API_VERSION = Build.VERSION.SDK_INT;
     private static final long UNMOUNTED = 1;
     private static final long FILEIOERR = 2;
@@ -254,7 +255,7 @@ class StoreData {
         boolean x = f.delete();
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "UnusedReturnValue"})
     public boolean refreshOtherFilesInDirectory() {
         boolean rv = true;
         File dir = new File(directory);
@@ -283,6 +284,7 @@ class StoreData {
      * @param datatowrite - strng ArrayList holding data to write
      * @return result flag
      */
+    @SuppressWarnings("unused")
     public boolean writeData(ArrayList<String> datatowrite) {
         // Check that this instance is OK
         if (!this.isOK()) {
@@ -323,6 +325,7 @@ class StoreData {
      * Note! Assumes linefeeds in the file separate strings of data
      * @return - result flag
      */
+    @SuppressWarnings("unused")
     public ArrayList<String> readData() {
         ArrayList<String> rv = new ArrayList<>();
 
@@ -368,6 +371,7 @@ class StoreData {
      * exists = Check if the file exists
      * @return - Result of check
      */
+    @SuppressWarnings("unused")
     public boolean exists() {
         return this.fileexists;
     }
@@ -394,6 +398,7 @@ class StoreData {
         return rv;
     }
 
+    @SuppressWarnings("unused")
     public String DisplayWithOtherFiles() {
         String rv;
         rv = this.Display() + "\nOther Files in Directory (" + this.directory + ") ";
@@ -408,6 +413,7 @@ class StoreData {
      * Retrieve generated error messages. if any
      * @return sting comprised of all error messages generated
      */
+    @SuppressWarnings("unused")
     public String getErrorMessages() {
         String rv = "";
         for(int i = 0; i < errorlist.size(); i++) {
@@ -428,6 +434,7 @@ class StoreData {
      * Method: getFilename - get the filename of the object as a String
      * @return Filename as a String
      */
+    @SuppressWarnings("unused")
     public String getFilename() {
         return this.filename;
     }
@@ -436,6 +443,7 @@ class StoreData {
      * Method: getSubDirectory - get the sub-directory as a string
      * @return Sub-Directory as a String
      */
+    @SuppressWarnings("unused")
     public String getSubDirectory() {
         return this.subdirectory;
     }

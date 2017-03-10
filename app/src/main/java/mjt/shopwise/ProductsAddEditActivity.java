@@ -26,10 +26,12 @@ import static mjt.shopwise.ActionColorCoding.transparency_requied;
  * Add or Edit a Product
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
 public class ProductsAddEditActivity  extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     private static final String THIS_ACTIVITY = "ProductsAddEditActivity";
+    @SuppressWarnings("unused")
     private static String caller;
     private static int calledmode;
     //private static String defaultorder = "1000";
@@ -49,31 +51,40 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      */
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
     private static int h4;
     private static int primary_color;
 
+    @SuppressWarnings("unused")
     LinearLayout inputproductname_linearlayout;
     TextView inputproductname_label;
     EditText inputproductname;
+    @SuppressWarnings("unused")
     LinearLayout inputproductstorage_linearlayout;
+    @SuppressWarnings("unused")
     TextView inputproductstorage_label;
     Spinner inputproductstorage_spinner;
     AdapterStorageList storagelistadapter;
+    @SuppressWarnings("unused")
     LinearLayout inputproductorder_linearlayout;
     TextView inputproductorder_label;
     EditText inputproductorder;
+    @SuppressWarnings("unused")
     LinearLayout productaddeditbuttons_linearlayout;
     TextView savebutton;
     TextView donebutton;
+    @SuppressWarnings("unused")
     LinearLayout productfilterheading;
     TextView productfilterlabel;
     EditText inputproductfilter;
     LinearLayout productlistheading;
+    @SuppressWarnings("unused")
     TextView productlistproductname;
     ListView productlist;
     AdapterProductList productlistadapter;
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
@@ -85,37 +96,49 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     long passedproductid;
     String passedproductname;
     long passedstorageid;
+    @SuppressWarnings("unused")
     String passedstoragname;
     int passedorder;
     long currentstoragref;
+    @SuppressWarnings("unused")
     int currenthigheststorageorder;
 
+    @SuppressWarnings("unused")
     private static final String PRODUCTID_COLUMN =
             DBProductsTableConstants.PRODUCTS_ID_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTNAME_COLUMN =
             DBProductsTableConstants.PRODUCTS_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTID_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
     private static final String PRODUCTNAME_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final  String PRODUCTORDER_COLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
     private static final String PRODUCTORDER_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEREF_COLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEREF_FULLCOLUMN =
             DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
     private static final String STORAGEID_COLUMN =
             DBStorageTableConstants.STORAGE_ID_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGENAME_COLUMN =
             DBStorageTableConstants.STORAGE_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_COLUMN =
             DBStorageTableConstants.STORAGE_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEID_FULLCOLUMN =
             DBStorageTableConstants.STORAGE_ID_COL_FULL;
     private static final String STORAGENAME_FULLCOLUMN =
             DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_FULLCOLUMN =
             DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
@@ -127,13 +150,18 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     static String storagefilter = "";
 
     static String lastmessage = "";
+    @SuppressWarnings("unused")
     static String currentproductname = "";
 
+    @SuppressWarnings("unused")
     static int shopcount = 0;
+    @SuppressWarnings("unused")
     static int aislecount = 0;
+    @SuppressWarnings("unused")
     static int productcount = 0;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
     public static final String THISCLASS = ProductsAddEditActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_PAEA";
@@ -315,6 +343,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -431,6 +460,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

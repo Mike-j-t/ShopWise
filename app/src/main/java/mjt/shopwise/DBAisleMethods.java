@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * DBAisleMethods - Databse Methods for Aisle handling
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 class DBAisleMethods {
 
     private static final String LOGTAG = "SW_DBAM";
@@ -139,6 +139,7 @@ class DBAisleMethods {
      *
      * @return id of the Aisle that was last added
      */
+    @SuppressWarnings("unused")
     long getLastAisleAdded() {
         return lastaisleadded;
     }
@@ -232,6 +233,7 @@ class DBAisleMethods {
      * @param shopid  id of the shop the Aisle should be owned by
      * @return true if the Aisle exists and is owned by the specified shop, else false
      */
+    @SuppressWarnings("unused")
     boolean doesAisleExistInShop(long aisleid, long shopid) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -263,6 +265,7 @@ class DBAisleMethods {
      * @param aisleid id of the Aisle
      * @return Name of the Aisle
      */
+    @SuppressWarnings("unused")
     String getAisleName(long aisleid) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

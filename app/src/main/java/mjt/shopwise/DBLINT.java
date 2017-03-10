@@ -10,6 +10,7 @@ public class DBLINT {
     /**
      * Instantiates a new Dblint.
      */
+    @SuppressWarnings("unused")
     public DBLINT() {
         int1 = 0;
         int2 = 0;

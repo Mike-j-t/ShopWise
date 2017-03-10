@@ -11,6 +11,7 @@ public class DBLLONG {
     /**
      * Instantiates a new Dbllong.
      */
+    @SuppressWarnings("unused")
     public DBLLONG() {
         long1 = 0;
         long2 = 0;
@@ -22,6 +23,7 @@ public class DBLLONG {
      * @param v1 the v 1
      * @param v2 the v 2
      */
+    @SuppressWarnings("unused")
     public DBLLONG(int v1, int v2) {
         long1 = v1;
         long2 = v2;

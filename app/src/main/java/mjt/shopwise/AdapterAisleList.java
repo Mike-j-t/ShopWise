@@ -14,7 +14,7 @@ import android.widget.TextView;
  *                      Note has been written for ListView and Spinner
  *                      i.e. includes overridden getDropDownView method.
  */
-@SuppressWarnings({"WeakerAccess", "FieldCanBeLocal"})
+@SuppressWarnings({"WeakerAccess", "FieldCanBeLocal", "CanBeFinal"})
 public class AdapterAisleList extends CursorAdapter{
 
     private Intent callerintent;
@@ -25,7 +25,9 @@ public class AdapterAisleList extends CursorAdapter{
     private int aisles_aisleid_offset = -1;
     private int aisles_aislename_offset = 0;
     private int aisles_aisleorder_offset = 0;
+    @SuppressWarnings("unused")
     private int aisles_aisleshopref_offset = 0;
+    @SuppressWarnings("unused")
     private int aisles_aislenotes_offset = 0;
     public static final String THISCLASS = AdapterAisleList.class.getSimpleName();
     public static final String LOGTAG = "SW_AAL(CsrAdpt)";

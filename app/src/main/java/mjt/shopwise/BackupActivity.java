@@ -35,11 +35,14 @@ import java.util.Calendar;
  * Created by Mike092015 on 14/01/2017.
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
 public class BackupActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     private static final String THIS_ACTIVITY = "BackupActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
 
     Context context;
@@ -48,12 +51,15 @@ public class BackupActivity extends AppCompatActivity {
     /**
      * Colours
      */
+    @SuppressWarnings("unused")
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
+    @SuppressWarnings("unused")
     int passedmenucolorcode;
 
 
@@ -80,11 +86,13 @@ public class BackupActivity extends AppCompatActivity {
     private ProgressDialog busy;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
 
     private StoreData sdbase;
     private ArrayList<String> errlist = new ArrayList<>();
     private boolean confirmaction = false;
+    @SuppressWarnings("unused")
     private boolean refeshspinners = false;
     private File dbfile;
     private String backupfilename = "";
@@ -96,11 +104,13 @@ public class BackupActivity extends AppCompatActivity {
     private int copylength = 0;
     private static final int BUFFERSZ = 32768;
     private byte[] buffer = new byte[BUFFERSZ];
+    @SuppressWarnings("unused")
     private String logtag;
     private String resulttitle;
     private boolean copytaken;
     private boolean origdeleted;
     private boolean restoredone;
+    @SuppressWarnings("unused")
     private boolean rolledback;
     private String finalmessage = "";
 
@@ -245,6 +255,7 @@ public class BackupActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
@@ -834,7 +845,9 @@ public class BackupActivity extends AppCompatActivity {
      * @param msg  The message to be displayed.
      * @param flag Message imnportant, if true Yellow text, esle green
      */
-    public void setMessage(BackupActivity ba, String msg, boolean flag) {
+    public void setMessage(BackupActivity ba,
+                           @SuppressWarnings("SameParameterValue") String msg,
+                           @SuppressWarnings("SameParameterValue") boolean flag) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 

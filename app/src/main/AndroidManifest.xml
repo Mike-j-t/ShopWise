@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="mjt.shopwise">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TestAction"
+            android:label="Test Action"
+            />
+        <activity android:name=".ShopsActivity"
+            android:label="@string/shopslabel"
+            />
+        <activity android:name=".ShopsAddEditActivity"
+            android:label="@string/shopaddlabel"
+            />
+        <activity android:name=".AislesActivity"
+            android:label="@string/aisleslabel"
+            />
+        <activity android:name=".AislesAddEditActivity"
+            android:label="@string/aisleaddlabel"
+            />
+        <activity android:name=".ProductsActivity"
+            android:label="@string/productslabel"
+            />
+        <activity android:name=".ProductsAddEditActivity"
+            android:label="Products - Add"
+            />
+        <activity android:name=".StockActivity"
+            android:label="@string/stocklabel"
+            />
+        <activity android:name=".StockListActivity"
+            android:label="@string/stocklabel"
+            />
+        <activity android:name=".StockLisEditActivity"
+            android:label="@string/stocklabel"
+            />
+        <activity android:name=".CheckListActivity"
+            android:label="@string/checklistlabel"
+            />
+        <activity android:name=".OrderActivity"
+            android:label="@string/orderslabel"
+            />
+        <activity android:name=".ShoppingActivity"
+            android:label="@string/shoppinglabel"
+            />
+        <activity android:name=".ShoppingEntryAdjustActivity"
+            android:label="@string/adjustbutton"
+            />
+        <activity android:name=".RulesActivity"
+            android:label="@string/ruleslabel"
+            />
+        <activity android:name=".RulesAddEditActivity"
+            android:label="@string/ruleslabel"
+            />
+        <activity android:name=".PromptedRulesActivity"
+            android:label="@string/promptedruleslabel">
+        </activity>
+        <activity android:name=".ToolsActivity"
+            android:label="@string/toolslabel"
+            />
+        <activity android:name=".BackupActivity"
+            android:label="@string/backuplabel"
+            />
+        <activity android:name=".RuleToolsActivity"
+            android:label="@string/ruleslabel"
+            />
+        <activity android:name=".RuleSuggestCheckActivity"
+            android:label="@string/rulesuggestlist"
+            />
+        <activity android:name=".StorageActivity"
+            android:label="@string/storagelabel"
+            />
+        <activity android:name=".StorageAddEditActivity"
+            android:label="@string/storagelabel"
+            />
+    </application>
+</manifest>

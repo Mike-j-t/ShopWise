@@ -34,7 +34,7 @@ package mjt.shopwise;
 //         usability criteria.
 //==================================================================================================
 //================================================================================================*/
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 class DBColumn {
     private boolean usable;
     private String column_name;
@@ -49,6 +49,7 @@ class DBColumn {
      */
 //==============================================================================================
     // Default Constructor
+    @SuppressWarnings("unused")
     public DBColumn() {
         this.usable = false;
         this.column_name = "";
@@ -88,6 +89,7 @@ class DBColumn {
      */
 //==============================================================================================
     // Intermediate with sort order
+    @SuppressWarnings("unused")
     public DBColumn(String column_name, int sortorder) {
         this(column_name);
         this.order = sortorder;
@@ -128,7 +130,8 @@ class DBColumn {
      */
 //==============================================================================================
     // Full with sort order
-    public DBColumn(String column_name,String column_type, boolean primary_index, String  default_value, int sortorder) {
+    @SuppressWarnings("unused")
+    public DBColumn(String column_name, String column_type, boolean primary_index, String  default_value, int sortorder) {
         this(column_name, column_type, primary_index, default_value);
         this.order = sortorder;
     }
@@ -139,6 +142,7 @@ class DBColumn {
      * @param column_name the column name
      */
 //==============================================================================================
+    @SuppressWarnings("unused")
     public void setDBColumnName(String column_name) {
         this.column_name = column_name;
         this.checkDBColumnIsUsable("setDBColumnName");
@@ -150,6 +154,7 @@ class DBColumn {
      * @param column_type the column type
      */
 //==============================================================================================
+    @SuppressWarnings("unused")
     public void setDBColumnType(String column_type) {
         this.column_type = simplifyColumnType(column_type);
         this.checkDBColumnIsUsable("setDBColumnType");
@@ -161,6 +166,7 @@ class DBColumn {
      * @param default_value the default value
      */
 //==============================================================================================
+    @SuppressWarnings("unused")
     public void setDefault_value(String default_value) {
         this.default_value = default_value;
     }
@@ -189,6 +195,7 @@ class DBColumn {
      *
      * @return the db column is usable
      */
+    @SuppressWarnings("unused")
     public boolean getDBColumnIsUsable() {
         return this.usable;
     }
@@ -237,6 +244,7 @@ class DBColumn {
      *
      * @return the unusable msg
      */
+    @SuppressWarnings("unused")
     public String getUnusableMsg() { return this.problem_msg; }
 
     /**
@@ -244,8 +252,10 @@ class DBColumn {
      *
      * @return the sortorder
      */
+    @SuppressWarnings("unused")
     public int getSortorder() { return this.order; }
     //==============================================================================================
+    @SuppressWarnings("UnusedReturnValue")
     private boolean checkDBColumnIsUsable(String caller) {
         this.usable = false;
         if(this.column_name.length() > 0 & this.column_type.length() > 0) {

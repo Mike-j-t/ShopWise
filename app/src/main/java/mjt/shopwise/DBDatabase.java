@@ -72,7 +72,7 @@ import java.util.ArrayList;
  * NOTE!!! ALTER statements should now not be generated if the table to which they relate does
  * not exist in the actual database
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 class DBDatabase {
     private boolean usable;
     private String database_name;
@@ -98,6 +98,7 @@ class DBDatabase {
      *
      * @param database_name the database name
      */
+    @SuppressWarnings("unused")
     public DBDatabase(String database_name) {
         this();
         this.database_name = database_name;
@@ -113,6 +114,7 @@ class DBDatabase {
      * @param database_name  the database name
      * @param database_table the database table
      */
+    @SuppressWarnings("unused")
     public DBDatabase(String database_name, DBTable database_table) {
         this();
         this.database_name = database_name;
@@ -147,6 +149,7 @@ class DBDatabase {
      *
      * @return the long
      */
+    @SuppressWarnings("unused")
     public long numberOfTablesinDBDatabase() { return this.database_tables.size(); }
 
     /**
@@ -154,6 +157,7 @@ class DBDatabase {
      *
      * @param database_name the database name
      */
+    @SuppressWarnings("unused")
     public void setDBDatabaseName(String database_name) {
         this.database_name = database_name;
     }
@@ -163,6 +167,7 @@ class DBDatabase {
      *
      * @return the db database name
      */
+    @SuppressWarnings("unused")
     public String getDBDatabaseName() { return this.database_name; }
 
     /**
@@ -190,6 +195,7 @@ class DBDatabase {
      *
      * @param database_table the database table
      */
+    @SuppressWarnings("unused")
     public void addDBTableToDBDatabase(DBTable database_table) {
         this.database_tables.add(database_table);
         this.problem_msg = "";
@@ -201,6 +207,7 @@ class DBDatabase {
      *
      * @param database_tables the database tables
      */
+    @SuppressWarnings("unused")
     public void addDBTablesToDBDatabase(ArrayList<DBTable> database_tables) {
         this.database_tables.addAll(database_tables);
         this.problem_msg = "";
@@ -213,6 +220,7 @@ class DBDatabase {
      * @param caller the caller
      * @return the boolean
      */
+    @SuppressWarnings("UnusedReturnValue")
     public boolean checkDBDatabaseIsUsable(String caller) {
         this.usable = false;
         if(this.anyEmptyDBTablesInDBDatabase(caller)) {
@@ -279,6 +287,7 @@ class DBDatabase {
      * @return the string
      */
 // Generate SQL that could be used to Build Database and Tables elsewhere (part 1 of export)
+    @SuppressWarnings("unused")
     public String generateExportSchemaSQL() {
         String sql = "";
         String tablesql = "";
@@ -307,6 +316,7 @@ class DBDatabase {
      */
 // Export All Table Data (not expect to work as no escaping as yet)
     //TODO 1 Need to do equiv to MYSQL_REAL_ESCAPE otherwise OK load
+    @SuppressWarnings("unused")
     public String generateExportDataSQL(SQLiteDatabase db) {
         String sql = "";
         String sqlcols = "";

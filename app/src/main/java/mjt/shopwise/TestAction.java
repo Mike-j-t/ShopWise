@@ -7,7 +7,7 @@ import android.widget.TextView;
 /**
  * Created by Mike092015 on 28/11/2016.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class TestAction extends AppCompatActivity {
 
     /**
@@ -17,14 +17,17 @@ public class TestAction extends AppCompatActivity {
     /**
      * The H 2.
      */
+    @SuppressWarnings("unused")
     int h2;
     /**
      * The H 3.
      */
+    @SuppressWarnings("unused")
     int h3;
     /**
      * The H 4.
      */
+    @SuppressWarnings("unused")
     int h4;
     /**
      * The Tv.

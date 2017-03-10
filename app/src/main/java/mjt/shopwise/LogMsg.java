@@ -100,6 +100,7 @@ public class LogMsg{
      * @param context
      * @param methodname
      */
+    @SuppressWarnings("unused")
     public static void LogMsg(int logtype,
                               String msg,
                               Context context,

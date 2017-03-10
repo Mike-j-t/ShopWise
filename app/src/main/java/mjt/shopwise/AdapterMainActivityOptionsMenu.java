@@ -36,14 +36,22 @@ import android.widget.TextView;
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
 class AdapterMainActivityOptionsMenu extends CursorAdapter {
 
+    @SuppressWarnings("unused")
     private final int[] colorlist;
+    @SuppressWarnings("unused")
     private final DBShopMethods dbshops;
+    @SuppressWarnings("unused")
     private final DBAisleMethods dbaisles;
+    @SuppressWarnings("unused")
     private final DBProductMethods dbproducts;
+    @SuppressWarnings("unused")
     private final DBProductUsageMethods dbprodusages;
+    @SuppressWarnings("unused")
     private final DBShopListMethods dbshoplist;
+    @SuppressWarnings("unused")
     private final DBRuleMethods dbrules;
     private final Context ctxt;
+    @SuppressWarnings("unused")
     private final Intent callerintent;
     public static final String THISCLASS = AdapterMainActivityOptionsMenu.class.getSimpleName();
     public static final String LOGTAG = "SW_AMAOM(CsrAdpt)";

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Database Access Object
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 public class DBDAO {
 
     /**
@@ -15,6 +15,7 @@ public class DBDAO {
      */
     protected SQLiteDatabase db;
     private DBHelper dbhelper;
+    @SuppressWarnings("unused")
     private Context mContext;
     public static final String THISCLASS = DBDAO.class.getSimpleName();
     private static final String LOGTAG = "SW_DBDAO";

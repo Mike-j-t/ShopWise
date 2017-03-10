@@ -12,7 +12,7 @@ import java.util.Calendar;
 /**
  * DBRuleMethods - Database Methods for Rule Handling
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 public class DBRuleMethods {
     private static final  String LOGTAG = "SW-DBRM";
     private Context context;
@@ -20,6 +20,7 @@ public class DBRuleMethods {
     private static SQLiteDatabase db;
     private static long lastruleadded = -1;
     private static boolean lastruleaddok = false;
+    @SuppressWarnings("unused")
     private static boolean lastruleupdatedok = false;
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf = new SimpleDateFormat(
@@ -62,6 +63,7 @@ public class DBRuleMethods {
      *
      * @return id of the last rule added
      */
+    @SuppressWarnings("unused")
     long getLastRuleAdded() { return lastruleadded; }
 
     /**************************************************************************
@@ -69,6 +71,7 @@ public class DBRuleMethods {
      *
      * @return true if ok, esle false
      */
+    @SuppressWarnings("unused")
     boolean ifRuleAdded() { return lastruleaddok; }
 
     /**************************************************************************

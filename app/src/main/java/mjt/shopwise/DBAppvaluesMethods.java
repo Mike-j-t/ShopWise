@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * methods to retrieve values from duplicated names will result in only
  * 1 value being returned.
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 class DBAppvaluesMethods {
 
     /**
@@ -53,8 +53,10 @@ class DBAppvaluesMethods {
     private Context context;
     private DBDAO dbdao;
     private static SQLiteDatabase db;
+    @SuppressWarnings("unused")
     private static long lastappvalueadded;
     private static boolean lastappvalueaddok = false;
+    @SuppressWarnings("unused")
     private static int lastappvaleaddrc = APPVALUE_RC_OK;
 
 
@@ -120,6 +122,7 @@ class DBAppvaluesMethods {
      *
      * @return the id of the last Appvalue that was added
      */
+    @SuppressWarnings("unused")
     long getLastAppvalueAdded() {
         String msg = "Invoked and returning id=" +
                 Long.toString(lastappvalueadded) +
@@ -135,6 +138,7 @@ class DBAppvaluesMethods {
      *
      * @return true if added ok else false
      */
+    @SuppressWarnings("unused")
     boolean ifAppvalueAddedOK() {
         String msg = "Invoked and returning AddedOK=" +
                 Boolean.toString(lastappvalueaddok);
@@ -149,6 +153,7 @@ class DBAppvaluesMethods {
      * @param appvalueid id of the Appvalue to check
      * @return true if it does exist, otherwise false
      */
+    @SuppressWarnings("unused")
     boolean doesAppValueExist(long appvalueid) {
         String msg = "Invoked for APPVALUEID=" + Long.toString(appvalueid);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -501,6 +506,7 @@ class DBAppvaluesMethods {
      * @param includeinsettings true, if can be included in settings
      * @param settingsinfo      Text to be displayed along with the setting
      */
+    @SuppressWarnings("unused")
     void insertAppvalue(String appvaluename,
                         float appvalue,
                         boolean allowmultiple,
@@ -732,6 +738,7 @@ class DBAppvaluesMethods {
      * @param defaultreturnvalue default value if not found
      * @return extracted value or the default vale
      */
+    @SuppressWarnings("unused")
     long getLongAppvalue(String appvaluename, long defaultreturnvalue) {
         String msg = "Invoked for APPVALUENAME=" + appvaluename;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -768,6 +775,7 @@ class DBAppvaluesMethods {
      * @param defaultreturnvalue default value if not found
      * @return extracted value or the default vale
      */
+    @SuppressWarnings("unused")
     double getDoubleAppvalue(String appvaluename, double defaultreturnvalue) {
         String msg = "Invoked for APPVALUENAME=" + appvaluename;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -804,6 +812,7 @@ class DBAppvaluesMethods {
      * @param defaultreturnvalue default value if not found
      * @return extracted value or the default vale
      */
+    @SuppressWarnings("unused")
     String getStringAppvalue(String appvaluename, String defaultreturnvalue) {
         String msg = "Invoked for APPVALUENAME=" + appvaluename;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -884,6 +893,7 @@ class DBAppvaluesMethods {
      * @param appvaluename Appvalue Name
      * @return extracted values
      */
+    @SuppressWarnings("unused")
     ArrayList<Double> getDoubleAppvalues(String appvaluename) {
         String msg = "Invoked for APPVALUENAME=" + appvaluename;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -926,6 +936,7 @@ class DBAppvaluesMethods {
      * @param appvaluename Appvalue Name
      * @return extracted values
      */
+    @SuppressWarnings("unused")
     ArrayList<String> getStringAppvalues(String appvaluename) {
         String msg = "Invoked for APPVALUENAME=" + appvaluename;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

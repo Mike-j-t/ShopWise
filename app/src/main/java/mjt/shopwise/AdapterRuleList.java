@@ -30,7 +30,9 @@ public class AdapterRuleList extends CursorAdapter {
     private Cursor cursor;
 
     private int rules_ruleid_offset = -1;
+    @SuppressWarnings("unused")
     private int rules_ruleproductref_offset = 0;
+    @SuppressWarnings("unused")
     private int rules_aisleid_offset = 0;
     private int rules_rulename_offset = 0;
     private int rules_ruleuses_offset = 0;
@@ -39,18 +41,25 @@ public class AdapterRuleList extends CursorAdapter {
     private int rules_ruleperiod_offset = 0;
     private int rules_rulemultiplier_offset = 0;
 
+    @SuppressWarnings("unused")
     private int aisles_aisle_shopref_offset = 0;
     private int aisles_aislename_offset = 0;
+    @SuppressWarnings("unused")
     private int aisles_aisleorder_offset = 0;
 
     private int shops_shopname_offset = 0;
     private int shops_shopcity_offset = 0;
+    @SuppressWarnings("unused")
     private int shops_shoporder_offset = 0;
+    @SuppressWarnings("unused")
     private int shops_shopstreet_offset = 0;
+    @SuppressWarnings("unused")
     private int shops_shopstate_offset = 0;
+    @SuppressWarnings("unused")
     private int shops_shopnotes_offset = 0;
 
     private int products_productname_offset = 0;
+    @SuppressWarnings("unused")
     private int products_productnotes_offset = 0;
     public static final String THISCLASS = AdapterRuleList.class.getSimpleName();
     private static final String LOGTAG = "SW_ARL(CsrAdptr)";

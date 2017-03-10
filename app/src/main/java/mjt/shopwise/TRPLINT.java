@@ -24,6 +24,7 @@ public class TRPLINT {
      * @param v2 the v 2
      * @param v3 the v 3
      */
+    @SuppressWarnings("unused")
     public TRPLINT(int v1, int v2, int v3) {
             setTRPLINT(v1,v2,v3);
         }
