@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TestAction"
-            android:label="Testing"
+            android:label="Test Action"
             />
         <activity android:name=".ShopsActivity"
             android:label="@string/shopslabel"
