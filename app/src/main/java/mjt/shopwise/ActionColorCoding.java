@@ -140,6 +140,7 @@ class ActionColorCoding {
      *
      * @return returns the number of primary colours (aka number of groups)
      */
+    @SuppressWarnings("unused")
     public static int getPrimaryColorCount() {
         return primarycolors.length;
     }
@@ -148,6 +149,7 @@ class ActionColorCoding {
      *
      * @return returns the number of all colours
      */
+    @SuppressWarnings("unused")
     public static int getAllColorsCount() {
         return allcolors.length;
     }

@@ -119,6 +119,7 @@ public class AdapterRulePeriodList extends CursorAdapter {
         return view;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private View initView(View view, Cursor csr) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

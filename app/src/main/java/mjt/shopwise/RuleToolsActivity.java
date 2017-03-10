@@ -15,11 +15,13 @@ import android.widget.TextView;
  * Created by Mike092015 on 19/01/2017.
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
 public class RuleToolsActivity extends AppCompatActivity{
 
     private static final String THIS_ACTIVITY = "RuleToolsActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
 
     Context context;
@@ -28,9 +30,12 @@ public class RuleToolsActivity extends AppCompatActivity{
     /**
      * Colours
      */
+    @SuppressWarnings("unused")
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
@@ -52,6 +57,7 @@ public class RuleToolsActivity extends AppCompatActivity{
     private DBRuleMethods dbRuleMethods;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
     public static final String THISCLASS = RuleToolsActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_RTA";
@@ -182,6 +188,7 @@ public class RuleToolsActivity extends AppCompatActivity{
      * @param view The view (i.e the TextView that was clicked)
      */
     //TODO working on this to add Suggest and Check, also remove case for backup
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

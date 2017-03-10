@@ -29,11 +29,13 @@ import java.util.ArrayList;
  * exists.
  */
 
-@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal", "WeakerAccess", "unused"})
 public class AislesActivity extends AppCompatActivity{
 
     private static final String THIS_ACTIVITY = "AislesActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
 
     private static final int BYAISLE = 0;
@@ -53,7 +55,9 @@ public class AislesActivity extends AppCompatActivity{
      */
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
@@ -62,6 +66,7 @@ public class AislesActivity extends AppCompatActivity{
      */
     int passedmenucolorcode;
 
+    @SuppressWarnings("unused")
     LinearLayout screen;
     TextView messagebar;
     TextView donebutton;
@@ -74,6 +79,7 @@ public class AislesActivity extends AppCompatActivity{
     TextView selectshoplabel;
 
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
@@ -82,22 +88,30 @@ public class AislesActivity extends AppCompatActivity{
     Cursor alcsr;
     Cursor slcsr;
 
+    @SuppressWarnings("unused")
     boolean showdetails = false;
     private static final String AISLEID_COLUMN = DBAislesTableConstants.AISLES_ID_COL;
+    @SuppressWarnings("unused")
     private static final String AILSEID_FULLCOLUMN = DBAislesTableConstants.AISLES_ID_COL_FULL;
     private static final String AISLENAME_COLUMN = DBAislesTableConstants.AISLES_NAME_COL;
     private static final String AISLENAME_FULLCOLUMN = DBAislesTableConstants.AISLES_NAME_COL_FULL;
     private static final String AISLEORDER_COLUMN = DBAislesTableConstants.AISLES_ORDER_COL;
     private static final String AISLEORDER_FULLCOLUMN = DBAislesTableConstants.AISLES_ORDER_COL_FULL;
     private static final String AISLESHOPREF_COLUMN = DBAislesTableConstants.AISLES_SHOPREF_COL;
+    @SuppressWarnings("unused")
     private static final String AISLESHOPREF_FULLCOLUMN = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL;
     private static final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
     private static final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPORDER_COLUMN = DBShopsTableConstants.SHOPS_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPID_FULLCOLUMN = DBShopsTableConstants.SHOPS_ID_COL_FULL;
     private static final String SHOPNAME_FULLCOLUMN = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
     static String orderby = AISLENAME_FULLCOLUMN + DBConstants.SQLORDERASCENDING;
@@ -111,6 +125,7 @@ public class AislesActivity extends AppCompatActivity{
     static long currentshopid;
     static boolean aislesadapterset = false;
 
+    @SuppressWarnings("unused")
     static int shopcount = 0;
     static int aislecount = 0;
     static int productcount = 0;
@@ -274,6 +289,7 @@ public class AislesActivity extends AppCompatActivity{
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
@@ -319,7 +335,7 @@ public class AislesActivity extends AppCompatActivity{
      *
      * @param values
      */
-    public void aisleEdit(RequestDialogParameters values) {
+    public void aisleEdit(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         AislesActivity activity = (AislesActivity) values.getPassedactivity();
@@ -361,7 +377,7 @@ public class AislesActivity extends AppCompatActivity{
      *
      * @param values
      */
-    public void aisleDelete(RequestDialogParameters values) {
+    public void aisleDelete(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Deleting Aisles" + currentaislename,
@@ -385,6 +401,7 @@ public class AislesActivity extends AppCompatActivity{
      *
      * @param values    a RequestDialogParameters instance
      */
+    @SuppressWarnings("unused")
     public void aisleStock(RequestDialogParameters values) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
@@ -426,6 +443,7 @@ public class AislesActivity extends AppCompatActivity{
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
@@ -665,12 +683,14 @@ public class AislesActivity extends AppCompatActivity{
      *
      * @param values the values
      */
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public void doNothing(RequestDialogParameters values) {
     }
 
     /**************************************************************************
      * Usecalledmethods.
      */
+    @SuppressWarnings("unused")
     protected void usecalledmethods() {
         aisleDelete(null);
         aisleEdit(null);

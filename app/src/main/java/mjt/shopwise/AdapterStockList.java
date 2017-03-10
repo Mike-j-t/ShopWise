@@ -24,23 +24,34 @@ public class AdapterStockList extends CursorAdapter {
     private boolean fromspinner;
     private Cursor cursor;
 
+    @SuppressWarnings("unused")
     private int productusage_productref_offset = -1;
     private int productusage_aisleref_offset = 0;
     private int productusage_cost_offest = 0;
+    @SuppressWarnings("unused")
     private int productusage_buycount_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_firstbuydate_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_latestbuydate_offset = 0;
     private int productusage_order_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_rulesuggestflag_offset = 0;
 
     private int product_name_offset = 0;
 
+    @SuppressWarnings("unused")
     private int aisle_name_offset = 0;
+    @SuppressWarnings("unused")
     private int aisle_order_offset = 0;
+    @SuppressWarnings("unused")
     private int aisle_shopref_offset = 0;
 
+    @SuppressWarnings("unused")
     private int shop_name_offset = 0;
+    @SuppressWarnings("unused")
     private int shop_city_offset = 0;
+    @SuppressWarnings("unused")
     private int shop_order_offset = 0;
     public static final String THISCLASS = AdapterStockList.class.getSimpleName();
     private static final String LOGTAG = "SW_ASL(CsrAdptr)";

@@ -23,10 +23,12 @@ import static mjt.shopwise.ActionColorCoding.transparency_requied;
  * Add or Edit an Aisle
  */
 
-@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal", "WeakerAccess", "unused"})
 public class AislesAddEditActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     private static final String THIS_ACTIVITY = "AislesAddEditActivity";
+    @SuppressWarnings("unused")
     private static String caller;
     private static int calledmode;
     private static final String defaultorder = "1000";
@@ -44,7 +46,9 @@ public class AislesAddEditActivity extends AppCompatActivity {
      */
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
 
@@ -52,49 +56,68 @@ public class AislesAddEditActivity extends AppCompatActivity {
      * Views
      */
     TextView messagebar;
+    @SuppressWarnings("unused")
     LinearLayout input_aisleshop_linearlayout;
     TextView input_aisleshop_label;
     Spinner input_aisleshop_select;
     AdapterShopList shopselectadapter;
+    @SuppressWarnings("unused")
     LinearLayout input_aislename_linearlayout;
     TextView input_aislename_label;
     EditText input_aislename;
+    @SuppressWarnings("unused")
     LinearLayout input_aisleorder_linearlayout;
     TextView input_aisleorder_label;
     EditText input_aisleorder;
     LinearLayout aislelist_heading_linearlayout;
+    @SuppressWarnings("unused")
     TextView aislelist_heading_aislename;
+    @SuppressWarnings("unused")
     TextView aislelist_heading_aisleorder;
     ListView aislelist;
     AdapterAisleList aislelistadapter;
     TextView savebutton;
     TextView donebutton;
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
+    @SuppressWarnings("unused")
     DBProductMethods dbproductmethods;
     Cursor slcsr;
     Cursor alcsr;
 
     private static final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
     private static final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPORDER_COLUMN = DBShopsTableConstants.SHOPS_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPID_FULLCOLUMN = DBShopsTableConstants.SHOPS_ID_COL_FULL;
     private static final String SHOPNAME_FULLCOLUMN = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
+    @SuppressWarnings("unused")
     private static final String AISLEID_COLUMN = DBAislesTableConstants.AISLES_ID_COL;
+    @SuppressWarnings("unused")
     private static final String AISLENAME_COLUMN = DBAislesTableConstants.AISLES_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String AISLEORDER_COLUMN = DBAislesTableConstants.AISLES_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String AISLESHOPREF_COLUMN = DBAislesTableConstants.AISLES_SHOPREF_COL;
+    @SuppressWarnings("unused")
     private static final String AISLEID_FULLCOLUMN = DBAislesTableConstants.AISLES_ID_COL_FULL;
     private static final String AISLENAME_FULLCOLUMN = DBAislesTableConstants.AISLES_NAME_COL_FULL;
     private static final String AISLEORDER_FULLCOLUMN = DBAislesTableConstants.AISLES_ORDER_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String AISLESHOPREF_FULLCOLUMN = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL;
 
+    @SuppressWarnings("unused")
     long passedshopid = 0;
     long passaisleid = 0;
     String passedaislename = "";
@@ -108,16 +131,20 @@ public class AislesAddEditActivity extends AppCompatActivity {
     static boolean sortchanged = false;
     static String lastmessage = "";
     static String currentaislename = "";
+    @SuppressWarnings("unused")
     static String currentshopname = "";
     static long currentshopid;
     static boolean aislesadapterset = false;
     static String currenttitle = "";
 
+    @SuppressWarnings("unused")
     static int shopcount = 0;
     static final int aislecount = 0;
+    @SuppressWarnings("unused")
     static int productcount = 0;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
 
     @SuppressLint("SetTextI18n")
@@ -284,6 +311,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
      *
      * @param view
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         switch (view.getId()) {
             case R.id.aisleaddedit_donebutton:
@@ -382,6 +410,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         lastmessage = "List of Aisles sorted by ";
         switch (view.getId()) {

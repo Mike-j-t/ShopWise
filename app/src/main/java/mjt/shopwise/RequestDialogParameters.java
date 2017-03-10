@@ -9,6 +9,7 @@ import android.app.Activity;
  *
  * This is closely related to The RequestDialog Class.
  */
+@SuppressWarnings("CanBeFinal")
 class RequestDialogParameters {
 
     private MixTripleLongTripleInt mixtrplli;
@@ -42,6 +43,7 @@ class RequestDialogParameters {
      *
      * @return the mix triple long triple int
      */
+    @SuppressWarnings("unused")
     MixTripleLongTripleInt getMixTripleLongTripleInt() {
         return this.mixtrplli;
     }
@@ -78,6 +80,7 @@ class RequestDialogParameters {
      *
      * @return the int 1
      */
+    @SuppressWarnings("unused")
     int getInt1() {
         return this.mixtrplli.getint1();
     }
@@ -87,6 +90,7 @@ class RequestDialogParameters {
      *
      * @return the int 2
      */
+    @SuppressWarnings("unused")
     int getInt2() {
         return this.mixtrplli.getint2();
     }
@@ -96,6 +100,7 @@ class RequestDialogParameters {
      *
      * @return the int 3
      */
+    @SuppressWarnings("unused")
     int getInt3() {
         return this.mixtrplli.getint3();
     }

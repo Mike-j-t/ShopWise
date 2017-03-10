@@ -44,6 +44,7 @@ public class DBAislesTableConstants {
     /**
      * The constant AISLES_ALTID_COL_FULL.
      */
+    @SuppressWarnings("unused")
     public static final String AISLES_ALTID_COL_FULL = AISLES_TABLE +
             PERIOD +
             AISLES_ALTID_COL;

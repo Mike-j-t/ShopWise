@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Mike092015 on 18/12/2016.
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 public class DBShopListMethods {
 
     private static final String LOGTAG = "SW-DBSLM";
@@ -52,12 +52,14 @@ public class DBShopListMethods {
      * get the last ShopList entry that was added
      * @return  TRPLLONG (3 longs) id,  aisleid and productid
      */
+    @SuppressWarnings("unused")
     TRPLLONG getLastShopListEntryAdded() { return lastshoplistadded; }
 
     /**************************************************************************
      * return true of the last shoplistentry was added ok, esle false
      * @return
      */
+    @SuppressWarnings("unused")
     boolean ifShopListEntryAdded() { return lastshoplistaddedok; }
 
     /**************************************************************************
@@ -116,6 +118,7 @@ public class DBShopListMethods {
      *
      * @return
      */
+    @SuppressWarnings("unused")
     boolean ifShopListentryAdded() { return lastshoplistaddedok; }
 
     /**************************************************************************
@@ -553,6 +556,7 @@ public class DBShopListMethods {
      * @param aisleid       id of the aisle
      * @param productid     id of the product
      */
+    @SuppressWarnings("unused")
     void deleteShopListEntry(long aisleid, long productid) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * DBProductMethods - Dtabase methods specific to Product Handling
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 class DBProductMethods {
 
     private Context context;
@@ -52,6 +52,7 @@ class DBProductMethods {
      *
      * @return the if of the last product that was added
      */
+    @SuppressWarnings("unused")
     long getLastProductAdded() {
         return lastproductadded;
     }
@@ -102,6 +103,7 @@ class DBProductMethods {
      * @param order  order string less ORDER and BY keywords
      * @return cursor products
      */
+    @SuppressWarnings("unused")
     Cursor getProducts(String filter, String order) {
         return DBCommonMethods.getTableRows(db,
                 DBProductsTableConstants.PRODUCTS_TABLE,
@@ -343,6 +345,7 @@ class DBProductMethods {
      * @param productid the id of the product
      * @return the product name as a string
      */
+    @SuppressWarnings("unused")
     String getProductName(long productid) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

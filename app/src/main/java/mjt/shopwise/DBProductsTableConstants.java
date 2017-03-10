@@ -25,6 +25,7 @@ public class DBProductsTableConstants {
             PRODUCTS_ID_COL;
     public static final String PRODUCTS_ALTID_COL = PRODUCTS_TABLE +
             PRODUCTS_ID_COL;
+    @SuppressWarnings("unused")
     public static final String PRODUCTS_ALTID_COL_FULL = PRODUCTS_TABLE + PERIOD + PRODUCTS_ALTID_COL;
     public static final String PRODUCTS_ID_TYPE = IDTYPE;
     public static final boolean PRODUCTS_ID_PRIMARY_INDEX = true;

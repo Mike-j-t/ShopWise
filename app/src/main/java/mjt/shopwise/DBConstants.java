@@ -117,6 +117,7 @@ final class DBConstants {
     static final String SQLNOT = " NOT ";
     static final String SQLIN = " IN ";
     static final String SQLNOTIN = SQLNOT + SQLIN;
+    @SuppressWarnings("unused")
     static final String SQLNOTEQUALS = " <> ";
     static final String SQLLIMIT = " LIMIT ";
     static final String SQLLIKECHARSTART = " LIKE '%";
@@ -134,7 +135,9 @@ final class DBConstants {
     /**
      * The Sqlselectallfrom.
      */
+    @SuppressWarnings("unused")
     static final String SQLSELECTALLFROM = SQLSELECT + "*" + SQLFROM;
+    @SuppressWarnings("unused")
     static final String SQLSELECTDISTINCTALLFROM =
             SQLSELECTDISTINCT + "*" + SQLFROM;
 

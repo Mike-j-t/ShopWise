@@ -32,7 +32,7 @@ import static mjt.shopwise.StandardAppConstants.TOOLSAPPVALNAME;
 /**
  * Main/Start Activity for ShopWise
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class MainActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "MainActivity";
@@ -63,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
     static int aislecount = 0;
     static int productcount = 0;
     static int productusagecount = 0;
+    @SuppressWarnings("unused")
     static int shoplistcount = 0;
+    @SuppressWarnings("unused")
     static int rulecount = 0;
+    @SuppressWarnings("unused")
     static int appvaluecount = 0;
     static int storagecount = 0;
 
@@ -521,6 +524,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view the view (TextView acting as Button)that was clicked
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);

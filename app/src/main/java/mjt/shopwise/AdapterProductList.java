@@ -24,12 +24,14 @@ public class AdapterProductList extends CursorAdapter {
     private final Context ctxt;
     private final boolean fromspinner;
     private Cursor cursor;
+    @SuppressWarnings("unused")
     private String mode="";
 
     private static int products_productid_offset = -1;
     private static int products_productname_offset = 0;
     private static int products_storage_offset = 0;
     private static int products_order_offset = 0;
+    @SuppressWarnings("unused")
     private static int products_storageorder_offset = 0;
     public static final String THISCLASS = AdapterProductList.class.getSimpleName();
     private static final String LOGTAG = "SW_APL(CsrAdptr)";
@@ -209,6 +211,7 @@ public class AdapterProductList extends CursorAdapter {
      * @param csr       The SQlite cursor that contains the data as rows
      * @return          The modifed view
      */
+    @SuppressWarnings("UnusedReturnValue")
     private View initView(View view, Cursor csr) {
         String msg = "Invoked";
         String methodname =

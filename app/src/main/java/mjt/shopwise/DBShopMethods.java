@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * DBShopMethods - Database Methods specific to Shop handling
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
 class DBShopMethods {
 
     private static final String LOGTAG = "SW-DBSM";
@@ -52,6 +52,7 @@ class DBShopMethods {
      *
      * @return shopid last shop added
      */
+    @SuppressWarnings("unused")
     long getLastShopAdded() {
         return lastshopadded;
     }
@@ -285,6 +286,7 @@ class DBShopMethods {
      *
      * @param shopname name of the shop
      */
+    @SuppressWarnings("unused")
     void insertShop(String shopname) {
         String orderdflt = DBConstants.DEFAULTORDER;
         insertShop(shopname, Integer.parseInt(DBConstants.DEFAULTORDER));
@@ -401,6 +403,7 @@ class DBShopMethods {
      * @param intransaction the intransaction
      * @return number of shops deleted
      */
+    @SuppressWarnings("UnusedReturnValue")
     int deleteShop(long shopid, @SuppressWarnings("SameParameterValue") boolean intransaction) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

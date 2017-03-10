@@ -12,12 +12,13 @@ import android.database.sqlite.SQLiteOpenHelper;
  *  Note! Dependant upon the main DB as it's name is used as the suffix of the
  *  IC database name i.e. IC is the prefix, first part of the database name.
  */
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
 class IntegrityCheckDBHelper extends SQLiteOpenHelper implements DatabaseErrorHandler {
 
     private static final String DATABASE_NAME = "IC"+DBConstants.DATABASE_NAME;
     private static final int DATABASE_CORRUPTED = 1;
     private static int databasestate = 0;
+    @SuppressWarnings("unused")
     private Context context;
     public static final String THISCLASS = IntegrityCheckDBHelper.class.getSimpleName();
     private static final String LOGTAG = "SW_ICDBH";
@@ -49,6 +50,7 @@ class IntegrityCheckDBHelper extends SQLiteOpenHelper implements DatabaseErrorHa
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         databasestate = 1;
     }
+    @SuppressWarnings({"SameReturnValue", "unused"})
     public boolean checkDB() {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -61,12 +63,14 @@ class IntegrityCheckDBHelper extends SQLiteOpenHelper implements DatabaseErrorHa
         iccsr.close();
         return false;
     }
+    @SuppressWarnings("unused")
     public static void setDatabaseCorrupted() {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         databasestate = DATABASE_CORRUPTED;
     }
+    @SuppressWarnings("unused")
     public boolean isDatabaseCouurpted() {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

@@ -22,18 +22,22 @@ class Emsg {
     boolean getErrorIndicator() {
         return this.error_indicator;
     }
+    @SuppressWarnings("unused")
     public int getErrorNumber() {
         return this.error_number;
     }
     String getErrorMessage() {
         return  this.error_message;
     }
+    @SuppressWarnings("unused")
     public void setErrorIndicator(boolean error_indicator) {
         this.error_indicator = error_indicator;
     }
+    @SuppressWarnings("unused")
     public void  setErrorNumber(int error_number) {
         this.error_number = error_number;
     }
+    @SuppressWarnings("unused")
     public void setErrorMessage(String error_message) {
         this.error_message = error_message;
     }

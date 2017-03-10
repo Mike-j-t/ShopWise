@@ -3,7 +3,7 @@ package mjt.shopwise;
 /**
  * MixTripleLongTripleInt A triple integer and a triple long
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class MixTripleLongTripleInt {
 
     private TRPLINT trint;
@@ -79,6 +79,7 @@ public class MixTripleLongTripleInt {
      *
      * @return the trplint
      */
+    @SuppressWarnings("unused")
     public TRPLINT getTRPLINT() { return trint;}
 
     /**
@@ -86,5 +87,6 @@ public class MixTripleLongTripleInt {
      *
      * @return the trpllong
      */
+    @SuppressWarnings("unused")
     public TRPLLONG getTRPLLONG() {return  trlong;}
 }

@@ -21,10 +21,12 @@ import static mjt.shopwise.ActionColorCoding.transparency_requied;
 /**
  * ShopAddEditAcitivty - Add or Edit shops
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class ShopsAddEditActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     private static final String THIS_ACTIVITY = "ShopsAddEditActivity";
+    @SuppressWarnings("unused")
     private static String caller;
     private static  int calledmode;
     /**
@@ -49,6 +51,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      */
     private static int h1;
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
     private static int h4;
     private static int primary_color;
@@ -59,21 +62,28 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     /**
      * View objects
      */
+    @SuppressWarnings("unused")
     LinearLayout inputshopname_linearlayout;
     TextView inputshopname_label;
     EditText inputshopname;
+    @SuppressWarnings("unused")
     LinearLayout inputshopcity_lineralayout;
     TextView inputshopcity_label;
     EditText inputshopcity;
+    @SuppressWarnings("unused")
     LinearLayout inputshoporder_linearlayout;
     TextView inputshoporder_label;
     EditText inputshoporder;
+    @SuppressWarnings("unused")
     LinearLayout shopaddedit_buttons_linearlayout;
     TextView savebutton;
     TextView donebutton;
     LinearLayout shoplist_heading;
+    @SuppressWarnings("unused")
     TextView shoplist_shopname;
+    @SuppressWarnings("unused")
     TextView shoplist_shopcity;
+    @SuppressWarnings("unused")
     TextView shoplist_shoporder;
     ListView shoplist;
     AdapterShopList  shoplistadapter;
@@ -81,6 +91,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     /**
      * Database objects
      */
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
@@ -96,11 +107,17 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     /**
      * The Showdetails.
      */
+    @SuppressWarnings("unused")
     boolean showdetails = false;
+    @SuppressWarnings("unused")
     private static final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPORDER_COLUMN = DBShopsTableConstants.SHOPS_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPID_FULLCOLUMN = DBShopsTableConstants.SHOPS_ID_COL_FULL;
     private static final String SHOPNAME_FULLCOLUMN = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
     private static final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
@@ -114,11 +131,15 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     static boolean ordertype = true;
     static boolean sortchanged = false;
     static String lastmessage = "";
+    @SuppressWarnings("unused")
     static int shopcount = 0;
+    @SuppressWarnings("unused")
     static int aislecount = 0;
+    @SuppressWarnings("unused")
     static int productcount = 0;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
 
     @SuppressLint("SetTextI18n")
@@ -270,6 +291,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -387,6 +409,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -423,6 +446,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
      * setDBCounts - extract the row counts from the database for relevant
      *                  tables.
      */
+    @SuppressWarnings("unused")
     private void setDBCounts() {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

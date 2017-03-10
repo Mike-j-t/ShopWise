@@ -22,10 +22,11 @@ import android.widget.TextView;
  *                              modified (accuracy check)
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
 public class RuleSuggestCheckActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "RuleSuggestCheckActivity";
+    @SuppressWarnings("unused")
     private static String caller;
     private static int calledmode;
 
@@ -45,8 +46,11 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
     ActionBar actionbar;
 
     private static int h1;
+    @SuppressWarnings("unused")
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
@@ -58,11 +62,16 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
     private int minbuy;
     private int minprd;
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
+    @SuppressWarnings("unused")
     DBShopMethods dbshopmethods;
+    @SuppressWarnings("unused")
     DBAisleMethods dbaislemethods;
+    @SuppressWarnings("unused")
     DBProductMethods dbproductmethods;
     DBProductUsageMethods dbpumethods;
+    @SuppressWarnings("unused")
     DBShopListMethods dbshoplistmethods;
     DBRuleMethods dbrulemethods;
 
@@ -73,11 +82,15 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
     ListView rulelist;
     LinearLayout rulelistheading;
     AdapterRuleToolList ruletoollistadapter;
+    @SuppressWarnings("unused")
     TextView addbutton;
+    @SuppressWarnings("unused")
     TextView skipbutton;
+    @SuppressWarnings("unused")
     TextView disablebutton;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
     public static final String THISCLASS =
             RuleSuggestCheckActivity.class.getSimpleName();
@@ -257,6 +270,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -446,6 +460,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
@@ -535,7 +550,8 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
      * @param msg  The message to be displayed.
      * @param flag Message imnportant, if true Yellow text, esle green
      */
-    public void setMessage(RuleSuggestCheckActivity rsca, String msg, boolean flag) {
+    public void setMessage(RuleSuggestCheckActivity rsca,
+                           String msg, @SuppressWarnings("SameParameterValue") boolean flag) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 

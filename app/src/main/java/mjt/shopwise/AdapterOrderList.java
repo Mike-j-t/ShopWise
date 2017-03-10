@@ -20,18 +20,27 @@ public class AdapterOrderList extends CursorAdapter {
 
     private final Intent callerintent;
     private final Context ctxt;
+    @SuppressWarnings("unused")
     private final boolean fromspinner;
     private Cursor cursor;
 
+    @SuppressWarnings("unused")
     private int productusage_productref_offset = -1;
     private int productusage_aisleref_offset = 0;
     private int productusage_cost_offest = 0;
+    @SuppressWarnings("unused")
     private int productusage_buycount_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_firstbuydate_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_latestbuydate_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_order_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_rulesuggestflag_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_checklistflag_offset = 0;
+    @SuppressWarnings("unused")
     private int productusage_checklistcount_offset = 0;
 
     private int calculated_orderedcount_offset = 0;
@@ -39,11 +48,15 @@ public class AdapterOrderList extends CursorAdapter {
     private int product_name_offset = 0;
 
     private int aisle_name_offset = 0;
+    @SuppressWarnings("unused")
     private int aisle_order_offset = 0;
+    @SuppressWarnings("unused")
     private int aisle_shopref_offset = 0;
 
     private int shop_name_offset = 0;
+    @SuppressWarnings("unused")
     private int shop_city_offset = 0;
+    @SuppressWarnings("unused")
     private int shop_order_offset = 0;
 
     public static final String THISCLASS = AdapterOrderList.class.getSimpleName();

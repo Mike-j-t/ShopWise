@@ -44,6 +44,7 @@ public class DBShopsTableConstants {
     /**
      * The constant SHOPS_ALTID_COL_FULL.
      */
+    @SuppressWarnings("unused")
     public static final String SHOPS_ALTID_COL_FULL =  SHOPS_TABLE + PERIOD + SHOPS_ALTID_COL;
     /**
      * The constant SHOPS_ID_TYPE.
@@ -106,6 +107,7 @@ public class DBShopsTableConstants {
     /**
      * The constant SHOPS_NAME_PRIMARY_INDEX.
      */
+    @SuppressWarnings("unused")
     public static final boolean SHOPS_NAME_PRIMARY_INDEX = false;
     /**
      * The constant SHOPSNAMECOL.

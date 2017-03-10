@@ -15,11 +15,13 @@ import android.widget.TextView;
  * thus allowing the respective tool activities to be started/used.
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
 public class ToolsActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ToolsActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
 
     Context context;
@@ -28,9 +30,13 @@ public class ToolsActivity extends AppCompatActivity {
     /**
      * Colours
      */
+    @SuppressWarnings("unused")
     private static int h1;
+    @SuppressWarnings("unused")
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
@@ -45,6 +51,7 @@ public class ToolsActivity extends AppCompatActivity {
 
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
     public static final String THISCLASS = ToolsActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_TA";
@@ -139,6 +146,7 @@ public class ToolsActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -181,6 +189,7 @@ public class ToolsActivity extends AppCompatActivity {
      * @param msg  The message to be displayed.
      * @param flag Message imnportant, if true Yellow text, esle green
      */
+    @SuppressWarnings("unused")
     public void setMessage(ToolsActivity ta, String msg, boolean flag) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

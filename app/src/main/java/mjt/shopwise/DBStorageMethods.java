@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
  * DBSTorage Methods        Database methods specific to Storage the Table
  */
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class DBStorageMethods {
 
     private static final String LOGTAG = "SW_DBSTM";
@@ -51,6 +52,7 @@ public class DBStorageMethods {
      * @return  The id of the last Storage added
      *              note only temporarily avaialable
      */
+    @SuppressWarnings("unused")
     long getLastStorageAdded() {
         return laststorageadded;
     }
@@ -295,6 +297,7 @@ public class DBStorageMethods {
      * @return              should be 1 if deleted, 0 if not deleted,
      *                      -1 if products are referenced
      */
+    @SuppressWarnings("UnusedReturnValue")
     public int deleteStorage(long storageid) {
         String logmsg = "Invoked";
         String methodname =

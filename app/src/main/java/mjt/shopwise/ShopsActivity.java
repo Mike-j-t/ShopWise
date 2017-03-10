@@ -27,11 +27,13 @@ import java.util.ArrayList;
  * will only be available when at least 1 aisle and 1 product
  * exists.
  */
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class ShopsActivity extends AppCompatActivity {
 
     private static final String THIS_ACTIVITY = "ShopsActivity";
+    @SuppressWarnings("unused")
     private static String caller;
+    @SuppressWarnings("unused")
     private static int calledmode;
     public static final String THISCLASS = ShopsActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_ShopsA";
@@ -52,8 +54,11 @@ public class ShopsActivity extends AppCompatActivity {
      * Colours
      */
     private static int h1;
+    @SuppressWarnings("unused")
     private static int h2;
+    @SuppressWarnings("unused")
     private static int h3;
+    @SuppressWarnings("unused")
     private static int h4;
     private static int primary_color;
     private String menucolorcode;
@@ -72,6 +77,7 @@ public class ShopsActivity extends AppCompatActivity {
     /**
      * Database objects
      */
+    @SuppressWarnings("unused")
     DBDAO dbdao;
     DBShopMethods dbshopmethods;
     DBAisleMethods dbaislemethods;
@@ -86,6 +92,7 @@ public class ShopsActivity extends AppCompatActivity {
             DBShopsTableConstants.SHOPS_CITY_COL;
     private static final String SHOPORDER_COLUMN =
             DBShopsTableConstants.SHOPS_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String SHOPID_FULLCOLUMN =
             DBShopsTableConstants.SHOPS_ID_COL_FULL;
     private static final String SHOPNAME_FULLCOLUMN =
@@ -101,6 +108,7 @@ public class ShopsActivity extends AppCompatActivity {
     static boolean sortchanged = false;
     static String lastmessage = "";
     static String currentshopname = "";
+    @SuppressWarnings("unused")
     static int shopcount = 0;
     static int aislecount = 0;
     static int productcount = 0;
@@ -266,6 +274,7 @@ public class ShopsActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -317,7 +326,7 @@ public class ShopsActivity extends AppCompatActivity {
      *
      * @param values the values
      */
-    public void shopEdit(RequestDialogParameters values) {
+    public void shopEdit(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -374,7 +383,7 @@ public class ShopsActivity extends AppCompatActivity {
      *
      * @param values a RequestDialogParameters instance
      */
-    public void shopDelete(RequestDialogParameters values) {
+    public void shopDelete(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -394,6 +403,7 @@ public class ShopsActivity extends AppCompatActivity {
      *
      * @param values    a RequestDialogParameters instance
      */
+    @SuppressWarnings("unused")
     public void shopStock(RequestDialogParameters values) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -433,6 +443,7 @@ public class ShopsActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -601,7 +612,9 @@ public class ShopsActivity extends AppCompatActivity {
      * @param msg  The message to be displayed.
      * @param flag Message imnportant, if true Yellow text, esle green
      */
-    public void setMessage(ShopsActivity sa, String msg, boolean flag) {
+    public void setMessage(ShopsActivity sa,
+                           String msg,
+                           @SuppressWarnings("SameParameterValue") boolean flag) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -652,12 +665,14 @@ public class ShopsActivity extends AppCompatActivity {
      *
      * @param values the values
      */
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public void doNothing(RequestDialogParameters values) {
     }
 
     /**************************************************************************
      * Usecalledmethods.
      */
+    @SuppressWarnings("unused")
     protected void usecalledmethods() {
         shopDelete(null);
         shopEdit(null);

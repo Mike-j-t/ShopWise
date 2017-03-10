@@ -21,7 +21,7 @@ import java.util.Date;
  * (a many-many relationship) other values that are store/aisle specfifc
  * are held in this table. e.g. cost and order.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 class DBProductUsageMethods {
     private Context context;
     private DBDAO dbdao;
@@ -61,6 +61,7 @@ class DBProductUsageMethods {
     /**************************************************************************
      * @return ProudctUsage id of the last added
      */
+    @SuppressWarnings("unused")
     long getLastProductusageAdded() { return lastproductusageadded; }
 
     /**************************************************************************
@@ -81,6 +82,7 @@ class DBProductUsageMethods {
      * ProductUsage (combination of AisleRef and ProductRef) already
      * existed, otherwisee false.
      */
+    @SuppressWarnings("unused")
     boolean ifProductUsageWasDuplicate() { return lastproductusageduplicate; }
 
     /**************************************************************************
@@ -504,6 +506,7 @@ class DBProductUsageMethods {
      * @param intransaction
      * @return
      */
+    @SuppressWarnings("UnusedReturnValue")
     int deleteStock(long aisled, long productid, @SuppressWarnings("SameParameterValue") boolean intransaction) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -834,6 +837,7 @@ class DBProductUsageMethods {
      * @param productref product id referenced by this productusage
      * @param aisleref   aisle id referenced by this productusage
      */
+    @SuppressWarnings("unused")
     void incrementBuyCount(Long productref, Long aisleref) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -877,6 +881,7 @@ class DBProductUsageMethods {
      * @param aisleref   aisle id referenced by the ProductUsage
      * @param neworder   the new order to be used
      */
+    @SuppressWarnings("unused")
     void setProductUsageOrder(long productref, long aisleref, int neworder) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

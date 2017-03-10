@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 /**
  * Standard Application Constants
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class StandardAppConstants{
 
     /**
@@ -108,11 +108,14 @@ public class StandardAppConstants{
     public static final String INTENTKEY_AISLESHOPREF = "ik+aisleshopref";
     public static final String INTENTKEY_PRODUCTID = "ik_productid";
     public static final String INTENTKEY_PRODUCTNAME = "ik_productname";
+    @SuppressWarnings("unused")
     public static final String INTENTKEY_PRODUCTORDER = "ik_productorder";
     public static final String INTENTKEY_PUPRODUCTREF = "ik_puproductref";
     public static final String INTENTKEY_PUAISLEREF = "ik_aisleref";
     public static final String INTENTKEY_PUCOST = "ik_pucost";
+    @SuppressWarnings("unused")
     public static final String INTENTKEY_PUCHECKLISTFLAG = "ik_puchecklistflag";
+    @SuppressWarnings("unused")
     public static final String INTENTKEY_PUCHECKLISTCOUNT = "ik_puchecklistcount";
     public static final String INTENTKEY_SHOPLISTQUANTITY = "ik_slquantity";
     public static final String INTENTKEY_RULEID = "ik_ruleid";
@@ -137,8 +140,11 @@ public class StandardAppConstants{
     public static final int CM_CLEAR = 0;
     public static final int CM_ADD = 1;
     public static final int CM_EDIT = 2;
+    @SuppressWarnings("unused")
     public static final int CM_UPDATE = 3;
+    @SuppressWarnings("unused")
     public static final int CM_REPLACE = 4;
+    @SuppressWarnings("unused")
     public static final int CM_DELETE = 5;
     public static final int CM_STOCKFROMSSHOP = 6;
     public static final int CM_STOCKFROMAISLE = 7;
@@ -167,12 +173,15 @@ public class StandardAppConstants{
     public static String STANDARD_DDMMYYY_FORMAT = "dd/MM/yyyy";
     public static String EXTENDED_DATE_FORMAT = "EEE MMM d, yyyy";
     public static String COMPARE_DATE_FORMAT = "yyyyMMdd";
+    @SuppressWarnings("unused")
     @SuppressLint("SimpleDateFormat")
     public static final SimpleDateFormat sdf =
             new SimpleDateFormat(STANDARD_DDMMYYY_FORMAT);
+    @SuppressWarnings("unused")
     @SuppressLint("SimpleDateFormat")
     public static final SimpleDateFormat sdf_extended =
             new SimpleDateFormat(EXTENDED_DATE_FORMAT);
+    @SuppressWarnings("unused")
     @SuppressLint("SimpleDateFormat")
     public static final SimpleDateFormat sdf_compare =
             new SimpleDateFormat(COMPARE_DATE_FORMAT);

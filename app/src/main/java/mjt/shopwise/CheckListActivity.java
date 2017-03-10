@@ -16,14 +16,17 @@ import android.widget.TextView;
  * Created by Mike092015 on 27/12/2016.
  */
 
-@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
 public class CheckListActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     private final String THIS_ACTIVITY = "CheckListActivity";
     private final String LOGTAG = "SW_CLA";
     public static final String THISCLASS = CheckListActivity.class.getSimpleName();
+    @SuppressWarnings("unused")
     private String caller;
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    @SuppressWarnings("unused")
     private Activity thisactivity;
 
     Context context;
@@ -33,92 +36,150 @@ public class CheckListActivity extends AppCompatActivity {
      * Colours
      */
     private int h1;
+    @SuppressWarnings("unused")
     private int h2;
+    @SuppressWarnings("unused")
     private int h3;
+    @SuppressWarnings("unused")
     private int h4;
     private int primary_color;
     private String menucolorcode;
     /**
      * The Passedmenucolorcode.
      */
+    @SuppressWarnings("unused")
     int passedmenucolorcode;
 
+    @SuppressWarnings("unused")
     DBDAO dbdao;
+    @SuppressWarnings("unused")
     DBShopMethods dbshopmethods;
+    @SuppressWarnings("unused")
     DBAisleMethods dbaislemethods;
+    @SuppressWarnings("unused")
     DBProductMethods dbproductmethods;
     DBProductUsageMethods dbpumethods;
     DBShopListMethods dbshoplistmethods;
+    @SuppressWarnings("unused")
     DBRuleMethods dbrulemethods;
+    @SuppressWarnings("unused")
     DBStorageMethods dbstoragemethods;
 
+    @SuppressWarnings("unused")
     private final String SHOPID_COLUMN = DBShopsTableConstants.SHOPS_ID_COL;
+    @SuppressWarnings("unused")
     private final String SHOPNAME_COLUMN = DBShopsTableConstants.SHOPS_NAME_COL;
+    @SuppressWarnings("unused")
     private final String SHOPCITY_COLUMN = DBShopsTableConstants.SHOPS_CITY_COL;
+    @SuppressWarnings("unused")
     private final String SHOPORDER_COLUMN = DBShopsTableConstants.SHOPS_ORDER_COL;
+    @SuppressWarnings("unused")
     private final String SHOPID_FULLCOLUMN = DBShopsTableConstants.SHOPS_ID_COL_FULL;
     private final String SHOPNAME_FULLCOLUMN = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private final String SHOPCITY_FULLCOLUMN = DBShopsTableConstants.SHOPS_CITY_COL_FULL;
+    @SuppressWarnings("unused")
     private final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
+    @SuppressWarnings("unused")
     private final String AISLEID_COLUMN = DBAislesTableConstants.AISLES_ID_COL;
+    @SuppressWarnings("unused")
     private final String AILSEID_FULLCOLUMN = DBAislesTableConstants.AISLES_ID_COL_FULL;
+    @SuppressWarnings("unused")
     private final String AISLENAME_COLUMN = DBAislesTableConstants.AISLES_NAME_COL;
     private final String AISLENAME_FULLCOLUMN = DBAislesTableConstants.AISLES_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private final String AISLEORDER_COLUMN = DBAislesTableConstants.AISLES_ORDER_COL;
+    @SuppressWarnings("unused")
     private final String AISLEORDER_FULLCOLUMN = DBAislesTableConstants.AISLES_ORDER_COL_FULL;
+    @SuppressWarnings("unused")
     private final String AISLESHOPREF_COLUMN = DBAislesTableConstants.AISLES_SHOPREF_COL;
+    @SuppressWarnings("unused")
     private final String AISLESHOPREF_FULLCOLUMN = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL;
 
+    @SuppressWarnings("unused")
     private static final String PRODUCTID_COLUMN = DBProductsTableConstants.PRODUCTS_ID_COL;
     private static final String PRODUCTNAME_COLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTID_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_ID_COL_FULL;
     private static final String PRODUCTNAME_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEREF_COLUMH = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEREF_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEORDER_COLUMN = DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTSTORAGEORDER_FULLCOLUMN = DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL;
 
+    @SuppressWarnings("unused")
     private static final String STORAGEID_COLUMN = DBStorageTableConstants.STORAGE_ID_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEDID_FULLCOLUMN = DBStorageTableConstants.STORAGE_ID_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String STORAGEID_ALTCOLUMN = DBStorageTableConstants.STORAGE_ALTID_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEID_ALTFULLCOLUMN = DBStorageTableConstants.STORAGE_ALTID_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String STORAGENAME_COLUMN = DBStorageTableConstants.STORAGE_NAME_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGENAME_FULLCOLUMN = DBStorageTableConstants.STORAGE_NAME_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_COLUMN = DBStorageTableConstants.STORAGE_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String STORAGEORDER_FULLCOLUMN = DBStorageTableConstants.STORAGE_ORDER_COL_FULL;
 
     private static final String PRODUCTREF_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTREF_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL;
     private static final String AISLEREF_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL;
+    @SuppressWarnings("unused")
     private static final String AISLEREF_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String COST_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_COST_COL;
+    @SuppressWarnings("unused")
     private static final String COST_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL;
+    @SuppressWarnings("unused")
     private static final String BUYCOUNT_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL;
+    @SuppressWarnings("unused")
     private static final String BUYCOUNT_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String FIRSTBUY_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL;
+    @SuppressWarnings("unused")
     private static final String FIRSTBUY_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String LASTBUY_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_LATESTBUYDATE_COL;
+    @SuppressWarnings("unused")
     private static final String LASTBUY_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_LATESTBUYDATE_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTUSAGEORDER_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTUSAGEORDER_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String PRODUCTUSAGECOST_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_COST_COL;
     private static final String PRODUCTUSAGECOST_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL;
     private static final String CHECKLISTFLAG_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL;
+    @SuppressWarnings("unused")
     private static final String CHECKLISTFLAG_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL;
+    @SuppressWarnings("unused")
     private static final String CHECKLISTCOUNT_COLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTCOUNT_COL;
+    @SuppressWarnings("unused")
     private static final String CHECKLISTCOUNT_FULLCOLUMN = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTCOUNT_COL_FULL;
 
     Cursor clcsr;
 
+    @SuppressWarnings("unused")
     private static final String ORDERED_PRODUCTS = DBConstants.CALCULATED_PRODUTSORDERED_NAME;
 
     private static final int BYPRODUCT = 0;
     private static final int BYSHOP = 1;
     private static final int BYAISLE = 2;
     private static final int BYPRICE = 3;
+    @SuppressWarnings("unused")
     private static final int BYSTORAGENAME = 4;
+    @SuppressWarnings("unused")
     private static final int BYSTORAGEORDER = 5;
+    @SuppressWarnings("unused")
     private static final int BYPRODUCTSTORAGEORDER = 6;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
@@ -240,6 +301,7 @@ public class CheckListActivity extends AppCompatActivity {
      *
      * @param view The view (i.e the TextView that was clicked)
      */
+    @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -333,7 +395,9 @@ public class CheckListActivity extends AppCompatActivity {
      * @param msg  The message to be displayed.
      * @param flag Message imnportant, if true Yellow text, esle green
      */
-    public void setMessage(CheckListActivity cla, String msg, boolean flag) {
+    public void setMessage(CheckListActivity cla,
+                           String msg,
+                           @SuppressWarnings("SameParameterValue") boolean flag) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -355,6 +419,7 @@ public class CheckListActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
+    @SuppressWarnings("unused")
     public void sortClick(View view) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -426,6 +491,7 @@ public class CheckListActivity extends AppCompatActivity {
      *
      * @param values the values
      */
+    @SuppressWarnings({"EmptyMethod", "unused"})
     public void doNothing(RequestDialogParameters values) {
     }
 }

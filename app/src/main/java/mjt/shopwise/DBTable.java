@@ -70,6 +70,7 @@ class DBTable {
      */
 //==============================================================================================
     // Intermediate DBTable Object Constructor - Just the table name
+    @SuppressWarnings("unused")
     public DBTable(String table_name) {
         this.usable = false;
         this.table_name = table_name.toLowerCase();
@@ -95,6 +96,7 @@ class DBTable {
      */
 //==============================================================================================
     // HigherIntermediate DBTable Object Constructor - Table with 1 column
+    @SuppressWarnings("unused")
     public DBTable(String table_name, DBColumn table_column) {
         this();
         this.table_name = table_name;
@@ -126,6 +128,7 @@ class DBTable {
      */
 //==============================================================================================
     // Add a DBCOlumn Object to the table
+    @SuppressWarnings("unused")
     public void AddDBColumnToDBTable(DBColumn dbcolumn) {
         this.table_columns.add(dbcolumn);
         this.problem_msg = "";
@@ -152,6 +155,7 @@ class DBTable {
      */
 //==============================================================================================
     // psuedonym for AddDBColumnsToDBTable (easier to differentiate from AddDBColumnToDBTable)
+    @SuppressWarnings("unused")
     public void AddMultipleColumnstoDBTable(ArrayList<DBColumn> dbcolumns) {
         this.AddDBColumnstoDBTable(dbcolumns);
     }
@@ -165,6 +169,7 @@ class DBTable {
     // Set the name of the table.
     // Note table name will be converetd to lowercase.
     // The table usability will be rechecked.
+    @SuppressWarnings("unused")
     public void setDBTableName(String table_name) {
         this.table_name = table_name.toLowerCase();
         this.problem_msg = "";
@@ -193,6 +198,7 @@ class DBTable {
      *
      * @return the int
      */
+    @SuppressWarnings("unused")
     public int numberOfColumnsInTable() { return this.table_columns.size(); }
 
     /**
@@ -237,6 +243,7 @@ class DBTable {
      */
 //==============================================================================================
     // Check if the DBTable is usable, setting usability state. Includes underlying DBColumns
+    @SuppressWarnings("UnusedReturnValue")
     public boolean checkDBTableIsUsable(String caller) {
         this.usable = false;
         if(this.anyEmptyDBColumnsInDBTable(caller)) {

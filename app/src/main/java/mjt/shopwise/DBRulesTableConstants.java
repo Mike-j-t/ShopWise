@@ -36,6 +36,7 @@ public class DBRulesTableConstants {
     /**
      * The constant RULES_ALTID_COL_FULL.
      */
+    @SuppressWarnings("unused")
     public static final String RULES_ALTID_COL_FULL = RULES_TABLE +
             PERIOD +
             RULES_ALTID_COL;
