@@ -197,9 +197,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         productlistproductname = (TextView) findViewById(R.id.productaddedit_productlist_heading_productname);
         productlist = (ListView) findViewById(R.id.productaddedit_productlist);
 
-        /**
-         * Apply Color Coding
-         */
+         //Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -226,7 +224,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         dbproductmethods = new DBProductMethods(this);
         dbstoragemethods = new DBStorageMethods(this);
         setDBCounts();
-        this.setTitle(getResources().getString(R.string.productslabel));
+        this.setTitle(getResources().getString(R.string.productsaddlabel));
 
         msg = "Preparing ProductList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -277,6 +275,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                     StandardAppConstants.INTENTKEY_STORAGENAME
             );
             inputproductfilter.setText("");
+            this.setTitle(getResources().getString(R.string.productseditlabel));
         }
         stcsr.moveToPosition(-1);
         while (stcsr.moveToNext()) {
@@ -379,7 +378,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         String productnamelabel = getResources().getString(
                 R.string.productnamelabel) + " ";
         String notsaved = getResources().getString(R.string.notsaved);
-        String msg = "";
+        String msg;
 
         // Product name cannot be blank
         if (productname.length() < 1) {
