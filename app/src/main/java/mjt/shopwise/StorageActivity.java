@@ -404,6 +404,7 @@ public class StorageActivity extends AppCompatActivity {
                 new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,
+                logmsg,
                 THISCLASS,
                 methodname
         );
@@ -502,7 +503,6 @@ public class StorageActivity extends AppCompatActivity {
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
-        sa.actionbar.setTitle(getResources().getString(R.string.shopslabel));
     }
 
     /**************************************************************************
