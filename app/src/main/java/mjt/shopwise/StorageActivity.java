@@ -361,6 +361,7 @@ public class StorageActivity extends AppCompatActivity {
                 new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,
+                logmsg,
                 THISCLASS,
                 methodname
         );
@@ -454,7 +455,12 @@ public class StorageActivity extends AppCompatActivity {
     public void sortClick(View view) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname
+        );
         lastmessage = getResources().getString(R.string.storagelabel) +
                 " sorted by ";
         switch (view.getId()) {
