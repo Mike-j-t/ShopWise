@@ -502,7 +502,7 @@ public class StorageActivity extends AppCompatActivity {
             messagebar.setTextColor(Color.GREEN);
         }
         messagebar.setVisibility(View.VISIBLE);
-        sa.actionbar.setTitle(getResources().getString(R.string.shopslabel));
+        //sa.actionbar.setTitle(getResources().getString(R.string.storagelabel));
     }
 
     /**************************************************************************
