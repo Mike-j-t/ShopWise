@@ -85,7 +85,6 @@
     <string name="ruleperiodlabel">Interval</string>
     <string name="rulemultiplierlabel">Multiplier</string>
     <string name="checklistflaglabel">Checklist</string>
-    <string name="checklistcountlabel">Count</string>
     <string name="minperiodlabel">Min Period</string>
     <string name="minbuylabel">Min Bought</string>
     <string name="yes" tools:ignore="UnusedResources">Yes</string>
@@ -182,20 +181,20 @@
         \nSUGGEST\n
         \tList potential Rules based upon the shopping history.\n
         \tADD allows the suggested Rule to be added\n
-        \tSKIP will temporarily remove the Entry from the List.\n
+        \tSKIP temporarily removes the Entry from the List.\n
         \tDISABLE permanently (see DISABLED below) removes the entry from the list.\n\n
         CHECK\n
-        \tList existing Rules detailing the Rule\'s accuracy compared with Shopping history.\n
+        \tList existing Rules with the Rule\'s accuracy compared with Shopping history.\n
         \tAccuracy is shown as a percentage.\n
         \t\t100 is exact.\n
-        \t\tLess than 100 indicates the Rule adds too few.\n
-        \t\tMore than 100 indicates the Rule addds too many.\n
+        \t\tLess than 100, the Rule adds too few.\n
+        \t\tMore than 100, the Rule addds too many.\n
         \tMODIFY allows the Rule to be edited.\n\n
         DISABLED\n
         \tList Entries that have been Disabled.\n
-        \tENABLE wil re-enable the Entry.\n\n
+        \tENABLE re-enables the Entry.\n\n
         NOTES\n
-        \tDISABLED will only be shown if there are Disabled Entries.\n\n
+        \tDISABLED is only shown if there are Disabled Entries.\n\n
         \tMin Period and Min Bought may cause nothing to be shown.\n
         \tIf Min Bought and Min Period are both 0 then:-\n
         \t\tResults may be not reliable.\n

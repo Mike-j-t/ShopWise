@@ -197,7 +197,7 @@
             android:id="@+id/inputchecklistcount_label"
             style="@style/inputitemlabel"
             android:layout_weight="8"
-            android:text="@string/checklistcountlabel"
+            android:text="@string/stocklevellabel"
             />
         <TextView
             style="@style/inputitemdummy"
