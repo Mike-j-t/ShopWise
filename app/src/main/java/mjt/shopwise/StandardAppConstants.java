@@ -50,14 +50,14 @@ public class StandardAppConstants{
     public static boolean DEVMODE_ADAPTERFILELIST = false;
     public static boolean DEVMODE_ADAPTERMAINACTIVITYOPTIONSMENU = false;
     public static boolean DEVMODE_ADAPTERORDERLIST = false;
-    public static boolean DEVMODE_ADAPTERPRODUCTLIST = false;
+    public static boolean DEVMODE_ADAPTERPRODUCTLIST = true;
     public static boolean DEVMODE_ADAPATERPROMPTEDRULELIST = false;
     public static boolean DEVMODE_ADAPTERRULELIST = false;
     public static boolean DEVMODE_ADAPTERRULEPERIODLIST = false;
     public static boolean DEVMODE_ADAPTERSHOPLIST = false;
     public static boolean DEVMODE_ADAPATERSHOPPINGLIST = false;
-    public static boolean DEVMODE_ADAPTERSTOCKLIST = false;
-    public static boolean DEVMODE_ADPATERSTOCKLISTLIST = false;
+    public static boolean DEVMODE_ADAPTERSTOCKLIST = true;
+    public static boolean DEVMODE_ADPATERSTOCKLISTLIST = true;
     public static boolean DEVMODE_AISLESACTIVITY = false;
     public static boolean DEVMODE_BACKUPACTIVITY = false;
     public static boolean DEVMODE_DBAPPVALUESMETHODS = false;
