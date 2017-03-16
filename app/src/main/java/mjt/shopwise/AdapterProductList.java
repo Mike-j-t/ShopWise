@@ -145,7 +145,6 @@ public class AdapterProductList extends CursorAdapter {
                 THISCLASS,
                 methodname
         );
-        //super.getDropDownView(position, convertview, parent);
         mode = "getDropDownView";
 
         View view = convertview;
@@ -163,7 +162,7 @@ public class AdapterProductList extends CursorAdapter {
                 ActionColorCoding.setActionButtonColor(view,oddrow);
             }
         }
-        //this.cursor.moveToPosition(position);
+        this.cursor.moveToPosition(position);
         bindView(view, ctxt, this.getCursor());
         return view;
     }
