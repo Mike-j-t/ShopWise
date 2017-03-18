@@ -253,6 +253,8 @@ public class AislesAddEditActivity extends AppCompatActivity {
             currentaislename = passedaislename;
             currenttitle = "AISLES - EDIT " + currentaislename;
             this.setTitle(currenttitle);
+            // Disable the Shop selector so another Shop cannot be seleccted
+            input_aisleshop_select.setEnabled(false);
         }
 
         // irrespective of mode the Shop Selection Spinner needs to be
