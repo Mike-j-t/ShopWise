@@ -447,7 +447,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
             dbshoplistmethods.addOrUpdateShopListEntry(orig_aisleid, orig_productid,
                     Integer.parseInt(new_quantity_et.getText().toString()) - orig_quantity,
                     true,
-                    false);
+                    true);
             if (dbshoplistmethods.ifShopListEntryUpdated()) {
                 msg = msg + "Updated OK.";
             } else {

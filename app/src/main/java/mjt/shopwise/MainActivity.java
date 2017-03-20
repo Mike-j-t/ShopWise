@@ -168,9 +168,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         getDBCounts();
-        /**
-         * Resume state handling
-         */
+        //Resume state handling
         switch (resumestate) {
              case StandardAppConstants.RESUMESTATE_ALT1:
                  break;
