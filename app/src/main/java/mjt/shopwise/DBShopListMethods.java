@@ -383,21 +383,21 @@ public class DBShopListMethods {
 
     /**************************************************************************
      *
-     * @param aisleid               id of the aisle
-     * @param productid             id of the product
-     *                              ailseid and productid together define
-     *                              a unique instance
-     * @param numbertoget           the number to get, positive increases
-     *                              the number to purchase, negative will
-     *                              decrease (see adjust done)
-     * @param incrementifexists     if false then can only add a new entry
-     *                              but only if it will not be a duplicate
-     * @param adjustdone            controls wether or not the done column
-     *                              is altered to relfect the number purchased.
-     *                              not the number toget is subtracted from 0
-     *                              so a negative value (as when buying) will
-     *                              result in the DB numbertoget being reduced
-     *                              whilst done will be incremented.
+     * @param aisleid               The id of the aisle.
+     * @param productid             The id of the product.
+     *                                  ailseid and productid together define
+     *                                  a unique instance.
+     * @param numbertoget           The number to get, positive increases
+     *                                  the number to purchase, negative will
+     *                                  decrease (see adjust done).
+     * @param incrementifexists     If false then can only add a new entry
+     *                                  but only if it will not be a duplicate.
+     * @param adjustdone            Controls wether or not the done column
+     *                                  is altered to relfect the number purchased.
+     *                                  note the numbertoget is subtracted from 0
+     *                                  so a negative value (as when buying) will
+         *                              result in the DB numbertoget being reduced
+     *                                  whilst done will be incremented.
      *                              Sholud only be true when invoking from the
      *                              shopping list.
      */
@@ -431,25 +431,33 @@ public class DBShopListMethods {
                     whereclause,
                     whereargs,
                     null,null,null,null);
+            // If the Shoplist entry was found then update the ShopList entry
+            // Should exist but just in case check
             if (csr.getCount() > 0) {
                 csr.moveToFirst();
+                // Calculate the new number to get
                 newnumbertoget = numbertoget +
                         csr.getInt(csr.getColumnIndex(
                                 DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL)
                         );
-                if (newnumbertoget < 0) {
+                // Adjustments for none to get
+                // i.e. if negative make 0 and set DONE flag to done
+                // otherwise use new numbertoget asis but ensure DONE flag is
+                // unset (0).
+                if (newnumbertoget <= 0) {
                     newnumbertoget = 0;
+                    if (adjustdone) {
+                        cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,1);
+                    }
                 } else {
                     if (adjustdone) {
-                        newdone = ( 0 - numbertoget) +
-                        csr.getInt(csr.getColumnIndex(
-                                DBShopListTableConstants.SHOPLIST_DONE_COL
-                        ));
-                        cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,newdone);
+                        cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,0);
                     }
                 }
             }
+            // Done with the cursor so close it
             csr.close();
+            // Prepare to and update the Shoppinglist entry
             cv.put(DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL,newnumbertoget);
             lastshoplistupdatedok = db.update(
                     DBShopListTableConstants.SHOPLIST_TABLE,
