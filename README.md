@@ -28,7 +28,8 @@ It is *"iconless"* with buttons and color coding to assist with navigation.
     Automatic and Prompted addition to the Shopping List via Rules.
     
     Database backup and restore, including the potential to cater for multiple Shopping Lists. 
-        Backups can even be copied to PC and used by SQLite (e.g. SQLite Manager) or from Android device to Android device (backups are stored in the ShopWise folder in Downlaods).
+        Backups can be copied to PC and used by SQLite (e.g. SQLite Manager)
+        Backups can be copied from Android device to Android device.
     
     Rule Suggestion and Accuracy Checking based upon Shopping history.
     
