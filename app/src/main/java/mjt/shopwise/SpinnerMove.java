@@ -22,22 +22,7 @@ public class SpinnerMove {
                              String column
     )
     {
-        String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        int position = 0;
-        if (movetovalue > 0 ) {
-            csr.moveToPosition(-1);
-            while (csr.moveToNext()) {
-                if (csr.getLong(
-                        csr.getColumnIndex(column)
-                ) == movetovalue) {
-                    position = csr.getPosition();
-                    spinner.setSelection(position);
-                    return;
-                }
-            }
-        }
+        moveToColumn(spinner,movetovalue,csr,column,true);
     }
 
     static void moveToColumn(Spinner spinner,
@@ -47,6 +32,7 @@ public class SpinnerMove {
                              @SuppressWarnings("SameParameterValue") boolean animatespinner
     )
     {
+        boolean moved = false;
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -60,6 +46,7 @@ public class SpinnerMove {
                 ) == movetovalue) {
                     position = csr.getPosition();
                     spinner.setSelection(position,animatespinner);
+                    moved = true;
                     return;
                 }
             }

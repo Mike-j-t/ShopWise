@@ -361,6 +361,7 @@ class DBProductMethods {
                     ""
             );
             if(csr.getCount() > 0) {
+                csr.moveToFirst();
                 rv = csr.getString(
                         csr.getColumnIndex(
                         DBProductsTableConstants.PRODUCTS_NAME_COL

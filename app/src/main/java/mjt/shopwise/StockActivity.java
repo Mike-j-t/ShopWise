@@ -426,6 +426,9 @@ public class StockActivity extends AppCompatActivity {
 
         setNewInput(inputstockorder, inputstockcost, inputchecklistcount);
 
+        /**
+         ***** Disabled the following due to Spinner positioning issue *****
+         * Instead EDIT or DELETE of Stock must be done via the STOCK option
         logmsg = "Adding StockList OnItemClick Listener";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stocklist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -445,6 +448,7 @@ public class StockActivity extends AppCompatActivity {
                 return true;
             }
         });
+         **/
 
     }
     /**************************************************************************
@@ -527,6 +531,13 @@ public class StockActivity extends AppCompatActivity {
 
         plcsr = dbproductmethods.getExpandedProducts(productfilter,productorderby);
         productlistadapter.swapCursor(plcsr);
+
+
+        logmsg = "Moving SelectProduct Spinner to Product ID=" +
+                Long.toString(values.getLong2()) +
+                " Name=" + dbproductmethods.getProductName(values.getLong2());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+
 
         SpinnerMove.moveToColumn(selectproduct,values.getLong2(),plcsr,PRODUCTID_COLUMN,true);
         inputstockcost.setText(stockedcursor.getString(
