@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -583,10 +584,17 @@ public class StockActivity extends AppCompatActivity {
         int order;
         int chklstcnt = 1;
 
+        //Product spinner must have Products (filter can result in none)
+        if (plcsr.getCount() < 1) {
+            setMessage(this,"Unable to Save. No Products to select. Filtered out?", true);
+            return;
+        }
+
         // Get the Product id from the database cursor according to position of
         // the current selection in the Product spinner/dropdown
         int spos = plcsr.getPosition();
         int npos = selectproduct.getSelectedItemPosition();
+
         plcsr.moveToPosition(npos);
         long productref = plcsr.getLong(plcsr.getColumnIndex(
                 PRODUCTID_COLUMN
@@ -598,6 +606,9 @@ public class StockActivity extends AppCompatActivity {
         // Note! Shop is implied via the Aisle
         spos = alcsr.getPosition();
         npos = selectaisle.getSelectedItemPosition();
+        if (alcsr.getCount() < 1) {
+            setMessage(this,"Unable to Save. No Aisles to select.",true);
+        }
         alcsr.moveToPosition(npos);
         long aisleref = alcsr.getLong(alcsr.getColumnIndex(
                 AISLEID_COLUMN
@@ -753,6 +764,7 @@ public class StockActivity extends AppCompatActivity {
      *                              available in the product selection spinner
      */
     public void addProductFilterListener() {
+
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -762,6 +774,11 @@ public class StockActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 productfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
                         DBConstants.SQLLIKECHARSTART +
                         inputproductfilter.getText().toString() +
@@ -769,9 +786,6 @@ public class StockActivity extends AppCompatActivity {
                 plcsr = dbproductmethods.getProductsNotInAisle(currentaisleid, productfilter, productorderby);
                 productlistadapter.swapCursor(plcsr);
             }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
         });
     }
 

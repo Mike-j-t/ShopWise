@@ -13,7 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 5/01/2017.
+ * Shopping List Entry Adjustment Activity Invoke when clicking on a
+ * Adjust button on the Shopping List
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
