@@ -435,7 +435,7 @@ public class StockLisEditActivity extends AppCompatActivity {
 
     }
 
-    /**
+    /**************************************************************************
      *
      */
     public void populateFromDB() {
