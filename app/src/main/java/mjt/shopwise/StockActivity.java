@@ -3,6 +3,7 @@ package mjt.shopwise;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -426,9 +427,8 @@ public class StockActivity extends AppCompatActivity {
 
         setNewInput(inputstockorder, inputstockcost, inputchecklistcount);
 
-        /**
-         ***** Disabled the following due to Spinner positioning issue *****
-         * Instead EDIT or DELETE of Stock must be done via the STOCK option
+
+        // Add StockList clikitem and longclickitem listeners
         logmsg = "Adding StockList OnItemClick Listener";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stocklist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -448,7 +448,6 @@ public class StockActivity extends AppCompatActivity {
                 return true;
             }
         });
-         **/
 
     }
     /**************************************************************************
@@ -478,6 +477,8 @@ public class StockActivity extends AppCompatActivity {
                 break;
         }
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+        stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
+        stocklistadapter.swapCursor(stockedcursor);
     }
 
     /**************************************************************************
@@ -528,18 +529,17 @@ public class StockActivity extends AppCompatActivity {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        /**
 
+        // Prepare the productlist selector using expanded productslist
         plcsr = dbproductmethods.getExpandedProducts(productfilter,productorderby);
         productlistadapter.swapCursor(plcsr);
-
-
         logmsg = "Moving SelectProduct Spinner to Product ID=" +
                 Long.toString(values.getLong2()) +
                 " Name=" + dbproductmethods.getProductName(values.getLong2());
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-
-
         SpinnerMove.moveToColumn(selectproduct,values.getLong2(),plcsr,PRODUCTID_COLUMN,true);
+
         inputstockcost.setText(stockedcursor.getString(
                 stockedcursor.getColumnIndex(COST_COLUMN)));
         inputstockorder.setText(
@@ -558,6 +558,21 @@ public class StockActivity extends AppCompatActivity {
         inputchecklistcount.setText(t_clcount);
         internalmode = EDITMODE;
         editdisplayed = false;
+         **/
+        Intent intent = new Intent(this,StockLisEditActivity.class);
+        intent.putExtra(StandardAppConstants.INTENTKEY_SHOPID,0);
+        intent.putExtra(StandardAppConstants.INTENTKEY_PUPRODUCTREF,values.getLong2());
+        intent.putExtra(StandardAppConstants.INTENTKEY_PUAISLEREF,values.getLong1());
+        intent.putExtra(menucolorcode,passedmenucolorcode);
+        intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGACTIVITY,THIS_ACTIVITY);
+        intent.putExtra(StandardAppConstants.INTENTKEY_CALLINGMODE,calledmode);
+        logmsg = "Starting " + StockLisEditActivity.class.getSimpleName() +
+                " for ShopID=" + Long.toString(values.getLong3()) +
+                " AisleID=" + Long.toString(values.getLong1()) +
+                " ProductID=" + Long.toString(values.getLong2());
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        startActivity(intent);
+
     }
 
     /**************************************************************************
@@ -1115,18 +1130,27 @@ public class StockActivity extends AppCompatActivity {
         messagebar.setVisibility(View.VISIBLE);
     }
 
-    /**
+    /**************************************************************************
      *
      * @param stockorder
      * @param stockcost
      * @param stockchkcount
      */
     @SuppressLint("SetTextI18n")
-    private void setNewInput(EditText stockorder, EditText stockcost, EditText stockchkcount) {
+    private void setNewInput(EditText stockorder,
+                             EditText stockcost,
+                             EditText stockchkcount) {
         String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        int highorder = dbpumethods.getHighestProductUsageOrderPerAisle(currentaisleid) + 100;
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname);
+        int highorder =
+                dbpumethods.getHighestProductUsageOrderPerAisle(currentaisleid) +
+                        100;
         if (highorder < 1000) {
             highorder = 1000;
         }

@@ -449,7 +449,7 @@ class DBProductMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
     }
 
-    /**
+    /**************************************************************************
      * deleteProduct - Delete a product along with ProductUsages,
      * ShopList entries and Rules that use the product
      *
@@ -545,7 +545,7 @@ class DBProductMethods {
         }
     }
 
-    /**
+    /*************************************************************************
      * productDeleteImpact - return a string arraylist of  the product usages,
      * shoplist entries and rules that will have to be
      * removed if deleting the product
