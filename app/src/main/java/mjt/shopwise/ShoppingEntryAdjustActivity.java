@@ -76,6 +76,13 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
     EditText new_cost_et;
     EditText new_quantity_et;
     EditText new_productname_et;
+    TextView new_productname_lbl;
+    TextView new_cost_lbl;
+    TextView new_quantity_lbl;
+    TextView orig_productname_lbl;
+    TextView orig_quantity_lbl;
+    TextView orig_cost_lbl;
+    TextView orig_total_lbl;
 
 
     long orig_aisleid = 0;
@@ -262,11 +269,18 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         orig_cost_tv = (TextView) findViewById(R.id.shoppingadjust_orig_cost);
         orig_total_tv = (TextView) findViewById(R.id.shoppingadjust_orig_total);
 
+        orig_productname_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_productname_lbl);
+        orig_cost_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_cost_lbl);
+        orig_total_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_total_lbl);
+        orig_quantity_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_quantity_lbl);
+
         new_productname_et = (EditText) findViewById(R.id.shoppingadjust_inputproductname);
         new_cost_et = (EditText) findViewById(R.id.shoppingadjust_inputcost);
         new_quantity_et = (EditText) findViewById(R.id.shoppingadjust_inputquantity);
 
-
+        new_productname_lbl = (TextView) findViewById(R.id.shoppingadjust_inputproductname_label);
+        new_cost_lbl = (TextView) findViewById(R.id.shoppingadjust_inputcost_label);
+        new_quantity_lbl = (TextView) findViewById(R.id.shoppingadjust_inputquantity_label);
 
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
@@ -288,22 +302,29 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 & ActionColorCoding.transparency_requied;
         int bgcol = ActionColorCoding.getGroupColor(passedmenucolorcode,3) &
                 ActionColorCoding.transparency_optional;
-        orig_productname_tv.setBackgroundColor(bgcol);
+        orig_productname_tv.setTextColor(primary_color);
         orig_productname_tv.setText(orig_productname);
-        orig_quantity_tv.setBackgroundColor(bgcol);
+        orig_quantity_tv.setTextColor(primary_color);
         orig_quantity_tv.setText(Integer.toString(orig_quantity));
-        orig_cost_tv.setBackgroundColor(bgcol);
+        orig_cost_tv.setTextColor(primary_color);
         orig_cost_tv.setText(Double.toString(orig_cost));
-        orig_total_tv.setBackgroundColor(bgcol);
+        orig_total_tv.setTextColor(primary_color);
         orig_total_tv.setText(Double.toString(
                 orig_cost * orig_quantity
         ));
+        orig_productname_lbl.setTextColor(primary_color);
+        orig_cost_lbl.setTextColor(primary_color);
+        orig_total_lbl.setTextColor(primary_color);
+        orig_quantity_lbl.setTextColor(primary_color);
 
-        new_productname_et.setBackgroundColor(etbgcol);
+        new_productname_lbl.setTextColor(primary_color);
+        ActionColorCoding.setActionButtonColor(new_productname_et,etbgcol);
         new_productname_et.setText(orig_productname);
-        new_quantity_et.setBackgroundColor(etbgcol);
+        new_quantity_lbl.setTextColor(primary_color);
+        ActionColorCoding.setActionButtonColor(new_quantity_et,etbgcol);
         new_quantity_et.setText(Integer.toString(orig_quantity));
-        new_cost_et.setBackgroundColor(etbgcol);
+        new_cost_lbl.setTextColor(primary_color);
+        ActionColorCoding.setActionButtonColor(new_cost_et,etbgcol);
         new_cost_et.setText(Double.toString(orig_cost));
     }
 

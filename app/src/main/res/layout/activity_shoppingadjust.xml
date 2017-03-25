@@ -22,7 +22,6 @@
         android:id="@+id/shoppingadjust_orginalvalues_heading"
         style="@style/listview_heading_standard"
         android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/listview_vertical_padding_normal"
         >
         <TextView
             style="@style/listview_heading_col_standard"
@@ -30,40 +29,96 @@
             />
         <TextView
             style="@style/listview_heading_col_standard"
-            android:layout_weight="20"
+            android:layout_weight="100"
             android:text="@string/originalvalues"
             />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/shoppingadjust_originalProduct"
+        style="@style/listview_heading_standard"
+        android:layout_marginTop="0dp"
+        >
         <TextView
-            android:id="@+id/shoppingadjust_orig_productname"
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="41"
-            />
-        <TextView
-            android:id="@+id/shoppingadjust_orig_quantity"
-            style="@style/listview_heading_col_standard"
+            style="@style/inputitemdummy"
             android:layout_weight="4"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="2"
+            android:id="@+id/shoppingadjust_orig_productname_lbl"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/productlabel"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_orig_productname"
+            style="@style/inputitemlabel"
+            android:layout_weight="78.5"
+            android:textStyle="normal"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/shoppingadjust_originalPrice"
+        style="@style/listview_heading_standard"
+        android:layout_marginTop="0dp"
+        >
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="4"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_orig_cost_lbl"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/costlabel"
             />
         <TextView
             android:id="@+id/shoppingadjust_orig_cost"
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="10"
+            style="@style/inputitemlabel"
+            android:layout_weight="78.5"
+            android:textStyle="normal"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/shoppingadjust_originalTotal"
+        style="@style/listview_heading_standard"
+        android:layout_marginTop="0dp"
+        >
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="4"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="2"
+            android:id="@+id/shoppingadjust_orig_total_lbl"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/totalcostlabel"
             />
         <TextView
             android:id="@+id/shoppingadjust_orig_total"
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="15"
+            style="@style/inputitemlabel"
+            android:layout_weight="78.5"
+            android:textStyle="normal"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/shoppingadjust_originalQuantity"
+        style="@style/listview_heading_standard"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="@dimen/listview_vertical_padding_normal">
+        <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="4"
             />
         <TextView
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="2"
+            android:id="@+id/shoppingadjust_orig_quantity_lbl"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/quantitylabel"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_orig_quantity"
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="78.5"
+            android:textStyle="normal"
             />
     </LinearLayout>
     <LinearLayout
@@ -95,47 +150,37 @@
         android:layout_height="wrap_content">
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="10"
+            android:layout_weight="4"
             />
         <TextView
+            android:id="@+id/shoppingadjust_inputproductname_label"
             style="@style/inputitemlabel"
-            android:layout_weight="25"
-            android:text="@string/productnamelabel"/>
-        <TextView
-            style="@style/inputitemlabel"
-            android:layout_weight="2"
-            />
+            android:layout_weight="17.5"
+            android:text="@string/productlabel"/>
         <EditText
             android:id="@+id/shoppingadjust_inputproductname"
             style="@style/inputitem"
-            android:layout_weight="61"/>
-        <TextView
-            style="@style/inputitemlabel"
-            android:layout_weight="2"
-            />
+            android:layout_weight="78.5"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="10"
+            android:layout_weight="4"
             />
         <TextView
+            android:id="@+id/shoppingadjust_inputcost_label"
             style="@style/inputitemlabel"
-            android:layout_weight="25"
+            android:layout_weight="17.5"
             android:text="@string/costlabel"/>
-        <TextView
-            style="@style/inputitemlabel"
-            android:layout_weight="2"
-            />
         <EditText
             android:id="@+id/shoppingadjust_inputcost"
             style="@style/inputitem"
             android:layout_weight="14"/>
         <TextView
             style="@style/inputitemlabel"
-            android:layout_weight="49"
+            android:layout_weight="64.5"
             />
     </LinearLayout>
     <LinearLayout
@@ -144,23 +189,20 @@
         android:layout_marginBottom="@dimen/listview_vertical_padding_normal">
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="10"
+            android:layout_weight="4"
             />
         <TextView
+            android:id="@+id/shoppingadjust_inputquantity_label"
             style="@style/inputitemlabel"
-            android:layout_weight="25"
+            android:layout_weight="17.5"
             android:text="@string/quantitylabel"/>
-        <TextView
-            style="@style/inputitemlabel"
-            android:layout_weight="2"
-            />
         <EditText
             android:id="@+id/shoppingadjust_inputquantity"
             style="@style/inputitem"
             android:layout_weight="14"/>
         <TextView
             style="@style/inputitemlabel"
-            android:layout_weight="49"
+            android:layout_weight="64.5"
             />
     </LinearLayout>
     <LinearLayout
