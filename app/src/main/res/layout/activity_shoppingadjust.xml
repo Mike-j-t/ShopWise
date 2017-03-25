@@ -176,7 +176,7 @@
             android:text="@string/costlabel"/>
         <EditText
             android:id="@+id/shoppingadjust_inputcost"
-            style="@style/inputitem"
+            style="@style/inputitem_monetary"
             android:layout_weight="14"/>
         <TextView
             style="@style/inputitemlabel"
@@ -198,7 +198,7 @@
             android:text="@string/quantitylabel"/>
         <EditText
             android:id="@+id/shoppingadjust_inputquantity"
-            style="@style/inputitem"
+            style="@style/inputitem_order"
             android:layout_weight="14"/>
         <TextView
             style="@style/inputitemlabel"

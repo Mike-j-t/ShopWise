@@ -90,6 +90,10 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
     String orig_productname;
     double orig_cost;
     int orig_quantity;
+    String saved_productname = "";
+    double saved_cost = -1;
+    int saved_quantity = -1;
+
 
 
     @SuppressWarnings("unused")
@@ -316,6 +320,9 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         orig_cost_lbl.setTextColor(primary_color);
         orig_total_lbl.setTextColor(primary_color);
         orig_quantity_lbl.setTextColor(primary_color);
+        saved_productname = orig_productname;
+        saved_cost = orig_cost;
+        saved_quantity = orig_quantity;
 
         new_productname_lbl.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(new_productname_et,etbgcol);
@@ -464,7 +471,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
             }
-        if (orig_quantity != Integer.parseInt(new_quantity_et.getText().toString())) {
+        if (saved_quantity != Integer.parseInt(new_quantity_et.getText().toString())) {
             msg = "Shoplist Entry";
             dbshoplistmethods.addOrUpdateShopListEntry(orig_aisleid, orig_productid,
                     Integer.parseInt(new_quantity_et.getText().toString()) - orig_quantity,
@@ -472,12 +479,13 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                     true);
             if (dbshoplistmethods.ifShopListEntryUpdated()) {
                 msg = msg + "Updated OK.";
+                saved_quantity = Integer.parseInt(new_quantity_et.getText().toString());
             } else {
                 msg = msg + "NOT Updated.";
                 updateallok = false;
             }
         }
-        if (orig_cost != Double.parseDouble(new_cost_et.getText().toString())) {
+        if (saved_cost != Double.parseDouble(new_cost_et.getText().toString())) {
             if (msg.length() > 0) {
                 msg = msg + " ";
             }
@@ -486,12 +494,13 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                     Double.parseDouble(new_cost_et.getText().toString()));
             if (dbpumethods.ifProductUsageUpdated()) {
                 msg = msg + "Updated OK.";
+                saved_cost = Double.parseDouble(new_cost_et.getText().toString());
             } else {
                 msg = msg + "NOT Updated.";
                 updateallok = false;
             }
         }
-        if (!orig_productname.equals(new_productname_et.getText().toString())) {
+        if (!saved_productname.equals(new_productname_et.getText().toString())) {
             if (msg.length() > 0 ) {
                 msg = msg + " ";
             }
@@ -503,6 +512,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                     0);
             if (dbproductmethods.ifProductUpdated()) {
                 msg = msg + "Updated OK.";
+                saved_productname = new_productname_et.getText().toString();
             } else {
                 msg = msg + "NOT Updated.";
                 updateallok = false;
