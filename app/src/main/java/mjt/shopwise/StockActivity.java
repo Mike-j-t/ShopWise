@@ -864,13 +864,7 @@ public class StockActivity extends AppCompatActivity {
                 getResources().getString(R.string.newline) +
                 getResources().getString(R.string.tab1) +
                 " You can then makes changes to these values and then " +
-                "Click SAVE to save the changes to the stocked product." +
-                getResources().getString(R.string.doublenewline) +
-                getResources().getString(R.string.tab1) +
-                getResources().getString(R.string.stockedproduct_edit_note1) +
-                getResources().getString(R.string.doublenewline) +
-                getResources().getString(R.string.tab1) +
-                getResources().getText(R.string.stockedproduct_edit_note2);
+                "Click SAVE to save the changes to the stocked product.";
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisleid,productid,0,0,0,0);
         logmsg = "Presenting RequestDialog for Product=" + productname +
