@@ -213,6 +213,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(inputproductfilter,h4 & transparency_optional);
         productlistheading.setBackgroundColor(h1);
         inputproductname_label.setTextColor(primary_color);
+        inputproductstorage_label.setTextColor(primary_color);
+        inputproductorder_label.setTextColor(primary_color);
         productfilterlabel.setTextColor(h2);
 
 
