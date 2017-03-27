@@ -20,6 +20,7 @@ import android.widget.CursorAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -263,6 +264,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
     private String rpfilter = "";
     private String rpoderby = "";
+    private String rulefilter = "";
 
     private long currentshopid = 0;
     private long currentaisleid = 0;
@@ -321,6 +323,10 @@ public class RulesAddEditActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     AdapterRulePeriodList ruleperiodlistadapter;
 
+    ListView ruleslist;
+    LinearLayout rulelistheading;
+    AdapterRuleList rulelistadapter;
+
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -348,6 +354,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
         messagebar = (TextView) findViewById(R.id.rulesaddedit_messagebar);
         donebutton = (TextView) findViewById(R.id.rulesaddedit_donebutton);
         savebutton = (TextView) findViewById(R.id.rulesaddedit_savebutton);
+        rulelistheading = (LinearLayout) findViewById(R.id.rulesaddedit_rulelist_heading);
+        ruleslist = (ListView) findViewById(R.id.rules_rulelist);
 
         shopspinner_linearlayout = (LinearLayout) findViewById(
                 R.id.inputstockshop_linearlayout
@@ -423,6 +431,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(rulemultiplier_input,
                 h2 & ActionColorCoding.transparency_requied);
         ActionColorCoding.setActionButtonColor(ruleperiod_input, h2);
+        rulelistheading.setBackgroundColor(h1);
+
 
         logmsg = "Preparing Database";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -548,6 +558,19 @@ public class RulesAddEditActivity extends AppCompatActivity {
                     StandardAppConstants.INTENTKEY_RULEPERIOD,0
             ));
         }
+
+        rulefilter = DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
+                Long.toString(currentaisleid);
+        rlcsr = dbrulemethods.getExpandedRuleList(rulefilter,orderby);
+        rulelistadapter = new AdapterRuleList(this,
+                rlcsr,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
+                this.getIntent(),
+                false,
+                false,
+                false
+        );
+        ruleslist.setAdapter(rulelistadapter);
     }
 
     /**************************************************************************
@@ -756,6 +779,10 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
                 break;
         }
+        rulefilter = DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
+                Long.toString(currentaisleid);
+        rlcsr = dbrulemethods.getExpandedRuleList(rulefilter,orderby);
+        rulelistadapter.swapCursor(rlcsr);
     }
 
     /**************************************************************************
@@ -830,6 +857,10 @@ public class RulesAddEditActivity extends AppCompatActivity {
                             ableToMakeRule();
                         }
                         productlistadapter.swapCursor(plcsr);
+                        rulefilter = DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
+                                Long.toString(currentaisleid);
+                        rlcsr = dbrulemethods.getExpandedRuleList(rulefilter,orderby);
+                        rulelistadapter.swapCursor(rlcsr);
                     }
 
                     @Override
@@ -1036,6 +1067,10 @@ public class RulesAddEditActivity extends AppCompatActivity {
         plcsr = dbproductmethods.getProductsInAisle(currentaisleid, productfilter, productorderby);
         currentproductcount = plcsr.getCount();
         productlistadapter.swapCursor(plcsr);
+        rulefilter = DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
+                Long.toString(currentaisleid);
+        rlcsr = dbrulemethods.getExpandedRuleList(rulefilter,orderby);
+        rulelistadapter.swapCursor(rlcsr);
     }
 
     /**************************************************************************
