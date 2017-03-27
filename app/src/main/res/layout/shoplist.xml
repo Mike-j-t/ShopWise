@@ -6,43 +6,41 @@
 
     <LinearLayout
         android:id="@+id/shoplist_linearlayout"
-        style="@style/listviewrow_standard"
-        >
-        <TextView
-            style="@style/listview_heading_col_standard"
-            android:layout_weight="2"
-            />
+        style="@style/listviewrow_standard">
+
+        <include layout="@layout/rowindicatorcolumn"></include>
+
         <TextView
             android:id="@+id/shoplist_name"
             style="@style/listviewrowcol_standard"
             android:layout_weight="42"
-            android:textStyle="bold"
             android:textColor="@color/colorBlack"
-            />
+            android:textStyle="bold" />
+
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="2"
-            />
+            android:layout_weight="2" />
+
         <TextView
             android:id="@+id/shoplist_city"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="42"
-            />
+            android:layout_weight="42" />
+
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="2"
-            />
+            android:layout_weight="2" />
+
         <TextView
             android:id="@+id/shoplist_order"
             style="@style/listviewrowcol_standard"
             android:layout_weight="8"
-            android:gravity="end"
-            />
+            android:gravity="end" />
+
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="2"
-            />
+            android:layout_weight="2" />
     </LinearLayout>
+
     <LinearLayout
         style="@style/listviewrow_standard"
         android:visibility="gone"

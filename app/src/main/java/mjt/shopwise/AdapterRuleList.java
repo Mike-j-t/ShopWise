@@ -27,6 +27,8 @@ public class AdapterRuleList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    private boolean clickable;
+    private boolean longclickable;
     private Cursor cursor;
 
     private int rules_ruleid_offset = -1;
@@ -70,32 +72,19 @@ public class AdapterRuleList extends CursorAdapter {
 
     /**
      *
-     * @param context   the context
-     * @param csr       the DB csr
-     * @param flags     flags
-     * @param intent    the Intent
-     */
-    AdapterRuleList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
-        super(context, csr, 0);
-        String msg = "Constructing";
-        String methodname = "Construct";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        this.ctxt = context;
-        this.callerintent = intent;
-        this.fromspinner = false;
-        setRuleOffsets(csr);
-    }
-
-    /**
-     *
      * @param context
      * @param csr
      * @param flags
      * @param intent
      * @param fromspinner
      */
-    AdapterRuleList(Context context, Cursor csr, int flags, Intent intent,
-                    boolean fromspinner) {
+    AdapterRuleList(Context context,
+                    Cursor csr,
+                    int flags,
+                    Intent intent,
+                    boolean fromspinner,
+                    boolean clickable,
+                    boolean longclickable) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -103,6 +92,8 @@ public class AdapterRuleList extends CursorAdapter {
         this.ctxt = context;
         this.callerintent = intent;
         this.fromspinner = fromspinner;
+        this.clickable = clickable;
+        this.longclickable = longclickable;
         setRuleOffsets(csr);
     }
 
@@ -119,11 +110,18 @@ public class AdapterRuleList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
-        return LayoutInflater.from(context).inflate(
+        View rv = LayoutInflater.from(context).inflate(
                 R.layout.rulelist,
                 parent,
                 false
         );
+
+        if (fromspinner) {
+            ((TextView) rv.findViewById(R.id.rowind_click)).setText("");
+            ((TextView) rv.findViewById(R.id.rowind_longclick)).setText("");
+        }
+
+        return rv;
     }
 
     @Override
@@ -171,6 +169,10 @@ public class AdapterRuleList extends CursorAdapter {
 
     private View initView(View view, Cursor csr) {
         String msg = "Invoked";
+        String clickablerowindicator =
+                ctxt.getResources().getString(R.string.clickrowindicator);
+        String longclickablerowindicator =
+                ctxt.getResources().getString(R.string.longclickrowindicator);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         TextView rulename = (TextView) view.findViewById(R.id.rulelist_rulename);
@@ -196,6 +198,22 @@ public class AdapterRuleList extends CursorAdapter {
         rulename.setText(csr.getString(rules_rulename_offset));
         productname.setText(csr.getString(products_productname_offset));
         nextdate.setText(sdf.format(csr.getLong(rules_ruleacton_offset)));
+
+        if (!clickable || fromspinner) {
+            clickablerowindicator = "";
+        }
+        if (!longclickable || fromspinner) {
+            longclickablerowindicator = "";
+        }
+
+        ((TextView) view.findViewById(
+                R.id.rowind_click)).setText(
+                        clickablerowindicator
+        );
+        ((TextView) view.findViewById(
+                R.id.rowind_longclick)).setText(
+                        longclickablerowindicator
+        );
 
         String period_str = "";
         String period_str1 = "";

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 
 /**
- * Created by Mike092015 on 23/12/2016.
+ * StockList List Adapter (note used by the STOCK option)
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
@@ -21,6 +21,8 @@ public class AdapterStockListList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private boolean fromspinner;
+    private boolean clickable;
+    private boolean longclickable;
     private Cursor cursor;
 
     @SuppressWarnings("unused")
@@ -53,14 +55,13 @@ public class AdapterStockListList extends CursorAdapter {
     public static final String THISCLASS = AdapterStockListList.class.getSimpleName();
     public static final String LOGTAG = "SW_ASLL(CsrAdptr)";
 
-    AdapterStockListList(Context context, Cursor csr, int flags, Intent intent) {
-        super(context, csr, 0);
-        ctxt = context;
-        callerintent = intent;
-        setStockOffsets();
-    }
-
-    AdapterStockListList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent, @SuppressWarnings("SameParameterValue") boolean fromspinner) {
+    AdapterStockListList(Context context,
+                         Cursor csr,
+                         @SuppressWarnings("SameParameterValue") int flags,
+                         Intent intent,
+                         @SuppressWarnings("SameParameterValue") boolean fromspinner,
+                         boolean clickable,
+                         boolean longclickable) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -68,6 +69,8 @@ public class AdapterStockListList extends CursorAdapter {
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
+        this.clickable = clickable;
+        this.longclickable = longclickable;
         this.cursor = csr;
         setStockOffsets();
     }
@@ -78,9 +81,15 @@ public class AdapterStockListList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
-        return LayoutInflater.from(context).inflate(
+        View rv = LayoutInflater.from(context).inflate(
                 R.layout.stocklistlist, parent, false
         );
+
+        if (fromspinner) {
+            ((TextView) rv.findViewById(R.id.rowind_click)).setText("");
+            ((TextView) rv.findViewById(R.id.rowind_longclick)).setText("");
+        }
+        return rv;
     }
 
     @Override
@@ -141,6 +150,10 @@ public class AdapterStockListList extends CursorAdapter {
 
     private View initView(View view, Cursor csr) {
         String msg = "Invoked";
+        String clickablerowindicator =
+                ctxt.getResources().getString(R.string.clickrowindicator);
+        String longclickablerowindicator =
+                ctxt.getResources().getString(R.string.longclickrowindicator);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         TextView productname = (TextView) view.findViewById(R.id.stocklistlist_productname);
@@ -154,6 +167,22 @@ public class AdapterStockListList extends CursorAdapter {
         aislename.setText(csr.getString(aisle_name_offset));
         productcost.setText(NumberFormat.getCurrencyInstance().format(csr.getDouble(productusage_cost_offest)));
         productorder.setText(csr.getString(productusage_order_offset));
+
+        if (!clickable || fromspinner) {
+            clickablerowindicator = "";
+        }
+        if (!longclickable || fromspinner) {
+            longclickablerowindicator = "";
+        }
+
+        ((TextView) view.findViewById(
+                R.id.rowind_click)).setText(
+                        clickablerowindicator
+        );
+        ((TextView) view.findViewById(
+                R.id.rowind_longclick)).setText(
+                        longclickablerowindicator
+        );
         msg = "Set Product=" + productname.getText().toString() +
                 " Shop=" + shopname.getText().toString() +
                 " Aisle=" + aislename.getText() +

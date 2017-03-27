@@ -235,6 +235,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 plcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent(),
+                false,
+                false,
                 false
         );
         productlist.setAdapter(productlistadapter);
@@ -244,7 +246,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
                 stcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent(),
-                true);
+                true,
+                false,
+                false);
         inputproductstorage_spinner.setAdapter(storagelistadapter);
 
         msg = "Extracting and applying Intent Extras";

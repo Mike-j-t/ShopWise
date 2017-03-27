@@ -205,7 +205,9 @@ public class ProductsActivity extends AppCompatActivity {
                 plcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
-                false
+                false,
+                true,
+                true
         );
         productlist.setAdapter(productlistadapter);
         productlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -18,6 +18,8 @@ public class AdapterStorageList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    private boolean clickable;
+    private boolean longclickable;
     private Cursor cursor;
 
     private int storage_storageid_offset = -1;
@@ -32,7 +34,9 @@ public class AdapterStorageList extends CursorAdapter {
                        Cursor csr,
                        @SuppressWarnings("SameParameterValue") int flags,
                        Intent intent,
-                       boolean fromspinner) {
+                       boolean fromspinner,
+                       boolean clickable,
+                       boolean longclickable) {
         super(context, csr, 0);
         String logmsg = "Constructing";
         String methodname = "Construct";
@@ -44,6 +48,8 @@ public class AdapterStorageList extends CursorAdapter {
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
+        this.clickable = clickable;
+        this.longclickable = longclickable;
         this.cursor = csr;
         setStorageOffsets(csr);
     }
@@ -66,11 +72,16 @@ public class AdapterStorageList extends CursorAdapter {
                 methodname
         );
         this.cursor = csr;
-        return LayoutInflater.from(context).inflate(
+        View rv = LayoutInflater.from(context).inflate(
                 R.layout.storagelist,
                 parent,
                 false
         );
+        if (fromspinner) {
+            ((TextView) rv.findViewById(R.id.rowind_click)).setText("");
+            ((TextView) rv.findViewById(R.id.rowind_longclick)).setText("");
+        }
+        return rv;
     }
 
     /**************************************************************************
@@ -165,6 +176,11 @@ public class AdapterStorageList extends CursorAdapter {
     private View initView(View view, Cursor cursor) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        String clickablerowindicator =
+                ctxt.getResources().getString(R.string.clickrowindicator);
+        String longclickablerowindicator =
+                ctxt.getResources().getString(R.string.longclickrowindicator);
+
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,
                 logmsg,
@@ -182,6 +198,22 @@ public class AdapterStorageList extends CursorAdapter {
 
         nametv.setText(ivstoragename);
         ordertv.setText(ivstorageorder);
+
+        if (!clickable || fromspinner) {
+            clickablerowindicator = "";
+        }
+        if (!longclickable || fromspinner) {
+            longclickablerowindicator = "";
+        }
+
+        ((TextView) view.findViewById(
+                R.id.rowind_click)).setText(
+                        clickablerowindicator
+        );
+        ((TextView) view.findViewById(
+                R.id.rowind_longclick)).setText(
+                        longclickablerowindicator
+        );
 
         logmsg = "SET StorageName=" +
                 nametv.getText().toString() +

@@ -8,10 +8,8 @@
         android:id="@+id/stocklist_listview"
         style="@style/listviewrow_standard"
         >
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
+        <include layout="@layout/rowindicatorcolumn">
+        </include>
         <TextView
             android:id="@+id/stocklist_productname"
             style="@style/listviewrowcol_standard"

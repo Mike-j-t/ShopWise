@@ -251,11 +251,11 @@ public class RulesAddEditActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     private static String lastmessage = "";
     private String shopfilter = "";
-    private String shoporderby = "";
+    private String shoporderby = DBShopsTableConstants.SHOPS_NAME_COL_FULL;
     private String aislefilter = "";
-    private String aisleorderby = "";
+    private String aisleorderby = DBAislesTableConstants.AISLES_NAME_COL_FULL;
     private String productfilter = "";
-    private String productorderby = "";
+    private String productorderby = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
     @SuppressWarnings("unused")
     private String stockfilter = "";
     @SuppressWarnings("unused")
@@ -348,16 +348,19 @@ public class RulesAddEditActivity extends AppCompatActivity {
         messagebar = (TextView) findViewById(R.id.rulesaddedit_messagebar);
         donebutton = (TextView) findViewById(R.id.rulesaddedit_donebutton);
         savebutton = (TextView) findViewById(R.id.rulesaddedit_savebutton);
+
         shopspinner_linearlayout = (LinearLayout) findViewById(
                 R.id.inputstockshop_linearlayout
         );
         shopnamelabel = (TextView) findViewById(R.id.inputstockshop_label);
         shopspinner = (Spinner) findViewById(R.id.selectstockshop);
+
         aislespinner_linearlayout = (LinearLayout) findViewById(
                 R.id.inputstockaisle_linearlayout
         );
         aislenamelabel = (TextView) findViewById(R.id.inputstockaisle_label);
         aislespinner = (Spinner) findViewById(R.id.selectstockaisle);
+
         productspinner_linearlayout = (LinearLayout) findViewById(
                 R.id.inputstockproduct_linearlayout
         );
@@ -765,7 +768,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterShopList rv = new AdapterShopList(this, slcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
-                getIntent(), true);
+                getIntent(), true, false, false);
         shopspinner.setAdapter(rv);
         SpinnerMove.moveToColumn(shopspinner, id, slcsr, SHOPID_COLUMN, true);
         shopspinner.setOnItemSelectedListener(
@@ -798,7 +801,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterAisleList rv = new AdapterAisleList(this, alcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
-                getIntent(), true);
+                getIntent(), true, false, false);
         aislespinner.setAdapter(rv);
         if (id > 0) {
             SpinnerMove.moveToColumn(aislespinner, id, alcsr, AISLEID_COLUMN);
@@ -848,7 +851,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterProductList rv = new AdapterProductList(this, plcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
-                getIntent(), true);
+                getIntent(), true, false, false);
         productspinner.setAdapter(rv);
         SpinnerMove.moveToColumn(productspinner, id, plcsr, PRODUCTID_COLUMN);
         productspinner.setOnItemSelectedListener(

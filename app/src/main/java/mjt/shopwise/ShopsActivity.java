@@ -194,7 +194,7 @@ public class ShopsActivity extends AppCompatActivity {
                 slcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
-                false);
+                false, true, true);
         shoplist.setAdapter(shoplistadapter);
         logmsg = "Adding ShopList OnItemLongClick Listener";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);

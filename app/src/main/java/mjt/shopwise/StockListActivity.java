@@ -250,7 +250,7 @@ public class StockListActivity extends AppCompatActivity {
         logmsg = "Retrieving StockList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
-        stocklistadapter = new AdapterStockListList(this,stockedcursor,0,getIntent(),false);
+        stocklistadapter = new AdapterStockListList(this,stockedcursor,0,getIntent(),false, true, true);
         stocklist.setAdapter(stocklistadapter);
         addProductFilterListener();
 

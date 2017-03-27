@@ -8,10 +8,8 @@
         android:orientation="horizontal"
         style="@style/listviewrow_standard"
         >
-        <TextView
-            style="@style/listviewrowcol_standard"
-            android:layout_weight="2"
-            />
+        <include layout="@layout/rowindicatorcolumn">
+        </include>
         <TextView
             android:id="@+id/rulelist_rulename"
             style="@style/listviewrowcol_standard"
