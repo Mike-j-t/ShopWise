@@ -328,8 +328,44 @@
         style="@style/listview_heading_standard"
         >
         <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/rules_rulelist_heading_rulename"
             style="@style/listview_heading_col_standard"
-            android:layout_weight="100"
+            android:layout_weight="24"
+            android:text="@string/rulelabel"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/rules_rulelist_heading_productname"
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="34"
+            android:text="@string/productnamelabel"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/rules_rulelist_heading_acton"
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="24"
+            android:text="@string/actonlabel"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/rules_rulelist_heading_prompt"
+            style="@style/listview_heading_col_standard"
+            android:layout_weight="10"
+            android:text="@string/promptlabel"
             />
     </LinearLayout>
     <ListView
