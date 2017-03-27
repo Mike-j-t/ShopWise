@@ -20,6 +20,8 @@ public class AdapterAisleList extends CursorAdapter{
     private Intent callerintent;
     private final Context ctxt;
     private boolean fromspinner;
+    private boolean clickable;
+    private boolean longclickable;
     private Cursor cursor;
 
     private int aisles_aisleid_offset = -1;
@@ -34,24 +36,6 @@ public class AdapterAisleList extends CursorAdapter{
 
 
     /**
-     * AdapterAisleList Constructor - shortform for ListView only
-     *
-     * @param context     the context
-     * @param csr         the csr
-     * @param flags       the flags
-     * @param intent      the intent
-     */
-    AdapterAisleList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
-        super(context, csr, 0);
-        String msg = "Constructing";
-        String methodname = "Construct";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        ctxt = context;
-        callerintent = intent;
-        setAisleOffsets(csr);
-    }
-
-    /**
      * AdapterSAisleList Constructor - longform for Spinner and ListView
      *
      * @param context       the context
@@ -64,7 +48,9 @@ public class AdapterAisleList extends CursorAdapter{
                      Cursor csr,
                      int flags,
                      Intent intent,
-                     @SuppressWarnings("SameParameterValue") boolean fromspinner) {
+                     @SuppressWarnings("SameParameterValue") boolean fromspinner,
+                     boolean clickable,
+                     boolean longclickable) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -73,6 +59,8 @@ public class AdapterAisleList extends CursorAdapter{
         callerintent = intent;
         this.fromspinner = fromspinner;
         this.cursor = csr;
+        this.clickable = clickable;
+        this.longclickable = longclickable;
         setAisleOffsets(csr);
     }
 
@@ -89,11 +77,16 @@ public class AdapterAisleList extends CursorAdapter{
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
-        return LayoutInflater.from(context).inflate(
+        View rv = LayoutInflater.from(context).inflate(
                 R.layout.aislelist,
                 parent,
                 false
         );
+        if (fromspinner) {
+            ((TextView) rv.findViewById(R.id.rowind_click)).setText("");
+            ((TextView) rv.findViewById(R.id.rowind_longclick)).setText("");
+        }
+        return rv;
     }
 
     /**
@@ -184,6 +177,10 @@ public class AdapterAisleList extends CursorAdapter{
 
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        String clickablerowindictor =
+                ctxt.getResources().getString(R.string.clickrowindicator);
+        String longclickablerowindicator =
+                ctxt.getResources().getString(R.string.longclickrowindicator);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         TextView nametv = (TextView) view.findViewById(R.id.aislelist_name);
@@ -194,6 +191,16 @@ public class AdapterAisleList extends CursorAdapter{
 
         nametv.setText(aislename);
         ordertv.setText(aisleorder);
+
+        if (!clickable || fromspinner) {
+            clickablerowindictor = "";
+        }
+        if (!longclickable || fromspinner) {
+            longclickablerowindicator = "";
+        }
+
+        ((TextView) view.findViewById(R.id.rowind_click)).setText(clickablerowindictor);
+        ((TextView) view.findViewById(R.id.rowind_longclick)).setText(longclickablerowindicator);
         msg = "Set AisleName=" + aislename + " Order=" + aisleorder;
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return view;

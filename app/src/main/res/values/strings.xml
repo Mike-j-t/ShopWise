@@ -70,6 +70,8 @@
     <string name="storagelabel">Storage</string>
     <string name="storageaddlabel">Storage - Add</string>
     <string name="storageeditlabel">Storage - Edit</string>
+    <string name="clickrowindicator">c</string>
+    <string name="longclickrowindicator">l</string>
 
     <string name="backupdirectory">Backup Directory</string>
     <string name="datetimepart">Date/Time part</string>

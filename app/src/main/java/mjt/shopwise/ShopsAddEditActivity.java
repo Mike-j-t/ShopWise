@@ -207,7 +207,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
                 slcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent(),
-                false);
+                false, false, false);
         shoplist.setAdapter(shoplistadapter);
 
         logmsg = "Retrieving IntentExtras";

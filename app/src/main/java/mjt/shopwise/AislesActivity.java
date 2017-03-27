@@ -201,7 +201,7 @@ public class AislesActivity extends AppCompatActivity{
                 slcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
-                true);
+                true, false, false);
 
         selectshoplist.setAdapter(selectshoplistadapter);
         setSelectShopListener();
@@ -213,7 +213,8 @@ public class AislesActivity extends AppCompatActivity{
                 this,
                 alcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
-                getIntent()
+                getIntent(),
+                false, true, true
         );
         aiselist.setAdapter(aislelistadapter);
         aislesadapterset = true;

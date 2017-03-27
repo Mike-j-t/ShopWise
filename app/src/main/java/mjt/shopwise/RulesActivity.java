@@ -279,9 +279,13 @@ public class RulesActivity extends AppCompatActivity {
         logmsg = "Preparing RulesList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         rlcsr = dbrulemethods.getExpandedRuleList("",orderby);
-        rulelistadpater = new AdapterRuleList(this,rlcsr,
+        rulelistadpater = new AdapterRuleList(this,
+                rlcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
-                this.getIntent());
+                this.getIntent(),
+                false,
+                true,
+                true);
         rulelist.setAdapter(rulelistadpater);
 
         logmsg = "Preparing OnItemClick Listener";

@@ -422,7 +422,7 @@ public class StockActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockfilter = AISLEREF_FULLCOLUMN + " = " + currentaisleid;
         stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
-        stocklistadapter = new AdapterStockList(this,stockedcursor,0,this.getIntent(),false);
+        stocklistadapter = new AdapterStockList(this,stockedcursor,0,this.getIntent(),false, true, true);
         stocklist.setAdapter(stocklistadapter);
 
         setNewInput(inputstockorder, inputstockcost, inputchecklistcount);
@@ -960,7 +960,7 @@ public class StockActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterShopList rv = new AdapterShopList(
-                this,slcsr,0,this.getIntent(),true);
+                this,slcsr,0,this.getIntent(),true, false, false);
         selectshop.setAdapter(rv);
         SpinnerMove.moveToColumn(selectshop,id,slcsr,SHOPID_COLUMN,true);
         logmsg = "Shop Selection Spinner setup and positioned to Shop=" +
@@ -1004,7 +1004,7 @@ public class StockActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         AdapterAisleList rv = new AdapterAisleList(
-                this,alcsr,0,this.getIntent(),true);
+                this,alcsr,0,this.getIntent(),true, false, false);
         selectaisle.setAdapter(rv);
         if (id > 0 ) {
             SpinnerMove.moveToColumn(selectaisle,id,alcsr,AISLEID_COLUMN);
@@ -1065,7 +1065,7 @@ public class StockActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         AdapterProductList rv = new AdapterProductList(this,
-                plcsr,0,this.getIntent(), true);
+                plcsr,0,this.getIntent(), true, false, false);
         selectproduct.setAdapter(rv);
         SpinnerMove.moveToColumn(selectproduct,id,plcsr,PRODUCTID_COLUMN,true);
         //positionSpinnerFromID(selectproduct,

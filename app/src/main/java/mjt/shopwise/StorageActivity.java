@@ -152,7 +152,9 @@ public class StorageActivity extends AppCompatActivity {
                 stcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
-                false);
+                false,
+                true,
+                true);
         storagelist.setAdapter(storagelistadapter);
 
         storagelist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

@@ -210,6 +210,8 @@ public class StorageAddEditActivity extends AppCompatActivity {
                 stcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent(),
+                false,
+                false,
                 false);
         storagelist.setAdapter(storagelistadapter);
 

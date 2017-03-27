@@ -23,6 +23,8 @@ public class AdapterProductList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    private boolean clickable;
+    private boolean longclickable;
     private Cursor cursor;
     @SuppressWarnings("unused")
     private String mode="";
@@ -36,32 +38,13 @@ public class AdapterProductList extends CursorAdapter {
     public static final String THISCLASS = AdapterProductList.class.getSimpleName();
     private static final String LOGTAG = "SW_APL(CsrAdptr)";
 
-    /**************************************************************************
-     * AdapterProductList Constructor - shortform for ListView only
-     *
-     * @param context     the context
-     * @param csr         the csr
-     * @param flags       the flags
-     * @param intent      the intent
-     */
-    AdapterProductList(Context context, Cursor csr, int flags, Intent intent) {
-        super(context, csr, 0);
-        String msg = "Constructing";
-        String methodname = "Construct";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        this.ctxt = context;
-        this.cursor = csr;
-        this.callerintent = intent;
-        this.fromspinner = false;
-        setProductOffsets(this.cursor);
-
-    }
-
     AdapterProductList(Context context,
                        Cursor csr,
                        int flags,
                        Intent intent,
-                       boolean fromspinner) {
+                       boolean fromspinner,
+                       boolean clickable,
+                       boolean longclickable) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -69,6 +52,8 @@ public class AdapterProductList extends CursorAdapter {
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
+        this.clickable = clickable;
+        this.longclickable = longclickable;
         this.cursor = csr;
         setProductOffsets(csr);
     }
@@ -96,11 +81,17 @@ public class AdapterProductList extends CursorAdapter {
 
         mode = "newView";
         this.cursor = csr;
-        return LayoutInflater.from(context).inflate(
+        View rv = LayoutInflater.from(context).inflate(
                 R.layout.productlist,
                 parent,
                 false
         );
+
+        if (fromspinner) {
+            ((TextView) rv.findViewById(R.id.rowind_click)).setText("");
+            ((TextView) rv.findViewById(R.id.rowind_longclick)).setText("");
+        }
+        return rv;
     }
 
     /**************************************************************************
@@ -199,6 +190,7 @@ public class AdapterProductList extends CursorAdapter {
         } else {
             view.setBackgroundColor(oddrow);
         }
+
         return view;
     }
 
@@ -218,6 +210,10 @@ public class AdapterProductList extends CursorAdapter {
         String productname;
         String storagename;
         String ordertext;
+        String clickablerowindicator =
+                ctxt.getResources().getString(R.string.clickrowindicator);
+        String longclickablerowindicator =
+                ctxt.getResources().getString(R.string.longclickrowindicator);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,
                 msg,
@@ -247,6 +243,22 @@ public class AdapterProductList extends CursorAdapter {
         nametv.setText(productname);
         storagetv.setText(storagename);
         ordertv.setText(ordertext);
+
+        if (!clickable || fromspinner) {
+            clickablerowindicator = "";
+        }
+        if (!longclickable || fromspinner) {
+            longclickablerowindicator = "";
+        }
+
+        ((TextView) view.findViewById(
+                R.id.rowind_click)).setText(
+                clickablerowindicator);
+        ((TextView) view.findViewById(
+                R.id.rowind_longclick)).setText(
+                longclickablerowindicator
+        );
+
         msg = "Set Product=" + productname;
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,

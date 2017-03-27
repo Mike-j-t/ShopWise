@@ -20,6 +20,8 @@ class AdapterShopList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    private boolean clickable;
+    private boolean longclickable;
     private Cursor cursor;
 
     private int shops_shopid_offset = -1;
@@ -35,27 +37,6 @@ class AdapterShopList extends CursorAdapter {
 
 
     /**
-     * AdapterShopList Constructor - shortform for ListView only
-     *
-     * @param context     the context
-     * @param csr         the csr
-     * @param flags       the flags
-     * @param intent      the intent
-     */
-    AdapterShopList(Context context, Cursor csr, int flags, Intent intent) {
-        super(context, csr, 0);
-        String msg = "Constructing";
-        String methodname = "Construct";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        this.ctxt = context;
-        this.cursor = csr;
-        this.callerintent = intent;
-        this.fromspinner = false;
-        setShopOffsets(csr);
-
-    }
-
-    /**
      * AdapterShopList Constructor - longform for Spinner and ListView
      *
      * @param context       the context
@@ -68,7 +49,9 @@ class AdapterShopList extends CursorAdapter {
                     Cursor csr,
                     int flags,
                     Intent intent,
-                    boolean fromspinner) {
+                    boolean fromspinner,
+                    boolean clickable,
+                    boolean longclickable) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -76,6 +59,8 @@ class AdapterShopList extends CursorAdapter {
         ctxt = context;
         callerintent = intent;
         this.fromspinner = fromspinner;
+        this.clickable = clickable;
+        this.longclickable = longclickable;
         this.cursor = csr;
         setShopOffsets(csr);
     }
@@ -93,11 +78,16 @@ class AdapterShopList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         this.cursor = csr;
-        return LayoutInflater.from(context).inflate(
+        View rv = LayoutInflater.from(context).inflate(
                 R.layout.shoplist,
                 parent,
                 false
         );
+        if (fromspinner) {
+            ((TextView) rv.findViewById(R.id.rowind_click)).setText("");
+            ((TextView) rv.findViewById(R.id.rowind_longclick)).setText("");
+        }
+        return rv;
     }
 
     /**
@@ -134,6 +124,8 @@ class AdapterShopList extends CursorAdapter {
         if (fromspinner) {
             view = View.inflate(ctxt,R.layout.shoplist,null);
             view.setBackgroundResource(R.drawable.textviewborder);
+            //((TextView) view.findViewById(R.id.rowind_click)).setText("");
+            //((TextView) view.findViewById(R.id.rowind_longclick)).setText("");
             int evenrow = ActionColorCoding.setHeadingColor(ctxt,
                     callerintent,
                     ActionColorCoding.getColorsPerGroup() - 1) &
@@ -190,8 +182,17 @@ class AdapterShopList extends CursorAdapter {
      */
     private View initView(View view, Cursor cursor) {
         String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+        String clickablerowind =
+                ctxt.getResources().getString(R.string.clickrowindicator);
+        String longclickablerowind =
+                ctxt.getResources().getString(R.string.longclickrowindicator);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                msg,
+                THISCLASS,
+                methodname);
 
         TextView nametv = (TextView) view.findViewById(R.id.shoplist_name);
         TextView citytv = (TextView) view.findViewById(R.id.shoplist_city);
@@ -212,6 +213,20 @@ class AdapterShopList extends CursorAdapter {
                 " Order=" + ordertv.getText().toString();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
+        if (!clickable || fromspinner) {
+            clickablerowind = "";
+        }
+        if (!longclickable || fromspinner) {
+            longclickablerowind = "";
+        }
+        ((TextView) view.findViewById(
+                R.id.rowind_click)).setText(
+                        clickablerowind
+        );
+        ((TextView) view.findViewById(
+                R.id.rowind_longclick)).setText(
+                        longclickablerowind
+        );
         return view;
     }
 
