@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Mike092015 on 7/01/2017.
+ * Rule Add or Edit Activity
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
@@ -631,9 +631,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
         Emsg emsg;
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.STANDARD_DDMMYYY_FORMAT);
-        Date d = new Date(0);
-        long ruledate = 0;
-        int period = 0;
+        Date d;
+        long ruledate;
+        int period;
 
         String newrulename = rulename_input.getText().toString();
         if (newrulename.length() < 1) {
@@ -759,8 +759,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
     }
 
     /**************************************************************************
-     * @param id
-     * @return
+     * @param id Shopid
+     * @return the setup adapter
      */
     public AdapterShopList setupShopSelectSpinner(long id) {
         String logmsg = "Invoked";
@@ -792,8 +792,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
     }
 
     /**************************************************************************
-     * @param id
-     * @return
+     * @param id Aisleid
+     * @return the setup adapter
      */
     public AdapterAisleList setupAisleSelectSpinner(long id) {
         String logmsg = "Invoked";
@@ -842,8 +842,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
     }
 
     /**************************************************************************
-     * @param id
-     * @return
+     * @param id the product id
+     * @return the setup adapter
      */
     public AdapterProductList setupProductSelectSpinner(long id) {
         String logmsg = "Invoked";
@@ -872,7 +872,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @return
+     * @return the setup adapter
      */
     public AdapterRulePeriodList setupRulePeriodSpinner() {
         String logmsg = "Invoked";
@@ -963,8 +963,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param message
-     * @param flag
+     * @param message the message as a string
+     * @param flag  the flag
      */
     public void setMessage(String message,
                            @SuppressWarnings("SameParameterValue") boolean flag) {
@@ -1040,7 +1040,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param view
+     * @param view the view that holds the date
      */
     public void rulesAddEditDatePick(View view) {
         String logmsg = "Invoked";
