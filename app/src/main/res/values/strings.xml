@@ -48,6 +48,8 @@
     <string name="ruleslabel">Rules</string>
     <string name="stocklabel">Stock</string>
     <string name="rulelabel">Rule</string>
+    <string name="ruleaddlabel">Rule - Add</string>
+    <string name="ruleeditlabel">Rule - Edit</string>
     <string name="orderlabel">Order</string>
     <string name="orderslabel">Orders</string>
     <string name="noteslabel" tools:ignore="UnusedResources">Notes</string>
@@ -67,6 +69,7 @@
     <string name="actonlabel">Add On</string>
     <string name="promptedruleslabel">Prompted Rules</string>
     <string name="toolslabel">Tools</string>
+    <string name="toolsruleslabel">Tools Rules</string>
     <string name="storagelabel">Storage</string>
     <string name="storageaddlabel">Storage - Add</string>
     <string name="storageeditlabel">Storage - Edit</string>

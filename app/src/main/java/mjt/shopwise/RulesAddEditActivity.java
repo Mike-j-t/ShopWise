@@ -449,6 +449,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (calledmode) {
             case StandardAppConstants.CM_ADD:
+                this.setTitle(getResources().getString(R.string.ruleaddlabel));
                 numbertoget_input.setText("1");
                 ruledate_input.setText(sdf.format(currentdate));
                 rulemultiplier_input.setText("1");
@@ -491,6 +492,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 }
                 break;
             case StandardAppConstants.CM_EDIT:
+                setTitle(getResources().getString(R.string.ruleeditlabel));
                 currentaisleid = getIntent().getLongExtra(
                         StandardAppConstants.INTENTKEY_RULEAISLEID,0);
                 currentproductid = getIntent().getLongExtra(

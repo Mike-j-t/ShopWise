@@ -137,12 +137,8 @@
         <EditText
             android:id="@+id/inputrulename"
             style="@style/inputitem"
-            android:layout_weight="24"
+            android:layout_weight="80"
             android:inputType="text"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="56"
             />
         </LinearLayout>
     <LinearLayout

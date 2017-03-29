@@ -75,7 +75,7 @@
             android:label="@string/backuplabel"
             />
         <activity android:name=".RuleToolsActivity"
-            android:label="@string/ruleslabel"
+            android:label="@string/toolsruleslabel"
             />
         <activity android:name=".RuleSuggestCheckActivity"
             android:label="@string/rulesuggestlist"
