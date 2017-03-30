@@ -494,8 +494,8 @@ public class MainActivity extends AppCompatActivity {
                 filter,
                 order
         );
-        String appvoption ="";
-        String appvorder = "";
+        String appvoption;
+        String appvorder;
         while (mocsr.moveToNext()) {
             appvoption = mocsr.getString(mocsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_TEXT_COL));
             appvorder = mocsr.getString(mocsr.getColumnIndex(DBAppvaluesTableConstants.APPVALUES_INT_COL));

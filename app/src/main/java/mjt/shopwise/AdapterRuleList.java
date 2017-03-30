@@ -250,7 +250,7 @@ public class AdapterRuleList extends CursorAdapter {
                 ctxt,callerintent,2
         ));
         if (csr.getInt(rules_ruleprompt_offset) > 0) {
-            prompt.setText(view.getResources().getString(R.string.no));
+            prompt.setText(view.getResources().getString(R.string.yes));
             prompt.setTextColor(ActionColorCoding.setHeadingColor(
                     ctxt,callerintent,0
             ));
