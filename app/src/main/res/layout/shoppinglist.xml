@@ -48,15 +48,16 @@
             style="@style/listviewrowcol_standard"
             android:layout_weight="6"
             />
+
         <TextView
             android:id="@+id/shoppinglist_productname"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="31.5"
-            />
+            android:layout_weight="31.5" />
+
         <TextView
             android:id="@+id/shoppinglist_numbertoget"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="4"
+            android:layout_weight="8"
             />
         <TextView
             style="@style/listviewrowcol_standard"
@@ -65,7 +66,7 @@
         <TextView
             android:id="@+id/shoppinglist_itemcost"
             style="@style/listviewrowcol_monetary"
-            android:layout_weight="14"
+            android:layout_weight="12"
             />
         <TextView
             style="@style/listviewrowcol_standard"
@@ -74,7 +75,7 @@
         <TextView
             android:id="@+id/shoppinglist_totalcost"
             style="@style/listviewrowcol_monetary"
-            android:layout_weight="14"
+            android:layout_weight="12"
             />
         <TextView
             style="@style/listviewrowcol_standard"
