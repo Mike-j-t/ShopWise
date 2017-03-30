@@ -97,11 +97,11 @@
         <TextView
             android:id="@+id/checklist_orderlevel"
             style="@style/listviewrowcol_standard"
-            android:layout_weight="4"
+            android:layout_weight="8"
             />
         <TextView
             style="@style/listviewrowcol_standard"
-            android:layout_weight="21"
+            android:layout_weight="17"
             />
         <TextView
             android:id="@+id/checklist_checkoff_button"
