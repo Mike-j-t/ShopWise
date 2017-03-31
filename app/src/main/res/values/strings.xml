@@ -150,7 +150,7 @@
     <string name="canceldoes">\u0020returns, doing nothing.</string>
     <string name="rulenametext">#%1$s</string>
     <string name="aislenametext">Aisle=%1$s</string>
-    <string name="ruleastext" tools:ignore="PluralsCandidate">1 per %1$d days(%2$d in %3$d days, 1 per %4$s days)</string>
+    <string name="ruleastext" tools:ignore="PluralsCandidate">%1$d per %2$d days(%3$d in %4$d days, 1 per %5$s days)</string>
     <string name="rulestats" tools:ignore="PluralsCandidate">%1$d per %2$s (1 per %3$s days) Accuracy=%4$s%%</string>
     <string name="minbuydefault">5</string>
     <string name="minperioddefault">30</string>

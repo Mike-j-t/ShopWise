@@ -295,13 +295,18 @@ public class AdapterRuleToolList extends CursorAdapter{
 
 
 
-        Double periodfor1 = realquantityperday;
+        double quantitytoget = 1;
+        double periodfor1 = realquantityperday;
         if (periodfor1 < 1) {
-            periodfor1 = periodfor1 * (1 / periodfor1);
+            periodfor1 = periodfor1 * ((double)1 / periodfor1);
+            quantitytoget = ((double)1 / realquantityperday);
         }
+        Double cnvpf1 = periodfor1;
+        Double cnvqtytoget = quantitytoget + 0.5;
         ruletext.setText(ctxt.getResources().getString(
                 R.string.ruleastext,
-                periodfor1.intValue(),
+                cnvqtytoget.intValue(),
+                cnvpf1.intValue(),
                 csr.getInt(productusage_buycount_offset),
                 csr.getInt(calculated_ruleperiod_offset),
                 df.format(realquantityperday)
