@@ -590,23 +590,6 @@ class DBProductMethods {
                             new String[] { Long.toString(productid)},
                             null,null,null);
 
-                    //TODO Remove commented out code (cover rawquery to query)
-                    /**
-                    String pusql = DBConstants.SQLSELECTALLFROM +
-                            DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                            " LEFT JOIN " +
-                                DBAislesTableConstants.AISLES_TABLE +
-                                " ON " +
-                                    DBAislesTableConstants.AISLES_ID_COL_FULL +
-                                    " = " +
-                                    DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
-                            DBConstants.SQLWHERE +
-                                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                            " = " +
-                            Long.toString(productid) +
-                            DBConstants.SQLENDSTATEMENT;
-                    Cursor pucsr = db.rawQuery(pusql,null);
-                     **/
                     int text = pucsr.getCount();
                     while(pucsr.moveToNext()) {
                         rv.add("Delete STOCK for " +
@@ -627,22 +610,6 @@ class DBProductMethods {
                             new String[] { Long.toString(productid)},
                             null,null,null);
 
-                    //TODO remove commented out code (rawquery converted to query)
-                    /**
-                    String slsql = DBConstants.SQLSELECTALLFROM +
-                            DBShopListTableConstants.SHOPLIST_TABLE +
-                            " LEFT JOIN " + DBAislesTableConstants.AISLES_TABLE +
-                                " ON " +
-                                    DBAislesTableConstants.AISLES_ID_COL_FULL +
-                                " = " +
-                                    DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
-                            DBConstants.SQLWHERE +
-                                DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL +
-                            " = " +
-                            Long.toString(productid) +
-                            DBConstants.SQLENDSTATEMENT;
-                    Cursor slcsr = db.rawQuery(slsql,null);
-                     **/
                     while (slcsr.moveToNext()) {
                         rv.add("Delete SHOPPING row for " +
                                 productname +
@@ -664,23 +631,6 @@ class DBProductMethods {
                             new String[] { Long.toString(productid)},
                             null, null, null);
 
-                    //TODO Remove ccommented out code (rawquery converted to query)
-                    /**
-                    String rulesql = DBConstants.SQLSELECTALLFROM +
-                            DBRulesTableConstants.RULES_TABLE +
-                            " LEFT JOIN " +
-                                DBAislesTableConstants.AISLES_TABLE +
-                                " ON " +
-                                    DBAislesTableConstants.AISLES_ID_COL_FULL +
-                                    " = " +
-                                    DBRulesTableConstants.RULES_AISLEREF_COL_FULL +
-                            DBConstants.SQLWHERE +
-                                DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL +
-                                " = " +
-                                Long.toString(productid) +
-                            DBConstants.SQLENDSTATEMENT;
-                    Cursor rulecsr = db.rawQuery(rulesql,null);
-                     **/
                     while (rulecsr.moveToNext()) {
                         rv.add(
                                 "Delete Rule " +

@@ -25,7 +25,7 @@ import android.util.Log;
  *              <message> is the supplied message
  *
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "MethodNameSameAsClassName"})
 public class LogMsg{
 
     /**

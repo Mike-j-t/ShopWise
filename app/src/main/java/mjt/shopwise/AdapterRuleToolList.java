@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by Mike on 21/02/2017.
+ * Listview adpater for RuleTools (Rule Suggestion and Rule Accuracy)
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
@@ -99,7 +99,7 @@ public class AdapterRuleToolList extends CursorAdapter{
 
     AdapterRuleToolList(Context context,
                         Cursor csr,
-                        @SuppressWarnings("SameParameterValue") int flags,
+                        @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags,
                         Intent intent,
                         @SuppressWarnings("SameParameterValue") boolean fromspinner,
                         int mode) {
@@ -121,21 +121,6 @@ public class AdapterRuleToolList extends CursorAdapter{
                 disabledmode = true;
                 break;
         }
-        setRuleToolOffsets(csr);
-    }
-
-    AdapterRuleToolList(Context context,
-                        Cursor csr,
-                        int flags,
-                        Intent intent,
-                        int mode) {
-        super(context, csr, 0);
-        String logmsg = "Constructing";
-        String methodname = "Construct";
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        this.ctxt = context;
-        this.callerintent = intent;
-        this.fromspinner = false;
         setRuleToolOffsets(csr);
     }
 
@@ -194,9 +179,10 @@ public class AdapterRuleToolList extends CursorAdapter{
     }
 
     public void bindView(View view, Context ccontext, Cursor csr) {
-        view = initView(view, csr);
+        initView(view, csr);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private View initView(View view, Cursor csr) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -264,16 +250,6 @@ public class AdapterRuleToolList extends CursorAdapter{
                     RulePeriodAsString(ruleperiodasint,rulemultiplierasint),
                     df.format(rulequantityperday),
                     df.format(ruleaccuracy)));
-            /**
-            currentrule.setText(csr.getInt(csr.getColumnIndex(
-                    DBRulesTableConstants.RULES_USES_COL)) +
-                    " per " + RulePeriodAsString(ruleperiodasint,rulemultiplierasint) +
-                    "(1 per " +
-                    df.format(rulequantityperday) +
-                    " days) Accuracy=" +
-                    df.format(ruleaccuracy)
-            );
-             **/
             accuracylow.setProgress(100);
             accuracyhigh.setProgress(0);
             if (ruleaccuracy < 100) {
@@ -288,12 +264,9 @@ public class AdapterRuleToolList extends CursorAdapter{
 
         productname.setText(csr.getString(product_name_offset));
         shopname.setText(csr.getString(shop_name_offset));
-        //aislename.setText(" from aisle " + csr.getString(aisle_name_offset));
         aislename.setText(ctxt.getResources().getString(
                 R.string.aislenametext,
                 csr.getString(aisle_name_offset)));
-
-
 
         double quantitytoget = 1;
         double periodfor1 = realquantityperday;
@@ -311,16 +284,6 @@ public class AdapterRuleToolList extends CursorAdapter{
                 csr.getInt(calculated_ruleperiod_offset),
                 df.format(realquantityperday)
         ));
-
-        /**
-        ruletext.setText("1 per " + Integer.toString(periodfor1.intValue()) + " days (" +
-                csr.getInt(productusage_buycount_offset) + " in " +
-                csr.getInt(calculated_ruleperiod_offset) + " days,1 per " +
-                df.format((realquantityperday)) +
-                " days)"
-        );
-         **/
-
         return view;
     }
 
@@ -417,9 +380,9 @@ public class AdapterRuleToolList extends CursorAdapter{
     }
 
     /**
-     * Convert the ruleperion into the number of days
-     * @param rp
-     * @return
+     * Convert the ruleperiod into the number of days
+     * @param   rp  The rule period to be converted
+     * @return      The number of days the period eaustes to
      */
     private double RulePeriodAsDays(int rp) {
         int rv;

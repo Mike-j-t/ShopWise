@@ -570,6 +570,7 @@ public class BackupActivity extends AppCompatActivity {
                     String msg = "Restore failed. Recovering DB after failed restore from backup";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
                     File rcvdbfile = new File(copydbfilename);
+                    //noinspection ResultOfMethodCallIgnored
                     rcvdbfile.renameTo(dbfile);
 
                     msg = "Restore failed. DB Recovered from backup now in original state.";

@@ -3,7 +3,6 @@ package mjt.shopwise;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,9 @@ public class AdapterProductList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    @SuppressWarnings("CanBeFinal")
     private boolean clickable;
+    @SuppressWarnings("CanBeFinal")
     private boolean longclickable;
     private Cursor cursor;
     @SuppressWarnings("unused")

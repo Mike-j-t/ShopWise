@@ -208,13 +208,14 @@ public class AdapterShoppingList extends CursorAdapter {
         shopcity.setText(csr.getString(shop_city_offset));
         aislename.setText(csr.getString(aisle_name_offset));
         productcost.setText(NumberFormat.getCurrencyInstance().format(csr.getDouble(productusage_cost_offest)));
-        numbertoget.setText(csr.getString(shoplist_numbertoget_offset));
+        int numberrequired = csr.getInt(shoplist_numbertoget_offset) - csr.getInt(shoplist_done_offset);
+        numbertoget.setText(Integer.toString(numberrequired));
         totalcost.setText(NumberFormat.getCurrencyInstance().format(csr.getDouble(calculated_totalcost_offset)));
 
         /**
          * Checkoff if numbertoget is 0
          */
-        if (csr.getInt(shoplist_numbertoget_offset) == 0 ) {
+        if (numberrequired < 1 ) {
             productname.setTextColor(white);
             productcost.setTextColor(white);
             numbertoget.setTextColor(white);

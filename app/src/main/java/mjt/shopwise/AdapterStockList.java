@@ -21,8 +21,11 @@ public class AdapterStockList extends CursorAdapter {
 
     private final Intent callerintent;
     private final Context ctxt;
+    @SuppressWarnings("CanBeFinal")
     private boolean fromspinner;
+    @SuppressWarnings("CanBeFinal")
     private boolean clickable;
+    @SuppressWarnings("CanBeFinal")
     private boolean longclickable;
     private Cursor cursor;
 
@@ -60,12 +63,12 @@ public class AdapterStockList extends CursorAdapter {
 
     AdapterStockList(Context context,
                      Cursor csr,
-                     @SuppressWarnings("SameParameterValue")
+                     @SuppressWarnings({"SameParameterValue", "UnusedParameters"})
                              int flags,
                      Intent intent,
                      @SuppressWarnings("SameParameterValue") boolean fromspinner,
-                     boolean clickable,
-                     boolean longclickable) {
+                     @SuppressWarnings("SameParameterValue") boolean clickable,
+                     @SuppressWarnings("SameParameterValue") boolean longclickable) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

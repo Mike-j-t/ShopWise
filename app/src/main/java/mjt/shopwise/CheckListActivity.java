@@ -13,7 +13,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 27/12/2016.
+ * CheckList Activity - Display the Checklist allowing Shopping List
+ * entries to be added adjusted
+ *
+ * The CheckTist displays Stock that has been marked as appearing in the
+ * checklist.
+ * If the item is the first in the Storage location then the Storage
+ * location is showsn as a header (i.e. once per location).
+ * Each row will then display
+ *      the Product, the Shop, the Aisle and the Price (1st row per item)
+ *      the Level, the # in the Shopping List and buttons (last row per item)
+ *      Buttons will be Check-off, ADD and LESS unless checked-off when only
+ *      the UNCHECK button is shown.
+ *      Check-off markes the item as checked-off
+ *      ADD will add 1 of the item to the Shopping list.
+ *      LESS wil subtract 1 of the item from the Shopping List unless the
+ *          quantity is 0 (i.e. Shopping List can't have negative quantity).
+ *      UNCHECK will revert a checked-off item to not being checked-off.
+ *
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
@@ -421,41 +438,6 @@ public class CheckListActivity extends AppCompatActivity {
      */
     @SuppressWarnings("unused")
     public void sortClick(View view) {
-        String msg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        lastmessage = getResources().getString(R.string.stocklabel) +
-                " in Shop/Aisle sorted by ";
-        switch (view.getId()) {
-            case R.id.checklist_checklist_heading_productname:
-                getOrderBy(PRODUCTNAME_FULLCOLUMN,BYPRODUCT);
-                lastmessage = lastmessage + " PRODUCT NAME (";
-                break;
-            case R.id.checklist_checklist_heading_shopname:
-                getOrderBy(SHOPNAME_FULLCOLUMN,BYSHOP);
-                lastmessage = lastmessage + "  SHOP NAME (";
-                break;
-            case R.id.checklist_checklist_heading_aislename:
-                getOrderBy(AISLENAME_FULLCOLUMN,BYAISLE);
-                lastmessage = lastmessage + " AISLE (";
-                break;
-            case R.id.checklist_checklist_heading_cost:
-                getOrderBy(PRODUCTUSAGECOST_FULLCOLUMN,BYPRICE);
-                lastmessage = lastmessage + " PRICE (";
-                break;
-            default:
-                break;
-        }
-        if (sortchanged) {
-            clcsr = dbpumethods.getCheckList(filter,orderby);
-            checklistadapater.swapCursor(clcsr);
-            if (ordertype) {
-                lastmessage = lastmessage + "ascending)";
-            } else {
-                lastmessage = lastmessage + "descending)";
-            }
-            setMessage(this,lastmessage,false);
-        }
     }
     /**************************************************************************
      * getOrderBy - Generate the new ORDEY BY sql (ORDER BY already exists)

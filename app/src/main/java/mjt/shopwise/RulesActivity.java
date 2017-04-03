@@ -720,7 +720,7 @@ public class RulesActivity extends AppCompatActivity {
      *
      * @param values the values
      */
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "EmptyMethod"})
     public void doNothing(RequestDialogParameters values) {
     }
 

@@ -187,6 +187,7 @@ class ActionColorCoding {
      *                  passedoption % primarycolors.length
      * @param checkBox  the id of the checkbox that is to be set.
      */
+    @SuppressWarnings("UnusedParameters")
     static void setCheckBoxAccent(
             Context context,
             Intent intent,
@@ -243,6 +244,7 @@ class ActionColorCoding {
      * @param offset  The offset into the shades (0 = primary)
      * @return respective color as int
      */
+    @SuppressWarnings("UnusedParameters")
     public static int setHeadingColor(
             Context context,
             Intent intent,
@@ -255,10 +257,7 @@ class ActionColorCoding {
         );
         //Calculate how many shades per color
         int colorspergroup = allcolors.length / primarycolors.length;
-        /**
-         * offset can be a maximum of the number of colors per group
-         *  (less 1 as it is an offest).
-         */
+        // Correct offset (max is number of colours per group -1)
         if (offset > (colorspergroup -1)) {
             offset = colorspergroup -1;
         }
@@ -278,7 +277,7 @@ class ActionColorCoding {
      *
      * @param primaryoption the primary colour code
      * @param offset        offset to the shade
-     * @return
+     * @return              colour as int
      */
     public static int setHeadingColor(int primaryoption, int offset) {
         int colourspergroup = allcolors.length / primarycolors.length;
@@ -316,6 +315,7 @@ class ActionColorCoding {
      * @param intent    The intent from the invoking activity
      * @param actionbar The ActionBar from the invoking activity
      */
+    @SuppressWarnings("UnusedParameters")
     static void setActionBarColor(
             Context context,
             Intent intent,
