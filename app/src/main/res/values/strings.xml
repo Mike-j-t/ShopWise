@@ -165,17 +165,6 @@
     <string name="minbuyinfo">At least this number must have been purchased</string>
     <string name="minperiodinfo">At least this many days between first and last purchase</string>
 
-    <string name="stockedproduct_edit_note1">Note! after Saving, the Product Selector is changed to another product\u0020
-                (stocked products, on a per aisle basis, are not selectable)\u0020
-                and the inputs are set to default values.\u0020
-                Selecting a Shop, Aisle or Product will also result in the inputs being reset to the defaults.
-    </string>
-
-    <string name="stockedproduct_edit_note2">Note! <b>when Editting</b>, the Product selection shows all Products
-                (stocked products that are normally excluded are included temporarilly).\u0020
-                If a stocked item is selected, the selected Product will be a Product that is not already stocked
-                (this purposefully restricts the potential to add duplicates).
-    </string>
     <string name="backupoverview">
         Database backup and restore.
     </string>

@@ -20,7 +20,9 @@ class AdapterShopList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    @SuppressWarnings("CanBeFinal")
     private boolean clickable;
+    @SuppressWarnings("CanBeFinal")
     private boolean longclickable;
     private Cursor cursor;
 
@@ -47,7 +49,7 @@ class AdapterShopList extends CursorAdapter {
      */
     AdapterShopList(Context context,
                     Cursor csr,
-                    int flags,
+                    @SuppressWarnings("UnusedParameters") int flags,
                     Intent intent,
                     boolean fromspinner,
                     boolean clickable,

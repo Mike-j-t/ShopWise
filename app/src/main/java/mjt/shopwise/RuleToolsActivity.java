@@ -187,7 +187,6 @@ public class RuleToolsActivity extends AppCompatActivity{
      *
      * @param view The view (i.e the TextView that was clicked)
      */
-    //TODO working on this to add Suggest and Check, also remove case for backup
     @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String msg = "Invoked";

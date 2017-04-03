@@ -18,7 +18,9 @@ public class AdapterStorageList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    @SuppressWarnings("CanBeFinal")
     private boolean clickable;
+    @SuppressWarnings("CanBeFinal")
     private boolean longclickable;
     private Cursor cursor;
 
@@ -32,7 +34,7 @@ public class AdapterStorageList extends CursorAdapter {
 
     AdapterStorageList(Context context,
                        Cursor csr,
-                       @SuppressWarnings("SameParameterValue") int flags,
+                       @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags,
                        Intent intent,
                        boolean fromspinner,
                        boolean clickable,

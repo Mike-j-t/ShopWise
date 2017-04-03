@@ -44,6 +44,7 @@ public class AdapterAisleList extends CursorAdapter{
      * @param intent        the intent, used for
      * @param fromspinner   true if used in a spinner
      */
+    @SuppressWarnings("UnusedParameters")
     AdapterAisleList(Context context,
                      Cursor csr,
                      int flags,
@@ -102,7 +103,7 @@ public class AdapterAisleList extends CursorAdapter{
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        view = initView(view, csr);
+        initView(view, csr);
 
     }
 

@@ -67,7 +67,7 @@ public class AdapterPromptedRuleList extends CursorAdapter {
     @SuppressLint("SimpleDateFormat")
     private final SimpleDateFormat sdf = new SimpleDateFormat(StandardAppConstants.EXTENDED_DATE_FORMAT);
 
-    AdapterPromptedRuleList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
+    AdapterPromptedRuleList(Context context, Cursor csr, @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags, Intent intent) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -78,7 +78,7 @@ public class AdapterPromptedRuleList extends CursorAdapter {
         setRuleOffsets(csr);
     }
 
-    AdapterPromptedRuleList(Context context, Cursor csr, int flags, Intent intent,
+    AdapterPromptedRuleList(Context context, Cursor csr, @SuppressWarnings("UnusedParameters") int flags, Intent intent,
                             boolean fromspinner) {
         super(context, csr, 0);
         String msg = "Constructing";
@@ -123,7 +123,7 @@ public class AdapterPromptedRuleList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
-        View view = convertview;
+        @SuppressWarnings("UnnecessaryLocalVariable") View view = convertview;
         if (fromspinner) {
 
         }

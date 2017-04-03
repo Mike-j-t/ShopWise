@@ -27,7 +27,9 @@ public class AdapterRuleList extends CursorAdapter {
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
+    @SuppressWarnings("CanBeFinal")
     private boolean clickable;
+    @SuppressWarnings("CanBeFinal")
     private boolean longclickable;
     private Cursor cursor;
 
@@ -80,9 +82,9 @@ public class AdapterRuleList extends CursorAdapter {
      */
     AdapterRuleList(Context context,
                     Cursor csr,
-                    int flags,
+                    @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags,
                     Intent intent,
-                    boolean fromspinner,
+                    @SuppressWarnings("SameParameterValue") boolean fromspinner,
                     boolean clickable,
                     boolean longclickable) {
         super(context, csr, 0);
@@ -137,7 +139,7 @@ public class AdapterRuleList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
-        View view = convertview;
+        @SuppressWarnings("UnnecessaryLocalVariable") View view = convertview;
         if (fromspinner) {
 
         }

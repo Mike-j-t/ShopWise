@@ -3,13 +3,14 @@ package mjt.shopwise;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
- * Created by Mike092015 on 18/12/2016.
+ * Shoplist Database Methods
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal"})
@@ -57,15 +58,15 @@ public class DBShopListMethods {
 
     /**************************************************************************
      * return true of the last shoplistentry was added ok, esle false
-     * @return
+     * @return true is the shoplistentry was added, esle false
      */
     @SuppressWarnings("unused")
     boolean ifShopListEntryAdded() { return lastshoplistaddedok; }
 
     /**************************************************************************
      *
-     * @param shoplistid
-     * @return
+     * @param shoplistid the id of the shoplistentry
+     * @return the cursor containing the shoplist data
      */
     Cursor getShopListEntry(long shoplistid) {
         String msg = "Invoked";
@@ -89,8 +90,8 @@ public class DBShopListMethods {
 
     /**************************************************************************
      *
-     * @param shoplistid
-     * @return
+     * @param shoplistid the id of the shoplistentry to check
+     * @return the id of the shoplistentry
      */
     boolean doesShopListEntryExist(long shoplistid) {
         String msg = "Invoked";
@@ -110,22 +111,22 @@ public class DBShopListMethods {
 
     /**************************************************************************
      *
-     * @return
+     * @return the value of the shoplistupdated flag
      */
     boolean ifShopListEntryUpdated() { return lastshoplistupdatedok; }
 
     /**************************************************************************
      *
-     * @return
+     * @return the value of the shoplistadded flag
      */
     @SuppressWarnings("unused")
     boolean ifShopListentryAdded() { return lastshoplistaddedok; }
 
     /**************************************************************************
      *
-     * @param aisleid
-     * @param productid
-     * @return
+     * @param aisleid   the id of the aisle to be checked for
+     * @param productid the id of the product to be checked for
+     * @return          true if the shoplist entry exists, esle false
      */
     boolean doesShopListEntryExist(long aisleid, long productid) {
         String msg = "Invoked";
@@ -152,6 +153,7 @@ public class DBShopListMethods {
         return rv;
     }
 
+
     /**************************************************************************
      * Tidy Shopping List - remove shoppinglist rows that are complete
      *                      i.e. the numbertoget is 0. Effectively this
@@ -161,14 +163,32 @@ public class DBShopListMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int cleancount = 0;
-        String whereargs[] = new String[] {
-                "0"
-        };
+        int cleancount;
         String whereclause = DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL +
-                " = ?";
+                " - " +
+                DBShopListTableConstants.SHOPLIST_DONE_COL +
+                " < 1";
         cleancount = db.delete(DBShopListTableConstants.SHOPLIST_TABLE,
-                whereclause,whereargs);
+                whereclause,null);
+        Cursor csr = db.query(DBShopListTableConstants.SHOPLIST_TABLE,null,null,null,null,null,null);
+        while (csr.moveToNext()) {
+            long shopid = csr.getLong(csr.getColumnIndex(
+                    DBShopListTableConstants.SHOPLIST_ID_COL
+            ));
+            int newnumbertoget = csr.getInt(csr.getColumnIndex(
+                    DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL)) -
+                    csr.getInt(csr.getColumnIndex(
+                            DBShopListTableConstants.SHOPLIST_DONE_COL
+                    ));
+            ContentValues cv = new ContentValues();
+            String[] whereargs = new String[] {Long.toString(shopid)};
+            whereclause = DBShopListTableConstants.SHOPLIST_ID_COL + " = ?";
+            cv.put(DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL,newnumbertoget);
+            cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,0);
+            db.update(DBShopListTableConstants.SHOPLIST_TABLE,cv,whereclause,whereargs);
+
+        }
+        csr.close();
         msg = "Tidied " + Integer.toString(cleancount) +
                 " ShoppingList Entries.";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -205,17 +225,17 @@ public class DBShopListMethods {
                 " AS " + DBShopListTableConstants.TOTALSPENT +
                 DBConstants.SQLFROM + "(" +
                 DBConstants.SQLSELECT +
-                "(("+
-                // ((shoplistnumbertoget + shoplistdone) * shoplistcost) AS totalcost,
-                DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL_FULL + " + " +
-                DBShopListTableConstants.SHOPLIST_DONE_COL_FULL + ") * " +
+                "("+
+                // (shoplistnumbertoget * shoplistcost) AS totalcost,
+                DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL_FULL + " *+ " +
                 DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL +
                 ") AS " + DBShopListTableConstants.TOTALCOST + ", " +
 
-                //(shoplistnumbertoget * shoplistcost) AS remainingcost,
-
-                "(" +
-                DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL_FULL + " * " +
+                // ((shoplistnumbertoget - shoplistdone) * shoplistcost) AS remainingcost,
+                "((" +
+                DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL_FULL + " - " +
+                DBShopListTableConstants.SHOPLIST_DONE_COL +
+                ") * " +
                 DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL +
                 ") AS " + DBShopListTableConstants.TOTALREMAINING + ", " +
 
@@ -273,9 +293,9 @@ public class DBShopListMethods {
 
     /**************************************************************************
      *
-     * @param filter
-     * @param orderby
-     * @return
+     * @param filter    the where clause less WHERE
+     * @param orderby   the order clause less ORDER BY
+     * @return          the cursor with the shopping list entries
      */
     Cursor getShopListEntries(String filter, @SuppressWarnings("SameParameterValue") String orderby) {
         String msg = "Invoked";
@@ -410,13 +430,16 @@ public class DBShopListMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         boolean exists = false;
-        int newnumbertoget = 0;
-        int newdone = 0;
+        int newnumbertoget = 0;         // Number to purchase
+        int newshoplistdone = 0;        // Number purchased
         ContentValues cv = new ContentValues();
         lastshoplistupdatedok = false;
         if (doesShopListEntryExist(aisleid, productid)) {
             exists = true;
         }
+        // Shoplist Entry already exists so either increment the numbertoget or
+        //  if the number to get passed is negative then increment the
+        // shoplistdone (number purchased)
         if (exists && incrementifexists) {
             String whereargs[] = new String[] {
                     Long.toString(aisleid),
@@ -433,41 +456,53 @@ public class DBShopListMethods {
                     null,null,null,null);
             // If the Shoplist entry was found then update the ShopList entry
             // Should exist but just in case check
+            boolean updatetodo = false;
             if (csr.getCount() > 0) {
                 csr.moveToFirst();
-                // Calculate the new number to get
-                newnumbertoget = numbertoget +
-                        csr.getInt(csr.getColumnIndex(
-                                DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL)
-                        );
-                // Adjustments for none to get
-                // i.e. if negative make 0 and set DONE flag to done
-                // otherwise use new numbertoget asis but ensure DONE flag is
-                // unset (0).
-                if (newnumbertoget <= 0) {
-                    newnumbertoget = 0;
-                    if (adjustdone) {
-                        cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,1);
-                    }
-                } else {
-                    if (adjustdone) {
-                        cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,0);
+                // Calculate the new number to get if positive and greater than 0
+                //      i.e. need to increment the number to get
+                if (numbertoget > 0) {
+                    newnumbertoget = numbertoget +
+                            csr.getInt(csr.getColumnIndex(
+                                    DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL
+                            ));
+                    cv.put(DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL,newnumbertoget);
+                    updatetodo = true;
+                }
+                if ((numbertoget < 0) && adjustdone) {
+                    newshoplistdone = (0 - numbertoget) +
+                            csr.getInt(csr.getColumnIndex(
+                                    DBShopListTableConstants.SHOPLIST_DONE_COL
+                            ));
+                    cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,newshoplistdone);
+                    updatetodo = true;
+                }
+                if ((numbertoget < 0) && !adjustdone) {
+                    newnumbertoget = numbertoget +
+                            csr.getInt(csr.getColumnIndex(
+                                    DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL
+                            ));
+                    if (newnumbertoget >= 0) {
+                        cv.put(DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL, newnumbertoget);
+                        updatetodo = true;
                     }
                 }
             }
             // Done with the cursor so close it
             csr.close();
-            // Prepare to and update the Shoppinglist entry
-            cv.put(DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL,newnumbertoget);
-            lastshoplistupdatedok = db.update(
-                    DBShopListTableConstants.SHOPLIST_TABLE,
-                    cv, whereclause, whereargs) > 0;
-            msg = "ShoppingList Entry AisleID=" + Long.toString(aisleid) +
-                    " ProductID=" + Long.toString(productid) +
-                    " Updated=" + Boolean.toString(lastshoplistupdatedok);
-            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+            if (updatetodo) {
+                lastshoplistupdatedok = db.update(
+                        DBShopListTableConstants.SHOPLIST_TABLE,
+                        cv, whereclause, whereargs) > 0;
+                msg = "ShoppingList Entry AisleID=" + Long.toString(aisleid) +
+                        " ProductID=" + Long.toString(productid) +
+                        " Updated=" + Boolean.toString(lastshoplistupdatedok);
+                LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL, LOGTAG, msg, THISCLASS, methodname);
+            }
         }
-        if (!exists) {
+        // If the Shoplist Entry does not exist then need to add a new entry
+        // but only if the numbertoget is positive and greater than 0
+        if ((!exists) && numbertoget > 0 ) {
             lastshoplistaddedok = false;
             cv.put(DBShopListTableConstants.SHOPLIST_AISLEREF_COL,aisleid);
             cv.put(DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL,productid);

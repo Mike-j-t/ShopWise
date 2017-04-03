@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 
 /**
- * Created by Mike092015 on 29/12/2016.
+ * Shopping Activity
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})

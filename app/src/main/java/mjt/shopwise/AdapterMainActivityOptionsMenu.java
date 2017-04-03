@@ -64,7 +64,7 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
      * @param csr     the csr
      * @param flags   the flags
      */
-    AdapterMainActivityOptionsMenu(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent) {
+    AdapterMainActivityOptionsMenu(Context context, Cursor csr, @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags, Intent intent) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";

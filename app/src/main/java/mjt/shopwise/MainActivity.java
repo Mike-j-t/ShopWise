@@ -96,22 +96,14 @@ public class MainActivity extends AppCompatActivity {
         dbrulemethods = new DBRuleMethods(this);
         dbshoplistmethods = new DBShopListMethods(this);
         dbstoragemethods = new DBStorageMethods(this);
-        /**
-         * Expand the Database if necessary
-         * i.e. allows addition of columns and tables. This being based upon
-         * a comparison of the DataBase schema against the actual Database
-         * (see
-         */
+
+        // Expand the database
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "expanding Database (if required)", this, methodname);
         db.expand(null, true);
         getDBCounts();
 
-        /**
-         * Setup Color coding i.e. Load colors from Appvalues Table. If they
-         *  do not exist then default colors are genereated and stored in the
-         *  Appvalues table. Also force a store of values to enforce any updates.
-         */
+        // Setup Colour Coding
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Preparing Colour Coding", this, methodname);
         ActionColorCoding acc = ActionColorCoding.getInstance(this);
@@ -121,10 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 "Setting Layout", this, methodname);
         setContentView(R.layout.activity_main);
 
-        /**
-         * Prepare to use a ListView as the Main Options Menu and then build
-         * the options menu (do twice to fully resolve any menu changes)
-         */
+        // Prepare ListView for Main Options menu
         options_listview = (ListView) this.findViewById(R.id.activity_main_OptionsMenu);
 
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
@@ -247,12 +236,8 @@ public class MainActivity extends AppCompatActivity {
     private void buildMenu() {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
-        //getDBCounts();
 
-        /**
-         * Menu Options String definitions
-         */
-
+        // Set Menu Options Strings
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Setting Option String definitions", this, methodname);
         String include_shops = "(" +
@@ -285,23 +270,15 @@ public class MainActivity extends AppCompatActivity {
         String include_storage = "( " +
                 DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
                 " = '" + STORAGEAPPVALNAME + "') ";
-        /**
-        String filter =
-                DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
-                        " = '" + MENUOPTIONS + "' " +
-                        DBConstants.SQLAND;
-         **/
+
+        // Determine Options to display
+        // If no data then show SHOPS, STORAGE and TOOLS
+        // If 1 or more Shops then show AISLES
+        // if 1 or more Storage locations then show PRODUCTS
+        // if 1 or more Aisles and  1 or more products then show STOCK
+        // if 1 or more Stock then show ORDER, CHECKLIST, SHOPPING and RULES
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Determening Options to use", this, methodname);
-
-        /**
-         * Inclusion/visiblity of menuoption logic
-         * If no data at all then show Shops, Storage, Products and Tools
-         * If 1 or more Shops then add Aisles
-         * If at least 1 Shop, Product and Aisle then also show Stock
-         * It at least 1 stocked product (i.e. product assigned to an aisle)
-         * then show all others (even though they may show nothing)
-         */
         String filter = "(" +
                 include_shops +
                 DBConstants.SQLOR + include_storage +
