@@ -280,6 +280,7 @@ class DBAisleMethods {
                     filter,
                     "");
             if (csr.getCount() > 0) {
+                csr.moveToFirst();
                 rv = csr.getString(
                         csr.getColumnIndex(
                                 DBAislesTableConstants.AISLES_NAME_COL

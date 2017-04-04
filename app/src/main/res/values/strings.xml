@@ -44,6 +44,8 @@
     <string name="productnamelabel">Product Name</string>
     <string name="productsaddlabel">Products - Add</string>
     <string name="productseditlabel">Products - Edit</string>
+    <string name="purchasedlabel">Purchased</string>
+    <string name="remaininglabel">Remaining</string>
     <string name="costlabel">Price</string>
     <string name="ruleslabel">Rules</string>
     <string name="stocklabel">Stock</string>

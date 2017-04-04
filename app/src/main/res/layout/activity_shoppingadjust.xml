@@ -102,8 +102,7 @@
     <LinearLayout
         android:id="@+id/shoppingadjust_originalQuantity"
         style="@style/listview_heading_standard"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="@dimen/listview_vertical_padding_normal">
+        android:layout_marginTop="0dp">
         <TextView
             style="@style/listviewrowcol_standard"
             android:layout_weight="4"
@@ -116,6 +115,28 @@
             />
         <TextView
             android:id="@+id/shoppingadjust_orig_quantity"
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="78.5"
+            android:textStyle="normal"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/shoppingadjust_originalPurchased"
+        style="@style/listview_heading_standard"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="@dimen/listview_vertical_padding_normal">
+        <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="4"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_orig_purchased_lbl"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/purchasedlabel"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_orig_purchased"
             style="@style/listviewrowcol_standard"
             android:layout_weight="78.5"
             android:textStyle="normal"
@@ -185,8 +206,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/listview_vertical_padding_normal">
+        android:layout_height="wrap_content">
         <TextView
             style="@style/listviewrowcol_standard"
             android:layout_weight="4"
@@ -198,6 +218,43 @@
             android:text="@string/quantitylabel"/>
         <EditText
             android:id="@+id/shoppingadjust_inputquantity"
+            style="@style/inputitem_order"
+            android:layout_weight="14"/>
+        <TextView
+            style="@style/inputitemlabel"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_inputremaining_label"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/remaininglabel"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_inputremaining"
+            style="@style/inputitemlabel"
+            android:layout_weight="14"
+            />
+        <TextView
+            style="@style/inputitemlabel"
+            android:layout_weight="31"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/listview_vertical_padding_normal">
+        <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="4"
+            />
+        <TextView
+            android:id="@+id/shoppingadjust_inputpurchased_label"
+            style="@style/inputitemlabel"
+            android:layout_weight="17.5"
+            android:text="@string/purchasedlabel"/>
+        <EditText
+            android:id="@+id/shoppingadjust_inputpurchased"
             style="@style/inputitem_order"
             android:layout_weight="14"/>
         <TextView

@@ -48,6 +48,34 @@ class DBShopMethods {
     }
 
     /**************************************************************************
+     *
+     * @param shopid    The shop's id
+     * @return          The name of the shop
+     */
+    String getShopName(long shopid) {
+        String rv = "";
+        String[] whereargs = new String[]{Long.toString(shopid)};
+        String whereclause = DBShopsTableConstants.SHOPS_ID_COL +
+                " = ?";
+        Cursor csr = db.query(DBShopsTableConstants.SHOPS_TABLE,
+                null,
+                whereclause,
+                whereargs,
+                null,
+                null,
+                null
+        );
+        if (csr.getCount() > 0) {
+            csr.moveToFirst();
+            rv = csr.getString(csr.getColumnIndex(
+                    DBShopsTableConstants.SHOPS_NAME_COL
+            ));
+        }
+        csr.close();
+        return rv;
+    }
+
+    /**************************************************************************
      * getLastShopAdded - return the id of the last shop added
      *
      * @return shopid last shop added
