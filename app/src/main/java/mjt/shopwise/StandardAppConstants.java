@@ -118,6 +118,7 @@ public class StandardAppConstants{
     @SuppressWarnings("unused")
     public static final String INTENTKEY_PUCHECKLISTCOUNT = "ik_puchecklistcount";
     public static final String INTENTKEY_SHOPLISTQUANTITY = "ik_slquantity";
+    public static final String INTENTKEY_SHOPLISTPURCHASED = "ik_slpurchased";
     public static final String INTENTKEY_RULEID = "ik_ruleid";
     public static final String INTENTKEY_RULENAME = "ik_rulename";
     public static final String INTENTKEY_RULEPRODUCTREF = "ik_ruleprodictref";

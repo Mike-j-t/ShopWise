@@ -526,6 +526,59 @@ public class DBShopListMethods {
     }
 
     /**************************************************************************
+     *
+     * @param aisleid       The id of the aisle
+     * @param productid     The id of the product
+     * @param purchased     The new value for how many have been purchased
+     */
+    void adjustPurchased(long aisleid, long productid, int purchased) {
+        String msg = "Invoked";
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                msg,
+                THISCLASS,
+                methodname
+        );
+        long shopref = new DBAisleMethods(context).getOwningShop(aisleid);
+        String shopname = new DBShopMethods(context).getShopName(shopref);
+        String aislename = new DBAisleMethods(context).getAisleName(aisleid);
+        String productname = new DBProductMethods(context).getProductName(productid);
+        String[] whereargs = new String[]{
+                Long.toString(aisleid),
+                Long.toString(productid)};
+        String whereclause = DBShopListTableConstants.SHOPLIST_AISLEREF_COL +
+                " = ? AND " +
+                DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL + " = ? ";
+        ContentValues cv = new ContentValues();
+        cv.put(DBShopListTableConstants.SHOPLIST_DONE_COL,Integer.toString(purchased));
+        lastshoplistupdatedok = false;
+        int updatecount = db.update(DBShopListTableConstants.SHOPLIST_TABLE,cv,whereclause,whereargs);
+        if (updatecount > 0) {
+            lastshoplistupdatedok = true;
+        }
+        String logmsg = "Update of shoplistdone (number purchased) for Shop" +
+                shopname +
+                " (ID=" +
+                Long.toString(shopref) +
+                ") Aisle " +
+                aislename +
+                " (ID=" +
+                Long.toString(aisleid) +
+                ") Product " +
+                productname +
+                " (ID=" + Long.toString(productid) +
+                ") was " + Boolean.toString(lastshoplistupdatedok);
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname
+        );
+    }
+
+    /**************************************************************************
      * shopListEntryDeleteImpact
      *      report on the impact of what rows would be deleted based upon
      *      a stcked item (productusage) being deleted.

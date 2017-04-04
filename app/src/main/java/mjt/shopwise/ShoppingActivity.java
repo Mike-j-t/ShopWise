@@ -394,7 +394,7 @@ public class ShoppingActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /**************************************************************************
      * Check for Prompted Rules, if any invoked PromptedRulesActivity
      */
     public void doPromptedRules() {
@@ -455,6 +455,10 @@ public class ShoppingActivity extends AppCompatActivity {
         intent.putExtra(StandardAppConstants.INTENTKEY_SHOPLISTQUANTITY,
                 slcsr.getInt(
                         slcsr.getColumnIndex(SHOPLISTNUMBERTOGET_COLUMN)
+                ));
+        intent.putExtra(StandardAppConstants.INTENTKEY_SHOPLISTPURCHASED,
+                slcsr.getInt(
+                        slcsr.getColumnIndex(SHOPLISTDONE_COLUMN)
                 ));
         intent.putExtra(StandardAppConstants.INTENTKEY_PRODUCTNAME,
                 slcsr.getString(

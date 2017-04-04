@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Shopping List Entry Adjustment Activity Invoke when clicking on a
+ * Shopping List Entry Adjustment Activity Invoked when clicking on a
  * Adjust button on the Shopping List
  */
 
@@ -71,30 +71,35 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
     TextView lessbutton;
     TextView orig_productname_tv;
     TextView orig_quantity_tv;
+    TextView orig_purchased_tv;
     TextView orig_cost_tv;
     TextView orig_total_tv;
     EditText new_cost_et;
     EditText new_quantity_et;
+    TextView new_remaining_et;
+    EditText new_purchased_et;
     EditText new_productname_et;
     TextView new_productname_lbl;
     TextView new_cost_lbl;
     TextView new_quantity_lbl;
+    TextView new_purchased_lbl;
+    TextView new_remaining_lbl;
     TextView orig_productname_lbl;
     TextView orig_quantity_lbl;
+    TextView orig_purchased_lbl;
     TextView orig_cost_lbl;
     TextView orig_total_lbl;
-
 
     long orig_aisleid = 0;
     long orig_productid = 0;
     String orig_productname;
     double orig_cost;
     int orig_quantity;
+    int orig_purchased;
+    int saved_purchased;
     String saved_productname = "";
     double saved_cost = -1;
     int saved_quantity = -1;
-
-
 
     @SuppressWarnings("unused")
     private static final String SHOPLISTID_COLUMN = DBShopListTableConstants.SHOPLIST_ID_COL;
@@ -247,6 +252,9 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         orig_quantity = getIntent().getIntExtra(
                 StandardAppConstants.INTENTKEY_SHOPLISTQUANTITY,0
         );
+        orig_purchased = getIntent().getIntExtra(
+                StandardAppConstants.INTENTKEY_SHOPLISTPURCHASED,0
+        );
 
         logmsg = "Preparing Database";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -270,6 +278,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
 
         orig_productname_tv = (TextView) findViewById(R.id.shoppingadjust_orig_productname);
         orig_quantity_tv = (TextView) findViewById(R.id.shoppingadjust_orig_quantity);
+        orig_purchased_tv = (TextView) findViewById(R.id.shoppingadjust_orig_purchased);
         orig_cost_tv = (TextView) findViewById(R.id.shoppingadjust_orig_cost);
         orig_total_tv = (TextView) findViewById(R.id.shoppingadjust_orig_total);
 
@@ -277,14 +286,20 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         orig_cost_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_cost_lbl);
         orig_total_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_total_lbl);
         orig_quantity_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_quantity_lbl);
+        orig_purchased_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_purchased_lbl);
 
         new_productname_et = (EditText) findViewById(R.id.shoppingadjust_inputproductname);
         new_cost_et = (EditText) findViewById(R.id.shoppingadjust_inputcost);
         new_quantity_et = (EditText) findViewById(R.id.shoppingadjust_inputquantity);
+        new_purchased_et = (EditText) findViewById(R.id.shoppingadjust_inputpurchased);
+        new_remaining_et = (TextView) findViewById(R.id.shoppingadjust_inputremaining);
+
 
         new_productname_lbl = (TextView) findViewById(R.id.shoppingadjust_inputproductname_label);
         new_cost_lbl = (TextView) findViewById(R.id.shoppingadjust_inputcost_label);
         new_quantity_lbl = (TextView) findViewById(R.id.shoppingadjust_inputquantity_label);
+        new_purchased_lbl = (TextView) findViewById(R.id.shoppingadjust_inputpurchased_label);
+        new_remaining_lbl = (TextView) findViewById(R.id.shoppingadjust_inputremaining_label);
 
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
@@ -310,6 +325,8 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         orig_productname_tv.setText(orig_productname);
         orig_quantity_tv.setTextColor(primary_color);
         orig_quantity_tv.setText(Integer.toString(orig_quantity));
+        orig_purchased_tv.setTextColor(primary_color);
+        orig_purchased_tv.setText(Integer.toString(orig_purchased));
         orig_cost_tv.setTextColor(primary_color);
         orig_cost_tv.setText(Double.toString(orig_cost));
         orig_total_tv.setTextColor(primary_color);
@@ -320,16 +337,29 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         orig_cost_lbl.setTextColor(primary_color);
         orig_total_lbl.setTextColor(primary_color);
         orig_quantity_lbl.setTextColor(primary_color);
+        orig_purchased_lbl.setTextColor(primary_color);
         saved_productname = orig_productname;
         saved_cost = orig_cost;
         saved_quantity = orig_quantity;
+        saved_purchased = orig_purchased;
 
         new_productname_lbl.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(new_productname_et,etbgcol);
         new_productname_et.setText(orig_productname);
+
         new_quantity_lbl.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(new_quantity_et,etbgcol);
         new_quantity_et.setText(Integer.toString(orig_quantity));
+
+        new_purchased_lbl.setTextColor(primary_color);
+        ActionColorCoding.setActionButtonColor(new_purchased_et,etbgcol);
+        new_purchased_et.setText(Integer.toString(orig_purchased));
+
+        new_remaining_lbl.setTextColor(primary_color);
+        new_remaining_et.setText(Integer.toString(
+                orig_quantity - orig_purchased
+        ));
+
         new_cost_lbl.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(new_cost_et,etbgcol);
         new_cost_et.setText(Double.toString(orig_cost));
@@ -422,6 +452,10 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 new_productname_et.setText(orig_productname);
                 new_quantity_et.setText(Integer.toString(orig_quantity));
                 new_cost_et.setText(Double.toString(orig_cost));
+                new_purchased_et.setText(Integer.toString(orig_purchased));
+                new_remaining_et.setText(Integer.toString(
+                        orig_quantity - orig_purchased
+                ));
                 msg = "Values reset to their original values.";
                 setMessage(this,msg,false);
                 logmsg = "Reset values to their original values";
@@ -471,17 +505,46 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
             return;
             }
+        emsg = ValidateInput.validateInteger(new_remaining_et.getText().toString());
+        if (emsg.getErrorIndicator()) {
+            msg = "Purchased" + emsg.getErrorMessage();
+            setMessage(this,msg,true);
+            new_purchased_et.requestFocus();
+            logmsg = "Cannot save ShoppingList entry as " + msg;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+            return;
+        }
+        if(Integer.parseInt(new_quantity_et.getText().toString()) - Integer.parseInt(new_purchased_et.getText().toString()) < 0) {
+            msg = "Remaining (Quantity - Purchased) cannot be less than 0.";
+            setMessage(this,msg,true);
+            new_quantity_et.requestFocus();
+            logmsg = "Cannot save Shopping list entry as " + msg;
+            LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+            return;
+        }
         if (saved_quantity != Integer.parseInt(new_quantity_et.getText().toString())) {
-            msg = "Shoplist Entry";
+            msg = "Shoplist Entry (Quantity to buy)";
             dbshoplistmethods.addOrUpdateShopListEntry(orig_aisleid, orig_productid,
                     Integer.parseInt(new_quantity_et.getText().toString()) - orig_quantity,
                     true,
                     true);
             if (dbshoplistmethods.ifShopListEntryUpdated()) {
-                msg = msg + "Updated OK.";
+                msg = msg + " Updated OK.";
                 saved_quantity = Integer.parseInt(new_quantity_et.getText().toString());
             } else {
-                msg = msg + "NOT Updated.";
+                msg = msg + " NOT Updated.";
+                updateallok = false;
+            }
+        }
+        if (saved_purchased != Integer.parseInt(new_purchased_et.getText().toString())) {
+            msg = "ShopList Entry (# Purchased)";
+            dbshoplistmethods.adjustPurchased(orig_aisleid, orig_productid,
+                    Integer.parseInt(new_purchased_et.getText().toString()));
+            if (dbshoplistmethods.ifShopListEntryUpdated()) {
+                msg = msg + " Updated OK.";
+                saved_purchased = Integer.parseInt(new_purchased_et.getText().toString());
+            } else {
+                msg = msg + " NOT UPDATED.";
                 updateallok = false;
             }
         }
@@ -523,6 +586,11 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         } else {
             setMessage(this,"Nothing changed, so nothing was done",true);
         }
+        new_remaining_et.setText( Integer.toString(
+                Integer.parseInt(new_quantity_et.getText().toString())
+                - Integer.parseInt(new_purchased_et.getText().toString())
+                )
+        );
         logmsg = "ShopingList entry updated=" + Boolean.toString(updateallok);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
     }
