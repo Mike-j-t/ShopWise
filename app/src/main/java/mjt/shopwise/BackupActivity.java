@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by Mike092015 on 14/01/2017.
+ * Backup and Restore activity
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
@@ -95,6 +95,8 @@ public class BackupActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     private boolean refeshspinners = false;
     private File dbfile;
+    private File icfile;
+    private File bkpfile;
     private String backupfilename = "";
     private boolean strictbackupmode = true;
 
@@ -162,9 +164,7 @@ public class BackupActivity extends AppCompatActivity {
                 "xxx",
                 false);
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Preparing Colour Coding", this, methodname);
         actionbar = getSupportActionBar();
@@ -517,6 +517,7 @@ public class BackupActivity extends AppCompatActivity {
                     backup.flush();
                     backup.close();
                     fis.close();
+                    bkpfile = new File(copydbfilename);
                     msg = "Stage 1 - Complete. Copy made of current DB.";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                     copytaken = true;
@@ -569,9 +570,9 @@ public class BackupActivity extends AppCompatActivity {
 
                     String msg = "Restore failed. Recovering DB after failed restore from backup";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
-                    File rcvdbfile = new File(copydbfilename);
+                    //File rcvdbfile = new File(copydbfilename);
                     //noinspection ResultOfMethodCallIgnored
-                    rcvdbfile.renameTo(dbfile);
+                    bkpfile.renameTo(dbfile);
 
                     msg = "Restore failed. DB Recovered from backup now in original state.";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
@@ -579,9 +580,12 @@ public class BackupActivity extends AppCompatActivity {
                     errlist.add("Database reverted to original.");
                 }
                 if (copytaken && !origdeleted) {
+                    //noinspection ResultOfMethodCallIgnored
+                    bkpfile.delete();
                     String msg = "Restore failed. Original DB not deleted so original\" +\n" +
                             "                            \" is being used.";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
+
                 }
                 if(!copytaken) {
                     String msg = "Restore failed. Attempt to Copy original DB failed.\" +\n" +
@@ -589,10 +593,13 @@ public class BackupActivity extends AppCompatActivity {
                     LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
             }
                 if(copytaken && origdeleted && restoredone) {
+                    //noinspection ResultOfMethodCallIgnored
+                    bkpfile.delete();
                     errlist.add("Database successfully restored.");
                     resulttitle = "Restore was successful. Application wil be restarted.";
                     DBHelper.reopen(context);
                     DBHelper.getHelper(context).expand(null,true);
+
                 }
                 for(int i = 0; i < errlist.size(); i++){
                     if(i > 0) {
@@ -645,7 +652,7 @@ public class BackupActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
-        final String THIS_METHOD = "dataBaseIntegrityCheck";
+        @SuppressWarnings("UnusedAssignment") final String THIS_METHOD = "dataBaseIntegrityCheck";
         //String sqlstr_mstr = "SELECT name FROM sqlite_master WHERE type = 'table' AND name!='android_metadata' ORDER by name;";
         Cursor iccsr;
         boolean rv = true;
@@ -654,7 +661,7 @@ public class BackupActivity extends AppCompatActivity {
         // the handler will restore the database.
         // No need to comment out as handler can be disabled by not not passing it as a parameter
         // of the DBHelper
-        DatabaseErrorHandler myerrorhandler = new DatabaseErrorHandler() {
+        @SuppressWarnings("UnusedAssignment") DatabaseErrorHandler myerrorhandler = new DatabaseErrorHandler() {
             @Override
             public void onCorruption(SQLiteDatabase sqLiteDatabase) {
             }
@@ -667,6 +674,7 @@ public class BackupActivity extends AppCompatActivity {
             }
             ic.close();
             bkp.close();
+            icfile = new File(icdbfilename);
 
 
             //Note SQLite will actually check for corruption and if so delete the file
@@ -709,6 +717,9 @@ public class BackupActivity extends AppCompatActivity {
                 }
             }).show();
         }
+        // Delete the Integrity Check File (Database copy)
+        //noinspection ResultOfMethodCallIgnored
+        icfile.delete();
         return rv;
     }
 
@@ -744,8 +755,7 @@ public class BackupActivity extends AppCompatActivity {
                                         TextView restorebutton) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
-        String spnname = "";
-        boolean used = false;
+        @SuppressWarnings("UnusedAssignment") String spnname = "";
         int fcount = 0;
         ArrayList<File> reverseflist = new ArrayList<>();
 
@@ -755,19 +765,14 @@ public class BackupActivity extends AppCompatActivity {
 
         // Build the File ArrayList
         ArrayList<File> flst = new ArrayList<>(sd.getFilesInDirectory());
-        if(flst.size() < 1) {
-            //Toast.makeText(this,"No Saved Files Found",Toast.LENGTH_SHORT).show();
-        }
 
         // Ascertain the relevant files that are needed for the restore backup
         // file selector
         for(int i = 0; i < flst.size(); i++) {
-            used = false;
             boolean endingok = flst.get(i).getName().endsWith(fileext);
             boolean containsok = flst.get(i).getName().contains(basefilename);
             if((strictbackupmode && endingok && containsok)
                     || (!strictbackupmode && (endingok || containsok))) {
-                used = true;
                 fcount++;
             } else {
                 flst.remove(i);
@@ -817,11 +822,9 @@ public class BackupActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
         Calendar cldr = Calendar.getInstance();
-        String rv = "";
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-        rv = "_" + sdf.format(cldr.getTime());
-        return rv;
+        return "_" + sdf.format(cldr.getTime());
     }
 
     /**************************************************************************
