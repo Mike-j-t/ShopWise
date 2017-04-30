@@ -294,20 +294,6 @@ public class ShoppingActivity extends AppCompatActivity {
         logmsg = "Invoking Prompted Rules";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         doPromptedRules();
-
-
-        /**
-        slcsr = dbshoplistmethods.getExpandedShopListEntries(filter);
-        shoppinglistadapter = new AdapterShoppingList(this,slcsr,
-                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
-                getIntent());
-        shoppinglist.setAdapter(shoppinglistadapter);
-        totals = dbshoplistmethods.getTotals("");
-        totalcost.setText(Double.toString(totals.getdbl1()));
-        remaining.setText(Double.toString(totals.getdbl2()));
-        spent.setText(Double.toString(totals.getdbl3()));
-         **/
-
     }
 
     /**************************************************************************
@@ -424,7 +410,7 @@ public class ShoppingActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param position
+     * @param position  Position of the ShoppingEntry to be adjusted
      */
     public void doAdjustShoppingEntry(int position) {
         String logmsg = "Invoked";

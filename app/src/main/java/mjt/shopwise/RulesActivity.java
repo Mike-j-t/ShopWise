@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 7/01/2017.
+ * Rules Activity
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})
@@ -383,9 +383,9 @@ public class RulesActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param view
-     * @param position
-     * @param id
+     * @param view          the View of the LongClicked item
+     * @param position      The position of the LongClicked Item
+     * @param id            The cursor's ID column
      */
     public void listItemLongClick(View view, int position, long id) {
         String logmsg = "Invoked";
@@ -435,9 +435,9 @@ public class RulesActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param view
-     * @param position
-     * @param id
+     * @param view          The View of the Clicked Item
+     * @param position      The position of the Clicked Item
+     * @param id            The cursor's ID column of the clicked item
      */
     public void listItemClick(View view, int position, long id) {
         String logmsg = "Invoked";
@@ -487,7 +487,7 @@ public class RulesActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param values
+     * @param values        values passed getLong1 = RuleID
      */
     @SuppressWarnings("unused")
     public void ruleEdit(RequestDialogParameters values) {
@@ -569,7 +569,7 @@ public class RulesActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param values
+     * @param values        values passed getLong1 = RuleID
      */
     @SuppressWarnings("unused")
     public void ruleDelete(RequestDialogParameters values) {

@@ -117,6 +117,7 @@ public class ShopsActivity extends AppCompatActivity {
     private Activity thisactivity;
 
 
+    @SuppressWarnings("DanglingJavadoc")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String logmsg = "Invoked";
@@ -145,9 +146,7 @@ public class ShopsActivity extends AppCompatActivity {
         messagebar = (TextView) findViewById(R.id.shops_messagebar);
 
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);

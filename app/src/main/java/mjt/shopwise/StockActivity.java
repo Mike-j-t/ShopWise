@@ -254,9 +254,7 @@ public class StockActivity extends AppCompatActivity {
         productfilter = "";
         stockfilter = "";
 
-        /**
-         * Get the UI views from their resource id's
-         */
+        // Get the UI views from their resource id's
         messagebar = (TextView) findViewById(R.id.stock_messagebar);
         donebutton = (TextView) findViewById(R.id.stock_donebutton);
         savebutton = (TextView) findViewById(R.id.stock_savebutton);
@@ -289,11 +287,9 @@ public class StockActivity extends AppCompatActivity {
         inputchecklistcountlabel = (TextView) findViewById(R.id.inputchecklistcount_label);
         stocklist = (ListView) findViewById(R.id.stock_stocklist);
 
-        /**
-         * Apply Color Coding
-         *  i.e. the colors used will indicate the caller
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
+        //noinspection ConstantConditions
         actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -329,9 +325,7 @@ public class StockActivity extends AppCompatActivity {
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 
-        /**
-         * Perpare to use the database and the underlying methods
-         */
+        // Perpare to use the database and the underlying methods
         logmsg = "Preparing Database";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         //dbdao = new DBDAO(this);
@@ -342,18 +336,15 @@ public class StockActivity extends AppCompatActivity {
         dbshoplistmethods = new DBShopListMethods(this);
         dbrulemethods = new DBRuleMethods(this);
 
-        /**
-         * Get Intent extras according to called mode
-         * i.e. :-
-         *      if called from shops then we only know the shop
-         *      if called from aisles then we know shop and aisle
-         *      if called from products then we only know product
-         *
-         *      if called from shop or aisle then we can set the
-         *      aisle filter so that only aisles relevant to the shop
-         *      are selected.
-         *
-         */
+        // Get Intent extras according to called mode
+        // i.e. :-
+        //      if called from shops then we only know the shop
+        //      if called from aisles then we know shop and aisle
+        //      if called from products then we only know product
+        //
+        //      if called from shop or aisle then we can set the
+        //      aisle filter so that only aisles relevant to the shop
+        //      are selected.
         logmsg = "Retrieving IntentExtras (conditional upon mode)";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         switch (calledmode) {
@@ -395,9 +386,7 @@ public class StockActivity extends AppCompatActivity {
                 break;
         }
 
-        /**
-         * Extract the  data for the spinners from the DB
-         */
+        // Extract the  data for the spinners from the DB
         logmsg = "Retrieving Shop, Aisle and Product Data for Selection Spinners";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         slcsr = dbshopmethods.getShopsWithAisles(shopfilter,shoporderby);
@@ -412,11 +401,9 @@ public class StockActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         addProductFilterListener();
 
-        /**
-         *  Prepare the list of productusages (stock) for the current aisle
-         *  Note currentaisleid will be either exist (when called from aisles) or
-         *  set when the Shop's spinner is populated
-         */
+        //  Prepare the list of productusages (stock) for the current aisle
+        //  Note currentaisleid will be either exist (when called from aisles) or
+        //  set when the Shop's spinner is populated
         logmsg = "Retrieving List of Products already Stocked in the current Aisle";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockfilter = AISLEREF_FULLCOLUMN + " = " + currentaisleid;
@@ -522,42 +509,12 @@ public class StockActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param values
+     * @param values    values passed getLong1 = Aisleref getLong2 = productref
      */
     public void stockEdit(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        /**
-
-        // Prepare the productlist selector using expanded productslist
-        plcsr = dbproductmethods.getExpandedProducts(productfilter,productorderby);
-        productlistadapter.swapCursor(plcsr);
-        logmsg = "Moving SelectProduct Spinner to Product ID=" +
-                Long.toString(values.getLong2()) +
-                " Name=" + dbproductmethods.getProductName(values.getLong2());
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        SpinnerMove.moveToColumn(selectproduct,values.getLong2(),plcsr,PRODUCTID_COLUMN,true);
-
-        inputstockcost.setText(stockedcursor.getString(
-                stockedcursor.getColumnIndex(COST_COLUMN)));
-        inputstockorder.setText(
-                stockedcursor.getString(stockedcursor.getColumnIndex(PRODUCTUSAGEORDER_COLUMN)));
-        if (stockedcursor.getInt(
-                stockedcursor.getColumnIndex(CHECKLISTFLAG_COLUMN)) > 0) {
-            inputchecklistflag.setChecked(true);
-        } else {
-            inputchecklistflag.setChecked(false);
-        }
-        String t_clcount = stockedcursor.getString(
-                stockedcursor.getColumnIndex(CHECKLISTCOUNT_COLUMN));
-        if (t_clcount.length() < 1) {
-            t_clcount = "1";
-        }
-        inputchecklistcount.setText(t_clcount);
-        internalmode = EDITMODE;
-        editdisplayed = false;
-         **/
         Intent intent = new Intent(this,StockLisEditActivity.class);
         intent.putExtra(StandardAppConstants.INTENTKEY_SHOPID,0);
         intent.putExtra(StandardAppConstants.INTENTKEY_PUPRODUCTREF,values.getLong2());
@@ -576,7 +533,7 @@ public class StockActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param values
+     * @param values    values passed getLong1 = Aisleref getLong2 = productref
      */
     public void stockDelete(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String logmsg = "Invoked";
@@ -604,10 +561,10 @@ public class StockActivity extends AppCompatActivity {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        Emsg emsg = new Emsg();
+        Emsg emsg;
         double cost;
         int order;
-        int chklstcnt = 1;
+        int chklstcnt;
 
         //Product spinner must have Products (filter can result in none)
         if (plcsr.getCount() < 1) {
@@ -819,9 +776,9 @@ public class StockActivity extends AppCompatActivity {
      *                  currently assigned/stocked in the current shop/aisle
      *                  combination.
      *
-     * @param view
-     * @param position
-     * @param id
+     * @param view      The View that was clicked
+     * @param position  The Position within the ListView
+     * @param id        The id column of the clicked item
      */
     public void listItemClick(View view, int position, long id) {
         String logmsg = "Invoked";
@@ -881,9 +838,9 @@ public class StockActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param view
-     * @param position
-     * @param id
+     * @param view          The View that was LongClicked
+     * @param position      the position in the ListView of the item
+     * @param id            The id column of the longclicked item
      */
     public void listItemLongClick(View view, int position, long id) {
         String logmsg = "Invoked";
@@ -952,7 +909,7 @@ public class StockActivity extends AppCompatActivity {
      *      initiated by the spinner's post
      *
      * @param id        The id of the shop
-     * @return
+     * @return          The AdapterShopList that was setup
      */
     public AdapterShopList setupShopSelectSpinner(long id) {
         String logmsg = "Invoked";
@@ -995,8 +952,8 @@ public class StockActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param id
-     * @return
+     * @param id    The id (Aisleref) of the Aisle to be selected
+     * @return      The AdapterAisleList that was setup
      */
     public AdapterAisleList setupAisleSelectSpinner(long id) {
         String logmsg = "Invoked";
@@ -1055,8 +1012,8 @@ public class StockActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param id
-     * @return
+     * @param id    The id of the product that is to be selected
+     * @return      the AdpaterProductList that was setup
      */
     public AdapterProductList setupProductSelectSpinner(long id) {
         String logmsg = "Invoked";
@@ -1125,9 +1082,9 @@ public class StockActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param stockorder
-     * @param stockcost
-     * @param stockchkcount
+     * @param stockorder    The EditText containing the stockorder
+     * @param stockcost     The EditText containing the stockcost
+     * @param stockchkcount The editText containing the stock check count
      */
     @SuppressLint("SetTextI18n")
     private void setNewInput(EditText stockorder,

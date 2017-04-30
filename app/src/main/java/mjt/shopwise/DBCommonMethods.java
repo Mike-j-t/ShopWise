@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Created by Mike092015 on 6/12/2016.
+ * ShopWise Database Common Methods
  */
 @SuppressWarnings("WeakerAccess")
 public class DBCommonMethods {

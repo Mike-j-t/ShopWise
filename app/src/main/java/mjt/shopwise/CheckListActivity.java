@@ -200,6 +200,7 @@ public class CheckListActivity extends AppCompatActivity {
     private static final int BYPRODUCTSTORAGEORDER = 6;
     private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
     private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    @SuppressWarnings("CanBeFinal")
     private static String filter = "";
     private static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
     private static int orderfld = BYPRODUCT;
@@ -252,9 +253,7 @@ public class CheckListActivity extends AppCompatActivity {
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
-        /**
-         * Perpare to use the database and the underlying methods
-         */
+        // Perpare to use the database and the underlying methods
         msg = "Preparing Database Access";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         dbdao = new DBDAO(this);
@@ -436,7 +435,7 @@ public class CheckListActivity extends AppCompatActivity {
      *
      * @param view the view that was clicked
      */
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "EmptyMethod"})
     public void sortClick(View view) {
     }
     /**************************************************************************

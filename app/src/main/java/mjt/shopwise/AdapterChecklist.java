@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 
 /**
- * Created by Mike092015 on 27/12/2016.
+ * Checklist ListView/Spinner Cursor Adapter
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})

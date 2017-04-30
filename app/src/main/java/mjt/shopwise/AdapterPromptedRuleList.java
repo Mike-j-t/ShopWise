@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by Mike092015 on 12/01/2017.
+ * Prompted Rule ListView/Spinner Cursor Adapater
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})

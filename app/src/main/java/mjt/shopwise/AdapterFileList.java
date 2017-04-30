@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mike092015 on 14/01/2017.
+ * FileList ListView/Spinner Cursor Adapter
  */
 
 @SuppressWarnings("WeakerAccess")

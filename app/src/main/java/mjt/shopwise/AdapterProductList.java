@@ -41,7 +41,7 @@ public class AdapterProductList extends CursorAdapter {
 
     AdapterProductList(Context context,
                        Cursor csr,
-                       int flags,
+                       @SuppressWarnings("UnusedParameters") int flags,
                        Intent intent,
                        boolean fromspinner,
                        boolean clickable,

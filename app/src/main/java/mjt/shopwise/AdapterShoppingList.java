@@ -1,5 +1,6 @@
 package mjt.shopwise;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -140,13 +141,11 @@ public class AdapterShoppingList extends CursorAdapter {
 
         Cursor csr = this.getCursor();
 
-        /**
-         * Reduce duplicated data by only showing the shop and aisle info when
-         * if first appears i.e. make the shop info and aisle info GONE
-         * when it is the same as the previous.
-         * NOTE gteView can be called multiple times for the same row/position.
-         *  As such, the previous row is checked
-         */
+        // Reduce duplicated data by only showing the shop and aisle info when
+        // if first appears i.e. make the shop info and aisle info GONE
+        // when it is the same as the previous.
+        // NOTE gteView can be called multiple times for the same row/position.
+        //  As such, the previous row is checked
         shopinfo.setVisibility(View.VISIBLE);
         aisleinfo.setVisibility(View.VISIBLE);
         if (position > 0) {
@@ -164,9 +163,7 @@ public class AdapterShoppingList extends CursorAdapter {
             }
         }
 
-        /**
-         * Alternate row background color
-         */
+        // Alternate row background color
         if (position % 2 == 0) {
             productinfo.setBackgroundColor(evenrow);
         } else {
@@ -180,6 +177,7 @@ public class AdapterShoppingList extends CursorAdapter {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private View initView(View view, Cursor csr) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -212,9 +210,7 @@ public class AdapterShoppingList extends CursorAdapter {
         numbertoget.setText(Integer.toString(numberrequired));
         totalcost.setText(NumberFormat.getCurrencyInstance().format(csr.getDouble(calculated_totalcost_offset)));
 
-        /**
-         * Checkoff if numbertoget is 0
-         */
+        // Checkoff if numbertoget is 0
         if (numberrequired < 1 ) {
             productname.setTextColor(white);
             productcost.setTextColor(white);

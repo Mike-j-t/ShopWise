@@ -472,6 +472,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
     /**************************************************************************
      *
      */
+    @SuppressLint("SetTextI18n")
     public void doSave() {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

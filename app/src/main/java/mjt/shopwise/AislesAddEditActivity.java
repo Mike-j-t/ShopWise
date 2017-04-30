@@ -171,9 +171,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
         aislelist = (ListView) findViewById(R.id.aisleaddedit_aislelist);
         savebutton = (TextView) findViewById(R.id.aisleaddedit_savebutton);
         donebutton = (TextView) findViewById(R.id.aisleaddedit_donebutton);
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -314,7 +312,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param view
+     * @param view  The View that was clicked
      */
     @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
@@ -344,7 +342,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
         String aislelabel = getResources().getString(R.string.aislelabel) + " ";
         String aisleorderlabel = getResources().getString(R.string.orderlabel) + " ";
         String notsaved = getResources().getString(R.string.notsaved);
-        String msg = "";
+        String msg;
 
         // Aisle Name cannot be blank
         if (aislename.length() < 1) {
@@ -440,18 +438,6 @@ public class AislesAddEditActivity extends AppCompatActivity {
             setMessage(this,lastmessage,false);
         }
     }
-
-    /**************************************************************************
-     * setDBCounts - extract the row counts from the database for relevant
-     *                  tables.
-     */
-    /**
-    private void setDBCounts() {
-        shopcount = dbshopmethods.getShopCount();
-        aislecount = dbaislemethods.getAisleCount();
-        productcount = dbproductmethods.getProductCount();
-    }
-     **/
 
     /**************************************************************************
      *

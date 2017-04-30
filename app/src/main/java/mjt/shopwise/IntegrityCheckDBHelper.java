@@ -24,9 +24,9 @@ class IntegrityCheckDBHelper extends SQLiteOpenHelper implements DatabaseErrorHa
     private static final String LOGTAG = "SW_ICDBH";
 
     IntegrityCheckDBHelper(Context context,
-                           @SuppressWarnings("SameParameterValue") String name,
+                           @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) String name,
                            @SuppressWarnings("SameParameterValue") SQLiteDatabase.CursorFactory factory,
-                           @SuppressWarnings("SameParameterValue") int version, @SuppressWarnings("SameParameterValue") DatabaseErrorHandler errorHandler) {
+                           @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int version, @SuppressWarnings("SameParameterValue") DatabaseErrorHandler errorHandler) {
         super(context, DATABASE_NAME,factory,1,errorHandler);
         String msg = "Constructing";
         String methodname = "Construct";

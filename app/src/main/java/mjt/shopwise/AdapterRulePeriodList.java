@@ -10,7 +10,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 8/01/2017.
+ * Rule Period ListView/Spinner Cursor Adapter
  */
 
 @SuppressWarnings("WeakerAccess")
@@ -26,7 +26,7 @@ public class AdapterRulePeriodList extends CursorAdapter {
     public static final String THISCLASS = AdapterRulePeriodList.class.getSimpleName();
     private static final String LOGTAG = "SW_ARPL(CsrAdptr)";
 
-    AdapterRulePeriodList(Context context, Cursor csr, int flags, Intent intent) {
+    AdapterRulePeriodList(Context context, Cursor csr, @SuppressWarnings("UnusedParameters") int flags, Intent intent) {
         super(context, csr, 0);
         String msg = "Constructing";
         String methodname = "Construct";
@@ -37,7 +37,7 @@ public class AdapterRulePeriodList extends CursorAdapter {
         setRulePeriodOffsets(csr);
     }
 
-    AdapterRulePeriodList(Context context, Cursor csr, @SuppressWarnings("SameParameterValue") int flags, Intent intent,
+    AdapterRulePeriodList(Context context, Cursor csr, @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags, Intent intent,
                           @SuppressWarnings("SameParameterValue") boolean fromspinner) {
         super(context, csr, 0);
         String msg = "Constructing";

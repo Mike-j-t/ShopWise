@@ -173,9 +173,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
         shoplist_shoporder = (TextView) findViewById(R.id.shopaddedit_shoplist_heading_shoporder);
         shoplist = (ListView) findViewById(R.id.shopaddedit_shoplist);
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -458,7 +456,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param edittext
+     * @param edittext      the EditText holding the Shop's Order
      */
     @SuppressLint("SetTextI18n")
     private void setNewOrder(EditText edittext) {

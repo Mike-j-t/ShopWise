@@ -189,7 +189,7 @@ class DBAppvaluesMethods {
      * @param appvaluetext                  search arg for AppValue TEXT
      * @param appvalueincludeinsettings     search arg for includeinsettings
      * @param appvaluesettingsinfo          search arg for settingsinfo
-     * @return
+     * @return true if the Appvalue row exists, esle false
      */
     @SuppressWarnings("ConstantConditions")
     boolean doesExtendedAppValueExist(String appvaluename,
@@ -344,9 +344,7 @@ class DBAppvaluesMethods {
 
         lastappvaleaddrc = APPVALUE_RC_OK;
 
-        /**
-         * If non-unique name not allowed then reject duplicated names
-         */
+        // If non-unique name not allowed then reject duplicated names
         if (ifAppvalueDuplicated(appvaluename, appvalue, allowmultiple)) {
             msg = "TEXT AppValue Name=" + appvaluename +
                     " Duplicate so not inserted.";
@@ -393,9 +391,7 @@ class DBAppvaluesMethods {
 
         lastappvaleaddrc = APPVALUE_RC_OK;
 
-        /**
-         * If non-unique name not allowed then reject duplicated names
-         */
+        // If non-unique name not allowed then reject duplicated name
         if (ifAppvalueDuplicated(appvaluename, appvalue, allowmultiple)) {
             msg = "INTEGER AppValue Name=" + appvaluename +
                     " Duplicate so not inserted.";
@@ -470,9 +466,7 @@ class DBAppvaluesMethods {
 
         lastappvaleaddrc = APPVALUE_RC_OK;
 
-        /**
-         * If non-unique name not allowed then reject duplicated names
-         */
+        // If non-unique name not allowed then reject duplicated names
         if (ifAppvalueDuplicated(appvaluename, appvalue, allowmultiple)) {
             msg = "REAL AppValue Name=" + appvaluename +
                     " Duplicate so not inserted.";
@@ -552,9 +546,7 @@ class DBAppvaluesMethods {
 
         lastappvaleaddrc = APPVALUE_RC_OK;
 
-        /**
-         * If non-unique name not allowed then reject duplicated names
-         */
+        // If non-unique name not allowed then reject duplicated names
         if (ifAppvalueDuplicated(appvaluename, appvalue, allowmultiple)) {
             msg = "TEXT and INTEGER special case, AppValue Name=" + appvaluename +
                     " Duplicate so not inserted.";
@@ -622,7 +614,6 @@ class DBAppvaluesMethods {
                 " APPVALUE=" + Long.toString(appvalue);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        boolean rv = true;
         return !multipleallowed && checkDuplicateName(appvaluename) || checkDuplicated(appvaluename,
                 DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL,
                 Long.toString(appvalue));
@@ -647,7 +638,6 @@ class DBAppvaluesMethods {
                 msg,
                 THISCLASS,
                 methodname);
-        boolean rv = true;
         return !multipleallowed &&
                 checkDuplicateName(appvaluename) ||
                 checkDuplicated(appvaluename,

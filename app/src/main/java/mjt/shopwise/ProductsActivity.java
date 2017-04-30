@@ -169,9 +169,7 @@ public class ProductsActivity extends AppCompatActivity {
 
         //ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -408,7 +406,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param values
+     * @param values        values passed getLong1 = productref
      */
     @SuppressWarnings("unused")
     public void productStock(RequestDialogParameters values) {

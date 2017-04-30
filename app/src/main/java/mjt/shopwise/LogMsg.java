@@ -95,10 +95,10 @@ public class LogMsg{
 
     /**************************************************************************
      * Log with default TAG, ClassName derived from provided Context
-     * @param logtype
-     * @param msg
-     * @param context
-     * @param methodname
+     * @param logtype       The type of the Log Message
+     * @param msg           The message
+     * @param context       The context
+     * @param methodname    The method name
      */
     @SuppressWarnings("unused")
     public static void LogMsg(int logtype,
@@ -141,10 +141,8 @@ public class LogMsg{
             }
         }
 
-        /**
-         * Only allow logging if the calling class has it's devmode set to true
-         * Note set thses in StandardAppsConstants
-         */
+        // Only allow logging if the calling class has it's devmode set to true
+        // Note set thses in StandardAppsConstants
         if ( !
                 (
                         (callingclass.equals(MainActivity.THISCLASS) &&

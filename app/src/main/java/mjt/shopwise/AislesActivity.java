@@ -159,9 +159,7 @@ public class AislesActivity extends AppCompatActivity{
         selectshoplist = (Spinner) findViewById(R.id.aisles_shopspinner);
         selectshoplabel = (TextView) findViewById(R.id.aisles_shopspinner_shopname_label);
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Preparing Colour Coding", this, methodname);
         actionbar = getSupportActionBar();
@@ -334,7 +332,7 @@ public class AislesActivity extends AppCompatActivity{
 
     /**************************************************************************
      *
-     * @param values
+     * @param values values passed getLong1 = Aisleref
      */
     public void aisleEdit(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -376,7 +374,7 @@ public class AislesActivity extends AppCompatActivity{
 
     /**************************************************************************
      *
-     * @param values
+     * @param values values passed getLong1 = Aisleref
      */
     public void aisleDelete(@SuppressWarnings("SameParameterValue") RequestDialogParameters values) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -525,9 +523,9 @@ public class AislesActivity extends AppCompatActivity{
 
     /**************************************************************************
      *
-     * @param view
-     * @param position
-     * @param id
+     * @param view          The LongClicked View
+     * @param position      The Position of the LongClicked item
+     * @param id            the cursors id column of the LongClicked item
      */
     public void listItemLongClick(View view, int position, long id) {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();

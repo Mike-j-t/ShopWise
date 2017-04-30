@@ -13,7 +13,7 @@ import java.text.NumberFormat;
 
 
 /**
- * Created by Mike092015 on 16/12/2016.
+ * StockList Listview/Spinner Cursor Adapter
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
