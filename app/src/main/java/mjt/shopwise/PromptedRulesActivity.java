@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 12/01/2017.
+ * Prompted Rules Activity
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "unused"})

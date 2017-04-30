@@ -116,7 +116,7 @@ class DBProductMethods {
      *
      * @param filter    filter string less WHERE keyword
      * @param order     order String less ORDER and BY kewords
-     * @return
+     * @return          Cursor containing Expanded products
      */
     Cursor getExpandedProducts(String filter, String order) {
         Cursor rv;
@@ -198,10 +198,10 @@ class DBProductMethods {
 
     /**************************************************************************
      *
-     * @param aisleid
-     * @param filter
-     * @param order
-     * @return
+     * @param aisleid   Id of the Aisle (Long)
+     * @param filter    String containing filter (less WHERE )
+     * @param order     String containing ORDER (less ORDER BY)
+     * @return          Cursor of Products in the Aisle
      */
     Cursor getProductsInAisle(long aisleid, String filter, String order) {
         String msg = "Invoked";
@@ -259,6 +259,7 @@ class DBProductMethods {
      * @param order     order string (do not include ORDER BY)
      * @return          a cursor containing the products
      */
+    @SuppressWarnings("DanglingJavadoc")
     Cursor getProductsNotInAisle(long aisleid, String filter, String order) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -461,17 +462,15 @@ class DBProductMethods {
         String msg = "Invoked for Product ID=" + productid;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        String sql;
-        int pudeletes = 0;
-        int sldeletes = 0;
-        int rdeletes = 0;
-        int pdeletes = 0;
+        @SuppressWarnings("unused") String sql;
+        int pudeletes;
+        int sldeletes;
+        int rdeletes;
+        int pdeletes;
 
         if(doesProductExist(productid)) {
 
-            /**
-             * if not in a transaction then begin a transaction
-             */
+            // if not in a transaction then begin a transaction
             if(!intransaction) {
                 db.beginTransaction();
                 msg = "Starting DB Transaction";
@@ -480,9 +479,7 @@ class DBProductMethods {
 
             String whereargs[] = { Long.toString(productid)};
 
-            /**
-             * Delete ProductUsage rows that use this product
-             */
+            // Delete ProductUsage rows that use this product
             pudeletes = db.delete(
                     DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                     DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL +
@@ -493,9 +490,7 @@ class DBProductMethods {
                     " ProductUsage Rows that reference Product ID=" + productid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-            /**
-             * Delete ShopList rows that use this product
-             */
+            // Delete ShopList rows that use this product
             sldeletes = db.delete(
                     DBShopListTableConstants.SHOPLIST_TABLE,
                     DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL +
@@ -506,9 +501,7 @@ class DBProductMethods {
                     " ShoppingList Rows that reference Product ID=" + productid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-            /**
-             * Delete Rules rows that use this product
-             */
+            // Delete Rules rows that use this product
             rdeletes = db.delete(
                     DBRulesTableConstants.RULES_TABLE,
                     DBRulesTableConstants.RULES_PRODUCTREF_COL +
@@ -519,9 +512,7 @@ class DBProductMethods {
                     " Rule Rows that reference Product ID=" + productid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-            /**
-             * Delete the Product
-             */
+            // Delete the Product
             pdeletes = db.delete(
                     DBProductsTableConstants.PRODUCTS_TABLE,
                     DBProductsTableConstants.PRODUCTS_ID_COL +
@@ -532,10 +523,8 @@ class DBProductMethods {
                     " Products with Product ID=" + productid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-            /**
-             * if originally not in a transaction then as one was started
-             * complete and end the transaction
-             */
+            // if originally not in a transaction then as one was started
+            // complete and end the transaction
             if(!intransaction) {
                 db.setTransactionSuccessful();
                 db.endTransaction();
@@ -590,7 +579,7 @@ class DBProductMethods {
                             new String[] { Long.toString(productid)},
                             null,null,null);
 
-                    int text = pucsr.getCount();
+                    @SuppressWarnings("unused") int text = pucsr.getCount();
                     while(pucsr.moveToNext()) {
                         rv.add("Delete STOCK for " +
                                 productname +

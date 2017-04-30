@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 19/01/2017.
+ * Rule Tools Activity (Rule Suggestion and Rule Accuracy Checking)
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
@@ -109,9 +109,7 @@ public class RuleToolsActivity extends AppCompatActivity{
         dr.close();
 
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);

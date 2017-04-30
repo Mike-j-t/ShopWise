@@ -233,13 +233,13 @@ public class DBRuleMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,msg,THISCLASS,methodname);
 
-        String existing_rulename = "";
-        int existing_uses = 0;
+        String existing_rulename;
+        int existing_uses;
         boolean existing_promptflag = false;
-        long exisiting_actondate = 0;
-        int existing_period = -1;
-        int existing_multiplier = 0;
-        int updatedcount = 0;
+        long exisiting_actondate;
+        int existing_period;
+        int existing_multiplier;
+        int updatedcount;
 
         Cursor csr = getRule(ruleid);
         if (csr.getCount() < 1) {
@@ -328,9 +328,9 @@ public class DBRuleMethods {
 
     /**************************************************************************
      *
-     * @param filter
-     * @param orderby
-     * @return
+     * @param filter        String containing SQL filter less WHERE
+     * @param orderby       String contaning SQL ORDER less ORDER BY
+     * @return              Cursor containing the Expanded Rule List
      */
     Cursor getExpandedRuleList(String filter, String orderby) {
         String msg = "Invoked";
@@ -399,8 +399,8 @@ public class DBRuleMethods {
 
     /**************************************************************************
      *
-     * @param filter
-     * @param orderby
+     * @param filter        String containing SQL filter less WHERE
+     * @param orderby       String containing SQL ORDER less ORDER BY
      * @return  cursor consisting of rules that will be prompted for
      *          (according to the current day)
      */
@@ -427,8 +427,8 @@ public class DBRuleMethods {
 
     /**************************************************************************
      * applyPromptedRule i.e. add the shopping list entry according to the rule
-     * @param ruleid
-     * @param skipapply
+     * @param ruleid        Id of the Rule
+     * @param skipapply     true to skip the application of the prompted rule
      */
     public void applyPromptedRule(long ruleid, boolean skipapply) {
         String msg = "Invoked";
@@ -548,10 +548,14 @@ public class DBRuleMethods {
 
     /**************************************************************************
      *
-     * @param rulesexist
-     * @param minimumruleperiodindays
-     * @param minimumbuycount
-     * @return
+     * @param rulesexist                true if to find existing rules, else
+     *                                  only find non-existing rules
+     * @param minimumruleperiodindays   Minimum number of days of shopping
+     *                                  history for a stocked item to be
+     *                                  included.
+     * @param minimumbuycount           Minumum number of purchases of stocked
+     *                                  item for it to be included.
+     * @return                          Cursor containing rules
      */
     public Cursor getToolRules(boolean rulesexist,
                                int minimumruleperiodindays,

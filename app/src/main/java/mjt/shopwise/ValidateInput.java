@@ -9,13 +9,13 @@ public class ValidateInput {
 
     /**
      * validateInteger
-     * @param   integertocheck
+     * @param   integertocheck      The integere to check for validity
      * @return  an Emsg object (boolean, int, String)
      */
     public static Emsg validateInteger(String integertocheck) {
         Emsg retmsg = new Emsg(false,0,"");
         try {
-            int givenint = Integer.parseInt(integertocheck);
+            @SuppressWarnings("unused") int givenint = Integer.parseInt(integertocheck);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             retmsg.setAll(true, 1, "Invalid Integer - Must be nnn.");
@@ -25,14 +25,12 @@ public class ValidateInput {
 
     /**
      *
-     * @param   monetarytocheck
+     * @param   monetarytocheck     the String holding the monetary value to check
+     *                              for validity
      * @return  an Emsg object (boolean, int, String)
      */
     public static Emsg validateMonetary(String monetarytocheck) {
         Emsg retmsg = new Emsg(false, 0, "");
-        int partcount = 0;
-        String wholeamnt = "";
-        String fractionamnt = "";
 
         String amnts[] = monetarytocheck.split(".");
         if(amnts.length > 1) {
@@ -41,7 +39,7 @@ public class ValidateInput {
         }
 
         try {
-            Float monetaryfloat = Float.parseFloat(monetarytocheck);
+            @SuppressWarnings("unused") Float monetaryfloat = Float.parseFloat(monetarytocheck);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             retmsg.setAll(true,2,"Invalid Monetary Number - Should be nnn.nn or nnn");
@@ -52,8 +50,9 @@ public class ValidateInput {
 
     /**
      *
-     * @param datetocheck
-     * @return
+     * @param datetocheck       the String holding the date to be checked for
+     *                          validity.
+     * @return                  true if a valid date, esle false.
      */
     public static Emsg validateDate(String datetocheck) {
         Emsg retmsg = new Emsg(false, 0, "");
@@ -65,9 +64,9 @@ public class ValidateInput {
         String day = "";
         String month = "";
         String year = "";
-        int dayasint = 0;
-        int monthasint = 0;
-        int yearasint = 0;
+        int dayasint;
+        int monthasint;
+        int yearasint;
 
         int partcount = 0;
         String dateparts[] = datetocheck.split("/");

@@ -170,9 +170,9 @@ class DBProductUsageMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int currentcheckstatus = 0;
+        int currentcheckstatus;
         int toggledcheckstatus = 2;
-        int updatecount = 0;
+        int updatecount;
         String filter = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
                 Long.toString(aisleref) +
@@ -217,7 +217,7 @@ class DBProductUsageMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int updatecount = 0;
+        int updatecount;
         String whereargs[] = { Integer.toString(1)};
         String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL + " >= ?";
         ContentValues cv = new ContentValues();
@@ -451,9 +451,9 @@ class DBProductUsageMethods {
 
     /**************************************************************************
      *
-     * @param aisleid
-     * @param productid
-     * @return
+     * @param aisleid       The Aisleref
+     * @param productid     The Productref
+     * @return              The String Array with the impact strings
      */
     ArrayList<String> stockDeleteImapct(long aisleid, long productid) {
         String msg = "Invoked";
@@ -501,10 +501,10 @@ class DBProductUsageMethods {
 
     /**************************************************************************
      *
-     * @param aisled
-     * @param productid
-     * @param intransaction
-     * @return
+     * @param aisled        The Aisleref
+     * @param productid     The Productref
+     * @param intransaction true if already in a transaction, false if not
+     * @return              Number of rows deleted
      */
     @SuppressWarnings("UnusedReturnValue")
     int deleteStock(long aisled, long productid, @SuppressWarnings("SameParameterValue") boolean intransaction) {
@@ -512,7 +512,7 @@ class DBProductUsageMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        int rv = 0;
+        int rv;
 
         String slfilter = DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
                 " = " + Long.toString(aisled) +
@@ -573,9 +573,9 @@ class DBProductUsageMethods {
 
     /**************************************************************************
      *
-     * @param aisleid
-     * @param productid
-     * @param newcost
+     * @param aisleid       The Aisleref
+     * @param productid     The productID
+     * @param newcost       The new cost to be applied
      */
     void amendProductUsageCost(long aisleid,
                                long productid,
@@ -622,8 +622,8 @@ class DBProductUsageMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        long currentfirstbuydate = -1;
-        int currentbuycount = 0;
+        long currentfirstbuydate;
+        int currentbuycount;
         int updatecount = 0;
         lastprdductusageupdateok = false;
         ContentValues cv = new ContentValues();
@@ -676,12 +676,12 @@ class DBProductUsageMethods {
 
     /**************************************************************************
      *
-     * @param productref
-     * @param aisleref
-     * @param cost
-     * @param order
-     * @param checklistflag
-     * @param checklistcount
+     * @param productref        The Productref
+     * @param aisleref          The Aisleref
+     * @param cost              The Cost to be applied
+     * @param order             The Order to be applied
+     * @param checklistflag     The CheckList Flag to be applied
+     * @param checklistcount    The CheckList count to be applied
      */
     void modifyProductUsage(long productref,
                             long aisleref,
@@ -694,9 +694,9 @@ class DBProductUsageMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         lastprdductusageupdateok = false;
-        int zero = 0;
-        long lzero = 0;
-        int modified = 0;
+        //int zero = 0;
+        //long lzero = 0;
+        int modified;
         String whereclause =
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL +
                 " = ? AND " +
@@ -946,7 +946,7 @@ class DBProductUsageMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         lastprdductusageupdateok = false;
-        int updatecount = 0;
+        int updatecount;
         String whereargs[] = {Integer.toString(DBProductusageTableConstants.RULESUGGESTFLAG_SKIP)};
         String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_RULESUGGESTFLAG_COL +
                 " = ?";

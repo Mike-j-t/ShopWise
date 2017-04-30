@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by Mike092015 on 7/01/2017.
+ * Rule ListView/Spinner Cursor Adapter
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
@@ -74,11 +74,11 @@ public class AdapterRuleList extends CursorAdapter {
 
     /**
      *
-     * @param context
-     * @param csr
-     * @param flags
-     * @param intent
-     * @param fromspinner
+     * @param context       The context
+     * @param csr           The Cursor containing the rules to be listed
+     * @param flags         Flags
+     * @param intent        The Intent from the invoking activity
+     * @param fromspinner   True if the adpater is being applied to a spinner
      */
     AdapterRuleList(Context context,
                     Cursor csr,

@@ -82,9 +82,7 @@ public class ToolsActivity extends AppCompatActivity {
         rulesbutton = (TextView) findViewById(R.id.tools_rulesbutton);
         rulesoverview = (TextView) findViewById(R.id.tools_rulesoverview);
 
-        /**
-         * Apply Color Coding
-         */
+        // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);

@@ -105,7 +105,8 @@ class AdapterShopList extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int position = csr.getPosition();
+        @SuppressWarnings("unused") int position = csr.getPosition();
+        //noinspection UnusedAssignment
         view = initView(view, csr);
     }
 
@@ -158,11 +159,9 @@ class AdapterShopList extends CursorAdapter {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
-        /**
-         * Alternate row backgrounds based upon the respective colorcode
-         * using the last shade for that primary color but then applying
-         * opacity.
-         */
+        // Alternate row backgrounds based upon the respective colorcode
+        // using the last shade for that primary color but then applying
+        // opacity.
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,
                 callerintent,
                 ActionColorCoding.getColorsPerGroup() - 1
@@ -202,9 +201,9 @@ class AdapterShopList extends CursorAdapter {
 
         String shopname = cursor.getString(shops_shopname_offest);
         String shopcity = cursor.getString(shops_shopcity_offset);
-        String shopstreet = cursor.getString(shops_shopstreet_offset);
-        String shopstate = cursor.getString(shops_shopstate_offset);
-        String shopnotes = cursor.getString(shops_shopnotes_offset);
+        @SuppressWarnings("unused") String shopstreet = cursor.getString(shops_shopstreet_offset);
+        @SuppressWarnings("unused") String shopstate = cursor.getString(shops_shopstate_offset);
+        @SuppressWarnings("unused") String shopnotes = cursor.getString(shops_shopnotes_offset);
         String shoporder = cursor.getString(shops_shoporder_offset);
 
         nametv.setText(shopname);

@@ -162,9 +162,9 @@ class DBShopMethods {
 
     /**************************************************************************
      *
-     * @param filter
-     * @param order
-     * @return
+     * @param filter    String with filter SQL less WHERE
+     * @param order     String with order SQL less ORDER BY
+     * @return          Cursor containing Shops that have Aisles
      */
     Cursor getShopsWithAisles(String filter, String order) {
         String msg = "Invoked";
@@ -370,9 +370,7 @@ class DBShopMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        /**
-         * If the shop doesn't exist then return
-         */
+        // If the shop doesn't exist then return
         if(!doesShopExist(shopid)) {
             msg = "Shop=" + shopname + " ID=" + " does not exist.";
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -404,9 +402,7 @@ class DBShopMethods {
             cv.put(DBShopsTableConstants.SHOPS_NOTES_COL,shopnotes);
             updatecount++;
         }
-        /**
-         * if nothing to do then return
-         */
+        // if nothing to do then return
         if (updatecount < 1 ) {
             msg = "Nothing to Update. Not Updated";
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -466,9 +462,7 @@ class DBShopMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         aislescursor.close();
 
-        /**
-         * Ready for action the deletion of the Shop (should only ever be 1)
-         */
+        // Ready for action the deletion of the Shop (should only ever be 1)
         String dlt_shop_whereclause = DBShopsTableConstants.SHOPS_ID_COL + " = ?";
         String dlt_shop_whereargs[] = { Long.toString(shopid) };
         rv =  db.delete(DBShopsTableConstants.SHOPS_TABLE,

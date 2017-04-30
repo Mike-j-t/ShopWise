@@ -77,7 +77,7 @@ class DBAisleMethods {
                 order
         );
         if (rv.getCount() == 0 && adddummyrowifempty) {
-            ContentValues cv = new ContentValues();
+            @SuppressWarnings("unused") ContentValues cv = new ContentValues();
             Cursor[] mergecursors = new Cursor[2];
             mergecursors[0] = rv;
             dummyrow.addRow(new String[] {"0","0","0","No Aisles"});
@@ -123,10 +123,9 @@ class DBAisleMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int rv = 0;
         String filter = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
                 " = " + Long.toString(shopid);
-        rv = DBCommonMethods.getTableRowCount(db,
+        int rv = DBCommonMethods.getTableRowCount(db,
                 DBAislesTableConstants.AISLES_TABLE,
                 filter, "");
         msg = "Found " + Integer.toString(rv) + " Aisles";
@@ -380,11 +379,11 @@ class DBAisleMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        String sql;
-        int pudeletes = 0;
-        int sldeletes = 0;
-        int rdeletes = 0;
-        int adelete = 0;
+        @SuppressWarnings("unused") String sql;
+        @SuppressWarnings("UnusedAssignment") int pudeletes = 0;
+        @SuppressWarnings({"UnusedAssignment", "unused"}) int sldeletes = 0;
+        @SuppressWarnings({"UnusedAssignment", "unused"}) int rdeletes = 0;
+        @SuppressWarnings({"UnusedAssignment", "unused"}) int adelete = 0;
 
         if (doesAisleExist(aisleid)) {
             if (!intransaction) {
@@ -393,13 +392,9 @@ class DBAisleMethods {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             }
 
-            /**
-             *  Set whereargs string array to the aisleid as a string
-             */
+            //  Set whereargs string array to the aisleid as a string
             String whereargs[] = {Long.toString(aisleid)};
-            /**
-             * Delete ProductUsage rows that have Aisle as a parent
-             */
+            // Delete ProductUsage rows that have Aisle as a parent
             pudeletes = db.delete(
                     DBProductusageTableConstants.PRODUCTUSAGE_TABLE,
                     DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL +
@@ -409,9 +404,8 @@ class DBAisleMethods {
             msg = "Deleted " + Integer.toString(pudeletes) +
                     " ProductUsage Rows that reference Aisle ID=" + aisleid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-            /**
-             * Delete Shopping List rows with Aisle as a parent
-             */
+            // Delete Shopping List rows with Aisle as a parent
+            //noinspection UnusedAssignment
             sldeletes = db.delete(
                     DBShopListTableConstants.SHOPLIST_TABLE,
                     DBShopListTableConstants.SHOPLIST_AISLEREF_COL +
@@ -421,9 +415,8 @@ class DBAisleMethods {
             msg = "Deleted " + Integer.toString(pudeletes) +
                     " ShoppingList Rows that reference Aisle ID=" + aisleid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-            /**
-             * Delete Rule rows with Aisle as a parent
-             */
+            // Delete Rule rows with Aisle as a parent
+            //noinspection UnusedAssignment
             rdeletes = db.delete(
                     DBRulesTableConstants.RULES_TABLE,
                     DBRulesTableConstants.RULES_AISLEREF_COL +
@@ -433,9 +426,8 @@ class DBAisleMethods {
             msg = "Deleted " + Integer.toString(pudeletes) +
                     " Rule Rows that reference Aisle ID=" + aisleid;
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-            /**
-             * Finally Delete the Aisle itself
-             */
+            // Finally Delete the Aisle itself
+            //noinspection UnusedAssignment
             adelete = db.delete(
                     DBAislesTableConstants.AISLES_TABLE,
                     DBAislesTableConstants.AISLES_ID_COL + " = ?",

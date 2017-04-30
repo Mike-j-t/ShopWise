@@ -165,10 +165,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         skipbutton = (TextView) findViewById(R.id.ruletoollist_skipbutton);
         disablebutton = (TextView) findViewById(R.id.ruletoollist_disablebutton);
 
-        /**
-         * Apply Color Coding
-         */
-
+        // Apply Color Coding
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
         h1 = ActionColorCoding.setHeadingColor(this,getIntent(),1);

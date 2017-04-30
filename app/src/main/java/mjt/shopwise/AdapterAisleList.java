@@ -174,6 +174,7 @@ public class AdapterAisleList extends CursorAdapter{
      * @param cursor    The SQlite cursor that contains the data as rows
      * @return          The modifed view
      */
+    @SuppressWarnings("UnusedReturnValue")
     private View initView(View view, Cursor cursor) {
 
         String msg = "Invoked";

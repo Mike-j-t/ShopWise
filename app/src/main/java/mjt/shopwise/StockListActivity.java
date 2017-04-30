@@ -366,7 +366,7 @@ public class StockListActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param values
+     * @param values        values passed getLong1 = Aisleref getLong2 = productref
      */
     @SuppressWarnings("unused")
     public void stockDelete(RequestDialogParameters values) {
@@ -655,7 +655,7 @@ public class StockListActivity extends AppCompatActivity {
      *
      *                  Note keys are defined in StandardAppConstants
      *
-     * @param values
+     * @param values        values passed getLong1 = Aisleref getLong2 = productref
      */
     @SuppressWarnings("unused")
     public void editStockList(RequestDialogParameters values) {

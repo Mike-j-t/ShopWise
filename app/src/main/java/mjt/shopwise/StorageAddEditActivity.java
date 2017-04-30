@@ -120,7 +120,7 @@ public class StorageAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param savedInstanceState
+     * @param savedInstanceState    The Bundle holding the savedInstanceState
      */
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -525,7 +525,7 @@ public class StorageAddEditActivity extends AppCompatActivity {
 
     /**************************************************************************
      *
-     * @param edittext
+     * @param edittext      the EditText holding the storage locations Order
      */
     @SuppressLint("SetTextI18n")
     private void setNewOrder(EditText edittext) {

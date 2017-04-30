@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 /**
- * Created by Mike092015 on 28/11/2016.
+ * Test Action Activity for use when developing a new invoked activity
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class TestAction extends AppCompatActivity {
@@ -39,9 +39,7 @@ public class TestAction extends AppCompatActivity {
         super.onCreate(savedinstanceState);
         setContentView(R.layout.mytest);
 
-        /**
-         * Prepare and apply respective ActionBar and Heading color coding
-         */
+        //Prepare and apply respective ActionBar and Heading color coding
         ActionColorCoding.setActionBarColor(this,
                 getIntent(),
                 getSupportActionBar()
