@@ -2,22 +2,18 @@ package mjt.shopwise;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,6 +24,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import mjt.pickdate.PickDate;
 
 /**
  * Rule Add or Edit Activity
@@ -327,6 +325,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
     LinearLayout rulelistheading;
     AdapterRuleList rulelistadapter;
 
+    PickDate pickdate;
+
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -590,6 +590,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
         super.onResume();
         switch (resumestate) {
             case StandardAppConstants.RESUMESTATE_ALT1:
+                ruledate_input.setText(sdf.format(pickdate.getSelectedDate()));
+                textruledate_input.setText("");
                 break;
             case StandardAppConstants.RESUMESTATE_ALT2:
                 break;
@@ -1093,6 +1095,17 @@ public class RulesAddEditActivity extends AppCompatActivity {
         Calendar oldcal = Calendar.getInstance();
         oldcal.setTime(oldate);
 
+        // Uses legacy Pickdate Module instead of DatePickerDialog as it is
+        // much simpler to customise. However, it needs code in OnReume to get
+        // the picked date.
+        pickdate = new PickDate(this,oldcal.getTimeInMillis(),75);
+        pickdate.setTitle("Rule Start Date");
+        pickdate.setTitleBackgroundColour(primary_color);
+        resumestate = StandardAppConstants.RESUMESTATE_ALT1;
+        pickdate.show(this);
+
+
+        /**
         //Setup OnDateSetListener to apply selected date
         DatePickerDialog.OnDateSetListener odsl = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -1124,6 +1137,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         dpk.setScaleY((float) 1.1);
         dpd.setTitle("Rule Start Date");
         dpd.show();
+         **/
     }
 
     /**************************************************************************
