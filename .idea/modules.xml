@@ -4,7 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ShopWise.iml" filepath="$PROJECT_DIR$/ShopWise.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbcolumn/dbcolumn.iml" filepath="$PROJECT_DIR$/dbcolumn/dbcolumn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbdatabase/dbdatabase.iml" filepath="$PROJECT_DIR$/dbdatabase/dbdatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbindex/dbindex.iml" filepath="$PROJECT_DIR$/dbindex/dbindex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbtable/dbtable.iml" filepath="$PROJECT_DIR$/dbtable/dbtable.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickdate/pickdate.iml" filepath="$PROJECT_DIR$/pickdate/pickdate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlwords/sqlwords.iml" filepath="$PROJECT_DIR$/sqlwords/sqlwords.iml" />
     </modules>
   </component>
 </project>

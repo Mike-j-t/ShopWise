@@ -68,6 +68,7 @@
     <color name="listview_subsubheading_purple">#f050f0</color>
 
 
+
     <array name="colorList">
         <item>@color/colorRed</item>
         <item>@color/colorGold</item>

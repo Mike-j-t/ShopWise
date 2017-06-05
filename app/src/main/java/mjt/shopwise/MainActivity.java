@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Expand the database
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
-                "expanding Database (if required)", this, methodname);
+                "Expanding Database (if required)", this, methodname);
         db.expand(null, true);
         getDBCounts();
 

@@ -3,12 +3,12 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mjt.dbcolumn.DBColumn;
+import mjt.dbindex.DBIndex;
+import mjt.dbtable.DBTable;
+
 import static mjt.shopwise.DBConstants.DEFAULTORDER;
-import static mjt.shopwise.DBConstants.IDTYPE;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.STD_ID;
-import static mjt.shopwise.DBConstants.TXT;
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * DBAislesTableConstants - Constant values for the Aisles Table
@@ -30,40 +30,28 @@ public class DBAislesTableConstants {
     /**
      * _id (aka aisles_id)(INT) Key/primary index
      */
-    public static final String AISLES_ID_COL = STD_ID;
+    public static final String AISLES_ID_COL = SQLSTD_ID;
     /**
      * The constant AISLES_ID_COL_FULL.
      */
     public static final String AISLES_ID_COL_FULL = AISLES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             AISLES_ID_COL;
     /**
      * The constant AISLES_ALTID_COL.
      */
-    public static final String AISLES_ALTID_COL = AISLES_TABLE + STD_ID;
+    public static final String AISLES_ALTID_COL = AISLES_TABLE + SQLSTD_ID;
     /**
      * The constant AISLES_ALTID_COL_FULL.
      */
     @SuppressWarnings("unused")
     public static final String AISLES_ALTID_COL_FULL = AISLES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             AISLES_ALTID_COL;
-    /**
-     * The constant AISLES_ID_TYPE.
-     */
-    public static final String AISLES_ID_TYPE = IDTYPE;
-    /**
-     * The constant AISLES_ID_PRIMARY_INDEX.
-     */
-    public static final Boolean AISLES_ID_PRIMARY_INDEX = true;
     /**
      * The constant AISLESIDCOL.
      */
-    public static final DBColumn AISLESIDCOL = new DBColumn(AISLES_ID_COL,
-            AISLES_ID_TYPE,
-            AISLES_ID_PRIMARY_INDEX,
-            ""
-    );
+    public static final DBColumn AISLESIDCOL = new DBColumn(true);
 
     /**
      * aisleshopref - shop that owns this aisle (1 owner)
@@ -73,12 +61,12 @@ public class DBAislesTableConstants {
      * The constant AISLES_SHOPREF_COL_FULL.
      */
     public static final String AISLES_SHOPREF_COL_FULL = AISLES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             AISLES_SHOPREF_COL;
     /**
      * The constant AISLES_SHOPREF_TYPE.
      */
-    public static final String AISLES_SHOPREF_TYPE = INT;
+    public static final String AISLES_SHOPREF_TYPE = SQLINTEGER;
     /**
      * The constant AISLES_SHOPREF_PRIMARY_INDEX.
      */
@@ -100,12 +88,12 @@ public class DBAislesTableConstants {
      * The constant AISLES_ORDER_COL_FULL.
      */
     public static final String AISLES_ORDER_COL_FULL = AISLES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             AISLES_ORDER_COL;
     /**
      * The constant AISLES_ORDER_TYPE.
      */
-    public static final String AISLES_ORDER_TYPE = INT;
+    public static final String AISLES_ORDER_TYPE = SQLINTEGER;
     /**
      * The constant AISLES_ORDER_PRIMARY_INDEX.
      */
@@ -119,6 +107,7 @@ public class DBAislesTableConstants {
             DEFAULTORDER
     );
 
+
     /**
      * aislename - name of the aisle
      */
@@ -127,12 +116,12 @@ public class DBAislesTableConstants {
      * The constant AISLES_NAME_COL_FULL.
      */
     public static final String AISLES_NAME_COL_FULL = AISLES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             AISLES_NAME_COL;
     /**
      * The constant AISLES_NAME_TYPE.
      */
-    public static final String AISLES_NAME_TYPE = TXT;
+    public static final String AISLES_NAME_TYPE = SQLTEXT;
     /**
      * The constant AISLES_NAME_PRIMARY_INDEX.
      */
@@ -156,5 +145,12 @@ public class DBAislesTableConstants {
      * Finally create the DBTable
      */
     public static final DBTable AISLESTABLE = new DBTable(AISLES_TABLE,AISLESCOLS);
+    public static final DBIndex AISLESSHOPREFINDEX = new DBIndex(
+            AISLES_TABLE+AISLES_SHOPREF_COL+"index",
+            AISLESTABLE,
+            AISLESSHOPREFCOL,
+            true,
+            false
+    );
     public static final String AISLESMAXORDERCOLUMN = "maxorder";
 }

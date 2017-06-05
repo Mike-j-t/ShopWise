@@ -3,11 +3,11 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static mjt.shopwise.DBConstants.IDTYPE;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.REAL;
-import static mjt.shopwise.DBConstants.STD_ID;
+import mjt.dbcolumn.DBColumn;
+import mjt.dbindex.DBIndex;
+import mjt.dbtable.DBTable;
+
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * Shoplist table - List of products to be purchased or have been purchased
@@ -23,12 +23,12 @@ public class DBShopListTableConstants {
     /**
      * _id (aka shoplist_id) - index/primary key
      */
-    public static final String SHOPLIST_ID_COL = STD_ID;
+    public static final String SHOPLIST_ID_COL = SQLSTD_ID;
     /**
      * The constant SHOPLIST_ID_COL_FULL.
      */
     public static final String SHOPLIST_ID_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_ID_COL;
     /**
      * The constant SHOPLIST_ALTID_COL.
@@ -40,23 +40,12 @@ public class DBShopListTableConstants {
      */
     @SuppressWarnings("unused")
     public static final String SHOPLIST_ALTID_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_ALTID_COL;
-    /**
-     * The constant SHOPLIST_ID_TYPE.
-     */
-    public static final String SHOPLIST_ID_TYPE = IDTYPE;
-    /**
-     * The constant SHOPLIST_ID_PRIMARY_INDEX.
-     */
-    public static final boolean SHOPLIST_ID_PRIMARY_INDEX = true;
     /**
      * The constant SHOPLISTIDCOL.
      */
-    public static final DBColumn SHOPLISTIDCOL = new DBColumn(SHOPLIST_ID_COL,
-            SHOPLIST_ID_TYPE,
-            SHOPLIST_ID_PRIMARY_INDEX,
-            "");
+    public static final DBColumn SHOPLISTIDCOL = new DBColumn(true);
 
     /**
      * shoplistproductref - reference to the product and thus part reference
@@ -67,12 +56,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_PRODUCTREF_COL_FULL.
      */
     public static final String SHOPLIST_PRODUCTREF_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_PRODUCTREF_COL;
     /**
      * The constant SHOPLIST_PRODUCTREF_TYPE.
      */
-    public static final String SHOPLIST_PRODUCTREF_TYPE = INT;
+    public static final String SHOPLIST_PRODUCTREF_TYPE = SQLINTEGER;
     /**
      * The constant SHOPLIST_PRODUCTREF_PRIMARY_INDEX.
      */
@@ -85,6 +74,7 @@ public class DBShopListTableConstants {
             SHOPLIST_PRODUCTREF_PRIMARY_INDEX,
             "");
 
+
     /**
      * shoplistaisleref reference to the aisle and thus part of the reference
      * to the productusage (with shoplistproductref
@@ -94,12 +84,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_AISLEREF_COL_FULL.
      */
     public static final String SHOPLIST_AISLEREF_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_AISLEREF_COL;
     /**
      * The constant SHOPLIST_AISLEREF_TYPE.
      */
-    public static final String SHOPLIST_AISLEREF_TYPE = INT;
+    public static final String SHOPLIST_AISLEREF_TYPE = SQLINTEGER;
     /**
      * The constant SHOPLIST_AISLEREF_PRIMARY_INDEX.
      */
@@ -112,6 +102,7 @@ public class DBShopListTableConstants {
             SHOPLIST_AISLEREF_PRIMARY_INDEX,
             "");
 
+
     /**
      * shoplistdateadded - date this entry was added to the shopping list
      */
@@ -120,12 +111,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_DATEADDED_COL_FULL.
      */
     public static final String SHOPLIST_DATEADDED_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_DATEADDED_COL;
     /**
      * The constant SHOPLIST_DATEADDED_TYPE.
      */
-    public static final String SHOPLIST_DATEADDED_TYPE = INT;
+    public static final String SHOPLIST_DATEADDED_TYPE = SQLINTEGER;
     /**
      * The constant SHOPLIST_DATEADDED_PRIMARY_INDEX.
      */
@@ -138,6 +129,7 @@ public class DBShopListTableConstants {
             SHOPLIST_DATEADDED_PRIMARY_INDEX,
             "0");
 
+
     /**
      * shoplistnumbertoget - number to purchase
      */
@@ -146,12 +138,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_NUMBERTOGET_COL_FULL.
      */
     public static final String SHOPLIST_NUMBERTOGET_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_NUMBERTOGET_COL;
     /**
      * The constant SHOPLIST_NUMBERTOGET_TYPE.
      */
-    public static final String SHOPLIST_NUMBERTOGET_TYPE = INT;
+    public static final String SHOPLIST_NUMBERTOGET_TYPE = SQLINTEGER;
     /**
      * The constant SHOPLIST_NUMBERTOGET_PRIMARY_INDEX.
      */
@@ -164,6 +156,7 @@ public class DBShopListTableConstants {
             SHOPLIST_NUMBERTOGET_PRIMARY_INDEX,
             "0");
 
+
     /**
      * shoplistdone - boolean 0 if not done, 1 if done (purchased)
      */
@@ -172,12 +165,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_DONE_COL_FULL.
      */
     public static final String SHOPLIST_DONE_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_DONE_COL;
     /**
      * The constant SHOPLIST_DONE_TYPE.
      */
-    public static final String SHOPLIST_DONE_TYPE = INT;
+    public static final String SHOPLIST_DONE_TYPE = SQLINTEGER;
     /**
      * The constant SHOPLIST_DONE_PRIMARY_INDEX.
      */
@@ -190,6 +183,7 @@ public class DBShopListTableConstants {
             SHOPLIST_DONE_PRIMARY_INDEX,
             "0");
 
+
     /**
      * shoplistdategot - date purchased
      */
@@ -198,12 +192,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_DATEGOT_COL_FULL.
      */
     public static final String SHOPLIST_DATEGOT_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_DATEGOT_COL;
     /**
      * The constant SHOPLIST_DATEGOT_TYPE.
      */
-    public static final String SHOPLIST_DATEGOT_TYPE = INT;
+    public static final String SHOPLIST_DATEGOT_TYPE = SQLINTEGER;
     /**
      * The constant SHOPLIST_DATEGOT_PRIMARY_INDEX.
      */
@@ -216,6 +210,7 @@ public class DBShopListTableConstants {
             SHOPLIST_DATEGOT_PRIMARY_INDEX,
             "0");
 
+
     /**
      * shoplistcost - purchase cost
      */
@@ -224,12 +219,12 @@ public class DBShopListTableConstants {
      * The constant SHOPLIST_COST_COL_FULL.
      */
     public static final String SHOPLIST_COST_COL_FULL = SHOPLIST_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPLIST_COST_COL;
     /**
      * The constant SHOPLIST_COST_TYPE.
      */
-    public static final String SHOPLIST_COST_TYPE = REAL;
+    public static final String SHOPLIST_COST_TYPE = SQLREAL;
     /**
      * The constant SHOPLIST_COST_PRIMARY_INDEX.
      */
@@ -241,6 +236,7 @@ public class DBShopListTableConstants {
             SHOPLIST_COST_TYPE,
             SHOPLIST_COST_PRIMARY_INDEX,
             "0");
+
 
     /**
      * The constant SHOPLISTCOLS.
@@ -257,6 +253,9 @@ public class DBShopListTableConstants {
      * The constant SHOPLISTTABLE.
      */
     public static final DBTable SHOPLISTTABLE = new DBTable( SHOPLIST_TABLE,SHOPLISTCOLS);
+
+    public static final DBIndex SHOPLISTAISLEREFINDEX = new DBIndex(SHOPLIST_TABLE+SHOPLIST_AISLEREF_COL+"index",
+            SHOPLISTTABLE,SHOPLISTAISLEREFCOL,true,false);
 
     public static final String TOTALCOST = "totalcost";
     public static final String TOTALREMAINING = "totremaining";

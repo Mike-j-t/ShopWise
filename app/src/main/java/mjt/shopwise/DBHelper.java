@@ -93,12 +93,12 @@ class DBHelper extends SQLiteOpenHelper {
         if(db == null) {
             db = instance.getWritableDatabase();
         }
-        // Build Tables to reflect schema (SHOPWISE) only if schema is usable
-        if(DBConstants.SHOPWISE.isDBDatabaseUsable()) {
+        // Build Tables to reflect schema (SHOPWISEBASESCHEMA) only if schema is usable
+        if(DBConstants.SHOPWISEBASESCHEMA.isDBDatabaseUsable()) {
             // Check to see if any tables need to be added
-            ArrayList<String> buildsql = DBConstants.SHOPWISE.generateDBBuildSQL(db);
+            ArrayList<String> buildsql = DBConstants.SHOPWISEBASESCHEMA.generateDBBuildSQL(db);
             if (!buildsql.isEmpty()) {
-                DBConstants.SHOPWISE.actionDBBuildSQL(db);
+                DBConstants.SHOPWISEBASESCHEMA.actionDBBuildSQL(db);
                 msg = dbcreated + buildsql.size() + " tables added.";
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             } else {
@@ -106,11 +106,11 @@ class DBHelper extends SQLiteOpenHelper {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             }
             if(buildandexpand) {
-                ArrayList<String> altersql = DBConstants.SHOPWISE.generateDBAlterSQL(db);
+                ArrayList<String> altersql = DBConstants.SHOPWISEBASESCHEMA.generateDBAlterSQL(db);
                 if(!altersql.isEmpty()) {
                     msg = dbexpanded + altersql.size() + " columns added.";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-                    DBConstants.SHOPWISE.actionDBAlterSQL(db);
+                    DBConstants.SHOPWISEBASESCHEMA.actionDBAlterSQL(db);
                 }  else {
                     msg = dbexpandskipped;
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -118,7 +118,7 @@ class DBHelper extends SQLiteOpenHelper {
             }
         } else {
             msg = dbunusable + "\n" +
-                    DBConstants.SHOPWISE.getAllDBDatabaseProblemMsgs();
+                    DBConstants.SHOPWISEBASESCHEMA.getAllDBDatabaseProblemMsgs();
             LogMsg.LogMsg(LogMsg.LOGTYPE_ERROR,LOGTAG,msg,THISCLASS,methodname);
         }
     }
