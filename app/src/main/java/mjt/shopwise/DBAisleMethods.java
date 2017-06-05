@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBAisleMethods - Databse Methods for Aisle handling
  */
@@ -169,10 +171,10 @@ class DBAisleMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int rv = 0;
         String columns[] = {
-                DBConstants.SQLMAX +
+                SQLMAX +
                         DBAislesTableConstants.AISLES_ORDER_COL +
-                        DBConstants.SQLMAXCLOSE +
-                        DBConstants.SQLAS +
+                        SQLMAXCLOSE +
+                        SQLAS +
                         DBAislesTableConstants.AISLESMAXORDERCOLUMN
         };
         String whereclause = DBAislesTableConstants.AISLES_SHOPREF_COL +
@@ -241,7 +243,7 @@ class DBAisleMethods {
         if (dbshopmethods.doesShopExist(shopid)) {
             String filter = DBAislesTableConstants.AISLES_ID_COL_FULL +
                     " = " + Long.toString(aisleid) +
-                    DBConstants.SQLAND +
+                    SQLAND +
                     DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
                     " = " + Long.toString(shopid);
             Cursor csr = DBCommonMethods.getTableRows(db,
@@ -476,9 +478,9 @@ class DBAisleMethods {
                 );
 
                 pucsr = db.query(DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                        DBConstants.SQLLEFTJOIN +
+                        SQLLEFTJOIN +
                         DBProductsTableConstants.PRODUCTS_TABLE +
-                        DBConstants.SQLON +
+                        SQLON +
                         DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
                         DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
                         null,
@@ -500,9 +502,9 @@ class DBAisleMethods {
                 pucsr.close();
 
                 slcsr = db.query(DBShopListTableConstants.SHOPLIST_TABLE +
-                        DBConstants.SQLLEFTJOIN +
+                        SQLLEFTJOIN +
                         DBProductsTableConstants.PRODUCTS_TABLE +
-                        DBConstants.SQLON +
+                        SQLON +
                         DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL + " = " +
                         DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
                         null,DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL + " =?",new String[] {Long.toString(aisleid)},
@@ -519,9 +521,9 @@ class DBAisleMethods {
                 slcsr.close();
 
                 rulecsr = db.query(DBRulesTableConstants.RULES_TABLE +
-                        DBConstants.SQLLEFTJOIN +
+                        SQLLEFTJOIN +
                         DBProductsTableConstants.PRODUCTS_TABLE +
-                        DBConstants.SQLON +
+                        SQLON +
                         DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL + " = " +
                         DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
                         null,

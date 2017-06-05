@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * StockActivity - Stock Aisles with products
  *
@@ -148,8 +150,8 @@ public class StockActivity extends AppCompatActivity {
     private static final int BYPRODUCT = 0;
     private static final int BYCOST = 1;
     private static final int BYORDER = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYPRODUCT;
     static boolean ordertype = true;
@@ -762,9 +764,9 @@ public class StockActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 productfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
-                        DBConstants.SQLLIKECHARSTART +
+                        SQLLIKECHARSTART +
                         inputproductfilter.getText().toString() +
-                        DBConstants.SQLLIKECHAREND;
+                        SQLLIKECHAREND;
                 plcsr = dbproductmethods.getProductsNotInAisle(currentaisleid, productfilter, productorderby);
                 productlistadapter.swapCursor(plcsr);
             }

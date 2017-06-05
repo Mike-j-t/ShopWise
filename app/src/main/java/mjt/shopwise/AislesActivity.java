@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /******************************************************************************
  * AislessActivity - List Aisles allowing them to be edited, stocked, or deleted
  * List can also be sorted by clicking on a label. Clicking
@@ -40,8 +42,8 @@ public class AislesActivity extends AppCompatActivity{
 
     private static final int BYAISLE = 0;
     private static final int BYORDER = 1;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     private static String shopfilter = "";
     public static final String THISCLASS = AislesActivity.class.getSimpleName();
     private static final String LOGTAG = "SW_AA";
@@ -114,8 +116,8 @@ public class AislesActivity extends AppCompatActivity{
     @SuppressWarnings("unused")
     private static final String SHOPORDER_FULLCOLUMN = DBShopsTableConstants.SHOPS_ORDER_COL_FULL;
 
-    static String orderby = AISLENAME_FULLCOLUMN + DBConstants.SQLORDERASCENDING;
-    static final String shopsorderby = SHOPNAME_FULLCOLUMN + DBConstants.SQLORDERASCENDING;
+    static String orderby = AISLENAME_FULLCOLUMN + SQLORDERASCENDING;
+    static final String shopsorderby = SHOPNAME_FULLCOLUMN + SQLORDERASCENDING;
     static int orderfld = BYAISLE;
     static boolean ordertype = true;
     static boolean sortchanged = false;

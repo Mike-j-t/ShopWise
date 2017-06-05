@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * Rules Activity
  */
@@ -211,8 +213,8 @@ public class RulesActivity extends AppCompatActivity {
     private static final int BYPRODUCTNAME = 1;
     private static final int BYACTONDATE = 2;
     private static final int BYPROMPT = 3;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     static String orderby = RULENAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYRULENAME;
     static boolean ordertype = true;

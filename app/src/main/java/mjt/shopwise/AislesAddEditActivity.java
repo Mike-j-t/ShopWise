@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import static mjt.shopwise.ActionColorCoding.transparency_requied;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * Add or Edit an Aisle
  */
@@ -35,8 +37,8 @@ public class AislesAddEditActivity extends AppCompatActivity {
 
     private static final int BYAISLE = 0;
     private static final int BYORDER = 1;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     private static String shopfilter = "";
 
     Context context;

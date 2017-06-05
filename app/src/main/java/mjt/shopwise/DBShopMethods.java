@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBShopMethods - Database Methods specific to Shop handling
  */
@@ -111,10 +113,10 @@ class DBShopMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         int rv = 0;
         String columns[] = {
-               DBConstants.SQLMAX +
+               SQLMAX +
                        DBShopsTableConstants.SHOPS_ORDER_COL +
-                       DBConstants.SQLMAXCLOSE +
-                       DBConstants.SQLAS +
+                       SQLMAXCLOSE +
+                       SQLAS +
                        DBShopsTableConstants.SHOPSMAXORDERCOLUMN
         };
         Cursor csr = db.query(
@@ -172,7 +174,7 @@ class DBShopMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
         Cursor rv;
-        String sql = DBConstants.SQLSELECT +
+        String sql = SQLSELECT +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_ORDER_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_NAME_COL_FULL + ", " +
@@ -180,21 +182,21 @@ class DBShopMethods {
                 DBShopsTableConstants.SHOPS_STREET_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_STATE_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_NOTES_COL_FULL +
-                DBConstants.SQLFROM +
+                SQLFROM +
                 DBShopsTableConstants.SHOPS_TABLE +
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBAislesTableConstants.AISLES_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL + " = " +
                 DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
-                DBConstants.SQLWHERE +
+                SQLWHERE +
                 DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
-                " IS NOT NULL " + filter + " " +
-                DBConstants.SQLGROUP +
+                SQLISNOTNULL + filter + " " +
+                SQLGROUP +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL;
 
         if (order.length() > 0) {
-            sql = sql + DBConstants.SQLORDERBY + order;
+            sql = sql + SQLORDERBY + order;
         }
         rv = db.rawQuery(sql,null);
         msg = "Returning Shops with Aisles Cursor with " +
@@ -333,7 +335,7 @@ class DBShopMethods {
         boolean rv = false;
         String filter =  DBShopsTableConstants.SHOPS_ID_COL_FULL +
                     " = " + Long.toString(shopid) +
-                DBConstants.SQLENDSTATEMENT;
+                SQLENDSTATEMENT;
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBShopsTableConstants.SHOPS_TABLE,
                 filter,
@@ -436,7 +438,7 @@ class DBShopMethods {
 
         String filter = DBAislesTableConstants.AISLES_SHOPREF_COL +
                 " = " + Long.toString(shopid) +
-                DBConstants.SQLENDSTATEMENT;
+                SQLENDSTATEMENT;
         Cursor aislescursor = DBCommonMethods.getTableRows(db,
                 DBAislesTableConstants.AISLES_TABLE,
                 filter,
@@ -495,11 +497,11 @@ class DBShopMethods {
         String shopfilter = DBShopsTableConstants.SHOPS_ID_COL_FULL +
                 " = " +
                 Long.toString(shopid) +
-                DBConstants.SQLENDSTATEMENT;
+                SQLENDSTATEMENT;
         String aislefilter = DBAislesTableConstants.AISLES_SHOPREF_COL_FULL +
                 " = " +
                 Long.toString(shopid) +
-                DBConstants.SQLENDSTATEMENT;
+                SQLENDSTATEMENT;
         Cursor shopstodelete = DBCommonMethods.getTableRows(db,
                 DBShopsTableConstants.SHOPS_TABLE,
                 shopfilter,

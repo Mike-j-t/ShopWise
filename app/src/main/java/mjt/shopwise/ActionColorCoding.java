@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * ActionColorCoding - Methods to Apply Color Coding of to Activities
  * NOTE! Singleton
@@ -93,7 +95,7 @@ class ActionColorCoding {
             LogMsg.LogMsg(LogMsg.LOGTYPE_WARNING,LOGTAG,msg,THISCLASS,methodname);
             sqlstr = "DELETE FROM " +
                     DBAppvaluesTableConstants.APPVALUES_TABLE +
-                    DBConstants.SQLWHERE +
+                    SQLWHERE +
                     DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                     " = '" +
                     ActionColorCoding.PRIMARYCOLORCODENAME + "'";
@@ -108,7 +110,7 @@ class ActionColorCoding {
             LogMsg.LogMsg(LogMsg.LOGTYPE_WARNING,LOGTAG,msg,THISCLASS,methodname);
             sqlstr = "DELETE FROM " +
                     DBAppvaluesTableConstants.APPVALUES_TABLE +
-                    DBConstants.SQLWHERE +
+                    SQLWHERE +
                     DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                     " = '" +
                     ActionColorCoding.COLORCODENAME + "'";
@@ -482,7 +484,7 @@ class ActionColorCoding {
             // If a row for this color (by offset) exists then skip
             if ( dbAppvaluesmethods.doesExtendedAppValueExist(
                     ActionColorCoding.COLORCODENAME,
-                    DBConstants.INT,
+                    SQLINTEGER,
                     null,null,null,null,
                     Integer.toString(i))) {
                 continue;
@@ -500,7 +502,7 @@ class ActionColorCoding {
             // If a row for this color (by offset) exists then skip
             if (dbAppvaluesmethods.doesExtendedAppValueExist(
                     ActionColorCoding.PRIMARYCOLORCODENAME,
-                    DBConstants.INT,
+                    SQLINTEGER,
                     null,null,null,null,
                     Integer.toString(i))) {
                 continue;

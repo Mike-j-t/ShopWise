@@ -18,6 +18,8 @@ import android.widget.TextView;
 import static mjt.shopwise.ActionColorCoding.transparency_optional;
 import static mjt.shopwise.ActionColorCoding.transparency_requied;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * ShopAddEditAcitivty - Add or Edit shops
  */
@@ -35,8 +37,8 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     private static final int BYSHOP = 0;
     private static final int BYCITY = 1;
     private static final int BYORDER = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     /**
      * The Context.
      */

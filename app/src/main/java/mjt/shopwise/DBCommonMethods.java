@@ -3,6 +3,8 @@ package mjt.shopwise;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * ShopWise Database Common Methods
  */
@@ -85,25 +87,25 @@ public class DBCommonMethods {
         if (columns.length() < 1 ) {
             columns = " * ";
         }
-        String sql = DBConstants.SQLSELECT +
-                columns + DBConstants.SQLFROM +
+        String sql = SQLSELECT +
+                columns + SQLFROM +
                 table;
         if (joinclauses.length() > 0 ) {
             sql = sql + joinclauses;
         }
         if (filter.length() > 0 ) {
-            sql = sql + DBConstants.SQLWHERE + filter;
+            sql = sql + SQLWHERE + filter;
         }
         if (groupclause.length() > 0 ) {
-            sql = sql + DBConstants.SQLGROUP + groupclause;
+            sql = sql + SQLGROUP + groupclause;
         }
         if (order.length() > 0 ) {
-            sql = sql + DBConstants.SQLORDERBY + order;
+            sql = sql + SQLORDERBY + order;
         }
         if (limit > 0 ) {
-            sql = sql + DBConstants.SQLLIMIT + Integer.toString(limit);
+            sql = sql + SQLLIMIT + Integer.toString(limit);
         }
-        sql = sql + DBConstants.SQLENDSTATEMENT;
+        sql = sql + SQLENDSTATEMENT;
         return db.rawQuery(sql,null);
     }
 }

@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import mjt.pickdate.PickDate;
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * Rule Add or Edit Activity
@@ -240,8 +241,8 @@ public class RulesAddEditActivity extends AppCompatActivity {
     private static final int BYPRODUCTNAME = 1;
     @SuppressWarnings("unused")
     private static final int BYACTONDATE = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     static String orderby = RULENAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYRULENAME;
     static boolean ordertype = true;
@@ -936,9 +937,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 productfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
-                        DBConstants.SQLLIKECHARSTART +
+                        SQLLIKECHARSTART +
                         productfilter_input.getText().toString() +
-                        DBConstants.SQLLIKECHAREND;
+                        SQLLIKECHAREND;
                 plcsr = dbproductmethods.getProductsInAisle(currentaisleid,
                         productfilter, productorderby);
                 currentproductcount = plcsr.getCount();

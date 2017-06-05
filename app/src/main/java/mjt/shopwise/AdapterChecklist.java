@@ -256,7 +256,7 @@ public class AdapterChecklist extends CursorAdapter {
         productusage_checklistflag_offset = cursor.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL);
         productusage_checklistcount_offset = cursor.getColumnIndex(DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTCOUNT_COL);
 
-        calculated_orderedcount_offset = cursor.getColumnIndex(DBConstants.CALCULATED_PRODUTSORDERED_NAME);
+        calculated_orderedcount_offset = cursor.getColumnIndex(DBConstants.CALCULATED_PRODUCTSORDERED_NAME);
 
         product_name_offset = cursor.getColumnIndex(DBProductsTableConstants.PRODUCTS_NAME_COL);
 

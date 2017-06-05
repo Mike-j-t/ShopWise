@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /******************************************************************************
  * ProductsActivity - List Products allowing them to be edited, stocked,
  * or deleted.
@@ -47,8 +49,8 @@ public class ProductsActivity extends AppCompatActivity {
     private static final int BYPRODUCT = 0;
     private static final int BYSTORAGE = 1;
     private static final int BYORDER = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
 
     Context context;
     ActionBar actionbar;
@@ -601,9 +603,9 @@ public class ProductsActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 productfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
-                        DBConstants.SQLLIKECHARSTART +
+                        SQLLIKECHARSTART +
                         inputproductfilter.getText().toString() +
-                        DBConstants.SQLLIKECHAREND;
+                        SQLLIKECHAREND;
                 plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
                 productlistadapter.swapCursor(plcsr);
             }
