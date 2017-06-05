@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBAppvaluesMethods - Database methods for the Appvalues Table handling
  * AppValues table is for holding values in a similar viewn to shared
@@ -224,7 +226,7 @@ class DBAppvaluesMethods {
         if (appvaluetype != null && (appvaluetype.length() > 0)) {
             argcount++;
             if (whereclause.length() > 0) {
-                whereclause = whereclause + DBConstants.SQLAND;
+                whereclause = whereclause + SQLAND;
             }
             whereclause = whereclause +
                     DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
@@ -236,7 +238,7 @@ class DBAppvaluesMethods {
         if (appvalueint != null && (appvalueint.length() > 0)) {
             argcount++;
             if (whereclause.length() > 0) {
-                whereclause = whereclause + DBConstants.SQLAND;
+                whereclause = whereclause + SQLAND;
             }
             whereclause = whereclause +
                     DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL +
@@ -248,7 +250,7 @@ class DBAppvaluesMethods {
         if (appvaluereal != null && (appvaluereal.length() > 0)) {
             argcount++;
             if (whereclause.length() > 0) {
-                whereclause = whereclause + DBConstants.SQLAND;
+                whereclause = whereclause + SQLAND;
             }
             whereclause = whereclause +
                     DBAppvaluesTableConstants.APPVALUES_REAL_COL_FULL +
@@ -260,7 +262,7 @@ class DBAppvaluesMethods {
         if (appvaluetext != null && (appvaluetext.length() > 0)) {
             argcount++;
             if (whereclause.length() > 0) {
-                whereclause = whereclause + DBConstants.SQLAND;
+                whereclause = whereclause + SQLAND;
             }
             whereclause = whereclause +
                     DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL +
@@ -273,7 +275,7 @@ class DBAppvaluesMethods {
                 (appvalueincludeinsettings.length() > 0)) {
             argcount++;
             if (whereclause.length() > 0) {
-                whereclause = whereclause + DBConstants.SQLAND;
+                whereclause = whereclause + SQLAND;
             }
             whereclause = whereclause +
                     DBAppvaluesTableConstants.APPVALUES_INCLUDEINSETTINGS_COL_FULL +
@@ -286,7 +288,7 @@ class DBAppvaluesMethods {
                 (appvaluesettingsinfo.length() > 0)) {
             argcount++;
             if (whereclause.length() > 0) {
-                whereclause = whereclause + DBConstants.SQLAND;
+                whereclause = whereclause + SQLAND;
             }
             whereclause = whereclause +
                     DBAppvaluesTableConstants.APPVALUES_SETTINGSINFO_COL_FULL +
@@ -358,7 +360,7 @@ class DBAppvaluesMethods {
         }
         ContentValues cv = new ContentValues();
         cv.put(DBAppvaluesTableConstants.APPVALUES_NAME_COL,appvaluename);
-        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,DBConstants.TXT);
+        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,SQLTEXT);
         cv.put(DBAppvaluesTableConstants.APPVALUES_TEXT_COL,appvalue);
         cv.put(DBAppvaluesTableConstants.APPVALUES_INT_COL,0);
         cv.put(DBAppvaluesTableConstants.APPVALUES_REAL_COL,0.0);
@@ -405,7 +407,7 @@ class DBAppvaluesMethods {
         }
         ContentValues cv = new ContentValues();
         cv.put(DBAppvaluesTableConstants.APPVALUES_NAME_COL,appvaluename);
-        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,DBConstants.INT);
+        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,SQLINTEGER);
         cv.put(DBAppvaluesTableConstants.APPVALUES_TEXT_COL,"");
         cv.put(DBAppvaluesTableConstants.APPVALUES_INT_COL,appvalue);
         cv.put(DBAppvaluesTableConstants.APPVALUES_REAL_COL,0.0);
@@ -480,7 +482,7 @@ class DBAppvaluesMethods {
         }
         ContentValues cv = new ContentValues();
         cv.put(DBAppvaluesTableConstants.APPVALUES_NAME_COL,appvaluename);
-        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,DBConstants.REAL);
+        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,SQLREAL);
         cv.put(DBAppvaluesTableConstants.APPVALUES_REAL_COL,appvalue);
         cv.put(DBAppvaluesTableConstants.APPVALUES_INCLUDEINSETTINGS_COL,sincl);
         cv.put(DBAppvaluesTableConstants.APPVALUES_SETTINGSINFO_COL,settingsinfo);
@@ -560,7 +562,7 @@ class DBAppvaluesMethods {
         }
         ContentValues cv = new ContentValues();
         cv.put(DBAppvaluesTableConstants.APPVALUES_NAME_COL,appvaluename);
-        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,DBConstants.INT);
+        cv.put(DBAppvaluesTableConstants.APPVALUES_TYPE_COL,SQLINTEGER);
         cv.put(DBAppvaluesTableConstants.APPVALUES_TEXT_COL,appvalue);
         cv.put(DBAppvaluesTableConstants.APPVALUES_INT_COL,extraintvalue);
         cv.put(DBAppvaluesTableConstants.APPVALUES_REAL_COL,0.0);
@@ -665,11 +667,11 @@ class DBAppvaluesMethods {
         String filter =  DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 valuecolumn +
                 " = '" +
                 appvalue +
-                "' " + DBConstants.SQLENDSTATEMENT;
+                "' " + SQLENDSTATEMENT;
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
                 filter,
@@ -701,7 +703,7 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLENDSTATEMENT;
+                "'" + SQLENDSTATEMENT;
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
                 filter,
@@ -737,10 +739,10 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
                 " = '" +
-                DBConstants.INT +
+                SQLINTEGER +
                 "'";
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -774,10 +776,10 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
                 " = '" +
-                DBConstants.REAL +
+                SQLREAL +
                 "'";
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -811,10 +813,10 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
                 " = '" +
-                DBConstants.REAL +
+                SQLREAL +
                 "'";
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -849,10 +851,10 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
                 " = '" +
-                DBConstants.INT +
+                SQLINTEGER +
                 "'";
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -892,10 +894,10 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
                 " = '" +
-                DBConstants.REAL +
+                SQLREAL +
                 "'";
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
@@ -935,10 +937,10 @@ class DBAppvaluesMethods {
         String filter = DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                 " = '" +
                 appvaluename +
-                "'" + DBConstants.SQLAND +
+                "'" + SQLAND +
                 DBAppvaluesTableConstants.APPVALUES_TYPE_COL_FULL +
                 " = '" +
-                DBConstants.TXT +
+                SQLTEXT +
                 "'";
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBAppvaluesTableConstants.APPVALUES_TABLE,

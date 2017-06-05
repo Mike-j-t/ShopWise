@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBProductMethods - Dtabase methods specific to Product Handling
  */
@@ -127,14 +129,14 @@ class DBProductMethods {
                 DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL,
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL,
                 DBStorageTableConstants.STORAGE_ID_COL_FULL +
-                        DBConstants.SQLAS + DBStorageTableConstants.STORAGE_ALTID_COL,
+                        SQLAS + DBStorageTableConstants.STORAGE_ALTID_COL,
                 DBStorageTableConstants.STORAGE_NAME_COL_FULL,
                 DBStorageTableConstants.STORAGE_ORDER_COL_FULL
         };
         String table = DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBStorageTableConstants.STORAGE_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL +
                 " = " +
                 DBStorageTableConstants.STORAGE_ID_COL_FULL;
@@ -163,10 +165,10 @@ class DBProductMethods {
         String[] whereargs = new String[] { Long.toString(storageref)};
 
         String columns[] = {
-                DBConstants.SQLMAX +
+                SQLMAX +
                         DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL +
-                        DBConstants.SQLMAXCLOSE +
-                        DBConstants.SQLAS +
+                        SQLMAXCLOSE +
+                        SQLAS +
                         DBProductsTableConstants.PRODUCTSSMAXORDERCOLUMN
         };
         Cursor csr = db.query(
@@ -207,36 +209,36 @@ class DBProductMethods {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        String sql = DBConstants.SQLSELECTDISTINCT  +
+        String sql = SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + ", " +
                 DBStorageTableConstants.STORAGE_ID_COL_FULL +
-                DBConstants.SQLAS +
+                SQLAS +
                 DBStorageTableConstants.STORAGE_ALTID_COL + ", " +
                 DBStorageTableConstants.STORAGE_NAME_COL_FULL + ", " +
                 DBStorageTableConstants.STORAGE_ORDER_COL_FULL +
-                DBConstants.SQLFROM +
+                SQLFROM +
                 DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBStorageTableConstants.STORAGE_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + " = " +
                 DBStorageTableConstants.STORAGE_ID_COL_FULL +
-                DBConstants.SQLWHERE +
+                SQLWHERE +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                DBConstants.SQLIN + "(" +
-                DBConstants.SQLSELECT +
+                SQLIN + "(" +
+                SQLSELECT +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                DBConstants.SQLFROM +
+                SQLFROM +
                 DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                DBConstants.SQLWHERE +
+                SQLWHERE +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
                 " = " +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                " AND " +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
                 Long.toString(aisleid) +
@@ -244,10 +246,10 @@ class DBProductMethods {
 
         if (filter.length() > 0 ) {
 
-            sql = sql + DBConstants.SQLAND + filter;
+            sql = sql + SQLAND + filter;
         }
         if (order.length() > 0 ) {
-            sql = sql + DBConstants.SQLORDERBY + order;
+            sql = sql + SQLORDERBY + order;
         }
         return db.rawQuery(sql,null);
     }
@@ -265,36 +267,36 @@ class DBProductMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        String sql = DBConstants.SQLSELECTDISTINCT  +
+        String sql = SQLSELECTDISTINCT  +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + ", " +
                 DBStorageTableConstants.STORAGE_ID_COL_FULL +
-                DBConstants.SQLAS +
+                SQLAS +
                 DBStorageTableConstants.STORAGE_ALTID_COL + ", " +
                 DBStorageTableConstants.STORAGE_NAME_COL_FULL + ", " +
                 DBStorageTableConstants.STORAGE_ORDER_COL_FULL +
-                DBConstants.SQLFROM +
+                SQLFROM +
                 DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBStorageTableConstants.STORAGE_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + " = " +
                 DBStorageTableConstants.STORAGE_ID_COL_FULL +
-                DBConstants.SQLWHERE +
+                SQLWHERE +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                DBConstants.SQLNOTIN + "(" +
-                DBConstants.SQLSELECT +
+                SQLNOTIN + "(" +
+                SQLSELECT +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                DBConstants.SQLFROM +
+                SQLFROM +
                 DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                DBConstants.SQLWHERE +
+                SQLWHERE +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
                 " = " +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                " AND " +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
                 Long.toString(aisleid) +
@@ -302,42 +304,12 @@ class DBProductMethods {
 
         if (filter.length() > 0 ) {
 
-            sql = sql + DBConstants.SQLAND + filter;
+            sql = sql + SQLAND + filter;
         }
         if (order.length() > 0 ) {
-            sql = sql + DBConstants.SQLORDERBY + order;
+            sql = sql + SQLORDERBY + order;
         }
         return db.rawQuery(sql,null);
-        /**
-        String whereclause = DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                DBConstants.SQLNOTIN  + "(" +
-                DBConstants.SQLSELECT +
-                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
-                DBConstants.SQLFROM +
-                DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                DBConstants.SQLWHERE +
-                DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
-                DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
-                DBConstants.SQLAND +
-                DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = ?" +
-                " ) ";
-        if (filter.length()> 0) {
-            whereclause = whereclause + DBConstants.SQLAND + filter;
-        }
-        String orderclause = null;
-        if (order.length() > 0 ) {
-            orderclause = order;
-        }
-        return db.query(true,DBProductsTableConstants.PRODUCTS_TABLE,
-                new String[] {DBProductsTableConstants.PRODUCTS_ID_COL_FULL,
-                        DBProductsTableConstants.PRODUCTS_NAME_COL_FULL,
-                        DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL},
-                whereclause,
-                new String[] { Long.toString(aisleid)},
-                null,null,
-                orderclause,
-                null, null);
-         **/
     }
 
     /**************************************************************************
@@ -570,9 +542,9 @@ class DBProductMethods {
                     );
 
                     Cursor pucsr = db.query(DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
-                            DBConstants.SQLLEFTJOIN +
+                            SQLLEFTJOIN +
                             DBAislesTableConstants.AISLES_TABLE +
-                            DBConstants.SQLON +
+                            SQLON +
                             DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = " +
                             DBAislesTableConstants.AISLES_ID_COL_FULL,null,
                             DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " =?",
@@ -591,8 +563,8 @@ class DBProductMethods {
                     }
                     pucsr.close();
                     Cursor slcsr = db.query(DBShopListTableConstants.SHOPLIST_TABLE +
-                            DBConstants.SQLLEFTJOIN + DBAislesTableConstants.AISLES_TABLE +
-                            DBConstants.SQLON + DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL + " = " +
+                            SQLLEFTJOIN + DBAislesTableConstants.AISLES_TABLE +
+                            SQLON + DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL + " = " +
                             DBAislesTableConstants.AISLES_ID_COL_FULL,
                             null,
                             DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL + " = ?",
@@ -611,9 +583,9 @@ class DBProductMethods {
                     slcsr.close();
 
                     Cursor rulecsr = db.query(DBRulesTableConstants.RULES_TABLE +
-                            DBConstants.SQLLEFTJOIN +
+                            SQLLEFTJOIN +
                             DBAislesTableConstants.AISLES_TABLE +
-                            DBConstants.SQLON +
+                            SQLON +
                             DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
                             DBAislesTableConstants.AISLES_ID_COL_FULL, null,
                             DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL + " =?",

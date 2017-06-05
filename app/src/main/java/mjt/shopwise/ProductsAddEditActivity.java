@@ -22,6 +22,8 @@ import android.widget.TextView;
 import static mjt.shopwise.ActionColorCoding.transparency_optional;
 import static mjt.shopwise.ActionColorCoding.transparency_requied;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * Add or Edit a Product
  */
@@ -39,8 +41,8 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     private static final int BYPRODUCT = 0;
     private static final int BYSTORAGE = 1;
     private static final int BYORDER = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     private String productfilter = "";
 
     Context context;
@@ -519,9 +521,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 productfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
-                        DBConstants.SQLLIKECHARSTART +
+                        SQLLIKECHARSTART +
                         edittext.getText().toString() +
-                        DBConstants.SQLLIKECHAREND;
+                        SQLLIKECHAREND;
                 plcsr = dbproductmethods.getExpandedProducts(productfilter,orderby);
                 productlistadapter.swapCursor(plcsr);
             }

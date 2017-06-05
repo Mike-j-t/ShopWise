@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBRuleMethods - Database Methods for Rule Handling
  */
@@ -167,7 +170,7 @@ public class DBRuleMethods {
         Cursor rv;
         String filter = DBRulesTableConstants.RULES_ID_COL_FULL +
                 " = " + Long.toString(ruleid) +
-                DBConstants.SQLENDSTATEMENT;
+                SQLENDSTATEMENT;
          rv = DBCommonMethods.getTableRows(db,
                 DBRulesTableConstants.RULES_TABLE,
                 filter,
@@ -339,7 +342,7 @@ public class DBRuleMethods {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                 LOGTAG,msg,THISCLASS,methodname);
         Cursor rv;
-        String sql = DBConstants.SQLSELECT +
+        String sql = SQLSELECT +
                 DBRulesTableConstants.RULES_ID_COL_FULL + ", " +
                 DBRulesTableConstants.RULES_AISLEREF_COL_FULL + ", " +
                 DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL + ", " +
@@ -364,32 +367,32 @@ public class DBRuleMethods {
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
                 DBProductsTableConstants.PRODUCTS_NOTES_COL_FULL + " " +
 
-                DBConstants.SQLFROM + DBRulesTableConstants.RULES_TABLE +
+                SQLFROM + DBRulesTableConstants.RULES_TABLE +
 
-                DBConstants.SQLLEFTJOIN + DBAislesTableConstants.AISLES_TABLE +
-                DBConstants.SQLON +
+                SQLLEFTJOIN + DBAislesTableConstants.AISLES_TABLE +
+                SQLON +
                 DBRulesTableConstants.RULES_AISLEREF_COL_FULL + " = " +
                 DBAislesTableConstants.AISLES_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBRulesTableConstants.RULES_PRODUCTREF_COL_FULL + " = " +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBShopsTableConstants.SHOPS_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBAislesTableConstants.AISLES_SHOPREF_COL_FULL + " = " +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL;
 
         if (filter.length() > 0 ) {
-            sql = sql + DBConstants.SQLWHERE + filter;
+            sql = sql + SQLWHERE + filter;
         }
         if (orderby.length() > 0) {
-            sql = sql + DBConstants.SQLORDERBY + orderby;
+            sql = sql + SQLORDERBY + orderby;
         }
-        sql = sql + DBConstants.SQLENDSTATEMENT;
+        sql = sql + SQLENDSTATEMENT;
         rv =  db.rawQuery(sql,null);
         msg = "Rules Extracted=" + Integer.toString(rv.getCount());
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
@@ -414,7 +417,7 @@ public class DBRuleMethods {
         filter = DBRulesTableConstants.RULES_ACTON_COL +
                 " <= " +
                 Long.toString(getDateTimeOfAllofToday()) +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBRulesTableConstants.RULES_PROMPT_COL +
                 " >= 1 ";
 
@@ -501,7 +504,7 @@ public class DBRuleMethods {
         String filter = DBRulesTableConstants.RULES_ACTON_COL +
                 " <= " +
                 Long.toString(getDateTimeOfAllofToday()) +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBRulesTableConstants.RULES_PROMPT_COL +
                 " = 0 ";
         // Loop through the rules until none are left to do.
@@ -566,7 +569,7 @@ public class DBRuleMethods {
 
         Cursor rv;
         String columns[] = new String[] {
-                "0 " + DBConstants.SQLAS + DBConstants.STD_ID,
+                "0 " + SQLAS + SQLSTD_ID,
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL,
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL,
                 DBProductusageTableConstants.PRODUCTUSAGE_COST_COL,
@@ -583,7 +586,7 @@ public class DBRuleMethods {
                         " - " +
                         DBProductusageTableConstants.PRODUCTUSAGE_FIRSTBUYDATE_COL +
                         ") / (86400000)" +
-                        ") " + DBConstants.SQLAS + DBConstants.CALCULATED_RULEPERIODINDAYS,
+                        ") " + SQLAS + DBConstants.CALCULATED_RULEPERIODINDAYS,
 
                 DBProductsTableConstants.PRODUCTS_NAME_COL,
 
@@ -596,7 +599,7 @@ public class DBRuleMethods {
                 DBShopsTableConstants.SHOPS_ORDER_COL,
 
                 DBRulesTableConstants.RULES_ID_COL_FULL +
-                        DBConstants.SQLAS + DBRulesTableConstants.RULES_ALTID_COL,
+                        SQLAS + DBRulesTableConstants.RULES_ALTID_COL,
                 DBRulesTableConstants.RULES_AISLEREF_COL,
                 DBRulesTableConstants.RULES_PRODUCTREF_COL,
                 DBRulesTableConstants.RULES_NAME_COL,
@@ -607,50 +610,50 @@ public class DBRuleMethods {
                 DBRulesTableConstants.RULES_MULTIPLIER_COL
 
         };
-        String joinclauses = DBConstants.SQLLEFTJOIN +
+        String joinclauses = SQLLEFTJOIN +
                 DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL + " = " +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL + " " +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBAislesTableConstants.AISLES_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL + " = " +
                 DBAislesTableConstants.AISLES_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBShopsTableConstants.SHOPS_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBAislesTableConstants.AISLES_SHOPREF_COL + " = " +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBRulesTableConstants.RULES_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL + " =  " +
                 DBRulesTableConstants.RULES_PRODUCTREF_COL +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL + " = " +
                 DBRulesTableConstants.RULES_AISLEREF_COL
                 ;
         String ruleexistoption = DBRulesTableConstants.RULES_ID_COL_FULL;
         if (rulesexist) {
-            ruleexistoption = ruleexistoption + DBConstants.SQLISNOTNULL;
+            ruleexistoption = ruleexistoption + SQLISNOTNULL;
         } else {
-            ruleexistoption = ruleexistoption + DBConstants.SQLISNULL;
+            ruleexistoption = ruleexistoption + SQLISNULL;
         }
 
 
         String whereclause = ruleexistoption +
-                DBConstants.SQLAND +
+                SQLAND +
                 "(" + DBConstants.CALCULATED_RULEPERIODINDAYS + " - " +
                 Integer.toString(minimumruleperiodindays) +
                 ") >= 0" +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_BUYCOUNT_COL + " >= " + Integer.toString(minimumbuycount);
         if (filter.length() > 0) {
-            whereclause = whereclause + DBConstants.SQLAND + filter;
+            whereclause = whereclause + SQLAND + filter;
         }
         rv =  db.query(DBProductusageTableConstants.PRODUCTUSAGE_TABLE + joinclauses,
                 columns,whereclause,null,null,null,orderby);

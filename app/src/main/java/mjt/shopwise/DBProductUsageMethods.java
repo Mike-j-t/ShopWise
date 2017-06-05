@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBProductUsageMethods - Database methods sepcific to ProductUsage handling
  * <p>
@@ -98,10 +100,10 @@ class DBProductUsageMethods {
         int rv = 0;
 
         String columns[] = new String[] {
-                DBConstants.SQLMAX +
+                SQLMAX +
                         DBProductusageTableConstants.PRODUCTUSAGE_ORDER_COL +
-                        DBConstants.SQLMAXCLOSE +
-                        DBConstants.SQLAS +
+                        SQLMAXCLOSE +
+                        SQLAS +
                         DBProductusageTableConstants.PRODUCTUSAGEMAXORDERCOLUMN
         };
         String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL +
@@ -142,7 +144,7 @@ class DBProductUsageMethods {
         String filter = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
                 Long.toString(aisleref) +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
                 " = " +
                 Long.toString(productref);
@@ -176,7 +178,7 @@ class DBProductUsageMethods {
         String filter = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                 " = " +
                 Long.toString(aisleref) +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
                 " = " +
                 Long.toString(productref);
@@ -197,7 +199,7 @@ class DBProductUsageMethods {
         ContentValues cv = new ContentValues();
         String[] whereargs = {Long.toString(aisleref), Long.toString(productref)};
         String whereclause = DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL + " = ? " +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL + " = ?";
         cv.put(DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL,toggledcheckstatus);
         updatecount = db.update(
@@ -266,8 +268,8 @@ class DBProductUsageMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         Cursor rv;
-        String sql = DBConstants.SQLSELECT +
-                " ABS(RANDOM()) AS " + DBConstants.STD_ID + ", " +
+        String sql = SQLSELECT +
+                " ABS(RANDOM()) AS " + SQLSTD_ID + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL + ", " +
@@ -284,7 +286,7 @@ class DBProductUsageMethods {
                 " IS NULL THEN 0 ELSE " +
                 DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL_FULL +
                 " END ) AS " +
-                DBConstants.CALCULATED_PRODUTSORDERED_NAME
+                DBConstants.CALCULATED_PRODUCTSORDERED_NAME
                 + ", " +
 
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
@@ -303,56 +305,56 @@ class DBProductUsageMethods {
                 DBShopsTableConstants.SHOPS_CITY_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_ORDER_COL_FULL + " " +
 
-                DBConstants.SQLFROM + DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
+                SQLFROM + DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
 
-                DBConstants.SQLLEFTJOIN + DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLON +
+                SQLLEFTJOIN + DBProductsTableConstants.PRODUCTS_TABLE +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBAislesTableConstants.AISLES_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = " +
                 DBAislesTableConstants.AISLES_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBShopsTableConstants.SHOPS_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBAislesTableConstants.AISLES_SHOPREF_COL_FULL + " = " +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBShopListTableConstants.SHOPLIST_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
                 DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = " +
                 DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBStorageTableConstants.STORAGE_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductsTableConstants.PRODUCTS_STORAGEREF_COL_FULL + " = " +
                 DBStorageTableConstants.STORAGE_ID_COL_FULL +
 
-                DBConstants.SQLWHERE +
+                SQLWHERE +
                 DBProductusageTableConstants.PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL + " > 0 " +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBStorageTableConstants.STORAGE_NAME_COL_FULL +
-                DBConstants.SQLISNOTNULL;
+                SQLISNOTNULL;
         if (filter.length() > 0 ) {
-            sql = sql + DBConstants.SQLAND + filter;
+            sql = sql + SQLAND + filter;
         }
         if (order.length() > 0 ) {
-            sql = sql + DBConstants.SQLORDERBY +
+            sql = sql + SQLORDERBY +
                     DBStorageTableConstants.STORAGE_ORDER_COL_FULL +
-                    DBConstants.SQLORDERASCENDING + ", " +
+                    SQLORDERASCENDING + ", " +
                     DBProductsTableConstants.PRODUCTS_STORAGEORDER_COL_FULL +
-                    DBConstants.SQLORDERASCENDING;
+                    SQLORDERASCENDING;
         }
-        sql = sql + DBConstants.SQLENDSTATEMENT;
+        sql = sql +SQLENDSTATEMENT;
 
         rv = db.rawQuery(sql,null);
         msg = "Returned Cursor with " + Integer.toString(rv.getCount()) + " rows." +
@@ -376,8 +378,8 @@ class DBProductUsageMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         Cursor rv;
-        String sql = DBConstants.SQLSELECT +
-                " ABS(RANDOM()) AS " + DBConstants.STD_ID + ", " +
+        String sql = SQLSELECT +
+                " ABS(RANDOM()) AS " + SQLSTD_ID + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + ", " +
                 DBProductusageTableConstants.PRODUCTUSAGE_COST_FULL + ", " +
@@ -394,7 +396,7 @@ class DBProductUsageMethods {
                 " IS NULL THEN 0 ELSE " +
                 DBShopListTableConstants.SHOPLIST_NUMBERTOGET_COL_FULL +
                 " END ) AS " +
-                DBConstants.CALCULATED_PRODUTSORDERED_NAME
+                DBConstants.CALCULATED_PRODUCTSORDERED_NAME
                 + ", " +
 
                 DBProductsTableConstants.PRODUCTS_NAME_COL_FULL + ", " +
@@ -407,40 +409,40 @@ class DBProductUsageMethods {
                 DBShopsTableConstants.SHOPS_CITY_COL_FULL + ", " +
                 DBShopsTableConstants.SHOPS_ORDER_COL_FULL + " " +
 
-                DBConstants.SQLFROM + DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
+                SQLFROM + DBProductusageTableConstants.PRODUCTUSAGE_TABLE +
 
-                DBConstants.SQLLEFTJOIN + DBProductsTableConstants.PRODUCTS_TABLE +
-                DBConstants.SQLON +
+                SQLLEFTJOIN + DBProductsTableConstants.PRODUCTS_TABLE +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
                 DBProductsTableConstants.PRODUCTS_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBAislesTableConstants.AISLES_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = " +
                 DBAislesTableConstants.AISLES_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBShopsTableConstants.SHOPS_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBAislesTableConstants.AISLES_SHOPREF_COL_FULL + " = " +
                 DBShopsTableConstants.SHOPS_ID_COL_FULL +
 
-                DBConstants.SQLLEFTJOIN +
+                SQLLEFTJOIN +
                 DBShopListTableConstants.SHOPLIST_TABLE +
-                DBConstants.SQLON +
+                SQLON +
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL + " = " +
                 DBShopListTableConstants.SHOPLIST_PRODUCTREF_COL_FULL +
-                DBConstants.SQLAND +
+                SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL + " = " +
                 DBShopListTableConstants.SHOPLIST_AISLEREF_COL_FULL;
         if (filter.length() > 0 ) {
-            sql = sql + DBConstants.SQLWHERE + filter;
+            sql = sql + SQLWHERE + filter;
         }
         if (order.length() > 0 ) {
-            sql = sql + DBConstants.SQLORDERBY + order;
+            sql = sql + SQLORDERBY + order;
         }
-        sql = sql + DBConstants.SQLENDSTATEMENT;
+        sql = sql + SQLENDSTATEMENT;
 
         rv = db.rawQuery(sql,null);
         msg = "Returned Cursor with " + Integer.toString(rv.getCount()) + " rows." +
@@ -978,7 +980,7 @@ class DBProductUsageMethods {
                 DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL_FULL +
                         " = " +
                         Long.toString(productref) +
-                        DBConstants.SQLAND +
+                        SQLAND +
                         DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL_FULL +
                         " = " +
                         Long.toString(aislref) +
@@ -996,7 +998,7 @@ class DBProductUsageMethods {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         return DBProductusageTableConstants.PRODUCTUSAGE_PRODUCTREF_COL +
-                " = ? " + DBConstants.SQLAND +
+                " = ? " + SQLAND +
                 DBProductusageTableConstants.PRODUCTUSAGE_AISLEREF_COL +
                 " = ?";
     }
