@@ -1,1 +1,1 @@
-include ':app', ':pickdate'
+include ':app', ':pickdate', ':sqlwords', ':dbindex', ':dbcolumn', ':dbtable', ':dbdatabase'
