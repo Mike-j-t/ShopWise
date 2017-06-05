@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * StockListActivity - i.e. the STOCK Option
  *
@@ -125,8 +127,8 @@ public class StockListActivity extends AppCompatActivity {
     private static final int BYORDER = 2;
     private static final int BYSHOPNAME = 3;
     private static final int BYAISLENAME = 4;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
     static int orderfld = BYPRODUCT;
     static boolean ordertype = true;
@@ -454,9 +456,9 @@ public class StockListActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 stockfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
-                        DBConstants.SQLLIKECHARSTART +
+                        SQLLIKECHARSTART +
                         inputproductfilter.getText().toString() +
-                        DBConstants.SQLLIKECHAREND;
+                        SQLLIKECHAREND;
                 stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
                 stocklistadapter.swapCursor(stockedcursor);
             }

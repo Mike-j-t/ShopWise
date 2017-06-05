@@ -29,8 +29,10 @@ import static mjt.shopwise.StandardAppConstants.STOCKAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.STORAGEAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.TOOLSAPPVALNAME;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
- * Main/Start Activity for ShopWise
+ * Main/Start Activity for ShopWise, displays the Main Menu
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class MainActivity extends AppCompatActivity {
@@ -39,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOGTAG = "SW-MA";
     public static final String THISCLASS = "MainActivity";
 
-    /**
-     * The Db.
+    /*
+    Define Database/Table objects.
      */
     public DBHelper db;
     private DBDAO dbdao;
@@ -53,34 +55,53 @@ public class MainActivity extends AppCompatActivity {
     private DBShopListMethods dbshoplistmethods;
     private DBStorageMethods dbstoragemethods;
 
-    private ListView options_listview;
-    /**
-     * The Options adapter.
+    /*
+    Define the options ListView and the Adapter and Cursor
      */
+    private ListView options_listview;
     AdapterMainActivityOptionsMenu options_adapter;
     private Cursor mocsr;
-    static int shopcount = 0;
-    static int aislecount = 0;
-    static int productcount = 0;
-    static int productusagecount = 0;
-    @SuppressWarnings("unused")
-    static int shoplistcount = 0;
-    @SuppressWarnings("unused")
-    static int rulecount = 0;
-    @SuppressWarnings("unused")
-    static int appvaluecount = 0;
-    static int storagecount = 0;
 
+    /*
+    Set row counts to 0
+     */
+    int shopcount = 0;
+    int aislecount = 0;
+    int productcount = 0;
+    int productusagecount = 0;
+    int shoplistcount = 0;
+    int rulecount = 0;
+    int appvaluecount = 0;
+    int storagecount = 0;
+
+    /*
+    Set the resume state as normal
+     */
     private static int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
 
 
+    /*
+    Note LogMsg will only log msg if a) devmode is true and b)
+    if the relevant section is set to true.
+    This is accomplished by    changing the values in
+    StandardAppConstants.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Starting",this,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
+                "Starting",
+                this,
+                methodname
+        );
         super.onCreate(savedInstanceState);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "External Storage Permissions Check", this, methodname);
+        /*
+        To use the backup/restore feature for Android 23+ permissions have to
+        be requested.
+         */
         if(Build.VERSION.SDK_INT >= 23) {
             ExternalStoragePermissions.verifyStoragePermissions(this);
         }
@@ -116,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         // Prepare ListView for Main Options menu
         options_listview = (ListView) this.findViewById(R.id.activity_main_OptionsMenu);
 
+        // Ensure that the AppValues table has entries for the Rule periods
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Setting RULEPERIODS", this, methodname);
         String rp_appvalname = StandardAppConstants.RULEPERIODS_APPVALKEY;
@@ -157,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         getDBCounts();
-        //Resume state handling
+        //Resume state handling (no special handling)
         switch (resumestate) {
              case StandardAppConstants.RESUMESTATE_ALT1:
                  break;
@@ -176,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**************************************************************************
-     * onDestroy - do any clean up before th application is destroyed
+     * onDestroy - do any clean up before the application is destroyed
      * e.g. close any open cursors and then close the database
      */
     @Override
@@ -281,25 +303,25 @@ public class MainActivity extends AppCompatActivity {
                 "Determening Options to use", this, methodname);
         String filter = "(" +
                 include_shops +
-                DBConstants.SQLOR + include_storage +
-                DBConstants.SQLOR + include_tools;
+                SQLOR + include_storage +
+                SQLOR + include_tools;
         if (storagecount > 0 ) {
             filter = filter +
-                    DBConstants.SQLOR + include_products;
+                    SQLOR + include_products;
         }
         if (shopcount > 0) {
             filter = filter +
-                    DBConstants.SQLOR + include_aisles;
+                    SQLOR + include_aisles;
         }
         if (shopcount > 0 && productcount > 0 && storagecount > 0 && aislecount > 0) {
                 filter = filter +
-                    DBConstants.SQLOR + include_stock;
+                    SQLOR + include_stock;
             if (productusagecount > 0) {
                 filter = filter +
-                        DBConstants.SQLOR + include_order +
-                        DBConstants.SQLOR + include_checklist +
-                        DBConstants.SQLOR + include_shopping +
-                        DBConstants.SQLOR + include_rules;
+                        SQLOR + include_order +
+                        SQLOR + include_checklist +
+                        SQLOR + include_shopping +
+                        SQLOR + include_rules;
                 }
         }
         filter = filter + ")";
@@ -437,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
                         this, methodname);
                 String sql = "DELETE FROM " +
                         DBAppvaluesTableConstants.APPVALUES_TABLE +
-                        DBConstants.SQLWHERE +
+                        SQLWHERE +
                         DBAppvaluesTableConstants.APPVALUES_NAME_COL_FULL +
                         " = '" +
                         MENUOPTIONS +
@@ -448,7 +470,7 @@ public class MainActivity extends AppCompatActivity {
                                 csr.getColumnIndex(
                                         DBAppvaluesTableConstants.APPVALUES_TEXT_COL_FULL
                                 )) +
-                        "' " + DBConstants.SQLENDSTATEMENT;
+                        "' " + SQLENDSTATEMENT;
                 modb.execSQL(sql);
             } else {
                 LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
@@ -464,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
                 "Building the Options ListView and setting the adapter.",
                 this, methodname);
         // Phase 3 build the actual Listview that is displayed
-        String order = DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL + DBConstants.SQLORDERASCENDING;
+        String order = DBAppvaluesTableConstants.APPVALUES_INT_COL_FULL + SQLORDERASCENDING;
         mocsr = dbdao.getTableRows(
                 DBAppvaluesTableConstants.APPVALUES_TABLE,
                 "",

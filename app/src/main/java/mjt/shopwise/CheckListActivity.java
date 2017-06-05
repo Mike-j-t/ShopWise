@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * CheckList Activity - Display the Checklist allowing Shopping List
  * entries to be added adjusted
@@ -186,7 +188,7 @@ public class CheckListActivity extends AppCompatActivity {
     Cursor clcsr;
 
     @SuppressWarnings("unused")
-    private static final String ORDERED_PRODUCTS = DBConstants.CALCULATED_PRODUTSORDERED_NAME;
+    private static final String ORDERED_PRODUCTS = DBConstants.CALCULATED_PRODUCTSORDERED_NAME;
 
     private static final int BYPRODUCT = 0;
     private static final int BYSHOP = 1;
@@ -198,8 +200,8 @@ public class CheckListActivity extends AppCompatActivity {
     private static final int BYSTORAGEORDER = 5;
     @SuppressWarnings("unused")
     private static final int BYPRODUCTSTORAGEORDER = 6;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     @SuppressWarnings("CanBeFinal")
     private static String filter = "";
     private static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;

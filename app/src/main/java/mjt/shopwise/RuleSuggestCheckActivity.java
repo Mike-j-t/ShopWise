@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * RuleSuggestCheckActivity - List either potential rules for suggestion
  *                              or existing rules with an indicator of their
@@ -33,8 +35,8 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
     private static final int BYRULE = 0;
     private static final int BYPRODUCT = 1;
     private static final int BYSHOP = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     static String orderby = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL;
     static int orderfld = BYPRODUCT;
     static boolean ordertype = true;

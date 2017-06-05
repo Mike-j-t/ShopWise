@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static mjt.sqlwords.SQLKWORD.*;
 /**
  * Order Activity
  *
@@ -145,14 +146,14 @@ public class OrderActivity extends AppCompatActivity {
     Cursor olcsr;
 
     @SuppressWarnings("unused")
-    private static final String ORDERED_PRODUCTS = DBConstants.CALCULATED_PRODUTSORDERED_NAME;
+    private static final String ORDERED_PRODUCTS = DBConstants.CALCULATED_PRODUCTSORDERED_NAME;
 
     private static final int BYPRODUCT = 0;
     private static final int BYSHOP = 1;
     private static final int BYAISLE = 2;
     private static final int BYPRICE = 3;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     private static String productfilter = "";
     private static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
     private static int orderfld = BYPRODUCT;
@@ -380,9 +381,9 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 productfilter = DBProductsTableConstants.PRODUCTS_NAME_COL_FULL +
-                        DBConstants.SQLLIKECHARSTART +
+                        SQLLIKECHARSTART +
                         inputproductfilter.getText().toString() +
-                        DBConstants.SQLLIKECHAREND;
+                        SQLLIKECHAREND;
                 olcsr = dbpumethods.getExpandedProductUsages(productfilter,orderby);
                 orderlisadapter.swapCursor(olcsr);
             }

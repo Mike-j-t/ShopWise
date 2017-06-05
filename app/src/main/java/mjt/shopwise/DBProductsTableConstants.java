@@ -6,7 +6,6 @@ import java.util.Arrays;
 import mjt.dbcolumn.DBColumn;
 import mjt.dbtable.DBTable;
 
-import static mjt.shopwise.DBConstants.PERIOD;
 import static mjt.sqlwords.SQLKWORD.*;
 
 /**
@@ -26,13 +25,13 @@ public class DBProductsTableConstants {
     public static final String PRODUCTS_ALTID_COL = PRODUCTS_TABLE +
             PRODUCTS_ID_COL;
     @SuppressWarnings("unused")
-    public static final String PRODUCTS_ALTID_COL_FULL = PRODUCTS_TABLE + PERIOD + PRODUCTS_ALTID_COL;
+    public static final String PRODUCTS_ALTID_COL_FULL = PRODUCTS_TABLE + SQLPERIOD + PRODUCTS_ALTID_COL;
     public static final DBColumn PRODUCTSIDCOL = new DBColumn(true);
 
 
     public static final String PRODUCTS_NAME_COL = "productname";
     public static final String PRODUCTS_NAME_COL_FULL = PRODUCTS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTS_NAME_COL;
     public static final String PRODUCTS_NAME_TYPE = SQLTEXT;
     public static final boolean PRODUCTS_NAME_PRIMARY_INDEX = false;
@@ -45,7 +44,7 @@ public class DBProductsTableConstants {
 
     public static final String PRODUCTS_NOTES_COL = "productnotes";
     public static final String PRODUCTS_NOTES_COL_FULL = PRODUCTS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTS_NOTES_COL;
     public static final String PRODUCTS_NOTES_TYPE = SQLTEXT;
     public static final boolean PRODUCTS_NOTES_PRIMARY_INDEX = false;
@@ -58,7 +57,7 @@ public class DBProductsTableConstants {
 
     public static final String PRODUCTS_STORAGEREF_COL = "productstorageref";
     public static final String PRODUCTS_STORAGEREF_COL_FULL = PRODUCTS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTS_STORAGEREF_COL;
     public static final String PRODUCTS_STORAGEREF_TYPE = SQLINTEGER;
     public static final boolean PRODUCTS_STORAGEREF_PRIMARY_INDEX = false;
@@ -72,7 +71,7 @@ public class DBProductsTableConstants {
 
     public static final String PRODUCTS_STORAGEORDER_COL = "productstorageorder";
     public static final String PRODUCTS_STORAGEORDER_COL_FULL = PRODUCTS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTS_STORAGEORDER_COL;
     public static final String PRODUCTS_STORAGEORDER_TYPE = SQLINTEGER;
     public static final boolean PRODUCTS_STORAGEORDER_PRIMARY_INDEX = false;

@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * StockList Add or Edit a Stocked Item from the StockList (note alternative)
  */
@@ -126,9 +128,9 @@ public class StockLisEditActivity extends AppCompatActivity {
     private static final int BYSHOPNAME = 3;
     @SuppressWarnings("unused")
     private static final int BYAISLENAME = 4;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
     @SuppressWarnings("unused")
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
     @SuppressWarnings("unused")
     static String orderby = PRODUCTNAME_FULLCOLUMN + SORTASCENDING;
     @SuppressWarnings("unused")

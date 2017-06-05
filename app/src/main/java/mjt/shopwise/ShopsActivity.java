@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /******************************************************************************
  * ShopsActivity - List Shops allowing them to be edited, stocked, or deleted
  * List can also be sorted by clicking on a label. Clicking
@@ -44,8 +46,8 @@ public class ShopsActivity extends AppCompatActivity {
     private static final int BYSHOP = 0;
     private static final int BYCITY = 1;
     private static final int BYORDER = 2;
-    private static final String SORTASCENDING = DBConstants.SQLORDERASCENDING;
-    private static final String SORTDESCENDING = DBConstants.SQLORDERDESCENDING;
+    private static final String SORTASCENDING = SQLORDERASCENDING;
+    private static final String SORTDESCENDING = SQLORDERDESCENDING;
 
     Context context;
     ActionBar actionbar;

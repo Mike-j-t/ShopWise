@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import static mjt.sqlwords.SQLKWORD.*;
+
 /**
  * DBSTorage Methods        Database methods specific to Storage the Table
  */
@@ -89,10 +91,10 @@ public class DBStorageMethods {
         );
         int rv = 0;
         String columns[] = {
-                DBConstants.SQLMAX +
+                SQLMAX +
                         DBStorageTableConstants.STORAGE_ORDER_COL +
-                        DBConstants.SQLMAXCLOSE +
-                        DBConstants.SQLAS +
+                        SQLMAXCLOSE +
+                        SQLAS +
                         DBStorageTableConstants.STORAGEMAXORDERCOLUMN
         };
         Cursor csr = db.query(
@@ -206,7 +208,7 @@ public class DBStorageMethods {
         boolean rv = false;
         String filter = DBStorageTableConstants.STORAGE_ID_COL_FULL +
                 " = " + Long.toString(storageid) +
-                DBConstants.SQLENDSTATEMENT;
+                SQLENDSTATEMENT;
         Cursor csr = DBCommonMethods.getTableRows(db,
                 DBStorageTableConstants.STORAGE_TABLE,
                 filter,
