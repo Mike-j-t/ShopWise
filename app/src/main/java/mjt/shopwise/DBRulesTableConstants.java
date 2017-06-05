@@ -3,11 +3,10 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static mjt.shopwise.DBConstants.IDTYPE;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.STD_ID;
-import static mjt.shopwise.DBConstants.TXT;
+import mjt.dbcolumn.DBColumn;
+import mjt.dbtable.DBTable;
+
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * Rules Table - Rules add shopping list entries regularly
@@ -23,12 +22,12 @@ public class DBRulesTableConstants {
     /**
      * _id (aka rules_id) index/primary key
      */
-    public static final String RULES_ID_COL = STD_ID;
+    public static final String RULES_ID_COL = SQLSTD_ID;
     /**
      * The constant RULES_ID_COL_FULL.
      */
     public static final String RULES_ID_COL_FULL = RULES_TABLE +
-            PERIOD + RULES_ID_COL;
+            SQLPERIOD + RULES_ID_COL;
     /**
      * The constant RULES_ALTID_COL.
      */
@@ -38,24 +37,13 @@ public class DBRulesTableConstants {
      */
     @SuppressWarnings("unused")
     public static final String RULES_ALTID_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_ALTID_COL;
-    /**
-     * The constant RULES_ID_TYPE.
-     */
-    public static final String RULES_ID_TYPE = IDTYPE;
-    /**
-     * The constant RULES_ID_PRIMARY_INDEX.
-     */
-    public static final boolean RULES_ID_PRIMARY_INDEX = true;
     /**
      * The constant RULESIDCOL.
      */
-    public static final DBColumn RULESIDCOL = new DBColumn(RULES_ID_COL,
-            RULES_ID_TYPE,
-            RULES_ID_PRIMARY_INDEX,
-            ""
-    );
+    public static final DBColumn RULESIDCOL = new DBColumn(true);
+
 
     /**
      * rulesproductref - reference to the product
@@ -65,11 +53,11 @@ public class DBRulesTableConstants {
      * The constant RULES_PRODUCTREF_COL_FULL.
      */
     public static final String RULES_PRODUCTREF_COL_FULL = RULES_TABLE +
-            PERIOD + RULES_PRODUCTREF_COL;
+            SQLPERIOD + RULES_PRODUCTREF_COL;
     /**
      * The constant RULES_PRODUCTREF_TYPE.
      */
-    public static final String RULES_PRODUCTREF_TYPE = INT;
+    public static final String RULES_PRODUCTREF_TYPE = SQLINTEGER;
     /**
      * The constant RULES_PRODUCTREF_PRIMARY_INDEX.
      */
@@ -82,6 +70,7 @@ public class DBRulesTableConstants {
             RULES_PRODUCTREF_PRIMARY_INDEX,
             "");
 
+
     /**
      * rulesaisleref - reference to the aisle
      */
@@ -90,12 +79,12 @@ public class DBRulesTableConstants {
      * The constant RULES_AISLEREF_COL_FULL.
      */
     public static final String RULES_AISLEREF_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_AISLEREF_COL;
     /**
      * The constant RULES_AISLEREF_TYPE.
      */
-    public static final String RULES_AISLEREF_TYPE = INT;
+    public static final String RULES_AISLEREF_TYPE = SQLINTEGER;
     /**
      * The constant RULES_AISLEREF_PRIMARY_INDEX.
      */
@@ -109,6 +98,7 @@ public class DBRulesTableConstants {
             ""
     );
 
+
     /**
      * rulename - name of the rule
      */
@@ -117,12 +107,12 @@ public class DBRulesTableConstants {
      * The constant RULES_NAME_COL_FULL.
      */
     public static final String RULES_NAME_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_NAME_COL;
     /**
      * The constant RULES_NAME_TYPE.
      */
-    public static final String RULES_NAME_TYPE = TXT;
+    public static final String RULES_NAME_TYPE = SQLTEXT;
     /**
      * The constant RULES_NAME_PRIMARY_INDEX.
      */
@@ -135,6 +125,7 @@ public class DBRulesTableConstants {
             RULES_NAME_PRIMARY_INDEX,
             "");
 
+
     /**
      * ruleuses - number of times this rule has been used
      */
@@ -143,12 +134,12 @@ public class DBRulesTableConstants {
      * The constant RULES_USES_COL_FULL.
      */
     public static final String RULES_USES_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_USES_COL;
     /**
      * The constant RULES_USES_TYPE.
      */
-    public static final String RULES_USES_TYPE = INT;
+    public static final String RULES_USES_TYPE = SQLINTEGER;
     /**
      * The constant RULES_USES_PRIMARY_INDEX.
      */
@@ -161,6 +152,7 @@ public class DBRulesTableConstants {
             RULES_USES_PRIMARY_INDEX,
             "0");
 
+
     /**
      * ruleprompt - whether or not to prompt when rule is acted on
      */
@@ -169,12 +161,12 @@ public class DBRulesTableConstants {
      * The constant RULES_PROMPT_COL_FULL.
      */
     public static final String RULES_PROMPT_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_PROMPT_COL;
     /**
      * The constant RULES_PROMPT_TYPE.
      */
-    public static final String RULES_PROMPT_TYPE = INT;
+    public static final String RULES_PROMPT_TYPE = SQLINTEGER;
     /**
      * The constant RULES_PROMPT_PRIMARY_INDEX.
      */
@@ -195,12 +187,12 @@ public class DBRulesTableConstants {
      * The constant RULES_ACTOON_COL_FULL.
      */
     public static final String RULES_ACTOON_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_ACTON_COL;
     /**
      * The constant RULES_ACTON_TYPE.
      */
-    public static final String RULES_ACTON_TYPE = INT;
+    public static final String RULES_ACTON_TYPE = SQLINTEGER;
     /**
      * The constant RULES_ACTON_PRIMARY_INDEX.
      */
@@ -212,6 +204,7 @@ public class DBRulesTableConstants {
             RULES_ACTON_TYPE,
             RULES_ACTON_PRIMARY_INDEX,
             "0");
+
 
     /**
      * ruleperiod - interval type
@@ -295,11 +288,11 @@ public class DBRulesTableConstants {
      * The constant RULES_PERIOD_COL_FULL.
      */
     public static final String RULES_PERIOD_COL_FULL = RULES_TABLE +
-            PERIOD + RULES_PERIOD_COL;
+            SQLPERIOD + RULES_PERIOD_COL;
     /**
      * The constant RULES_PERIOD_TYPE.
      */
-    public static final String RULES_PERIOD_TYPE = INT;
+    public static final String RULES_PERIOD_TYPE = SQLINTEGER;
     /**
      * The constant RULES_PERIOD_PRIMARY_INDEX.
      */
@@ -312,6 +305,7 @@ public class DBRulesTableConstants {
             RULES_PERIOD_PRIMARY_INDEX,
             "0");
 
+
     /**
      * rulemultiplier - number of ruleperiods per interval
      */
@@ -320,12 +314,12 @@ public class DBRulesTableConstants {
      * The constant RULES_MULTIPLIER_COL_FULL.
      */
     public static final String RULES_MULTIPLIER_COL_FULL = RULES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             RULES_MULTIPLIER_COL;
     /**
      * The constant RULES_MULTIPLIER_TYPE.
      */
-    public static final String RULES_MULTIPLIER_TYPE = INT;
+    public static final String RULES_MULTIPLIER_TYPE = SQLINTEGER;
     /**
      * The constant RULES_MULTIPLIER_PRIMARY_INDEX.
      */
@@ -337,6 +331,8 @@ public class DBRulesTableConstants {
             RULES_MULTIPLIER_TYPE,
             RULES_MULTIPLIER_PRIMARY_INDEX,
             "1");
+
+
     /**
      * The constant RULESCOLS.
      */

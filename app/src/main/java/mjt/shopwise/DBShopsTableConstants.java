@@ -3,12 +3,11 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mjt.dbcolumn.DBColumn;
+import mjt.dbtable.DBTable;
+
 import static mjt.shopwise.DBConstants.DEFAULTORDER;
-import static mjt.shopwise.DBConstants.IDTYPE;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.STD_ID;
-import static mjt.shopwise.DBConstants.TXT;
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * ShopWise Shops Table Constants
@@ -30,53 +29,43 @@ public class DBShopsTableConstants {
     /**
      * _id - primary integer(long) - index/key
      */
-    public static final String SHOPS_ID_COL = STD_ID;
+    public static final String SHOPS_ID_COL = SQLSTD_ID;
     /**
      * The constant SHOPS_ID_COL_FULL.
      */
     public static final String SHOPS_ID_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_ID_COL;
     /**
      * The constant SHOPS_ALTID_COL.
      */
-    public static final String SHOPS_ALTID_COL = SHOPS_TABLE + STD_ID;
+    public static final String SHOPS_ALTID_COL = SHOPS_TABLE + SQLSTD_ID;
     /**
      * The constant SHOPS_ALTID_COL_FULL.
      */
     @SuppressWarnings("unused")
-    public static final String SHOPS_ALTID_COL_FULL =  SHOPS_TABLE + PERIOD + SHOPS_ALTID_COL;
+    public static final String SHOPS_ALTID_COL_FULL =  SHOPS_TABLE +
+            SQLPERIOD + SHOPS_ALTID_COL;
     /**
-     * The constant SHOPS_ID_TYPE.
+     * The constant SHOPSIDCOL
      */
-    public static final String SHOPS_ID_TYPE = IDTYPE;
-    /**
-     * The constant SHOPS_ID_PRIMARY_INDEX.
-     */
-    public static final boolean SHOPS_ID_PRIMARY_INDEX = true;
-    /**
-     * The constant SHOPSIDCOL.
-     */
-    public static final DBColumn SHOPSIDCOL = new DBColumn(SHOPS_ID_COL,
-            SHOPS_ID_TYPE,
-            SHOPS_ID_PRIMARY_INDEX,
-            ""
-    );
-
+    public static final DBColumn SHOPSIDCOL = new DBColumn(true);
     /**
      * shoporder - integer - order of the shop (ascending)
      */
+
+
     public static final String SHOPS_ORDER_COL = "shoporder";
     /**
      * The constant SHOPS_ORDER_COL_FULL.
      */
     public static final String SHOPS_ORDER_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_ORDER_COL;
     /**
      * The constant SHOPS_ORDER_TYPE.
      */
-    public static final String SHOPS_ORDER_TYPE = INT;
+    public static final String SHOPS_ORDER_TYPE = SQLINTEGER;
     /**
      * The constant SHOPS_ORDER_PRIMARY_INDEX.
      */
@@ -90,6 +79,7 @@ public class DBShopsTableConstants {
             DEFAULTORDER
     );
 
+
     /**
      * shopname - text - name of the shop
      */
@@ -98,12 +88,12 @@ public class DBShopsTableConstants {
      * The constant SHOPS_NAME_COL_FULL.
      */
     public static final String SHOPS_NAME_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_NAME_COL;
     /**
      * The constant SHOPS_NAME_TYPE.
      */
-    public static final String SHOPS_NAME_TYPE = TXT;
+    public static final String SHOPS_NAME_TYPE = SQLTEXT;
     /**
      * The constant SHOPS_NAME_PRIMARY_INDEX.
      */
@@ -118,6 +108,7 @@ public class DBShopsTableConstants {
             ""
     );
 
+
     /**
      * shopstreet - text - street part of address
      */
@@ -126,12 +117,12 @@ public class DBShopsTableConstants {
      * The constant SHOPS_STREET_COL_FULL.
      */
     public static final String SHOPS_STREET_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_STREET_COL;
     /**
      * The constant SHOPS_STREET_TYPE.
      */
-    public static final String SHOPS_STREET_TYPE = TXT;
+    public static final String SHOPS_STREET_TYPE = SQLTEXT;
     /**
      * The constant SHOPS_STREET_PRIMARY_INDEX.
      */
@@ -145,6 +136,7 @@ public class DBShopsTableConstants {
             ""
     );
 
+
     /**
      * shopcity - text - city/area part of the address
      */
@@ -153,12 +145,12 @@ public class DBShopsTableConstants {
      * The constant SHOPS_CITY_COL_FULL.
      */
     public static final String SHOPS_CITY_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_CITY_COL;
     /**
      * The constant SHOPS_CITY_TYPE.
      */
-    public static final String SHOPS_CITY_TYPE = TXT;
+    public static final String SHOPS_CITY_TYPE = SQLTEXT;
     /**
      * The constant SHOPS_CITY_PRIMARY_INDEX.
      */
@@ -179,12 +171,12 @@ public class DBShopsTableConstants {
      * The constant SHOPS_STATE_COL_FULL.
      */
     public static final String SHOPS_STATE_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_STATE_COL;
     /**
      * The constant SHOPS_STATE_TYPE.
      */
-    public static final String SHOPS_STATE_TYPE = TXT;
+    public static final String SHOPS_STATE_TYPE = SQLTEXT;
     /**
      * The constant SHOPS_STATE_PRIMARY_INDEX.
      */
@@ -197,6 +189,7 @@ public class DBShopsTableConstants {
             SHOPS_STATE_PRIMARY_INDEX,
             "");
 
+
     /**
      * shopnotes - text - notes about the shop
      */
@@ -205,12 +198,12 @@ public class DBShopsTableConstants {
      * The constant SHOPS_NOTES_COL_FULL.
      */
     public static final String SHOPS_NOTES_COL_FULL = SHOPS_TABLE +
-            PERIOD +
+            SQLPERIOD +
             SHOPS_NOTES_COL;
     /**
      * The constant SHOPS_NOTES_TYPE.
      */
-    public static final String SHOPS_NOTES_TYPE = TXT;
+    public static final String SHOPS_NOTES_TYPE = SQLTEXT;
     /**
      * The constant SHOPS_NOTES_PRIMARY_INDEX.
      */
@@ -222,6 +215,8 @@ public class DBShopsTableConstants {
             SHOPS_NOTES_TYPE,
             SHOPS_NOTES_PRIMARY_INDEX,
             "");
+
+
     /**
      * The constant SHOPSCOLS.
      */
