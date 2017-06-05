@@ -3,12 +3,10 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static mjt.shopwise.DBConstants.IDTYPE;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.REAL;
-import static mjt.shopwise.DBConstants.STD_ID;
-import static mjt.shopwise.DBConstants.TXT;
+import mjt.dbcolumn.DBColumn;
+import mjt.dbtable.DBTable;
+
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * DBAppvaluesTableConstants - Values Table (stores values)
@@ -36,12 +34,12 @@ public class DBAppvaluesTableConstants {
     /**
      * _id (aka values_id) primary key/ index
      */
-    public static final String APPVALUES_ID_COL = STD_ID;
+    public static final String APPVALUES_ID_COL = SQLSTD_ID;
     /**
      * The constant APPVALUES_ID_COL_FULL.
      */
     public static final String APPVALUES_ID_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_ID_COL;
     /**
      * The constant APPVALUES_ALTID_COL.
@@ -53,24 +51,13 @@ public class DBAppvaluesTableConstants {
      */
     @SuppressWarnings("unused")
     public static final String APPVALUES_ALTID_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_ALTID_COL;
-    /**
-     * The constant APPVALUES_ID_TYPE.
-     */
-    public static final String APPVALUES_ID_TYPE = IDTYPE;
-    /**
-     * The constant APPVALUES_ID_PRIMARY_INDEX.
-     */
-    public static final boolean APPVALUES_ID_PRIMARY_INDEX = true;
     /**
      * The constant APPVALUESIDCOL.
      */
-    public static final DBColumn APPVALUESIDCOL = new DBColumn(APPVALUES_ID_COL,
-            APPVALUES_ID_TYPE,
-            APPVALUES_ID_PRIMARY_INDEX,
-            ""
-    );
+    public static final DBColumn APPVALUESIDCOL = new DBColumn(true);
+
 
     /**
      * valuename - name of the value note! need not necessairly be unique
@@ -80,12 +67,12 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_NAME_COL_FULL.
      */
     public static final String APPVALUES_NAME_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_NAME_COL;
     /**
      * The constant APPVALUES_NAME_TYPE.
      */
-    public static final String APPVALUES_NAME_TYPE = TXT;
+    public static final String APPVALUES_NAME_TYPE = SQLTEXT;
     /**
      * The constant APPVALUES_NAME_PRIMARY_INDEX.
      */
@@ -98,6 +85,7 @@ public class DBAppvaluesTableConstants {
             APPVALUES_NAME_PRIMARY_INDEX,
             "");
 
+
     /**
      * valuetype - type of value stored
      */
@@ -106,12 +94,12 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_TYPE_COL_FULL.
      */
     public static final String APPVALUES_TYPE_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_TYPE_COL;
     /**
      * The constant APPVALUES_TYPE_TYPE.
      */
-    public static final String APPVALUES_TYPE_TYPE = TXT;
+    public static final String APPVALUES_TYPE_TYPE = SQLTEXT;
     /**
      * The constant APPVALUES_TYPE_PRIMARY_INDEX.
      */
@@ -124,6 +112,7 @@ public class DBAppvaluesTableConstants {
             APPVALUES_TYPE_PRIMARY_INDEX,
             "");
 
+
     /**
      * valueint - store of respective held value if type is integer
      */
@@ -132,12 +121,12 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_INT_COL_FULL.
      */
     public static final String APPVALUES_INT_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_INT_COL;
     /**
      * The constant APPVALUES_INT_TYPE.
      */
-    public static final String APPVALUES_INT_TYPE = INT;
+    public static final String APPVALUES_INT_TYPE = SQLINTEGER;
     /**
      * The constant APPVALUES_INT_PRIMARY_INDEX.
      */
@@ -158,12 +147,12 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_REAL_COL_FULL.
      */
     public static final String APPVALUES_REAL_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_REAL_COL;
     /**
      * The constant APPVALUES_REAL_TYPE.
      */
-    public static final String APPVALUES_REAL_TYPE = REAL;
+    public static final String APPVALUES_REAL_TYPE = SQLREAL;
     /**
      * The constant APPVALUES_REAL_PRIMARY_INDEX.
      */
@@ -176,6 +165,7 @@ public class DBAppvaluesTableConstants {
             APPVALUES_REAL_PRIMARY_INDEX,
             "0");
 
+
     /**
      * valuetext - store of respective held value if type is text
      */
@@ -184,13 +174,13 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_TEXT_COL_FULL.
      */
     public static final String APPVALUES_TEXT_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_TEXT_COL;
     /**
      * The constant APPVALUES_TEXT_TYPE.
      */
     @SuppressWarnings("unused")
-    public static final String APPVALUES_TEXT_TYPE = TXT;
+    public static final String APPVALUES_TEXT_TYPE = SQLTEXT;
     /**
      * The constant APPVALUES_TEXT_PRIMARY_INDEX.
      */
@@ -202,6 +192,7 @@ public class DBAppvaluesTableConstants {
             APPVALUES_TYPE_TYPE,
             APPVALUES_TEXT_PRIMARY_INDEX,
             "");
+
     /**
      * valueincludeinsettings
      */
@@ -210,12 +201,12 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_INCLUDEINSETTINGS_COL_FULL.
      */
     public static final String APPVALUES_INCLUDEINSETTINGS_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_INCLUDEINSETTINGS_COL;
     /**
      * The constant APPVALUES_INCLUDEINSETTINGS_TYPE.
      */
-    public static final String APPVALUES_INCLUDEINSETTINGS_TYPE = INT;
+    public static final String APPVALUES_INCLUDEINSETTINGS_TYPE = SQLINTEGER;
     /**
      * The constant APPVALUES_INCLUDEINSETTINGS_PRIMARY_INDEX.
      */
@@ -228,6 +219,7 @@ public class DBAppvaluesTableConstants {
             APPVALUES_INCLUDEINSETTINGS_PRIMARY_INDEX,
             "0");
 
+
     /**
      * valuesettingsinfo - Information to be displayed in settings
      */
@@ -236,12 +228,12 @@ public class DBAppvaluesTableConstants {
      * The constant APPVALUES_SETTINGSINFO_COL_FULL.
      */
     public static final String APPVALUES_SETTINGSINFO_COL_FULL = APPVALUES_TABLE +
-            PERIOD +
+            SQLPERIOD +
             APPVALUES_SETTINGSINFO_COL;
     /**
      * The constant APPVALUES_SETTINGSINFO_TYPE.
      */
-    public static final String APPVALUES_SETTINGSINFO_TYPE = TXT;
+    public static final String APPVALUES_SETTINGSINFO_TYPE = SQLTEXT;
     /**
      * The constant APPVALUES_SETTINGSINFO_PRIMARY_INDEX.
      */
@@ -253,6 +245,7 @@ public class DBAppvaluesTableConstants {
             APPVALUES_SETTINGSINFO_TYPE,
             APPVALUES_SETTINGSINFO_PRIMARY_INDEX,
             "");
+
 
     /**
      * The constant APPVALUESCOLS.

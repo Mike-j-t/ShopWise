@@ -3,10 +3,11 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mjt.dbcolumn.DBColumn;
+import mjt.dbtable.DBTable;
+
 import static mjt.shopwise.DBConstants.DEFAULTORDER;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.REAL;
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * ProductUsage Table and Columns
@@ -57,12 +58,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_PRODUCTREF_COL_FULL.
      */
     public static final String PRODUCTUSAGE_PRODUCTREF_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_PRODUCTREF_COL;
     /**
      * The constant PRODUCTUSAGE_PRODUCTREF_TYPE.
      */
-    public static final String PRODUCTUSAGE_PRODUCTREF_TYPE = INT;
+    public static final String PRODUCTUSAGE_PRODUCTREF_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_PRODUCTREF_PRIMARY_INDEX.
      */
@@ -76,6 +77,7 @@ public class DBProductusageTableConstants {
             ""
     );
 
+
     /**
      * productusageaisleref - reference to the aisle where the product is
      * assigned.
@@ -85,12 +87,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_AISLEREF_COL_FULL.
      */
     public static final String PRODUCTUSAGE_AISLEREF_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_AISLEREF_COL;
     /**
      * The constant PRODUCTUSAGE_AISLEREF_TYPE.
      */
-    public static final String PRODUCTUSAGE_AISLEREF_TYPE = INT;
+    public static final String PRODUCTUSAGE_AISLEREF_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_AISLEREF_PRIMARY_INDEX.
      */
@@ -111,12 +113,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_COST_FULL.
      */
     public static final String PRODUCTUSAGE_COST_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_COST_COL;
     /**
      * The constant PRODUCTUSAGE_COST_TYPE.
      */
-    public static final String PRODUCTUSAGE_COST_TYPE = REAL;
+    public static final String PRODUCTUSAGE_COST_TYPE = SQLREAL;
     /**
      * The constant PRODUCTUSAGE_COST_PRIMARY_INDEX.
      */
@@ -130,6 +132,7 @@ public class DBProductusageTableConstants {
             "0"
     );
 
+
     /**
      * productusage buycount - number purchases
      */
@@ -138,12 +141,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_BUYCOUNT_COL_FULL.
      */
     public static final String PRODUCTUSAGE_BUYCOUNT_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_BUYCOUNT_COL;
     /**
      * The constant PRODUCTUSAGE_BUYCOUNT_TYPE.
      */
-    public static final String PRODUCTUSAGE_BUYCOUNT_TYPE = INT;
+    public static final String PRODUCTUSAGE_BUYCOUNT_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_BUYCOUNT_PRIMARY_INDEX.
      */
@@ -156,6 +159,7 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_BUYCOUNT_PRIMARY_INDEX,
             "0");
 
+
     /**
      * productusagefirstbuydate - date first purchased
      */
@@ -164,12 +168,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_FIRSTBUYDATE_COL_FULL.
      */
     public static final String PRODUCTUSAGE_FIRSTBUYDATE_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_FIRSTBUYDATE_COL;
     /**
      * The constant PRODUCTUSAGE_FIRSTBUYDATE_TYPE.
      */
-    public static final String PRODUCTUSAGE_FIRSTBUYDATE_TYPE = INT;
+    public static final String PRODUCTUSAGE_FIRSTBUYDATE_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_FIRSTBUYDATE_PRIMARY_INDEX.
      */
@@ -182,6 +186,7 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_FIRSTBUYDATE_PRIMARY_INDEX,
             "0");
 
+
     /**
      * productusagelatestbuydate - date last purchased
      */
@@ -190,12 +195,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_LATESTBUYDATE_COL_FULL.
      */
     public static final String PRODUCTUSAGE_LATESTBUYDATE_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_LATESTBUYDATE_COL;
     /**
      * The constant PRODUCTUSAGE_LATESTBUYDATE_TYPE.
      */
-    public static final String PRODUCTUSAGE_LATESTBUYDATE_TYPE = INT;
+    public static final String PRODUCTUSAGE_LATESTBUYDATE_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_LATESTBUYDATE_PRIMARY_INDEX.
      */
@@ -208,6 +213,7 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_LATESTBUYDATE_PRIMARY_INDEX,
             "0");
 
+
     /**
      * productusageorder - order in the aisle
      */
@@ -216,12 +222,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_ORDER_COL_FULL.
      */
     public static final String PRODUCTUSAGE_ORDER_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_ORDER_COL;
     /**
      * The constant PRODUCTUSAGE_ORDER_TYPE.
      */
-    public static final String PRODUCTUSAGE_ORDER_TYPE = INT;
+    public static final String PRODUCTUSAGE_ORDER_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_ORDER_PRIMARY_INDEX.
      */
@@ -234,6 +240,7 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_ORDER_PRIMARY_INDEX,
             DEFAULTORDER);
 
+
     /**
      * productusagerulesuggestflag - flag for rule suggestions
      */
@@ -242,12 +249,12 @@ public class DBProductusageTableConstants {
      * The constant PRODUCTUSAGE_RULESUGGESTFLAG_COL_FULL.
      */
     public static final String PRODUCTUSAGE_RULESUGGESTFLAG_COL_FULL = PRODUCTUSAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             PRODUCTUSAGE_RULESUGGESTFLAG_COL;
     /**
      * The constant PRODUCTUSAGE_RULESUGGESTFLAG_TYPE.
      */
-    public static final String PRODUCTUSAGE_RULESUGGESTFLAG_TYPE = INT;
+    public static final String PRODUCTUSAGE_RULESUGGESTFLAG_TYPE = SQLINTEGER;
     /**
      * The constant PRODUCTUSAGE_RULESUGGESTFLAG_PRIMARY_INDEX.
      */
@@ -260,10 +267,11 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_RULESUGGESTFLAG_PRIMARY_INDEX,
             "0");
 
+
     public static final String PRODUCTUSAGE_CHECKLISTFLAG_COL = "productusagechecklistflag";
     public static final String PRODUCTUSAGE_CHECKLISTFLAG_COL_FULL =
-            PRODUCTUSAGE_TABLE + PERIOD + PRODUCTUSAGE_CHECKLISTFLAG_COL;
-    public static final String PRODUCTUSAGE_CHECKLISTFLAG_TYPE = INT;
+            PRODUCTUSAGE_TABLE + SQLPERIOD + PRODUCTUSAGE_CHECKLISTFLAG_COL;
+    public static final String PRODUCTUSAGE_CHECKLISTFLAG_TYPE = SQLINTEGER;
     public static final boolean PRODUCTUSAGE_CHECKLISTFLAG_PRIMARY_INDEX = false;
     public static final DBColumn PRODUCTUSAGECHECKLISTFLAGCOL = new DBColumn(
             PRODUCTUSAGE_CHECKLISTFLAG_COL,
@@ -271,16 +279,18 @@ public class DBProductusageTableConstants {
             PRODUCTUSAGE_CHECKLISTFLAG_PRIMARY_INDEX,
             "0");
 
+
     public static final String PRODUCTUSAGE_CHECKLISTCOUNT_COL = "productusagechecklistcount";
     public static final String PRODUCTUSAGE_CHECKLISTCOUNT_COL_FULL =
-            PRODUCTUSAGE_TABLE + PERIOD + PRODUCTUSAGE_CHECKLISTCOUNT_COL;
-    public static final String PRODUCTUSAGE_CHECKLISTCOUNT_TYPE = INT;
+            PRODUCTUSAGE_TABLE + SQLPERIOD + PRODUCTUSAGE_CHECKLISTCOUNT_COL;
+    public static final String PRODUCTUSAGE_CHECKLISTCOUNT_TYPE = SQLINTEGER;
     public static final boolean PRODUCTUSAGE_CHECKLISTCOUNT_PRIMARY_INDEX = false;
     public static final DBColumn PRODUCTUSAGECHECKLISTCOUNTCOL = new DBColumn(
             PRODUCTUSAGE_CHECKLISTCOUNT_COL,
             PRODUCTUSAGE_CHECKLISTCOUNT_TYPE,
             PRODUCTUSAGE_CHECKLISTCOUNT_PRIMARY_INDEX,
             "1");
+
 
     /**
      * The constant PRODUCTUSAGECOLS.

@@ -3,10 +3,16 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mjt.dbindex.DBIndex;
+import mjt.dbtable.DBTable;
+import mjt.dbdatabase.DBDatabase;
+
+import static mjt.shopwise.DBAislesTableConstants.AISLESSHOPREFINDEX;
 import static mjt.shopwise.DBAislesTableConstants.AISLESTABLE;
 import static mjt.shopwise.DBProductsTableConstants.PRODUCTSTABLE;
 import static mjt.shopwise.DBProductusageTableConstants.PRODUCTUSAGETABLE;
 import static mjt.shopwise.DBRulesTableConstants.RULESTABLE;
+import static mjt.shopwise.DBShopListTableConstants.SHOPLISTAISLEREFINDEX;
 import static mjt.shopwise.DBShopListTableConstants.SHOPLISTTABLE;
 import static mjt.shopwise.DBShopsTableConstants.SHOPSTABLE;
 import static mjt.shopwise.DBAppvaluesTableConstants.APPVALUESTABLE;
@@ -39,10 +45,6 @@ final class DBConstants {
      * The Txt.
      */
     static final String TXT = "TEXT";
-    /**
-     * The Idtype.
-     */
-    static final String IDTYPE = INT;
     /**
      * The Real.
      */
@@ -143,7 +145,7 @@ final class DBConstants {
 
 
     /**************************************************************************
-     * DEFINITION OF THE SHOPWISE DATABASE
+     * DEFINITION OF THE SHOPWISEBASESCHEMA DATABASE
      * <p>
      * Derived from the respective DBTables
      * (see respective DB<table></table>Constants.java)
@@ -160,9 +162,19 @@ final class DBConstants {
                     RULESTABLE,
                     APPVALUESTABLE,
                     STORAGETABLE
-            ));
+            )
+    );
+    static final ArrayList<DBIndex> SHOPWISEINDXES = new ArrayList<>(
+            Arrays.asList(
+                    SHOPLISTAISLEREFINDEX,
+                    AISLESSHOPREFINDEX
+            )
+    );
     /**
-     * The Shopwise.
+     * SHOPWISEBASESCHEMA the psuedo/base schema
      */
-    static final DBDatabase SHOPWISE = new DBDatabase(DATABASE_NAME,SHOPWISETABLES);
+    static final DBDatabase SHOPWISEBASESCHEMA = new DBDatabase(DATABASE_NAME,
+            SHOPWISETABLES,
+            SHOPWISEINDXES
+    );
 }

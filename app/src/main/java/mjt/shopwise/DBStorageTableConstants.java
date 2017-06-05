@@ -3,12 +3,11 @@ package mjt.shopwise;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import mjt.dbcolumn.DBColumn;
+import mjt.dbtable.DBTable;
+
 import static mjt.shopwise.DBConstants.DEFAULTORDER;
-import static mjt.shopwise.DBConstants.IDTYPE;
-import static mjt.shopwise.DBConstants.INT;
-import static mjt.shopwise.DBConstants.PERIOD;
-import static mjt.shopwise.DBConstants.STD_ID;
-import static mjt.shopwise.DBConstants.TXT;
+import static mjt.sqlwords.SQLKWORD.*;
 
 /**
  * DBStorageTableConstants - Constant Values for the Storage Table
@@ -24,28 +23,22 @@ public class DBStorageTableConstants {
      */
     public static final String STORAGE_TABLE = "storage";
 
-    public  static final String STORAGE_ID_COL = STD_ID;
+    public  static final String STORAGE_ID_COL = SQLSTD_ID;
     public static final String  STORAGE_ID_COL_FULL = STORAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             STORAGE_ID_COL;
-    public static final String STORAGE_ALTID_COL = STORAGE_TABLE + STD_ID;
+    public static final String STORAGE_ALTID_COL = STORAGE_TABLE + SQLSTD_ID;
     public static final String STORAGE_ALTID_COL_FULL = STORAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             STORAGE_ALTID_COL;
-    public static final String STORAGE_ID_TYPE = IDTYPE;
+    public static final DBColumn STORAGEIDCOL = new DBColumn(true);
 
-    public static final Boolean STORAGE_ID_PRIMARY_INDEX = true;
-    public static final DBColumn STORAGEIDCOL = new DBColumn(
-            STORAGE_ID_COL,
-            STORAGE_ID_TYPE,
-            STORAGE_ID_PRIMARY_INDEX,
-            ""
-    );
+
     public static final String STORAGE_ORDER_COL = "storageorder";
     public static final String STORAGE_ORDER_COL_FULL = STORAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             STORAGE_ORDER_COL;
-    public static final String STORAGE_ORDER_TYPE = INT;
+    public static final String STORAGE_ORDER_TYPE = SQLINTEGER;
     public static final Boolean STORAGE_ORDER_PRIMARY_INDEX = false;
     public static final DBColumn STORAGEORDERCOL = new DBColumn(
             STORAGE_ORDER_COL,
@@ -55,9 +48,9 @@ public class DBStorageTableConstants {
     );
     public static final String STORAGE_NAME_COL = "storagename";
     public static final String STORAGE_NAME_COL_FULL = STORAGE_TABLE +
-            PERIOD +
+            SQLPERIOD +
             STORAGE_NAME_COL;
-    public static final String STORAGE_NAME_TYPE = TXT;
+    public static final String STORAGE_NAME_TYPE = SQLTEXT;
     public static final Boolean STORAGE_NAME_PRIMARY_INDEX = false;
 
 
