@@ -441,8 +441,14 @@ public class StorageAddEditActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     public void sortClick(View view) {
         String logmsg = "Invoked";
-        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
-        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname
+        );
         lastmessage = "List of Storage sorted by ";
         switch (view.getId()) {
             case R.id.storageaddedit_storagelist_heading_storagename:
