@@ -241,6 +241,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
     private static final int BYPRODUCTNAME = 1;
     @SuppressWarnings("unused")
     private static final int BYACTONDATE = 2;
+    private static final int BYPROMPT = 4;
     private static final String SORTASCENDING = SQLORDERASCENDING;
     private static final String SORTDESCENDING = SQLORDERDESCENDING;
     static String orderby = RULENAME_FULLCOLUMN + SORTASCENDING;
@@ -1105,40 +1106,6 @@ public class RulesAddEditActivity extends AppCompatActivity {
         resumestate = StandardAppConstants.RESUMESTATE_ALT1;
         pickdate.show(this);
 
-
-        /**
-        //Setup OnDateSetListener to apply selected date
-        DatePickerDialog.OnDateSetListener odsl = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                Calendar newcal = Calendar.getInstance();
-                newcal.set(year, monthOfYear, dayOfMonth);
-                ruledate_input.setText(sdf.format(newcal.getTime()));
-                textruledate_input.setText("");
-            }
-        };
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        int nw = (width * 100) / 133;
-        int nh = (height * 100) / 133;
-
-        DatePickerDialog dpd = new DatePickerDialog(this, odsl, oldcal.get(Calendar.YEAR), oldcal.get(Calendar.MONTH), oldcal.get(Calendar.DAY_OF_MONTH));
-        DatePicker dpk = dpd.getDatePicker();
-        dpk.setBackgroundColor(Color.WHITE);
-        int minh = dpk.getMinimumHeight();
-        int minw = dpk.getMinimumWidth();
-        dpk.setMinimumHeight(nh);
-        dpk.setMinimumWidth(nw);
-        dpk.setScaleX((float) 1.1);
-        dpk.setScaleY((float) 1.1);
-        dpd.setTitle("Rule Start Date");
-        dpd.show();
-         **/
     }
 
     /**************************************************************************
@@ -1196,6 +1163,49 @@ public class RulesAddEditActivity extends AppCompatActivity {
         }
         orderfld = neworderfld;
         sortchanged = true;
+    }
+
+    public void sortClick(View view) {
+        String logmsg = "Invoked";
+        String methodname =
+                new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
+                LOGTAG,
+                logmsg,
+                THISCLASS,
+                methodname
+        );
+        lastmessage = "List of Rules sorted by ";
+        switch (view.getId()) {
+            case R.id.rules_rulelist_heading_rulename:
+                getOrderBy(RULENAME_FULLCOLUMN,BYRULENAME);
+                lastmessage = lastmessage + " RULE NAME ORDER in";
+                break;
+            case R.id.rules_rulelist_heading_productname:
+                getOrderBy(PRODUCTNAME_FULLCOLUMN,BYPRODUCTNAME);
+                lastmessage = lastmessage + " PRODUCT NAME ORDER in";
+                break;
+            case R.id.rules_rulelist_heading_acton:
+                getOrderBy(RULEACTON_FULLCOLUMN,BYACTONDATE);
+                lastmessage = lastmessage + " RULE ADDON ORDER in";
+                break;
+            case R.id.rules_rulelist_heading_prompt:
+                getOrderBy(RULEPROMPT_FULLCOLUMN,BYPROMPT);
+                lastmessage = lastmessage + " RULE PROMPT ORDER in";
+                break;
+            default:
+                break;
+        }
+        if (sortchanged) {
+            rlcsr = dbrulemethods.getExpandedRuleList(rulefilter,orderby);
+            rulelistadapter.swapCursor(rlcsr);
+            if (ordertype) {
+                lastmessage = lastmessage + " ascending order";
+            } else {
+                lastmessage= lastmessage + " descending order";
+            }
+            setMessage(this,lastmessage,false);
+        }
     }
 
     /**************************************************************************
