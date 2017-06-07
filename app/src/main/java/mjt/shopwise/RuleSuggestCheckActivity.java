@@ -13,6 +13,7 @@ import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -470,8 +471,10 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
             case R.id.rulesuggest_rulename:
                 if (!suggestmode) {
                     getOrderBy(DBRulesTableConstants.RULES_NAME_COL_FULL,BYRULE);
-                    lastmessage = lastmessage + " RULE NAME (";
+                } else {
+                    getOrderBy(DBProductsTableConstants.PRODUCTS_NAME_COL_FULL,BYRULE);
                 }
+                lastmessage = lastmessage + " RULE NAME (";
                 break;
             case R.id.rulesuggest_productname:
                 getOrderBy(DBProductsTableConstants.PRODUCTS_NAME_COL_FULL,BYPRODUCT);
