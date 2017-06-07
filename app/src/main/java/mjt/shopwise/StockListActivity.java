@@ -220,6 +220,7 @@ public class StockListActivity extends AppCompatActivity {
 
 
         actionbar = getSupportActionBar();
+        //noinspection ConstantConditions,ConstantConditions
         actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);

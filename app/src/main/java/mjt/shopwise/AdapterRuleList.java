@@ -140,8 +140,9 @@ public class AdapterRuleList extends CursorAdapter {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         super.getDropDownView(position, convertview, parent);
         @SuppressWarnings("UnnecessaryLocalVariable") View view = convertview;
+        //noinspection StatementWithEmptyBody
         if (fromspinner) {
-
+            // Never invoked from a Spinner
         }
         this.cursor.moveToPosition(position);
         bindView(view, ctxt, this.cursor);
