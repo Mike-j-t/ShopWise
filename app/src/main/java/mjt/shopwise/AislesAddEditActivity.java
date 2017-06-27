@@ -80,6 +80,9 @@ public class AislesAddEditActivity extends AppCompatActivity {
     AdapterAisleList aislelistadapter;
     TextView savebutton;
     TextView donebutton;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     DBDAO dbdao;
@@ -171,6 +174,9 @@ public class AislesAddEditActivity extends AppCompatActivity {
         aislelist_heading_aislename = (TextView) findViewById(R.id.aisleaddedit_aislelist_heading_aislename);
         aislelist_heading_aisleorder = (TextView) findViewById(R.id.aisleaddedit_aislelist_heading_aisleorder);
         aislelist = (ListView) findViewById(R.id.aisleaddedit_aislelist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
         savebutton = (TextView) findViewById(R.id.aisleaddedit_savebutton);
         donebutton = (TextView) findViewById(R.id.aisleaddedit_donebutton);
         // Apply Color Coding
@@ -190,6 +196,10 @@ public class AislesAddEditActivity extends AppCompatActivity {
         input_aislename_label.setTextColor(primary_color);
         input_aisleshop_label.setTextColor(primary_color);
         input_aisleorder_label.setTextColor(primary_color);
+
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
+        sortable.setTextColor(primary_color);
 
         dbdao = new DBDAO(this);
         dbshopmethods = new DBShopMethods(this);

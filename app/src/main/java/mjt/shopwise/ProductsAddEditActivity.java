@@ -85,6 +85,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
     TextView productlistproductname;
     ListView productlist;
     AdapterProductList productlistadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     DBDAO dbdao;
@@ -198,6 +201,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         productlistheading = (LinearLayout) findViewById(R.id.productaddedit_productlist_heading);
         productlistproductname = (TextView) findViewById(R.id.productaddedit_productlist_heading_productname);
         productlist = (ListView) findViewById(R.id.productaddedit_productlist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable =(TextView) findViewById(R.id.longclickable);
 
          //Apply Color Coding
         actionbar = getSupportActionBar();
@@ -218,6 +224,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         inputproductstorage_label.setTextColor(primary_color);
         inputproductorder_label.setTextColor(primary_color);
         productfilterlabel.setTextColor(h2);
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
 
         msg = "Preparing DataBases";

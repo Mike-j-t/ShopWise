@@ -79,6 +79,9 @@ public class AislesActivity extends AppCompatActivity{
     AdapterAisleList aislelistadapter;
     AdapterShopList selectshoplistadapter;
     TextView selectshoplabel;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
 
     @SuppressWarnings("unused")
@@ -160,6 +163,9 @@ public class AislesActivity extends AppCompatActivity{
         messagebar = (TextView) findViewById(R.id.aisles_messagebar);
         selectshoplist = (Spinner) findViewById(R.id.aisles_shopspinner);
         selectshoplabel = (TextView) findViewById(R.id.aisles_shopspinner_shopname_label);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
         // Apply Color Coding
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
@@ -183,6 +189,9 @@ public class AislesActivity extends AppCompatActivity{
         aislelistheading.setBackgroundColor(h1);
         ActionColorCoding.setActionButtonColor(selectshoplist,h2);
         selectshoplabel.setTextColor(primary_color);
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
@@ -214,7 +223,7 @@ public class AislesActivity extends AppCompatActivity{
                 alcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
-                false, true, true
+                false, false, false
         );
         aiselist.setAdapter(aislelistadapter);
         aislesadapterset = true;

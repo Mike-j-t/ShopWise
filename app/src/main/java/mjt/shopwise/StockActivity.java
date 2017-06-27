@@ -225,6 +225,9 @@ public class StockActivity extends AppCompatActivity {
     TextView inputchecklistflaglabel;
     EditText inputchecklistcount;
     TextView inputchecklistcountlabel;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     String stocklabel;
@@ -288,6 +291,10 @@ public class StockActivity extends AppCompatActivity {
         inputchecklistcount = (EditText) findViewById(R.id.inputchecklistcount);
         inputchecklistcountlabel = (TextView) findViewById(R.id.inputchecklistcount_label);
         stocklist = (ListView) findViewById(R.id.stock_stocklist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
+
 
         // Apply Color Coding
         actionbar = getSupportActionBar();
@@ -324,6 +331,9 @@ public class StockActivity extends AppCompatActivity {
         inputstockorderlabel.setTextColor(primary_color);
         inputchecklistflaglabel.setTextColor(primary_color);
         inputchecklistcountlabel.setTextColor(primary_color);
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 
@@ -410,7 +420,7 @@ public class StockActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockfilter = AISLEREF_FULLCOLUMN + " = " + currentaisleid;
         stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
-        stocklistadapter = new AdapterStockList(this,stockedcursor,0,this.getIntent(),false, true, true);
+        stocklistadapter = new AdapterStockList(this,stockedcursor,0,this.getIntent(),false, false, false);
         stocklist.setAdapter(stocklistadapter);
 
         setNewInput(inputstockorder, inputstockcost, inputchecklistcount);

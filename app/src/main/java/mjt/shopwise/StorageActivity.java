@@ -57,6 +57,9 @@ public class StorageActivity extends AppCompatActivity {
     ListView storagelist;
     LinearLayout storagelistheading;
     AdapterStorageList storagelistadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     DBDAO dbdao;
@@ -127,6 +130,9 @@ public class StorageActivity extends AppCompatActivity {
         storagelistheading =
                 (LinearLayout) findViewById(R.id.storage_storagelist_heading);
         storagelist = (ListView) findViewById(R.id.storage_storagelist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
 
         actionbar = getSupportActionBar();
@@ -139,6 +145,10 @@ public class StorageActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(newbutton, primary_color);
         storagelistheading.setBackgroundColor(h1);
+
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
         logmsg = "Preparing Database";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
@@ -155,8 +165,8 @@ public class StorageActivity extends AppCompatActivity {
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
                 false,
-                true,
-                true);
+                false,
+                false);
         storagelist.setAdapter(storagelistadapter);
 
         storagelist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

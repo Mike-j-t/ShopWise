@@ -102,6 +102,7 @@
             android:layout_weight="2"
             />
     </LinearLayout>
+    <include layout="@layout/common_listviewoptions"></include>
     <ListView
         android:id="@+id/aisles_aislelist"
         android:layout_width="match_parent"

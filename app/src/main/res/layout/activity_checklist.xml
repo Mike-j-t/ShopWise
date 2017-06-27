@@ -100,6 +100,7 @@
             android:layout_weight="12"
             />
     </LinearLayout>
+    <include layout="@layout/common_listviewoptions"></include>
     <ListView
         android:id="@+id/checklist_checklist"
         android:layout_width="match_parent"
