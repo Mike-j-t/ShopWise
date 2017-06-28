@@ -192,6 +192,9 @@ public class ShoppingActivity extends AppCompatActivity {
     TextView totalcost;
     TextView remaining;
     TextView spent;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     Dialog adjustdialog;
@@ -259,6 +262,9 @@ public class ShoppingActivity extends AppCompatActivity {
         totalcost = (TextView) findViewById(R.id.shopping_shoppinglist_totalcost);
         remaining = (TextView) findViewById(R.id.shopping_shoppinglist_remainingcost);
         spent = (TextView) findViewById(R.id.shopping_shoppinglist_spent);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -270,6 +276,10 @@ public class ShoppingActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(tidybutton,primary_color);
         shoppinglistheading.setBackgroundColor(h1);
+        sortable.setText(getResources().getString(R.string.notsortable));
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 

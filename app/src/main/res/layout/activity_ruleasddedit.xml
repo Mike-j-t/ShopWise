@@ -364,6 +364,7 @@
             android:text="@string/promptlabel"
             />
     </LinearLayout>
+    <include layout="@layout/common_listviewoptions"></include>
     <ListView
         android:id="@+id/rules_rulelist"
         android:layout_width="match_parent"

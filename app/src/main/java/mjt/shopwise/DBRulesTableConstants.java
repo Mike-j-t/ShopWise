@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import mjt.dbcolumn.DBColumn;
+import mjt.dbindex.DBIndex;
 import mjt.dbtable.DBTable;
 
 import static mjt.sqlwords.SQLKWORD.*;
@@ -336,17 +337,32 @@ public class DBRulesTableConstants {
     /**
      * The constant RULESCOLS.
      */
-    public static final ArrayList<DBColumn> RULESCOLS = new ArrayList<>(Arrays.asList(RULESIDCOL,
-            RULESPRODUCTREFCOL,
-            RULESAISLEREFCOL,
-            RULESNAMECOL,
-            RULESUSESCOL,
-            RULESPROMPTCOL,
-            RULESACTONCOL,
-            RULESPERIODCOL,
-            RULESMULTIPLIERCOL));
+    public static final ArrayList<DBColumn> RULESCOLS = new ArrayList<>(
+            Arrays.asList(
+                    RULESIDCOL,
+                    RULESPRODUCTREFCOL,
+                    RULESAISLEREFCOL,
+                    RULESNAMECOL,
+                    RULESUSESCOL,
+                    RULESPROMPTCOL,
+                    RULESACTONCOL,
+                    RULESPERIODCOL,
+                    RULESMULTIPLIERCOL
+            )
+    );
     /**
      * The constant RULESTABLE.
      */
     public static final DBTable RULESTABLE = new DBTable(RULES_TABLE,RULESCOLS);
+
+    /*
+    * Index for aisleref
+     */
+    public static final DBIndex RULESAISLEREFINDEX = new DBIndex(
+            RULES_TABLE + RULES_AISLEREF_COL+ "index",
+            RULESTABLE,
+            RULESAISLEREFCOL,
+            true,
+            false
+    );
 }

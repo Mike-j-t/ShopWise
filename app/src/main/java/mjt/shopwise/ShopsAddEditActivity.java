@@ -89,6 +89,9 @@ public class ShopsAddEditActivity extends AppCompatActivity {
     TextView shoplist_shoporder;
     ListView shoplist;
     AdapterShopList  shoplistadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     /**
      * Database objects
@@ -175,6 +178,10 @@ public class ShopsAddEditActivity extends AppCompatActivity {
         shoplist_shoporder = (TextView) findViewById(R.id.shopaddedit_shoplist_heading_shoporder);
         shoplist = (ListView) findViewById(R.id.shopaddedit_shoplist);
 
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
+
         // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -192,6 +199,10 @@ public class ShopsAddEditActivity extends AppCompatActivity {
         inputshopcity_label.setTextColor(h1);
         inputshoporder_label.setTextColor(h1);
         shoplist_heading.setBackgroundColor(h1);
+
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
         logmsg = "Preparing Database";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);

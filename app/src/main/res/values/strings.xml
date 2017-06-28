@@ -30,7 +30,7 @@
     <string name="shoplabel">Shop</string>
     <string name="shopnamelabel">Shop Name</string>
     <string name="shopaddlabel">Shops - Add</string>
-    <string name="shopeditLabel" tools:ignore="UnusedResources">Shops - Edit</string>
+    <string name="shopeditlabel" tools:ignore="UnusedResources">Shops - Edit</string>
     <string name="citylabel">City</string>
     <string name="streetlabel" tools:ignore="UnusedResources">Street</string>
     <string name="statelabel" tools:ignore="UnusedResources">State</string>
@@ -100,6 +100,10 @@
     <string name="rulesuggestlist">Rule Suggestions List</string>
     <string name="rulechecklist">Rule Accuracy Check List</string>
     <string name="ruledisabledlist">Disabled Rule List</string>
+    <string name="listviewheadingoption_sortable">Sortable by Clicking Headings</string>
+    <string name="notsortable">Sort Disabled</string>
+    <string name="listviewheadingoption_clickable">Items are Clickable</string>
+    <string name="listviewheadingoption_longclickable">Items are Long Clickable</string>
 
     <!-- Button Text -->
     <string name="donebutton">DONE</string>
@@ -175,22 +179,22 @@
     </string>
     <string name="rulesuggestionoverview">
         \nSUGGEST\n
-        \tList potential Rules based upon the shopping history.\n
-        \tADD allows the suggested Rule to be added\n
-        \tSKIP temporarily removes the Entry from the List.\n
-        \tDISABLE permanently (see DISABLED below) removes the entry from the list.\n\n
+        \tLists potential Rules according to shopping history.\n
+        \tADD Adds the Rule.\n
+        \tSKIP Temporarily removes the Rule from the List.\n
+        \tDISABLE Permanently (see DISABLED below) removes the Rule from the list.\n\n
         CHECK\n
-        \tList existing Rules with the Rule\'s accuracy compared with Shopping history.\n
+        \tLists existing Rules with the Rule\'s accuracy according to the Shopping history.\n
         \tAccuracy is shown as a percentage.\n
         \t\t100 is exact.\n
         \t\tLess than 100, the Rule adds too few.\n
         \t\tMore than 100, the Rule addds too many.\n
-        \tMODIFY allows the Rule to be edited.\n\n
+        \tMODIFY Edits the Rule.\n\n
         DISABLED\n
-        \tList Entries that have been Disabled.\n
-        \tENABLE re-enables the Entry.\n\n
+        \tList Rules that have been Disabled.\n
+        \tENABLE Enables the Rule.\n\n
         NOTES\n
-        \tDISABLED is only shown if there are Disabled Entries.\n\n
+        \tDISABLED (only shown if there are Disabled Entries)\n\n
         \tMin Period and Min Bought may cause nothing to be shown.\n
         \tIf Min Bought and Min Period are both 0 then:-\n
         \t\tResults may be not reliable.\n

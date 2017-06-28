@@ -181,6 +181,9 @@ public class StockListActivity extends AppCompatActivity {
     TextView inputproductfilterlabel;
     EditText inputproductfilter;
     ListView stocklist;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     String stocklabel;
@@ -217,9 +220,13 @@ public class StockListActivity extends AppCompatActivity {
         inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
         stocklistheading = (LinearLayout) findViewById(R.id.stocklist_stocklist_heading);
         stocklist = (ListView) findViewById(R.id.stocklist_stocklist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
 
         actionbar = getSupportActionBar();
+        //noinspection ConstantConditions,ConstantConditions
         actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -233,6 +240,9 @@ public class StockListActivity extends AppCompatActivity {
                 h2 & ActionColorCoding.transparency_optional);
         stocklistheading.setBackgroundColor(h1);
         inputproductfilterlabel.setTextColor(h2);
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
         //this.setTitle(getResources().getString(R.string.stocklabel));
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
@@ -252,7 +262,7 @@ public class StockListActivity extends AppCompatActivity {
         logmsg = "Retrieving StockList";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockedcursor = dbpumethods.getExpandedProductUsages(stockfilter,stockorderby);
-        stocklistadapter = new AdapterStockListList(this,stockedcursor,0,getIntent(),false, true, true);
+        stocklistadapter = new AdapterStockListList(this,stockedcursor,0,getIntent(),false, false, false);
         stocklist.setAdapter(stocklistadapter);
         addProductFilterListener();
 

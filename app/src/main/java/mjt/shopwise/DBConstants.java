@@ -11,6 +11,7 @@ import static mjt.shopwise.DBAislesTableConstants.AISLESSHOPREFINDEX;
 import static mjt.shopwise.DBAislesTableConstants.AISLESTABLE;
 import static mjt.shopwise.DBProductsTableConstants.PRODUCTSTABLE;
 import static mjt.shopwise.DBProductusageTableConstants.PRODUCTUSAGETABLE;
+import static mjt.shopwise.DBRulesTableConstants.RULESAISLEREFINDEX;
 import static mjt.shopwise.DBRulesTableConstants.RULESTABLE;
 import static mjt.shopwise.DBShopListTableConstants.SHOPLISTAISLEREFINDEX;
 import static mjt.shopwise.DBShopListTableConstants.SHOPLISTTABLE;
@@ -66,7 +67,8 @@ final class DBConstants {
     static final ArrayList<DBIndex> SHOPWISEINDXES = new ArrayList<>(
             Arrays.asList(
                     SHOPLISTAISLEREFINDEX,
-                    AISLESSHOPREFINDEX
+                    AISLESSHOPREFINDEX,
+                    RULESAISLEREFINDEX
             )
     );
     /**************************************************************************

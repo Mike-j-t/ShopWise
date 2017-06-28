@@ -75,6 +75,9 @@ public class ShopsActivity extends AppCompatActivity {
     ListView shoplist;
     LinearLayout shoplistheading;
     AdapterShopList shoplistadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     /**
      * Database objects
@@ -146,6 +149,9 @@ public class ShopsActivity extends AppCompatActivity {
         shoplist  = (ListView) findViewById(R.id.shops_shoplist);
         shoplistheading = (LinearLayout) findViewById(R.id.shops_shoplist_heading);
         messagebar = (TextView) findViewById(R.id.shops_messagebar);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
 
         // Apply Color Coding
@@ -160,22 +166,10 @@ public class ShopsActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(newbutton, primary_color);
         shoplistheading.setBackgroundColor(h1);
 
-        /**
-         * Colour Swatch thinggy
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
-        ((TextView)this.findViewById(R.id.cs_main)).setBackgroundColor(primary_color);
-        ((TextView)this.findViewById(R.id.cs_h1)).setBackgroundColor(h1);
-        ((TextView)this.findViewById(R.id.cs_h2)).setBackgroundColor(h2);
-        ((TextView)this.findViewById(R.id.cs_h3)).setBackgroundColor(h3);
-        ((TextView)this.findViewById(R.id.cs_h4)).setBackgroundColor(h4);
-        ((TextView)this.findViewById(R.id.cs_re)).setBackgroundColor(
-                h2 & ActionColorCoding.transparency_requied
-        );
-        ((TextView) this.findViewById(R.id.cs_ro)).setBackgroundColor(
-                h4 & ActionColorCoding.transparency_optional
-        );
-
-         **/
         ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
         //dbdao = new DBDAO(this);
@@ -195,7 +189,7 @@ public class ShopsActivity extends AppCompatActivity {
                 slcsr,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
-                false, true, true);
+                false, false, false);
         shoplist.setAdapter(shoplistadapter);
         logmsg = "Adding ShopList OnItemLongClick Listener";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,12 +50,12 @@ public class AdapterFileList extends ArrayAdapter<File> {
 
     // This is the view used for the dropdown entries
     @Override
-    public View getDropDownView(int position, final View convertview, ViewGroup parent) {
+    public View getDropDownView(int position, final View convertview, @NonNull ViewGroup parent) {
         //super.getDropDownView(position, convertview, parent);
         String msg = "Inflating Layout";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        View v = convertview;
+        View v;
         v = View.inflate(context,R.layout.filelist,null);
         v.setBackgroundResource(R.drawable.textviewborder);
         int evenrow = ActionColorCoding.setHeadingColor(context,
@@ -92,8 +93,9 @@ public class AdapterFileList extends ArrayAdapter<File> {
         return v;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertview, ViewGroup parent) {
+    public View getView(int position, View convertview, @NonNull ViewGroup parent) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

@@ -227,6 +227,9 @@ public class RulesActivity extends AppCompatActivity {
     ListView rulelist;
     LinearLayout rulelistheading;
     AdapterRuleList rulelistadpater;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,6 +256,9 @@ public class RulesActivity extends AppCompatActivity {
         addbutton = (TextView) findViewById(R.id.rules_addbutton);
         rulelistheading = (LinearLayout) findViewById(R.id.rules_rulelist_heading);
         rulelist = (ListView) findViewById(R.id.rules_rulelist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
 
         actionbar = getSupportActionBar();
@@ -265,6 +271,9 @@ public class RulesActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(addbutton,primary_color);
         rulelistheading.setBackgroundColor(h1);
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 
@@ -286,8 +295,8 @@ public class RulesActivity extends AppCompatActivity {
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 this.getIntent(),
                 false,
-                true,
-                true);
+                false,
+                false);
         rulelist.setAdapter(rulelistadpater);
 
         logmsg = "Preparing OnItemClick Listener";

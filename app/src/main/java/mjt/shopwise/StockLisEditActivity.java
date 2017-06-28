@@ -235,6 +235,7 @@ public class StockLisEditActivity extends AppCompatActivity {
         logmsg = "Preparing Color Coding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         actionbar = getSupportActionBar();
+        //noinspection ConstantConditions,ConstantConditions
         actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
         messagebar = (TextView) findViewById(R.id.stocklistedit_messagebar);
         donebutton = (TextView) findViewById(R.id.stocklistedit_donebutton);

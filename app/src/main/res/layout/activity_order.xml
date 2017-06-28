@@ -113,6 +113,7 @@
             android:layout_weight="12"
             />
     </LinearLayout>
+    <include layout="@layout/common_listviewoptions"></include>
     <ListView
         android:id="@+id/order_list"
         android:layout_width="match_parent"
