@@ -13,7 +13,6 @@ import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static mjt.sqlwords.SQLKWORD.*;
 

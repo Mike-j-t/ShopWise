@@ -177,9 +177,6 @@
     <string name="rulesoverview">
         Rule suggestion and accuracy checking.
     </string>
-    <string name="ruleunsortable">Sorting by Rule has been purposefully disabled.\n
-        The sort would be no different than sorting by Product Name.
-    </string>
     <string name="rulesuggestionoverview">
         \nSUGGEST\n
         \tLists potential Rules according to shopping history.\n
