@@ -100,6 +100,10 @@
     <string name="rulesuggestlist">Rule Suggestions List</string>
     <string name="rulechecklist">Rule Accuracy Check List</string>
     <string name="ruledisabledlist">Disabled Rule List</string>
+    <string name="listviewheadingoption_sortable">Sortable by Clicking Headings</string>
+    <string name="notsortable">Sort Disabled</string>
+    <string name="listviewheadingoption_clickable">Items are Clickable</string>
+    <string name="listviewheadingoption_longclickable">Items are Long Clickable</string>
 
     <!-- Button Text -->
     <string name="donebutton">DONE</string>
@@ -172,9 +176,6 @@
     </string>
     <string name="rulesoverview">
         Rule suggestion and accuracy checking.
-    </string>
-    <string name="ruleunsortable">Sorting by Rule has been purposefully disabled.\n
-        The sort would be no different than sorting by Product Name.
     </string>
     <string name="rulesuggestionoverview">
         \nSUGGEST\n

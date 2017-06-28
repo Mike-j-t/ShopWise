@@ -326,6 +326,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
     ListView ruleslist;
     LinearLayout rulelistheading;
     AdapterRuleList rulelistadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     PickDate pickdate;
 
@@ -394,7 +397,12 @@ public class RulesAddEditActivity extends AppCompatActivity {
         ruleperiod_input = (Spinner) findViewById(R.id.selectruleperiod);
         rulemultiplierlabel = (TextView) findViewById(R.id.inputrulemultiplierlabel);
         rulemultiplier_input = (EditText) findViewById(R.id.inputrulemultiplier);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
+
         actionbar = getSupportActionBar();
+
         ActionColorCoding.setActionBarColor(this, getIntent(), actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this, getIntent(), 0);
         h1 = ActionColorCoding.setHeadingColor(this, getIntent(), 1);
@@ -434,6 +442,9 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 h2 & ActionColorCoding.transparency_requied);
         ActionColorCoding.setActionButtonColor(ruleperiod_input, h2);
         rulelistheading.setBackgroundColor(h1);
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
 
         logmsg = "Preparing Database";

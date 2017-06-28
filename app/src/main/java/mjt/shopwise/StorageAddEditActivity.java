@@ -82,6 +82,9 @@ public class StorageAddEditActivity extends AppCompatActivity {
     TextView storagelist_storageorder;
     ListView storagelist;
     AdapterStorageList storagelistadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     @SuppressWarnings("unused")
     DBDAO dbdao;
@@ -173,6 +176,9 @@ public class StorageAddEditActivity extends AppCompatActivity {
                         R.id.storageaddedit_storagelist_heading_storageorder
                 );
         storagelist = (ListView) findViewById(R.id.storageaddedit_storagelist);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this, getIntent(), actionbar);
@@ -190,6 +196,9 @@ public class StorageAddEditActivity extends AppCompatActivity {
         inputstoragename_label.setTextColor(h1);
         inputstorageorder_label.setTextColor(h1);
         storagelist_heading.setBackgroundColor(h1);
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
         logmsg = "Preparing Database";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,

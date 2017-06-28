@@ -78,6 +78,9 @@ public class ProductsActivity extends AppCompatActivity {
     LinearLayout productlistheading;
     TextView inputproductfilterlabel;
     EditText inputproductfilter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
     /**
      * The ProductListAdapter.
      */
@@ -168,6 +171,9 @@ public class ProductsActivity extends AppCompatActivity {
         inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
         addFilterListener();
         messagebar = (TextView) findViewById(R.id.products_messagebar);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
         //ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
@@ -185,6 +191,9 @@ public class ProductsActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(inputproductfilter,h4 &
         ActionColorCoding.transparency_optional);
         inputproductfilterlabel.setTextColor(h1);
+        sortable.setTextColor(primary_color);
+        clickable.setTextColor(primary_color);
+        longclickable.setTextColor(primary_color);
 
 
         msg = "Preparing Databases";
@@ -206,8 +215,8 @@ public class ProductsActivity extends AppCompatActivity {
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER,
                 getIntent(),
                 false,
-                true,
-                true
+                false,
+                false
         );
         productlist.setAdapter(productlistadapter);
         productlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {

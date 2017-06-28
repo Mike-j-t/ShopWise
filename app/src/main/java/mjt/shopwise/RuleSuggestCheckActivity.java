@@ -13,7 +13,6 @@ import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -91,6 +90,9 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
     TextView skipbutton;
     @SuppressWarnings("unused")
     TextView disablebutton;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     @SuppressWarnings("unused")
@@ -167,6 +169,9 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         addbutton = (TextView) findViewById(R.id.ruletoollist_addbutton);
         skipbutton = (TextView) findViewById(R.id.ruletoollist_skipbutton);
         disablebutton = (TextView) findViewById(R.id.ruletoollist_disablebutton);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
         // Apply Color Coding
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -177,6 +182,9 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
         ActionColorCoding.setActionButtonColor(donebutton,primary_color);
         rulelistheading.setBackgroundColor(h1);
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content), this.getIntent());
 

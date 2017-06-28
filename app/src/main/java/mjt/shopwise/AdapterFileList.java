@@ -55,7 +55,7 @@ public class AdapterFileList extends ArrayAdapter<File> {
         String msg = "Inflating Layout";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        View v = convertview;
+        View v;
         v = View.inflate(context,R.layout.filelist,null);
         v.setBackgroundResource(R.drawable.textviewborder);
         int evenrow = ActionColorCoding.setHeadingColor(context,

@@ -1,0 +1,19 @@
+<LinearLayout android:id="@+id/heading_options"
+    style="@style/listview_heading_options"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/sortable"
+        style="@style/listview_heading_options_textview"
+        android:text="@string/listviewheadingoption_sortable"
+        />
+    <TextView
+        android:id="@+id/clickable"
+        style="@style/listview_heading_options_textview"
+        android:text="@string/listviewheadingoption_clickable"
+        />
+    <TextView
+        android:id="@+id/longclickable"
+        style="@style/listview_heading_options_textview"
+        android:text="@string/listviewheadingoption_longclickable"
+        />
+</LinearLayout>

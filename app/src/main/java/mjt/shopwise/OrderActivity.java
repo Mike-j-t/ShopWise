@@ -182,6 +182,9 @@ public class OrderActivity extends AppCompatActivity {
     ListView orderlist;
     LinearLayout orderlistheading;
     AdapterOrderList orderlisadapter;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     protected void onCreate(Bundle savedInstanceState) {
         String msg = "Invoked";
@@ -205,6 +208,9 @@ public class OrderActivity extends AppCompatActivity {
         inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
         orderlist = (ListView) findViewById(R.id.order_list);
         orderlistheading = (LinearLayout) findViewById(R.id.order_list_heading);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
         addFilterListener();
 
         msg = "Preparing Color Coding";
@@ -221,6 +227,9 @@ public class OrderActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(inputproductfilter,
                 h4 & ActionColorCoding.transparency_optional);
         orderlistheading.setBackgroundColor(h1);
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 

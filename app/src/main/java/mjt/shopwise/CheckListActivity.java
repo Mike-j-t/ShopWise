@@ -215,6 +215,9 @@ public class CheckListActivity extends AppCompatActivity {
     TextView resetbutton;
     ListView checklist;
     LinearLayout checklistheading;
+    TextView sortable;
+    TextView clickable;
+    TextView longclickable;
 
     AdapterChecklist checklistadapater;
 
@@ -239,6 +242,9 @@ public class CheckListActivity extends AppCompatActivity {
         resetbutton = (TextView) findViewById(R.id.checklist_resetbutton);
         checklist = (ListView) findViewById(R.id.checklist_checklist);
         checklistheading = (LinearLayout) findViewById(R.id.checklist_checklist_heading);
+        sortable = (TextView) findViewById(R.id.sortable);
+        clickable = (TextView) findViewById(R.id.clickable);
+        longclickable = (TextView) findViewById(R.id.longclickable);
 
         msg = "Preparing ColorCoding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -252,6 +258,10 @@ public class CheckListActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(resetbutton,primary_color);
         checklistheading.setBackgroundColor(h1);
+        sortable.setText(getResources().getString(R.string.notsortable));
+        sortable.setTextColor(primary_color);
+        clickable.setVisibility(View.INVISIBLE);
+        longclickable.setVisibility(View.INVISIBLE);
 
         ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
