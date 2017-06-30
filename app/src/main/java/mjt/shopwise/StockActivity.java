@@ -880,7 +880,7 @@ public class StockActivity extends AppCompatActivity {
         String neutralbuttontext = getResources().getString(R.string.cancelbutton);
         String neutralaction = "";
         String title = "Delete " + productname + " in Aisle " + aislename;
-        String message = "Available Options are CANCE and DELETE.\n\n" +
+        String message = "Available Options are CANCEL and DELETE.\n\n" +
                 "\tCANCEL returns to  STOCK, doing nothing.\n" +
                 "\tDELETE allows you to delete the stocked item.\n\n";
 
