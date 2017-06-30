@@ -7,9 +7,9 @@ android {
         applicationId "mjt.shopwise"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
         versionName '1.0.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 2
     }
     buildTypes {
         release {
