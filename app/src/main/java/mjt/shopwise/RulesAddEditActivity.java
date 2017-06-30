@@ -1075,7 +1075,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        slcsr = dbshopmethods.getShops(shopfilter, shoporderby);
+        slcsr = dbshopmethods.getShopsWithAisles(shopfilter, shoporderby);
         currentshopcount = slcsr.getCount();
         shoplistadapter.swapCursor(slcsr);
         alcsr = dbaislemethods.getAisles(aislefilter, aisleorderby, false);
