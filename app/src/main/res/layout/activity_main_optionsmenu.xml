@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main_OptionsMenu_LinearLayout"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp">
-    <TextView
-        android:id="@+id/activity_main_OptionsMenu_option"
-        android:layout_weight="0.185"
-        style="@style/actionbutton"
-        />
-    <TextView
-        style="@style/actioninfo"
-        android:layout_weight="0.025"/>
-    <TextView
-        android:id="@+id/activity_main_OptionsMenu_label"
-        android:layout_weight="0.69"
-        style="@style/actioninfo"
-        android:textColor="@color/listview_mainheading_blue"
-        />
-    <TextView
-        android:id="@+id/activity_main_OptionsMenu_rowcount"
-        android:layout_weight="0.1"
-        style="@style/actioninfo"
-        android:gravity="end"
-        >
-    </TextView>
-</LinearLayout>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/activity_main_OptionsMenu_LinearLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+        <TextView
+            android:id="@+id/activity_main_OptionsMenu_option"
+            android:layout_weight="0.185"
+            style="@style/actionbutton"
+            />
+        <TextView
+            style="@style/actioninfo"
+            android:layout_weight="0.025"/>
+        <TextView
+            android:id="@+id/activity_main_OptionsMenu_label"
+            android:layout_weight="0.69"
+            style="@style/actioninfo"
+            android:textColor="@color/listview_mainheading_blue"
+            />
+        <TextView
+            android:id="@+id/activity_main_OptionsMenu_rowcount"
+            android:layout_weight="0.1"
+            style="@style/actioninfo"
+            android:gravity="end"
+            >
+        </TextView>
+    </LinearLayout>
+</layout>

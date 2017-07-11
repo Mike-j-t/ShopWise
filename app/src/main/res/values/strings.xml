@@ -1,3 +1,9 @@
+<!DOCTYPE resources [
+    <!ENTITY heading "~HDG~">
+    <!ENTITY tab1 "~TAB1~">
+    <!ENTITY tab2 "~TAB2~">
+    <!ENTITY cmnt "~CMMT~">
+    ]>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ShopWise</string>
     <string name="app_catchphrase">Making Shopping a Little Easier</string>
@@ -49,6 +55,9 @@
     <string name="costlabel">Price</string>
     <string name="ruleslabel">Rules</string>
     <string name="stocklabel">Stock</string>
+    <string name="stocklistlabel">Stock List</string>
+    <string name="stockaddlabel">Stock Add</string>
+    <string name="stockeditlabel">Stock Edit</string>
     <string name="rulelabel">Rule</string>
     <string name="ruleaddlabel">Rule - Add</string>
     <string name="ruleeditlabel">Rule - Edit</string>
@@ -147,7 +156,7 @@
     <string name="inputblank">"cannot be blank!"</string>
     <string name="notsaved">"was not saved."</string>
     <string name="addedok">"Successfully Added."</string>
-    <string name="editedok">"Successfuly Changed."</string>
+    <string name="editedok">"Successfully Changed."</string>
 
     <!-- Miscellaneous Text -->
     <string name="messagebar_prefix_lastaction">"Last action: "</string>
@@ -188,7 +197,7 @@
         \tAccuracy is shown as a percentage.\n
         \t\t100 is exact.\n
         \t\tLess than 100, the Rule adds too few.\n
-        \t\tMore than 100, the Rule addds too many.\n
+        \t\tMore than 100, the Rule adds too many.\n
         \tMODIFY Edits the Rule.\n\n
         DISABLED\n
         \tList Rules that have been Disabled.\n
@@ -205,4 +214,2766 @@
     </string>
     <string name="ruleaccuracycheck">
     </string>
+
+    <!--
+    ===========================================================================
+    HELP DATA
+    Data used by the Help Displays for every screen display (bar PickDate)
+    ===========================================================================
+    -->
+    <string name="help_title">Help</string>       // Title
+
+    <!--
+    Indicators are used programmatically, they are retrieved and then used
+     to check for the occurrence of the respective item.
+    -->
+    <string name="heading_indicator">&heading;</string>
+    <string name="tab1_indicator">&tab1;</string>
+    <string name="tab2_indicator">&tab2;</string>
+
+    <!--
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    HELP TEXT FOR DISPLAYS
+    Each display has two core resources a String for the Help Display's title
+    and String Array containing the data to be displayed.
+
+    The strings for titles, by convention, are named title_help_????_activity.
+    The string arrays are name help_?????_activity
+
+    e.g. for the Shops Display invoked by the Shops_Activity activity the
+    title string name name is
+        title_help_shops_activity
+    whilst the associated string array is named
+        help_shops_activity
+
+    Each string array should start with an element(<item>....</item> that
+    includes the heading indicator e.g. <item>&heading;........</item>
+
+    Note! indicators are defined as entities at the start of the file.
+    Indidcators MUST NOT be within CDATA (character data), they are
+    intended to be the first element within an item.
+
+    To cater for embedded HTML CDATA all other text should be within a CDATA
+    e.g. <![CDATA[Text for help goes here and can include html e.g. <b>BOLD</> and so on]]>
+
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    -->
+
+    <!-- **********************************************************************
+        The Help for the Main Menu
+    -->
+    <string name="title_help_main_activity">Main Display - Help</string>
+    <string-array name="help_main_activity">
+        <item>&heading;Main Display - Help</item>
+        <item>""</item>
+        <item><![CDATA[The <b>Main Display</b>
+            displays a list of Buttons which can be clicked to take you to the respective option.]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[The full complement of Options are:-]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>SHOPS</b> for Managing Shops (The places where you do the Shopping)]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>AISLES</b> for Managing Aisles (Locations within Shops)]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>STORAGE</b> for Managing Storage (where you keep the purchased <b>Products</b>; e.g. Fridge, Pantry etc.)]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>PRODUCTS</b> for Managing Products (The Items that you purchase <i>see Stock</i>)]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>STOCK</b> for Managing Stock i.e. assigning <b>Products</b> to <b>Aisles</b> within <b>Shops</b>.]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>ORDER</b> for adding ad-hoc Stock to the <b>Shopping List</b>, <i>complements <b>CHECKLIST</b> and <b>RULES</b></i>]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>CHECKLIST</b> for adding Stock to the <b>Shopping List</b>, by checking <b>Storage<b>;
+            <i>complements <b>ORDER</b> and <b>RULES</b></i> ]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>SHOPPING</b> for displaying the <b>Shopping List</b>]]> whilst doing the Shopping.</item>
+        <item>&tab1;<![CDATA[<b>- </b><b>RULES</b> for managing Rules, that regularly add Stock to the Shopping List (<i>automatically or prompted<i>)]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>TOOLS</b> for utility options, such as backup/restore and rule suggestion/checking.]]></item>
+        <item>""</item>
+        <item><![CDATA[At First only the <b>SHOPS</b>, <b>STORAGE</b> and <b>TOOLS</b> buttons are available.
+            Other buttons are made available when the respective data has been added.
+            e.g. An <b>Aisle</b> must be owned by a <b>Shop</b>, so the <b>AISLES</b> button only appears when a <b>Shop</b> has been added.]]></item>
+        <item>""</item>
+
+        <item><![CDATA[The Rules for Button Availability are:-]]></item>
+        <item>&tab1;<![CDATA[<b>- AISLES</b> requires at least 1 <b>Shop</b>.]]></item>
+        <item>&tab1;<![CDATA[<b>- PRODUCTS</b> requires at least 1 <b>Storage</b>.]]></item>
+        <item>&tab1;<![CDATA[<b>- STOCK</b> requires at least 1 <b>Aisle</b> and at least 1 <b>Product</b>.]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>ORDER</b>,
+            <b>CHECKLIST</b>,
+            <b>SHOPPING</b> and
+            <b>RULES</b>
+            require at least 1 <b>Stock</b>.]]>
+        </item>
+        <item>""</item>
+        <item>&heading;Commonalities</item>
+        <item>""</item>
+        <item><![CDATA[<b>Names</b>]]></item>
+        <item>&tab1;<![CDATA[Names (<i>Shops, Aisles, Storage, Products, Rules</i>) are limited to 24 characters.]]></item>
+        <item><![CDATA[<b>Order<b/>]]></item>
+        <item>&tab1;<![CDATA[Order is used to order items in the Shopping List and the Checklist.
+            Order is a number (1-9999).
+            Lower numbers appearing first.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[The <b>Shopping List</b> has three tiers of ordering and is thus sorted by <b>Shop</b>, <b>Aisle</b> and <b>Stock</b>.]]></item>
+        <item>&tab1;<![CDATA[The <b>CheckList</b> has two tiers of ordering and is sorted by <b>Storage</b> and then <b>Product</b>.]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>Lists</b>]]></item>
+        <item>&tab1;<![CDATA[<b>ShopWise</b> has many Lists.
+            There are two main types of Lists.]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Lists with a heading showing respective data (ListViews); and]]>
+        </item>
+        <item>&tab2;<![CDATA[Lists that are displayed when an input field is selected (Spinners or DropDown Selectors).]]>
+        </item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>ListViews</b>]]></item>
+        <item>&tab2;<![CDATA[ListViews will have a heading for the ensuing data.
+            With the exception of fixed order lists,
+            the <b>Shopping List</b> and the <b>CheckList</b>,
+            ListViews can be sorted by clicking on a Heading.
+            Clicking on the same heading again will then toggle the sort order between ascending and descending.
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&tab2;<![CDATA[Below the heading and before the Listed Items is a single line used to indicate functionality aspects of the ListView.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[The indicator will show if the ListView is sortable or not,
+            the indicator will show if Items can be clicked and also if they can be long-clicked (no indication means that they cannot).
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&tab2;<![CDATA[
+            Clicking or long-clicking an item <i>(if applicable)</i>, will result in a Dialog being displayed offering options.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            A Dialog will always have a <b>CANCEL</b> option, which returns to the display doing nothing.</i>
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Clicking displays a Dialog offering the <b>EDIT</b> option and for <b>Shops</b>, <b>Aisles</b> and <b>Products</b>
+            an <b>STOCK</b> option (if the relevant underlying data exists).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Long-Clicking will display the more critical <b>DELETE</b> option.
+            The Dialog will also include a list of the impacted data (which could be quite extensive,
+            <i>e.g. deleting a <b>Shop</b> would delete all <b>Aisles</b> within the <b>Shop</b> and all <b>Stock</b> within the <b>Aisles</b> etc.</i>
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DropDown Lists/Spinners</b>]]></item>
+        <item>&tab2;<![CDATA[These appear when the input field is clicked, clicking an item in the list selects that item and closes the list.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Aisles Display
+    -->
+    <string name="title_help_aisles_activity">Aisles Display - Help</string>
+    <string-array name="help_aisles_activity">
+        <item>&heading;<![CDATA[Aisles Display]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>Aisles Display</b> allows <b>Aisles</b>; to be Added by clicking the <b>ADD</b> button,
+            <b>Aisles</b> to be Edited or Stocked (if applicable) by clicking an <b>Aisle</b> in the list of current <b>Aisles</b>,
+            or for an <b>Aisle</b> to be deleted by long-clicking and <b>Aisle</b> in the list of current <b>Aisles</b>.]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[The <b>Aisles</b> need not be actual <b>Aisles</b>,
+            rather an <b>Aisle</b> is a term used by <b>ShopWise</b> to cover any location where items can be purchased.
+        ]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>ADD</b> button goes to the <b>Aisles Add/Edit</b> display where <b>Aisles</b> can be added.]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>DONE</b> button will return to the <b>Main Display</b>]]></item>
+        <item>""</item>
+        <item>&heading;<![CDATA[DropDown Selectors]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>Shop</b> field is a DropDown selector allowing the <b>Shop</b> to be changed.]]></item>
+        <item>&tab1;<![CDATA[The List of <b>Aisles</b> shows <b>Aisles</b> in the currently selected <b>Shop</b>.]]></item>
+        <item>""</item>
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The <b>Aisle List</b> can be sorted according to a heading (Aisle or Order),
+            clicking the same heading again will toggle between ascending and descending.]]>
+        </item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b>, <b>Stock</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>STOCK</b> is for assigning <b>Products</b> to <b>Aisles</b>, the respective <b>Shop</b> and <b>Aisle</b> will be selected.]]></item>
+        <item>""</item>
+        <item>&tab2;<![CDATA[<b>STOCK</b> will only be present if at least 1 <b>Product</b> exists.]]></item>
+        <item>&tab2;<![CDATA[<i>Note! <b>Stock<b> can also be accessed via the <b>STOCK</b> option and
+            via the <b>SHOPS</b> and <b>PRODUCTS</b> options.]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Shop</b>]]></item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>CANCEL</b> and <b>DELETE</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will delete the <b>Aisle</b> along with items that reference the <b>Aisle</b>.]]></item>
+        <item>&tab2;<![CDATA[
+            <i>Note! referenced items are displayed in the dialog, the list can be quite extensive
+            as all <b>Stock</b> (not <b>Products</b>) and use of the <b>Stock</b> will be deleted.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Aisles Add/Edit Display
+    -->
+    <string name="title_help_aislesaddedit_activity">Aisles Add/Edit Display - Help</string>
+    <string-array name="help_aisleaddedit_activity">
+        <item>&heading;<![CDATA[Aisle Add/Edit Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Aisles Add/Edit</b> Display is used to <b>Add</b> or <b>Edit</b> <b>Aisles</b>.]]>
+        </item>
+        <item><![CDATA[
+            When invoked via <b>Edit</b> the <b>Aisle</b>\'s data fields will be filled with the current data, allowing them to be changed.]]>
+        </item>
+        <item><![CDATA[
+            When invoked via <b>Add</b> the <b>Shop</b> will be set to the <b>Shop</b> that was selected when <b>ADD</b> was clicked,
+
+             the <b>Aisles</b>\'s name field will be blank. The <b>Order</b> field which will be set to a suggested <b>Order</b>.]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will attempt to save the <b>Aisle</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If the <b>Aisle</b> cannot be saved an error message (yellow text) will indicate the issue.
+            If the <b>Aisle</b> was saved then a message (green text) will indicate this.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Aisles Display.</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! Changes will not be applied if made after saving.</i>
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Shop </b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Shop</b> that the <b>Aisle</b> will belong to.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Must be one of the Listed <b>Shops</b>.
+        ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Aisle Name</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The name of the <b>Aisle</b> (up to 24 characters) used to identify the <b>Aisle</b>.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Required and cannot be blank.
+        ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Order</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The Order in which the <b>Aisle</b> will appear in the <b>Shopping List</b>, within the owning <b>Shop</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Lower numbers appear first.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Required and must be a value between 1 and 99999.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            A suggested number is provided when adding an <b>Aisle</b>.
+            The suggested number will be 1000 for the first <b>Aisle</b> or
+            100 greater than the highest <b>Aisle Order</b> within the <b>Shop</b>.
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Backup/Restore Display
+    -->
+    <string name="title_help_backup_activity">Backup/Restore Display - Help</string>
+    <string-array name="help_backup_activty">
+        <item>&heading;<![CDATA[Backup/Restore Display]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            The <b>Backup/Restore</b> Display is used to create or restore from DataBase Backups.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Flexibility through the ability to change file naming can also facilitate restoring the Database from other sources.</i>]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Tools Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>RESET</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>RESET</b> will change the Date/Time Part to the current Date/Time</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! a change will only appear to be made after at least a minute has elapsed since Backup/Restore was invoked or since last using <b>RESET</b></i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>BACKUP</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>BACKUP</b> will start the DataBase Backup utilising the displayed file name as displayed in the<b>File Name in Full</b> field.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>A dialog displays the result (Success or Failure)</i>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! it is suggested that the default values in the <b>Base Filename</b>, the <b>Date/Time Part</b>
+            and the <b>File Extension</b> are used</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>RESTORE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>RESTORE</b> will initiate the DataBase Restore utilising the file selected in the <b>Restore File</b> drop down selector.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            A dialog will appear providing information and asking for confirmation.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Clicking <b>CANCEL</b> will return to the <b>Backup/Restore Display</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Clicking <b>CONTINUE</b> will proceed with the Database Restore.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The result of the Restore will be displayed by a Dialog.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>If the Restore failed then the Database will revert to the Original Database.</i>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>If the Restore <b>failed</b> the Database will revert to the Original Database.</i>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i><b>ShopWise</b> will then be restarted in order to ensure that cached data is cleared.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[DropDown Selectors]]></item>
+        <item>""</item>
+
+        <item><![CDATA[The <b>Restore File</b> field is a DropDown selector allowing the file to restore from to be changed.]]></item>
+        <item>&tab1;<![CDATA[
+            <i>Note! The DropDown Selector will not be available if there are no restore files.</i>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note! The available restore files depends upon the <b>Base Filename</b> and the <b>File Extension</b> fields.</i>
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! The data in the <b>Base Filename</b> field, must be contained in the filename for the file to be included.</i>
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! The data in the <b>File Extension</b> field, must match the file extension for the file to be included.</i>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note! Again it is suggested that the default values be utilised to avoid confusion.</i>
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Backup Directory</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Backup Director</b> displays where the backups will be stored, it cannot be changed.]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Base Filename</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Base Filename</b> is the first part of the filename that will be used when clicking <b>BACKUP</b>.
+            It is used in conjunction with the <b>Date/Time Part</b> and also the <b>File Extenesion</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Base Filename</b> is also used for determining the available restore files.
+            For a restore file to be included in the <b>Restore File</b> list, the <b>Base Filename</b>
+            must be contained within filename.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Base Filename</b> should be provided, however it is not mandatory.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Date/Time Part</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Date/Time Part</b> is the second part of the filename an by default is an indication of the date and time of the backup.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Date/Time Part</b> should be provided, however it is not mandatory.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>File Extension</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>File Extension</b> is last part of the filename that will be used when clicking <b>BACKUP</b>.
+            It is used in conjunction with the <b>Date/Time Part</b> and also the <b>File Extenesion</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Base Filename</b> is also used for determining the available restore files.
+            For a restore file to be included in the <b>Restore File</b> list, the <b>Base Filename</b>
+            must be contained within filename.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Base Filename</b> should be provided, however it is not mandatory.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>File Name in Full</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>File Name in Full</b> displays where the file name that will be used if <b>BACKUP</b> is clicked.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>File Name in Full</b> is the combination of all three parts
+            (<i><b>Base FileName</b>, <b>Date/Time Part</b> and <b>File Extension</b></i>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>File Name in Full</b> is a display field, it cannot directly be changed.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Available Backups</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Available Backups</b> displays the number of backup files that will be listed/available in the <b>Restore File</b> dropdown selector.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Restore File</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Restore File</b> is a dropdown selector, allowing selection the file to be used by the restore when clicking the <b>Restore</b> button.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for CheckList Display
+    -->
+    <string name="title_help_checklist_activity">CheckList Display - Help</string>
+    <string-array name="help_checklist_activty">
+        <item>&heading;<![CDATA[CheckList Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>CheckList</b> Display is used for adding items(<b>Stock</b>) to the <b>Shopping List</b> by
+            checking what <b>Products</b> are currently stored in <b>Storage</b>.
+            ]]>
+        </item>
+        <item><![CDATA[
+            The list is ordered according to <b>Storage</b> order and then by <b>Product</b> order.
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>RESET</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>RESET</b> will reset the <b>CheckList</b> reverting checked-off items to be unchecked.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>Check-off</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>Check-off</b> marks the respective item as having been checked</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            When <b>Checked-Off</b> the item will be marked as checked-off as the text will be less visible (white instead of black/grey).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            When <b>Checked-Off</b> the <b>Check-off</b> buttons, <b>ADD</b> and <b>LESS</b>, will be replaced by an <b>UNCHECK</b> button.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>UNCHECK</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>UNCHECK</b> reverts the respective item as not having been checked-off</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will add 1 of the respective <b>Stock</b> to the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b># in List</b> will be incremented by 1 to reflect how many of the respective <b>Stock</b> are in the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>LESS</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>LESS</b> will remove 1 of the respective <b>Stock</b> from the <b>Shopping List</b>, if any exist.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b># in List</b> will be reduced by 1, if there were any, to reflect how many of the respective <b>Stock</b> are in the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The list cannot be sorted.]]></item>
+        <item><![CDATA[Buttons appear for each entry (see above).]]></item>
+        <item><![CDATA[Each Item in the List has the following fields:-]]></item>
+        <item>&tab1;<![CDATA[<b>Top Row</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Product Name</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Shop Name</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Aisle Name</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Price</b>]]></item>
+        <item>&tab1;<![CDATA[<b>Bottom Row</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Level</b>. The number following <b>Level</b> is how many should be at the storage location before replenishing.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[<b># in List</b>. The number following <b># in List</b> is how many are already in the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[<b>Buttons</b>. refer to <b>Buttons</b> above.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Order Display
+    -->
+    <string name="title_help_order_activity">Order Display - Help</string>
+    <string-array name="help_order_activity">
+        <item>&heading;<![CDATA[Order Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Order</b> Display is used for adding items(<b>Stock</b>) to the <b>Shopping List</b> as and when required.
+            ]]>
+        </item>
+        <item><![CDATA[
+            It complements <b>CHECKLIST</b> and <b>Rules</b> with a means of adding to the <b>Shopping List</b> according to <b>Product Name</b> in an adhoc way.
+            ]]>
+        </item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will add 1 of the respective <b>Stock</b> to the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b># in List</b> will be incremented by 1 to reflect how many of the respective <b>Stock</b> are in the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>LESS</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>LESS</b> will remove 1 of the respective <b>Stock</b> from the <b>Shopping List</b>, if any exist.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b># in List</b> will be reduced by 1, if there were any, to reflect how many of the respective <b>Stock</b> are in the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Filter</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Filter</b> field is for filtering the displayed <b>Stock</b> by <b>Product Name</b>
+            in order to reduce the listed <b>Products</b> to a manageable size for subsequent selection.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The data entered in the filter will immediately reduce the list of <b>Stock</b> displayed to <b>Stock</b> that contains the data e.g. :-
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>a</b></i> or <i><b>A</b></i> (case independent) will reduce the list to only show <b>Stock</b> whose <b>Product Name</b> includes <b>a</b>
+            (<i>e.g. Lettuce would then not appear in the list</b>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>bak</b></i> will reduce the list to only show <b>Stock</b> whose <b>Product Name</b> includes <b>bka</b>
+            (<i>Baked beans would appear, Lettuce and Banana would not<i>).
+            ]]>
+        </item>
+
+        <item>&tab2;<![CDATA[
+            Filtering can very quickly reduce the list to show the <b>Stock<b> that you want to add.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            No data is required, in which case all <b>Stock</b> will be listed .
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[Buttons appear for each entry (see <b>Buttons above</b>).]]></item>
+        <item><![CDATA[Each Item in the List has the following fields:-]]></item>
+        <item>&tab1;<![CDATA[<b>Top Row</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Product Name</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Shop Name</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Aisle Name</b>]]></item>
+        <item>&tab2;<![CDATA[<b>Price</b>]]></item>
+        <item>&tab1;<![CDATA[<b>Bottom Row</b>]]></item>
+        <item>&tab2;<![CDATA[<b># in List</b>. The number following <b># in List</b> is how many are already in the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[<b>Buttons</b>. refer to <b>Buttons</b> above.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Products Display
+    -->
+    <string name="title_help_products_activity">Products Display - Help</string>
+    <string-array name="help_products_activty">
+        <item>&heading;<![CDATA[Products Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Products</b> Display is for managing (<i>adding, editing, deleting and stocking</i>) <b>Products</b>. ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! ShopWise uses the term <b>Product</b> to refer to the core <b>Product</b>, basically just the name of the <b>Product</b>.
+            a <b>Product</b> assigned to an <b>Aisle</b> within a <b>Shop</b> is termed as <b>Stock</b>.</i>
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i><b>Stock</b> has more attributes, such as price and history (date first purchased, date last purchased and number purchased).</i>
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will go to the <b>Products Add/Edit</b> Display in order to add one or more <b>Products</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Filter</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Filter</b> field is for filtering the displayed <b>Products</b> by <b>Product Name</b>
+            in order to reduce the listed <b>Products</b> to a manageable size for subsequent selection.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The data entered in the filter will immediately reduce the list of <b>Products</b> displayed to <b>Products</b> that contains the data e.g. :-
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>a</b></i> or <i><b>A</b></i> (case independent) will reduce the list to only show <b>Products</b> whose <b>Product Name</b> includes <b>a</b>
+            (<i>e.g. Lettuce would then not appear in the list</b>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>bak</b></i> will reduce the list to only show <b>Products</b> whose <b>Product Name</b> includes <b>bka</b>
+            (<i>Baked beans would appear, Lettuce and Banana would not<i>).
+            ]]>
+        </item>
+
+        <item>&tab2;<![CDATA[
+            Filtering can very quickly reduce the list to show the <b>Stock<b> that you want to add.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            No data is required, in which case all <b>Products</b> will be listed .
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b>, <b>Stock</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>STOCK</b> is for assigning <b>Products</b> to <b>Aisles</b>, the respective <b>Shop</b> and <b>Aisle</b> will be selected.]]></item>
+        <item>""</item>
+        <item>&tab2;<![CDATA[<b>STOCK</b> will only be present if at least 1 <b>Product</b> exists.]]></item>
+        <item>&tab2;<![CDATA[<i>Note! <b>Stock<b> can also be accessed via the <b>STOCK</b> option and
+            via the <b>SHOPS</b> and <b>PRODUCTS</b> options.]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Shop</b>]]></item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>CANCEL</b> and <b>DELETE</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will delete the <b>Product</b> along with items that reference the <b>Product</b>.]]></item>
+        <item>&tab2;<![CDATA[
+            <i>Note! referenced items are displayed in the dialog.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Products Add/Edit Display
+    -->
+    <string name="title_help_productsaddedit_activity">Products Add/Edit Display - Help</string>
+    <string-array name="help_productsaddedit_activty">
+        <item>&heading;<![CDATA[Products Add/Edit Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Products Add/Edit </b> Display is used to <b>Add</b> a new <b>Product</b> or <b>Edit</b> an existing <b>Product</b>
+            ]]>
+        </item>
+        <item><![CDATA[
+            The display will indicate the invocation type. i.e. <b>Products - Add</b> or <b>Products - Edit</b> will appear as the Title.
+            ]]>
+        </item>
+        <item><![CDATA[
+            When invoked via <b>Edit</b> all data will be supplied, it can then be changed as required.
+            ]]>
+        </item>
+        <item><![CDATA[
+            When invoked via <b>Add</b> minimal data will be supplied, further data has to be input.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will save the data unless the data cannot be saved,
+            in which case a message detailing the issue will be shown.
+            If the <b>SAVE</b> is successful a message is shown indicating this.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Products Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[DropDown Selectors]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>Storage</b> field is a DropDown selector allowing the <b>Storage</b> to be selected or changed.]]></item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Product</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The name of the <b>Product</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Product</b> must be given and can be up to 24 characters in length.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Note</b> <b>Product</b> also acts as a Filter to reduce the listed <b>Products</b> as you enter data.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Storage</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Storage</b> location of the <b>Product</b>, i.e. where the <b>Product</b> is kept.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Storage</b> must be a selection from the dropdown list.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Order</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Order</b> within the <b>Storage</b> that affects where the <b>Product</b> appears in the <b>CheckList</>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Order</b> is required and must be a whole number between 1 and 99999.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>When <b>Adding</b> a number will be suggested based upon the number of <b>Products</b> currently in the <b>Storage</b> location.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Filter</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Filter</b> field is used to reduce the listed <b>Products</b> to a manageable size for subsequent selection.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The data entered in the filter will immediately reduce the list of <b>Products</b> displayed to <b>Products</b> that contains the data e.g. :-
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>a</b></i> or <i><b>A</b></i> (case independent) will reduce the list to only show <b>Products</b> whose <b>Product Name</b> includes <b>a</b>
+            (<i>e.g. Lettuce would then not appear in the list</b>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>bak</b></i> will reduce the list to only show <b>Products</b> whose <b>Product Name</b> includes <b>bka</b>
+            (<i>Baked beans would appear, Lettuce and Banana would not<i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Filtering can very quickly reduce the list to show the <b>Stock<b> that you want to add.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            No data is required, in which case all <b>Stock</b> will be listed .
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Prompted Rules Display
+    -->
+    <string name="title_help_promptedrules_activity">Prompted Rules Display - Help</string>
+    <string-array name="help_promptedrules_activty">
+        <item>&heading;<![CDATA[Prompted Rules Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Prompted Rules</b> Display is used to accept or decline <b>Prompted Rules</b>.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Rule Catchup]]></item>
+        <item><![CDATA[<b>Rule Catchup</b> is an integral process with rules.
+        Rather than have multiple rules for each future occurrence a single rule exists with a next occurrence date.
+        When a rule is applied the next date is then determined and so on.
+
+            ]]>
+        </item>
+        <item><![CDATA[Rather than have multiple rules for each future occurrence a single rule exists with a next occurrence date.
+            When a rule is applied the next date is then determined and so on.
+            ]]>
+        </item>
+        <item><![CDATA[As such a number of occurrences of a rule can be required and applying these is <b>Rule Catchup</b>.
+            ]]>
+        </item>
+        <item><![CDATA[<b>Rule Catchup</b> is undertaken seamlessly for automatically added <b>Rules</b>.
+            However, <b>Prompted Rules</b> require manual intervention as that is their purpose.
+            ]]>
+        </item>
+        <item><![CDATA[<b>Adding</b> or <b>Skipping</b> a <b>Prompted Rule</b> may result in the next occurrence appearing in the list.
+            ]]>
+        </item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will go to the <b>Shopping List Display</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+             <i><b>Note!</b> any remaining <b>Prompted Rules</b> will not be skipped or added.
+             i.e. they will remain as will <b>Rule Catchup</b>
+             </i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will apply the rule and add the respective <b>Stock</b> to the <b>Shopping List Display</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+             <i><b>Note!</b> it may, due to <b>Rule Catchup</b> that the <b>ADD</b> did not work.
+             However, it will be because another occurrence of the <b>Prompted Rule</b> is also due.
+             </i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>SKIP</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SKIP</b> will <b>skip</b> applying the rule and thus not add the respective <b>Stock</b> to the <b>Shopping List Display</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+             <i><b>Note!</b> it may, due to <b>Rule Catchup</b> that the <b>SKIP</b> did not work.
+             However, it will be because another occurrence of the <b>Prompted Rule</b> is also due.
+             </i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Rules Display
+    -->
+    <string name="title_help_rules_activity">Rules Display - Help</string>
+    <string-array name="help_rules_activty">
+        <item>&heading;<![CDATA[Rules Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Rules</b> Display is used for managing <b>Rules</b> ]]>
+        </item>
+        <item><![CDATA[
+            <b>Rules</b> can be added, edited or deleted.
+            ]]>
+        </item>
+        <item><![CDATA[
+            A <b>Rule</b> is used to add <b>Stock</b> to the <b>Shopping List</b> on a regular basis.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[
+            There are two types of <b>Rules</b> normal(unprompted) and prompted.
+            A normal/unprompted rule will add the item(Stock) to the <b>Shopping List</b> automatically without intervention,
+            while a prompted rule requires that the rule be accepted or rejected(Skipped).
+            The acceptance/rejection being prompted for when invoking the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will go to the <b>Rules Add/Edit Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The <b>Rules List</b> can be sorted according to a heading (Rule, Product Name, Add On or Prompt),
+            clicking the same heading again will toggle between ascending and descending.]]>
+        </item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Rule</b>,
+            clicking <b>EDIT</b> will go to the <b>Rules Add/Edit Display</b> populating the display with the values from the <b>Rule</b>.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>CANCEL</b> and <b>DELETE</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will delete the <b>Aisle</b> along with items that reference the <b>Aisle</b>.]]></item>
+        <item>&tab2;<![CDATA[
+            <i>Note! referenced items are displayed in the dialog, the list can be quite extensive
+            as all <b>Stock</b> (not <b>Products</b>) and use of the <b>Stock</b> will be deleted.</i>.
+            ]]>
+        </item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Rules Add/Edit Display
+    -->
+    <string name="title_help_rulesaddedit_activity">Rules Add/Edit Display - Help</string>
+    <string-array name="help_rulesaddedit_activty">
+        <item>&heading;<![CDATA[Rules Add/Edit Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Rules Add/Edit</b> Display is used to for adding a new <b>Rule</b> or for editing an existing <b>Rule</b>.
+            ]]>
+        </item>
+        <item><![CDATA[
+            The title of the <b>Rules Add/Edit</b> Display will indicate how the display is invoked.
+            If invoked via <b>Add</b> the title will be <b>Rule Add</b>, if from <b>Edit</b> the title will be <b>Rule Edit</b>.
+            ]]>
+        </item>
+        <item><![CDATA[
+            When adding a rule fields will either be blank or set to default,
+            whilst when editing a rule the fields will be populated with data from the rule being edited..
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the invoking display, this could be the <b>Rules Display</b>
+            or the <b>Rule Suggestion List Display</b>
+            or the <b>Rule Accuracy Check</b> Display.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>Starts</b> (the button actually has a date)]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking the button with the <b>Date</b> immediately to the right of <b>Starts</b> will display a dialog for picking a date.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The dialog displays the currently selected date with large text.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>-Month</b> button changes the date to the previous month,
+            (<i>if the day is not in the month (e.g. 29-31 if going back to February), then the last day of the month is selected</i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>+Month</b> button changes the date to the next month,
+            (<i>if the day is not in the month (e.g. 29-31 if going forward to February), then the last day of the month is selected</i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>-Year</b> button changes the date to the previous year,
+            (<i>if the day is not in the month (specifically 29th February), then the 28th of February is selected</i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>+Year</b> button changes the date to the next year,
+            (<i>if the day is not in the month (specifically 29th February), then the 28th of February is selected</i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Below the month/year buttons is the <b>Date Grid</b>. This always shows 6 weeks and will always show days in the previous and next month.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The currently selected Date is highlighted by a circle.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Clicking on a Date will change the selected date to that Date.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If the Date clicked is in another month then that month will be the displayed month.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Clicking <b>DONE</b> or cliking outside of the dialog will apply the date returning to the <b>Rules Add/Edit</b> display.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Starts</b> is the date that the <b>Rule</b> will next be applied, it is displayed in the list in the <b>Add On</b> column.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[DropDown Selectors]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>Shop</b> field is a DropDown selector allowing the <b>Shop</b> to be selected, it is <u>disabled</u> when editing a <b>Rule</b>]]></item>
+        <item>&tab1;<![CDATA[
+            To effect a change of <b>Shop</b> a new <b>Rule</b> should be added and the original <b>Rule</b> deleted.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Shops</b> that have no <b>Aisles</b> will not be included in the list.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[The <b>Aisle</b> field is a DropDown selector allowing the <b>Aisle</b> to be selected, it is <u>disabled</u> when editing a <b>Rule</b>]]></item>
+        <item><![CDATA[The listed <b>Aisles</b> are limited to the <b>Aisles</b> in the selected <b>Shop</b>.]]></item>
+        <item>&tab1;<![CDATA[
+            To effect a change of <b>Aisle</b> a new <b>Rule</b> should be added and the original <b>Rule</b> deleted.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Aisles</b> that have no <b>Stock</b>, if selected, will result in the <b>Product</b> dropdown not being displayed,
+            the <b>SAVE</b> button will also not be available and a message (yellow) will be display indicating the issue.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[The <b>Product</b> field is a DropDown selector allowing the <b>Product</b> to be selected, it is <u>disabled</u> when editing a <b>Rule</b>]]></item>
+        <item><![CDATA[The listed <b>Products</b> are limited to the <b>Stock</b> in the selected <b>Aisle</b>.]]></item>
+        <item>&tab1;<![CDATA[
+            To effect a change of <b>Aisle</b> a new <b>Rule</b> should be added and the original <b>Rule</b> deleted.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            The <b>Interval</b> field is a DropDown selector allowing the <b>Interval</b> to be selected.
+            ]]>
+        </item>
+        <item><![CDATA[
+            The <b>Interval</b> is used in combination with the <b>Multiplier</b> to set the regularity of the <b>Rule</b>.
+            ]]>
+        </item>
+        <item><![CDATA[
+            <i>e.g. if <b>Interval</b> is <b>WEEKS</b> and <b>Multiplier</b>is <b>3</b>, the <b>Rule</b> will be applied every 3 weeks,
+            (the next application being on the <b>Add On</b> date; as shown in the list.</i>.
+            ]]>
+        </item>
+        <item><![CDATA[The listed <b>Products</b> are limited to the <b>Stock</b> in the selected <b>Aisle</b>.]]></item>
+        <item>&tab1;<![CDATA[
+            To effect a change of <b>Aisle</b> a new <b>Rule</b> should be added and the original <b>Rule</b> deleted.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Shop</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Shop</b> dropdown selector is for specifying the <b>Shop</b> for the <b><Stock/b> that will be applied by the <b>Rule</b> to the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            A <b>Shop</b> cannot not be selected.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Aisle</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Aisle</b> dropdown selector is for specifying the <b>Aisle</b> for the <b><Stock/b> that will be applied by the <b>Rule</b> to the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            An <b>Aisle</b> cannot not be selected (<i><b>Shops</b> that have no <b>Aisle</b> are excluded from the <b>Shop</b> dropdown selector)</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Filter</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Filter</b> field is for filtering the displayed <b>Stock</b> by <b>Product Name</b>
+            to reduce the listed <b>Stock</b> to a manageable size for subsequent selection.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The data entered in the filter will immediately reduce the list of <b>Stock</b> displayed to <b>Stock</b> that contains the data e.g. :-
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>a</b></i> or <i><b>A</b></i> (case independent) will reduce the list to only show <b>Stock</b> whose <b>Product Name</b> includes <b>a</b>
+            (<i>e.g. Lettuce would then not appear in the list</b>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>bak</b></i> will reduce the list to only show <b>Stock</b> whose <b>Product Name</b> includes <b>bka</b>
+            (<i>Baked beans would appear, Lettuce and Banana would not<i>).
+            ]]>
+        </item>
+
+        <item>&tab2;<![CDATA[
+            Filtering can very quickly reduce the list to show the <b>Stock<b> that you want to add.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            No data is required, in which case all <b>Stock</b> will be listed .
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Product</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Product</b> dropdown selector is for specifying the <b>Product</b> for the <b><Stock/b> that will be applied by the <b>Rule</b> to the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            A <b>Product</b> must be selected.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If an <b>Aisle</b> is selected that has no <b>Stock</b> and thus no <b>Product</b> dropdown selector, then <b>SAVE</b> is disabled,
+            a message will indicate the issue.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Rule</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The name of the <b>Rule</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Rule</b> is required and can be up to 24 characaters in length.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Clicking on <b>SAVE</b> with <b>Rule</b> empty will result in a message indicating that the <b>Rule</b> was not saved and the reason.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Get</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The quantity of <b>Stock</b> to be added to the <b>Shopping List</b> when the <b>Rule</b> is applied.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Get</b> is required and must be a whole number between 1 and 9999 (0 is valid but is useless).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Clicking on <b>SAVE</b> with <b>Get</b> empty/invalid will result in a message indicating that the <b>Rule</b> was not saved and the reason.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Prompt</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            If ticked the <b>Rule</b> will be a <b>Prompted Rule</b> requiring manual intervention to add or skip to apply or not apply respectively.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Prompt</b> (ticking it) is according to what is required of the <b>Rule</b>.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Starts</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Starts</b> is actually two fields that are alternative methods of specifying the <b>Date</b> that the <b>Rule</b> will be next applied.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>Date</b> can either be selected by clicking on the button that displays the current <b>Date</b> thus using the <b>Pick Date</b> dialog,
+            or the <b>Date</b> can be input into the field to the right of the button in <b><i>dd/mm/yyyy</i><b> format (<i>e.g. 31/03/2010</i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i><b>Note!</b> inputting the <b>Date</b> takes precedence, i.e. if it is not blank then the date input will be used.
+            However, selecting a <b>Date</b> via the <b>Pick Date</b> will clear the input date.
+            </i>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Starts</b> is required but cannot not be provided.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If the date input is invalid, the <b>Rule</b> will not be saved and a message detailing the reason will be shown.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Rules Suggest/ Rules Accuracy Check Display
+    -->
+    <string name="title_help_rulessuggestcheck_activity">Rules Suggest/Check Display - Help</string>
+    <string-array name="help_rulessuggestcheck_activty">
+        <item>&heading;<![CDATA[Rules Suggest/Check Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Rules Suggest/Check Display</b> Display is used by <b>SUGGEST</b>, <b>CHECK</b> and <b>DISABLED</b> to display potential Rule changes.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note! <b>DISABLED</b> is only available if there are <b>Rules</b> that have been disabled (by the <b>DISABLE</b> button</i>.]]>
+        </item>
+        <item><![CDATA[
+            When invoked by the <b>Suggest</b> button from the <b>Tool Rules</b> display the title will be <b>Rule Suggestion List</b>.]]>
+        </item>
+        <item><![CDATA[
+            When invoked by the <b>Check</b> button from the <b>Tool Rules</b> display the title will be <b>Rule Accuracy Check List</b>.]]>
+        </item>
+        <item><![CDATA[
+            Although the Displays appear markedly different they are basically the same. Differences other then the title are:-]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>SUGGEST</b> has 3 buttons per item <b>ADD</b>, <b>SKIP</b> and <b>DISABLE</b>.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>CHECK</b> has 1 button per item <b>MODIFY</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>CHECK</b> also has a visual indicator of the accuracy of the <b>Rule</b>, at the top, per Item.]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The visual indicator is a bar with two halves, one will be fully green the other may have some orange.]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The left half is for indicating a <b>Rule</b> that results in too few of the <b>Stock</b> being purchased by the <b>Rule</b> (a percentage lower than 100).]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The right half is for indicating a <b>Rule</b> that results in too many of the <b>Stock</b> being purchased by the <b>Rule</b> (a percentage higher than 100).]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The amount of orange is an indication of how far from 100. If there is no orange then the <b>Rule</b> is 100 accurate.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note!</i> <b>Rule Suggestion</b> is only made for <b>Stock/b> that does not have an associated <b>Rule</b>,
+            whilst <b>Rule Accuracy Check</b> is for existing <b>Rules.</b>]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Tool Rules Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will go to the <b>Rules Add/Edit Display</b>, as if adding BUT providing the suggested data as determined from shopping data.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! The suggested <b>Rule Name</b> will be the <b>Product Name</b> associated with the respective <b>Stock<b> prefixed with <b>#</b></i>.
+            If you wish to know which <b>Rules</b> have been suggested the <b>#</b> could be left to identify them.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! The <b>Interval</b> of the suggested <b>Rule</b> will always be <b>DAYS</b></i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>SKIP</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SKIP</b> will remove the respective <b>Rule</b> from the list, but only temporarily.
+            i.e. The next time <b>SUGGEST</b> is clicked the <b>Rule<b> will appear.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DISABLE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DISABLE</b> will remove the respective <b>Rule</b> from the list,
+            until the <b>Rule</b> is enabled via the <b>DISABLED</b> option of the <b>Tools Rules Display</b>
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! the <b>Tools Rules Display DISABLED</b>option is only available if  there are disabled <b>Rule Suggestions</b></i>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! it is actually the <b>Stock</b> that has been flagged as being excluded.
+            <b>Rule suggestion</b> is solely for when a <b>Rule</b> does not exist for a <b>Stock</b> item</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>MODIFY</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>MODIFY</b> (Rule Accuracy Check Display) will go to the <b>Rule Add/Edit Display</b> in Edit mode providing data according to the suggested modification.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The suggested modification being as per the text to the left of the button.
+            (e.g. <b><i>1 per 3 days (31 in 118 days, 1 per 3.806)</i></b>), will use an <b>Interval</b> of <b>Days</b> with a <b>Multiplier</b> of <b>3</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ENABLE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ENABLE</b> (Disabled Rule List Display) will re-enable a disabled rule suggestion.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note if all disabled rules are enabled then a return will be made to the <b>Tool Rules Display</b></i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Top Row</b> (below indicator for the <b>Rule Accuracy Check Display</b>).
+            ]]>
+        </item>
+        <item><![CDATA[
+            <b>Rule Name</b> (suggested Rule name for the <b>Rule Suggestion List Display</b> i.e. Product Name prefixed with #).
+            ]]>
+        </item>
+        <item><![CDATA[
+            <b>Product Name</b> associated with the <b>Stock</b> item.
+            ]]>
+        </item>
+        <item><![CDATA[
+            <b>Shop Name</b> associated with the <b>Stock</b> item.
+            ]]>
+        </item>
+
+        <item><![CDATA[
+            <b>Middle Row</b> (not including the indicator for the <b>Rule Accuracy Check Display</b>).
+            ]]>
+        </item>
+        <item><![CDATA[
+            <b>Aisles\=Aisle Name</b> associated with the <b>Stock</b> item.
+            ]]>
+        </item>
+        <item><![CDATA[
+            <b>Existing Rule as text</b> (only present for <b>Rule Accuracy Check Display</b>).
+            ]]>
+        </item>
+
+        <item><![CDATA[
+            <b>Bottom Row</b>.
+            ]]>
+        </item>
+        <item><![CDATA[
+            <b>Suggested Rule</b> based upon Shopping History.
+            ]]>
+        </item>
+
+        <item>&tab1;<![CDATA[
+            All fields are for Display and cannot be altered.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Rule Tools Display
+    -->
+    <string name="title_help_ruletools_activity">Rule Tools Display - Help</string>
+    <string-array name="help_ruletools_activty">
+        <item>&heading;<![CDATA[Rule Tools Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Rule Tools Display</b> Display is used to invoke the <b>SUGGEST</b>, <b>CHECK</b> and if available the <b>DISABLED</b>
+            tools.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Tools Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>SUGGEST</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SUGGEST</b> will invoke the <b>Rule Suggestion List Display</b> that will suggest potential new <b>Rules</b> based upon Shopping Historical Data.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>CHECK</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>CHECK</b> will invoke the <b>Rule Accuracy Check List Display</b> that will suggest potential changes to existing <b>Rules</b> based upon Shopping Historical Data.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DISABLED</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DISABLED</b> will invoke the <b>Disabled Rule List Display</b> that allows disabled rule suggestions to be re-enabled.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! this button is only available if there are disabled rule suggestions</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Min Period</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Min Period</b> is the minimum period, in days, between the first and last period, for which Rules will be suggested or checked.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The default value is 30 days.
+            The lower this value the less accurate/appropriate the suggestions may be with a greater number of suggestions or checks being made.
+            The higher the value the more accurate/appropriate the suggestions may be with fewer suggestions or checks being made.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            This has no impact when selecting the <b>DISABLED</b> option, if available.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            required and must be a whole number between 1 and 9999.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Min Bought</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Min Bought</b> is the minimum number of purchases of the respective <b>Stock</b>, for which Rules will be suggested or checked.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The default value is 5 purchases.
+            The lower this value the less accurate/appropriate the suggestions may be with a greater number of suggestions or checks being made.
+            The higher the value the more accurate/appropriate the suggestions may be with fewer suggestions or checks being made.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            This has no impact when selecting the <b>DISABLED</b> option, if available.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            required and must be a whole number between 1 and 9999.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Shopping (the Shopping List) Display
+    -->
+    <string name="title_help_shopping_activity">Shopping Display - Help</string>
+    <string-array name="help_shopping_activty">
+        <item>&heading;<![CDATA[Shopping Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Shopping Display</b> is used for doing the <b>Shopping</b>, it is the <b>Shopping List</b>]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>TIDY</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>TIDY</b> will removed checked-off items from the <b>Shopping List</b>,
+            it will also adjust the underlying quantities to reflect no purchases,
+            effectively removing any purchases made for accurate calculation of totals, amount spent and amount remaining to be spent.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>TIDY</b> is intended to be used to prepare for the next Shopping expedition leaving any outstanding purchases on the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>BOUGHT</b> (per item/row that isn\'t checked-off)]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>BOUGHT</b> will apply changes to reflect that 1 of the respective <b>Stock</b> has been purchased.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The amount remaining to purchase will be decreased by 1, underlying changes will also be made reflecting the purchase.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            If the full number of purchases have been made for the respective <b>Stock</b>, it will be checked-off (text changes to white) and the <b>BOUGHT</b> button is hidden.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADJUST</b> (per item/row)]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADJUST</b> will go to the <b>ADJUST</b> Display allowing changes to be made to,
+            the <b>Product Name</b> associated with the respective <b>Stock</b>,
+            the <b>Price</b> of the <b>Stock</b>,
+            the <b>Quantity to Purchase</b> and
+            the <b>Number Purchased</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DELETE</b> (per item/row)]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DELETE</b> will remove the respective <b>Stock</b> from the <b>Shopping List</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! Total Cost, Spent and Remaining will be adjusted as if the <b>Stock</b> had never been on the <b>Shopping List</b> </i>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! <b>DELETE</b> is intended primarily for removing <b>Stock</b> that was inadvertently added.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Heading at the Top</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Total</b> (amount to the right) displays the total cost of the Shopping.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Left</b> (amount to the right) displays the amount remaining to complete purchasing all of the Shopping.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Spent</b> (amount to the right) displays the amount spent purchasing the Shopping bought.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Shop</b> row (darkest rows below the heading).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Shop Name</b> and <b>Location of the Shop (City).
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Aisle</b> (2nd darkest rows below the heading).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Aisle Name</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Stock</b> row (alternating lightest rows).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Product Name</b>, Number to Buy, Price for 1, Price for all, buttons.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List cannot be sorted.]]></item>
+        <item><![CDATA[No actions are available from the List other than clicking the buttons.]]></item>
+        <item>""</item>
+
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Shopping Adjust Display
+    -->
+    <string name="title_help_shoppingentryadjust_activity">Shopping Adjust Display - Help</string>
+    <string-array name="help_shoppingentryadjust_activty">
+        <item>&heading;<![CDATA[Adjust Display]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            The <b>Adjust</b> Display is used to make adjustments when Shopping.]]>
+        </item>
+        <item><![CDATA[
+            The <b>Product Name</b>, <b>Price</b> of the <b>Stock</b>, the <b>Quantity</b> to buy and the <b>Qauntity</b> purchased, can all be changed.]]>
+        </item>
+        <item><![CDATA[
+            The most frequent change will be to the <b>Price</b> of the <b>Stock</b>.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Noting that <b>Stock</b> is the term used by <b>ShopWise</b> for a <b>Product</b> allocated to an <b>Aisle</b> (location) within a <b>Shop</b>.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Shopping Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will add 1 to the <b>Quantity</b> to be purchased.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>LESS</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>LESS</b> will subtract 1 from <b>Quantity</b> to be purchased, if <b>WQuantity</b> is 1 or more (<i>i.e. it will let <b>Quantity</b> go below 0</i>)
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will save changes.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If no changes have been made or changes cannot be saved, a message will be shown indicating this and the reason.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>UNDO</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>UNDO</b> will change all fields back to their original values (<i>i.e to when the <b>Adjust Display</b> was invoked</i>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            IA message will be issued indicating that the values have been reset.
+            ]]>
+        </item>
+        <item>""</item>
+
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Above the ADD and LESS buttons</b> (<i>the original values</i>).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Product</b> displays the name of the Product of the respective <b>Stock</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Price</b> displays the price of the respective <b>Stock</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Total</b> displays the total price of the respective <b>Stock</b> that is to be purchased.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Quantity</b> displays the number of the respective <b>Stock</b> that are to be purchased.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Purchased</b> displays the number of the respective <b>Stock</b> that have been purchased.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            requirement.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Between the ADD and LESS buttons and the SAVE, UNDO and DONE buttons</b> (<i>the modifier fields</i>).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Product</b> allows the name of the Product of the respective <b>Stock</b> to be changed.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The name cannot be blank and is limited to 24 characters.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Price</b> allows the price of the respective <b>Stock</b> to be changed.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>Price</b> must be a valid real number (<i>i.e. a decimal point is allowed</i>).
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Quantity</b> allows the number of the respective <b>Stock</b> that are to be purchased to be changed.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <b>Quantity</b> is required and must be a valid whole number between 1 and 9999.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <b>Quantity</b> is complimentary to the <b>ADD</b> and <b>LESS</b> buttons.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Purchased</b> allows the number of the respective <b>Stock</b> that have been purchased to be changed.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <b>Purchased</b> is required and must be a valid whole number between 0 and 9999.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <b>Purchased</b> cannot be greater than <b>Quantity</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If <b>Purchased</b> is the same as <b>Quantity</b> the <b>Stocck</b> will become <i>checked-off</i>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            You can revert a <i>checked-off</i> <b>Stock</b> by either reducing <b>Purchased</b> or increasing <b>Quantity</b>.
+            (<i>i.e. if <b>Quantity</b> is greater than <b>Purchased</b> the <b>Stock</b> will not be checked-off.</i>)
+            ]]>
+        </item>
+        <item>""</item>
+
+    </string-array>
+    <!-- **********************************************************************
+        The Help for the Shops Display
+    -->
+    <string name="title_help_shops_activity">Shops Display - Help</string>
+    <string-array name="help_shops_activity">
+        <item>&heading;<![CDATA[Shops Display]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>Shops Display</b> allows Shops; to be Added by clicking the <b>ADD</b> button,
+            Shops to be Edited or Stocked (if applicable) by clicking a <b>Shop</b> in the list of current Shops,
+            or for a <b>Shop</b> to be deleted by long-clicking a <b>Shop</b> in the list of current <b>Shops</b>.]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>ADD</b> button goes to the <b>Shops Add/Edit</b> display where <b>Shops</b> can be added.]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>DONE</b> button will return to the <b>Main Display</b>]]></item>
+        <item>""</item>
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The <b>Shop</b> List can be sorted according to a heading (Shop or Order),
+            clicking the same heading again will toggle between ascending and descending.]]>
+        </item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b>, <b>Stock</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>STOCK</b> is for assigning <b>Products</b> to <b>Shops</b>, the respective <b>Shop</b> will be selected.]]></item>
+        <item>""</item>
+        <item>&tab2;<![CDATA[<b>STOCK</b> will only be present if at least 1 <b>Aisle</b> and at least 1 <b>Product</b> exists.]]></item>
+        <item>&tab2;<![CDATA[<i>Note! <b>Stock<b> can also be accessed via the <b>STOCK</b> option and
+            via the <b>AISLES</b> and <b>PRODUCTS</b> options.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Shop</b>]]></item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>Cancel</b> and <b>Delete</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[The Dialog, will include all the directly and indirectly referenced Items that would also need to be deleted.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[The list of impacted Items may be quite extensive,
+            as <b>Asiles</b>, <b>Stock</b>, <b>Rules<b> and <b>Shopping List entries</b> may be referenced by the <b>Shop</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> will return to the <b>Shops Display</b> doing nothing.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will <b>DELETE</b> the <b>Shop</b> and all referenced items and then return to the <b>Shops Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&tab2;<![CDATA[<b><u>BACKUPING UP THE DATABASE (TOOLS BACKUP) BEFORE DELETING A SHOP IS ADVISED.</u></b>
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+
+    <!-- **********************************************************************
+        The Help for the Shops Add/Edit Display
+    -->
+    <string name="title_help_shopsaddedit_activity">Shops Add/Edit Display - Help</string>
+    <string-array name="help_shopsaddedit_activty">
+        <item>&heading;<![CDATA[Shops Add/Edit Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Shops Add/Edit</b> Display is used to <b>Add</b> or <b>Edit</b> <b>Shops</b>.]]>
+        </item>
+        <item><![CDATA[
+            When invoked via <b>Edit</b> the <b>Shop</b>\'s data fields will be filled with the current data, allowing it to be changed.]]>
+        </item>
+        <item><![CDATA[
+            When invoked via <b>Add</b> the <b>Shop</b>\'s data fields will be blank, except the <b>Order</b> field which will be set to a suggested <b>Order</b>.]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will attempt to save the <b>Shop</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If the <b>Shop</b> cannot be saved an error message (yellow text) will indicate the issue.
+            If the <b>Shop</b> was saved then a message (green text) will indicate this.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>SHOPS Display.</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! Changes will not be applied if made after saving.</i>
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Shop Name</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The name of the <b>Shop</b> (up to 24 characters) used to identify the <b>Shop</b>.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Required and cannot be blank.
+        ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>City</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The location of the <b>Shop</b> (up to 24 characters) used to distinguish between <b>Shop</b>\'s with the same name
+            <i>e.g. when the shop is part of a chain</i>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Optional.
+            ]]>
+        </item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>Order</b>]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The Order in which the <b>Shop</b> will appear in the <b>Shopping List.</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Lower numbers appear first.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            Required and must be a value between 1 and 99999.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            A suggested number is provided when adding a <b>Shop</b>.
+            The suggested number will be 1000 for the first <b>Shop</b> or
+            100 greater than the highest <b>Shop Order</b>.
+            ]]>
+        </item>
+        <item>""</item>
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Stock Display
+        (invoked by Shops, Aisles, Products and Stock (StockList activity))
+    -->
+    <string name="title_help_stockadd_activity">Stock Add Display - Help</string>
+    <string-array name="help_stockadd_activty">
+        <item>&heading;<![CDATA[Stock Add Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Stock Add</b> Display is used to add <b>Stock</b>, that is to associate a <b>Product</b> with an <b>Aisle</b> within a <b>Shop</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>i.e. <b>Stock</b> is purchasable</i>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>It is feasible that a single product could have multiple uses as <b>Stock</b>
+            e.g. Baked Beans could be sold in Shop A and also Shop B.
+            rather than define Baked Beans twice (which can be done, although it could be confusing)
+            two <b>Stocks</b> could be created (the price and other aspects would be unique to each.)</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Note!]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            The <b>Stock Add</b> Display can be invoked from multiple displays:
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[From the <b>Stock List Display</b> by the <b>ADD</b> button,]]></item>
+        <item>&tab1;<![CDATA[From the <b>Shops Display</b> by clicking the list and selecting <b>STOCK</b> from the dialog,]]></item>
+        <item>&tab1;<![CDATA[From the <b>Aisles Display</b> by clicking the list and selecting <b>STOCK</b> from the dialog and]]></item>
+        <item>&tab1;<![CDATA[From the <b>Products</b> Display by clicking the list and selecting <b>STOCK</b> from the dialog.]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            How the <b>Stock Add Display</b> was invoked, is apparent from the Title of the Display
+            (<i>if from Shops, Aisles or Products, the title will have the invoking display in brackets
+            e.g. <b>(from Shops)</b>).
+            ]]>
+        </item>
+        <item><![CDATA[
+            Additionally the <b>Stock Add Display</b> will inherit the colours from the invoking Display.
+            ]]>
+        </item>
+        <item>""</item>
+
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will add the <b>Stock</b>,  if it cannot be saved a message will be shown indicating the issue.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[DropDown Selectors]]></item>
+        <item>""</item>
+
+        <item><![CDATA[The <b>Shop</b> field is a DropDown selector allowing the <b>Shop</b> to be changed/selected.]]></item>
+        <item>&tab1;<![CDATA[
+            <i>Note! Only <b>Shops</b> that have Aisles are available for selction.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[The <b>Aisle</b> field is a DropDown selector allowing the <b>Aisle</b> to be changed/selected.]]></item>
+        <item>&tab1;<![CDATA[
+            <i>Note! Only <b>Aisles</b> that are owned by the <b>Shop</b> selected in the <b>Shop</b> dropdown selector can be selected.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[The <b>Product</b> field is a DropDown selector allowing the <b>Product</b> to be changed/selected.]]></item>
+        <item>&tab1;<![CDATA[
+            <i>Note! <u><b>Products</b> already assigned as <b>Stock</b> in the <b>Shop</b>/<b>Aisle</b> are not listed, thus preventing duplication of <b>Stock</b></u>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note! The <b>Filter</b> field compliments the <b>Product</b> dropdown selector by progressively reducing the listed <b>Products</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Filter</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Filter</b> field is to filter the <b>Products</b> available in the <b>Product</b> dropdown selector.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The data entered in the filter will immediately reduce the list of <b>Products</b> available :-
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>a</b></i> or <i><b>A</b></i> (case independent) will reduce the list to only show <b>Products</b> whose <b>Product Name</b> includes <b>a</b>
+            (<i>e.g. Lettuce would then not appear in the list</b>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>bak</b></i> will reduce the list to only show <b>products</b> whose <b>Product Name</b> includes <b>bak</b>
+            (<i>Baked beans would appear, Lettuce and Banana would not<i>).
+            ]]>
+        </item>
+
+        <item><![CDATA[
+            <b>Price</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Price</b> is the cost of a single <b>Product</b>,
+            it is used by the <b>Shopping List</b> in determining the Total Cost, the amount spent and amount remaining to be spent.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If there is no interest in the amounts shown in Shopping List, then price could be left at the default of 0.00.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Price</b> is required and must be a real number, a decimal point can be used.
+            If an invalid value is input and SAVE, the SAVE will be rejected and a message issued providing the reason.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Order</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Order</b> is used for ordering the <b>Stock</b> within the <b>Shopping List</b>.
+            The <b>Order</b> determines where in the <b>Shopping List</b>, within the respective <b>Aisle</b>, that the <b>Stock</b> appears.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Order</b> is required and must be a whole number between 0 and 9999, lower numbers appear first in the list.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            An <b>Order</b> is suggested, this being 1000 or 100 greater than the highest order within the <b>Aisle</b>.
+            Thus it can be beneficial to add <b>Stock</b> in the order in which it is to be listed.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Checklist</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Checklist</b> is used to specify if the <b>Stock</b> should appear in the <b>CheckList</b>.
+            If ticked the <b>Stock</b> will appear in the <b>CheckList</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Level</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Level</b> is used to specify the level of <b>Stock</b> that should exist, it is a reminder that appears in the <b>CheckList</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Level</b> can be blank or a valid number. If blank then it will be changed to 1 the default value.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[The List only displays <b>Stock</b> already assigned to the selected <b>Shop</b>/<b>Aisle</b> combination.]]></item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Stock</b>]]></item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>CANCEL</b> and <b>DELETE</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will delete the <b>Stock</b> (<u>not the <b>Product</b></u>) along with items that reference the <b>Stock</b>.]]></item>
+        <item>&tab2;<![CDATA[
+            <i>Note! referenced items, that will be deleted, are displayed in the dialog.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Stock Edit
+        (contrary to name not used for adding stock)
+    -->
+    <string name="title_help_stockedit_activity">Stock Edit Display - Help</string>
+    <string-array name="help_stockedit_activty">
+        <item>&heading;<![CDATA[Stock Edit Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Stock Edit</b> Display is used to edit existing <b>Stock</b>]]>
+        </item>
+        <item><![CDATA[
+            The <b>Stock Edit</b> Display is invoked from either the <b>Stock List Display</b> or from the list of current <b>Stock</b> in a <b>Stock Add Display</b>.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <i>Note! The <b>Stock Add Display</b> can be invoked from the <b>Stock List</b>
+            or from a list in the <b>Shops</b>, <b>Aisles</b> or <b>Products</b> displays</i>.]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>The <b>Stock Edit Display</b> will inherit the colours from the invoking display</i>.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>invoking Display.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will save the changes made if it passes field validation, otherwise a message indicating the reason will be displayed.</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Product</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Product Name</b> field allows the name of the <b>Product</b> to be altered.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            <i>Note! this would change the name for any other <b>Stock</b> associated with the <b>Product</b></i>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Product Name</b> is required, it cannot be blank and can be up to 24 characters in length.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Shop</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Shop</b> field displays the name of the <b>Shop</b> that the <b>Stock</b> is linked to, it cannot be altered.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Aisle</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Aisle</b> field displays the name of the <b>Aisle</b> that the <b>Stock</b> is linked to, it cannot be altered.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Price</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Price</b> field allows the <b>Price</b> to be changed.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Price</b> is required and must be a real number, a decimal point is allowed.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Order</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Order</b> field allows the <b>Order</b> to be changed.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Order</b> is required and must be a whole number between 0 and 9999.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Checklist</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Checklist</b> field determines whether or not the <b>Stock</b> appears in the <b>CheckList</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Checklist</b>, if ticked, the <b>Stock</b> will appear in the <b>CheckList</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Level</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>level</b> field is used in the <b>CheckList</b> as an indication of how many should be in <b>Storage</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            <b>Level</b>, is required and must be a whole number between 0 and 9999.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+    <!-- **********************************************************************
+        The Help for the StockList Display
+    -->
+    <string name="title_help_stocklist_activity">Stock List Display - Help</string>
+    <string-array name="help_stocklist_activty">
+        <item>&heading;<![CDATA[Stock List Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Stock List</b> Display lists all <b>Stock</b>, <b>Stock</b> can be added, edited and deleted.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will invoke the <b>Stock Add Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+
+        <item><![CDATA[
+            <b>Filter</b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>Filter</b> field is to filter the listed <b>Stock</b>.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The data entered in the filter will immediately reduce the list of <b>Stock</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>a</b></i> or <i><b>A</b></i> (case independent) will reduce the list to only show <b>Stock</b> whose <b>Product Name</b> includes <b>a</b>
+            (<i>e.g. Lettuce would then not appear in the list</b>).
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            Entering <i><b>bak</b></i> will reduce the list to only show <b>Stock</b> whose <b>Product Name</b> includes <b>bak</b>
+            (<i>Baked beans would appear, Lettuce and Banana would not<i>).
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[The List is affeccted by the <b>Filter</b> field.]]></item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Stock</b>]]></item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>CANCEL</b> and <b>DELETE</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will delete the <b>Stock</b> (<u>not the <b>Product</b></u>) along with items that reference the <b>Stock</b>.]]></item>
+        <item>&tab2;<![CDATA[
+            <i>Note! referenced items are displayed in the dialog.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Storage Display
+    -->
+    <string name="title_help_storage_activity">Storage Display - Help</string>
+    <string-array name="help_storage_activty">
+        <item>&heading;<![CDATA[Storage Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Storage</b> Display lists all <b>Storage</b>, <b>Storage</b> can be added, edited and deleted.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>ADD</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>ADD</b> will invoke the <b>Storage Add Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[An item in the list can be <b>clicked</b>, a dialog will appear with options, <b>Cancel</b> and <b>Edit</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>EDIT</b> is for changing the details of an existing <b>Stock</b>]]></item>
+        <item>""</item>
+        <item><![CDATA[An item in the list can be <b>long-clicked</b>, a dialog will appear with options, <b>CANCEL</b> and <b>DELETE</b>.]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>CANCEL</b> returns to the list doing nothing (you can also click outside of the dialog).]]></item>
+        <item>""</item>
+        <item>&tab1;<![CDATA[<b>DELETE</b> will delete the <b>Stock</b> (<u>not the <b>Product</b></u>) along with items that reference the <b>Stock</b>.]]></item>
+        <item>&tab2;<![CDATA[
+            <i>Note! referenced items are displayed in the dialog.</i>.
+            ]]>
+        </item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Storage Add/Edit Display
+    -->
+    <string name="title_help_storageaddedit_activity">Storage Add/Edit Display - Help</string>
+    <string-array name="help_storageaddedit_activty">
+        <item>&heading;<![CDATA[Storage Add/Edit Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Storage Add/Edit</b> Display is used to add or edit <b>Storage</b>]]>
+        </item>
+        <item><![CDATA[
+            The invoking method, <b>ADD</b> or <b>EDIT</b> will be reflected in the Title of the Display.]]>
+        </item>
+        <item><![CDATA[
+            If invoked as <b>EDIT</b> then fields will be populated with data from the <b>Storage</b> being edited]]>
+        </item>
+        <item><![CDATA[
+            If invoked as <b>ADD</b> then the <b>Storage</b> field will be blank, the <b>Order</b> field will have a suggested order provided.]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The suggested <b>Order</b> will be 1000 if no other <b>Storage</b? exists, otherwise 100 greater than the highest <b>Order</b> of all <b>Storage Orders</b>.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Storage Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>SAVE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>SAVE</b> will validate the input and add a new <b>Storage</b> if adding, or modify an existing <b>Storage</b> if editing.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            If there is an issue found valdating the data a message will be displayed giving the reason.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
+
+    <!-- **********************************************************************
+        The Help for the Tools Display
+    -->
+    <string name="title_help_tools_activity">Tools Display - Help</string>
+    <string-array name="help_tools_activty">
+        <item>&heading;<![CDATA[Tools Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>Tools</b> Display is used to present a list of buttons for the available <b>Tools</b>.]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>Main Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>BACKUP</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>BACKUP</b> will invoke the <b>Backup/Restore Display</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>Backup/Restore Display</b> allows the SQLite Database to be backed up and rstored from a backup.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item><![CDATA[<b>RULES</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>RULES</b> will invoke the <b>Rule Tools Display</b>.
+            ]]>
+        </item>
+        <item>&tab2;<![CDATA[
+            The <b>Rule Tools Displays</b> allows <b>Rules</b> to be generated or modified based upon historical shopping data.
+            ]]>
+        </item>
+        <item>""</item>
+
+    </string-array>
+
+    <!--
+        NOTE The following is a model/template only.
+    -->
+    <string name="title_help_base_activity">base</string>
+    <string-array name="help_base_activity">
+        <item>&heading;<![CDATA[base Display]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            The <b>base</b> Display is used to .....]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Buttons]]></item>
+        <item>""</item>
+        <item><![CDATA[<b>DONE</b>]]></item>
+        <item>&tab1;<![CDATA[
+            Clicking <b>DONE</b> will return to the <b>???? Display</b>.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[DropDown Selectors]]></item>
+        <item>""</item>
+        <item><![CDATA[The <b>base</b> field is a DropDown selector allowing the <b>base</b> to be changed.]]></item>
+        <item>&tab1;<![CDATA[Any notes here.]]></item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[Fields]]></item>
+        <item>""</item>
+        <item><![CDATA[
+            <b>base </b>
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            The <b>base</b> purpose.
+            ]]>
+        </item>
+        <item>&tab1;<![CDATA[
+            requirement.
+            ]]>
+        </item>
+        <item>""</item>
+
+        <item>&heading;<![CDATA[List Actions]]></item>
+        <item><![CDATA[The List can be sorted by clicking on a heading.]]></item>
+        <item><![CDATA[Clicking the same heading toggles the sort order between ascending and descending.]]></item>
+        <item><![CDATA[No actions are available from the List, as this could be confusing due to recursion.]]></item>
+        <item>""</item>
+    </string-array>
 </resources>

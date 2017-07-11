@@ -17,8 +17,8 @@
             style="@style/messagebar"
             />
     </LinearLayout>
-    <!-- Note spinner adpaters as per StockActivity so using the same id's
-            as per StockActivity
+    <!-- Note spinner adpaters as per StockAddActivity so using the same id's
+            as per StockAddActivity
     -->
     <LinearLayout
         android:id="@+id/inputstockshop_linearlayout"

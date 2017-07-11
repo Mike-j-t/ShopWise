@@ -86,8 +86,8 @@ public class StandardAppConstants{
     public static boolean DEVMODE_SHOPSACTIVITY = false;
     public static boolean DEVMODE_SHOPSADDEDITACTIVITY = false;
     public static boolean DEVMODE_SPINNERMOVE = false;
-    public static boolean DEVMODE_STOCKACTIVITY = false;
-    public static boolean DEVMODE_STOCKLISTEDITACTIVITY = false;
+    public static boolean DEVMODE_STOCKADDACTIVITY = false;
+    public static boolean DEVMODE_STOCKEDITACTIVITY = false;
     public static boolean DEVMODE_STOCKLISTACTIVITY = false;
     public static boolean DEVMODE_TOOLSACTIVITY = false;
     public static boolean DEVMODE_RULESUGGESTCHECKACTIVITY = false;

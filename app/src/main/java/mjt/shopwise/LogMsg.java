@@ -233,10 +233,10 @@ public class LogMsg{
                                 && StandardAppConstants.DEVMODE_SHOPSADDEDITACTIVITY) ||
                         (callingclass.equals(SpinnerMove.THISCLASS) &&
                                 StandardAppConstants.DEVMODE_SPINNERMOVE) ||
-                        (callingclass.equals(StockActivity.THISCLASS) &&
-                                StandardAppConstants.DEVMODE_STOCKACTIVITY) ||
-                        (callingclass.equals(StockLisEditActivity.THISCLASS) &&
-                                StandardAppConstants.DEVMODE_STOCKLISTEDITACTIVITY) ||
+                        (callingclass.equals(StockAddActivity.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_STOCKADDACTIVITY) ||
+                        (callingclass.equals(StockEditActivity.THISCLASS) &&
+                                StandardAppConstants.DEVMODE_STOCKEDITACTIVITY) ||
                         (callingclass.equals(StockListActivity.THISCLASS) &&
                                 StandardAppConstants.DEVMODE_STOCKLISTACTIVITY) ||
                         (callingclass.equals(ToolsActivity.THISCLASS) &&

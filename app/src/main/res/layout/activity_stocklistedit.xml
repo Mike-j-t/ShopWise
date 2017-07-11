@@ -54,7 +54,7 @@
             android:id="@+id/stocklistlistedit_productnamelabel"
             style="@style/inputitemlabel_primary"
             android:layout_weight="16"
-            android:text="@string/productnamelabel"
+            android:text="@string/productlabel"
             />
         <TextView
             style="@style/listview_heading_col_standard"

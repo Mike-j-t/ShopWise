@@ -75,6 +75,7 @@
             android:layout_weight="4"
             />
     </LinearLayout>
+    <include layout="@layout/common_listviewoptions"></include>
     <ListView
         android:id="@+id/promptedrules_rulelist"
         android:layout_width="match_parent"

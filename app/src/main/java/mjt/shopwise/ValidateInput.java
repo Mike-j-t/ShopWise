@@ -23,6 +23,37 @@ public class ValidateInput {
         return retmsg;
     }
 
+
+    /**
+     * validateInteger within a specified range
+     * @param   integertocheck      The integere to check for validity
+     * @param   lowest              The lowest acceptable value
+     * @param   highest             The highest acceptable value
+     * @return  an Emsg object (boolean, int, String)
+     */
+    public static Emsg validateInteger(String integertocheck,int lowest, int highest) {
+        int value = 0;
+        Emsg retmsg = validateInteger(integertocheck);
+        if (retmsg.getErrorIndicator()) {
+            return  retmsg;
+        }
+        retmsg.setAll(false,0,"");
+        try {
+            value = Integer.parseInt(integertocheck);
+        } catch (NumberFormatException a) {
+        }
+        if (value < lowest || value > highest) {
+            retmsg.setAll(true,2,
+                    "Invalid Integer - Out of Range (" +
+                            Integer.toString(lowest) +
+                            " to " +
+                            Integer.toString(highest) +
+                            ")"
+            );
+        }
+        return retmsg;
+    }
+
     /**
      *
      * @param   monetarytocheck     the String holding the monetary value to check

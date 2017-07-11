@@ -11,6 +11,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         versionCode 3
     }
+    dataBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -35,4 +38,5 @@ dependencies {
     compile project(':dbindex')
     compile project(':dbtable')
     compile project(':sqlwords')
+    compile project(':displayhelp')
 }
