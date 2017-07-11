@@ -7,10 +7,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import mjt.displayhelp.DisplayHelp;
 
 /**
  * Shopping List Entry Adjustment Activity Invoked when clicking on a
@@ -391,6 +395,47 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
                 break;
         }
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
+    }
+
+    /**
+     * Add the help option to the Activity's menu bar.
+     * @param menu  The menu xml
+     * @return  true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.common_help, menu);
+        return true;
+    }
+
+    /**
+     * Action the respective option when the menu is selected
+     * @param menuitem  The menuitem that was selected
+     * @return true to indicate actioned.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuitem) {
+        int menuitemid = menuitem.getItemId();
+        switch (menuitemid) {
+            case R.id.actionhelp:
+                //new DisplayHelp(this,"ALt Title",R.array.help_main_activity,80,true,0xffff0000, 0xbbffffff,20f,16f,12);
+                new DisplayHelp(this,
+                        getResources().getString(
+                                R.string.title_help_shoppingentryadjust_activity),
+                        R.array.help_shoppingentryadjust_activty,
+                        85,
+                        true,
+                        primary_color,
+                        0xbbffffff,
+                        22f,
+                        16f,
+                        12
+                );
+                return true;
+            default:
+                break;
+        }
+        return  onOptionsItemSelected(menuitem);
     }
 
     /**************************************************************************

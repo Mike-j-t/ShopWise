@@ -470,6 +470,12 @@ public class DBRuleMethods {
         ));
         csr.close();
 
+        // Don't apply Rule if number to get is 0 or if
+        // multiplier is 0
+        if (numbertoget == 0 || multiplier ==0) {
+            return;
+        }
+
         if (!skipapply) {
             new DBShopListMethods(context).addOrUpdateShopListEntry(
                     aisleid,
@@ -531,6 +537,13 @@ public class DBRuleMethods {
                         DBRulesTableConstants.RULES_PERIOD_COL));
                 int multiplier = csr.getInt(csr.getColumnIndex(
                         DBRulesTableConstants.RULES_MULTIPLIER_COL));
+
+                // Skip Adding to shopping List and thus determining
+                // next application date if numbertoget is 0 or if
+                // multiplier is 0
+                if (numbertoget == 0 || multiplier == 0) {
+                    continue;
+                }
 
                 dbShopListMethods.addOrUpdateShopListEntry(
                         aisleid, productid,

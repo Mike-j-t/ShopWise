@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import mjt.displayhelp.DisplayHelp;
 
 /**
  * Rule Tools Activity (Rule Suggestion and Rule Accuracy Checking)
@@ -168,6 +173,47 @@ public class RuleToolsActivity extends AppCompatActivity{
         dr.close();
     }
 
+    /**
+     * Add the help option to the Activity's menu bar.
+     * @param menu  The menu xml
+     * @return  true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.common_help, menu);
+        return true;
+    }
+
+    /**
+     * Action the respective option when the menu is selected
+     * @param menuitem  The menuitem that was selected
+     * @return true to indicate actioned.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuitem) {
+        int menuitemid = menuitem.getItemId();
+        switch (menuitemid) {
+            case R.id.actionhelp:
+                //new DisplayHelp(this,"ALt Title",R.array.help_main_activity,80,true,0xffff0000, 0xbbffffff,20f,16f,12);
+                new DisplayHelp(this,
+                        getResources().getString(
+                                R.string.title_help_ruletools_activity),
+                        R.array.help_ruletools_activty,
+                        85,
+                        true,
+                        primary_color,
+                        0xbbffffff,
+                        22f,
+                        16f,
+                        12
+                );
+                return true;
+            default:
+                break;
+        }
+        return  onOptionsItemSelected(menuitem);
+    }
+
     /**************************************************************************
      * onDestroy - do any clean up before th application is destroyed
      * e.g. close any open cursors and then close the database
@@ -188,8 +234,21 @@ public class RuleToolsActivity extends AppCompatActivity{
     @SuppressWarnings("unused")
     public void actionButtonClick(View view) {
         String msg = "Invoked";
+        Emsg emsg;
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
+
+        emsg = ValidateInput.validateInteger(minbuy.getText().toString(),0,9999);
+        if (emsg.getErrorIndicator()) {
+            setMessage(this,emsg.getErrorMessage(),true);
+            return;
+        }
+
+        emsg = ValidateInput.validateInteger(minperiod.getText().toString(),0,9999);
+        if (emsg.getErrorIndicator()) {
+            setMessage(this,emsg.getErrorMessage(),true);
+            return;
+        }
 
         Intent intent = null;
         //Integer minimumbuy = new Integer(minbuy.getText().toString());
@@ -241,5 +300,32 @@ public class RuleToolsActivity extends AppCompatActivity{
             LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
             startActivity(intent);
         }
+    }
+
+    /**************************************************************************
+     * setMessage - set the Message regarding the lat action performed
+     * Note as an action may have altered the database getDBcounts
+     * is called and the title changed
+     *
+     * @param rta   the sa
+     * @param msg  The message to be displayed.
+     * @param flag Message imnportant, if true Yellow text, esle green
+     */
+    public void setMessage(RuleToolsActivity rta, String msg, boolean flag) {
+        String logmsg = "Invoked";
+        String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
+        LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
+
+        TextView messagebar = (TextView) rta.findViewById(
+                R.id.ruletools_messagebar);
+        messagebar.setText(context.getResources().getString(
+                R.string.messagebar_prefix_lastaction) + " " + msg);
+        if (flag) {
+            messagebar.setTextColor(Color.YELLOW);
+        } else {
+            messagebar.setTextColor(Color.GREEN);
+        }
+        messagebar.setVisibility(View.VISIBLE);
+        rta.actionbar.setTitle(getResources().getString(R.string.ruleslabel));
     }
 }

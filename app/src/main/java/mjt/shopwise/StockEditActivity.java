@@ -7,10 +7,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import mjt.displayhelp.DisplayHelp;
 
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -19,10 +23,10 @@ import static mjt.sqlwords.SQLKWORD.*;
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
-public class StockLisEditActivity extends AppCompatActivity {
+public class StockEditActivity extends AppCompatActivity {
 
     @SuppressWarnings("unused")
-    private static final String THIS_ACTIVITY = "StockListEditActivity";
+    private static final String THIS_ACTIVITY = "StockEditActivity";
     private static final String LOGTAG = "SW_SLEA";
     @SuppressWarnings("unused")
     private static String caller;
@@ -31,7 +35,7 @@ public class StockLisEditActivity extends AppCompatActivity {
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     @SuppressWarnings("unused")
     private Activity thisactivity;
-    public static final String THISCLASS = StockLisEditActivity.class.getSimpleName();
+    public static final String THISCLASS = StockEditActivity.class.getSimpleName();
 
     //DBDAO dbdao;
     @SuppressWarnings("unused")
@@ -236,7 +240,7 @@ public class StockLisEditActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         actionbar = getSupportActionBar();
         //noinspection ConstantConditions,ConstantConditions
-        actionbar.setTitle(actionbar.getTitle().toString() + " - " + THISCLASS);
+        actionbar.setTitle(getResources().getString(R.string.stockeditlabel));
         messagebar = (TextView) findViewById(R.id.stocklistedit_messagebar);
         donebutton = (TextView) findViewById(R.id.stocklistedit_donebutton);
         savebutton = (TextView) findViewById(R.id.stocklistedit_savebutton);
@@ -328,6 +332,47 @@ public class StockLisEditActivity extends AppCompatActivity {
         logmsg = "Refreshing Lists";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         populateFromDB();
+    }
+
+    /**
+     * Add the help option to the Activity's menu bar.
+     * @param menu  The menu xml
+     * @return  true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.common_help, menu);
+        return true;
+    }
+
+    /**
+     * Action the respective option when the menu is selected
+     * @param menuitem  The menuitem that was selected
+     * @return true to indicate actioned.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuitem) {
+        int menuitemid = menuitem.getItemId();
+        switch (menuitemid) {
+            case R.id.actionhelp:
+                //new DisplayHelp(this,"ALt Title",R.array.help_main_activity,80,true,0xffff0000, 0xbbffffff,20f,16f,12);
+                new DisplayHelp(this,
+                        getResources().getString(
+                                R.string.title_help_stockedit_activity),
+                        R.array.help_stockedit_activty,
+                        85,
+                        true,
+                        primary_color,
+                        0xbbffffff,
+                        22f,
+                        16f,
+                        12
+                );
+                return true;
+            default:
+                break;
+        }
+        return  onOptionsItemSelected(menuitem);
     }
 
     /**************************************************************************
@@ -485,7 +530,7 @@ public class StockLisEditActivity extends AppCompatActivity {
      * @param msg  The message to be displayed.
      * @param flag Message imnportant, if true Yellow text, esle green
      */
-    public void setMessage(StockLisEditActivity slea, String msg, boolean flag) {
+    public void setMessage(StockEditActivity slea, String msg, boolean flag) {
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);

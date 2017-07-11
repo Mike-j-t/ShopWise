@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import mjt.displayhelp.DisplayHelp;
 import mjt.pickdate.PickDate;
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -622,6 +625,47 @@ public class RulesAddEditActivity extends AppCompatActivity {
         resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
     }
 
+    /**
+     * Add the help option to the Activity's menu bar.
+     * @param menu  The menu xml
+     * @return  true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.common_help, menu);
+        return true;
+    }
+
+    /**
+     * Action the respective option when the menu is selected
+     * @param menuitem  The menuitem that was selected
+     * @return true to indicate actioned.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuitem) {
+        int menuitemid = menuitem.getItemId();
+        switch (menuitemid) {
+            case R.id.actionhelp:
+                //new DisplayHelp(this,"ALt Title",R.array.help_main_activity,80,true,0xffff0000, 0xbbffffff,20f,16f,12);
+                new DisplayHelp(this,
+                        getResources().getString(
+                                R.string.title_help_rulesaddedit_activity),
+                        R.array.help_rulesaddedit_activty,
+                        85,
+                        true,
+                        primary_color,
+                        0xbbffffff,
+                        22f,
+                        16f,
+                        12
+                );
+                return true;
+            default:
+                break;
+        }
+        return  onOptionsItemSelected(menuitem);
+    }
+
     /**************************************************************************
      * onDestroy - do any clean up before th application is destroyed
      * e.g. close any open cursors and then close the database
@@ -707,7 +751,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
         String numbertoget_str = numbertoget_input.getText().toString();
-        emsg = ValidateInput.validateInteger(numbertoget_str);
+        emsg = ValidateInput.validateInteger(numbertoget_str,1,9999);
         if (emsg.getErrorIndicator()) {
             setMessage(this,"Cannot add Rule. Invalid Get. " + emsg.getErrorMessage(),true);
             logmsg = "Cannot Add Rule due to issue with Get. " +
@@ -717,7 +761,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         }
 
         String newmultiplier_str = rulemultiplier_input.getText().toString();
-        emsg = ValidateInput.validateInteger(newmultiplier_str);
+        emsg = ValidateInput.validateInteger(newmultiplier_str,1,9999);
         if (emsg.getErrorIndicator()) {
             setMessage(this,"Cannot add Rule. Invalid Multiplier. " + emsg.getErrorMessage(),true);
             logmsg = "Cannot Add Rule due to issue with Multiplier. " +

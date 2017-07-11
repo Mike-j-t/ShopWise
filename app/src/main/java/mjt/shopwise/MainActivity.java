@@ -4,15 +4,20 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.databinding.DataBindingUtil;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import mjt.displayhelp.DisplayHelp;
 
 import static mjt.shopwise.StandardAppConstants.AISLESAPPVALNAME;
 import static mjt.shopwise.StandardAppConstants.CHECKLISTAPPVALNAME;
@@ -132,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Setting Layout", this, methodname);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        DataBindingUtil.setContentView(this,R.layout.activity_main);
 
         // Prepare ListView for Main Options menu
         options_listview = (ListView) this.findViewById(R.id.activity_main_OptionsMenu);
@@ -163,6 +169,47 @@ public class MainActivity extends AppCompatActivity {
         }
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Ending", this, methodname);
+    }
+
+    /**
+     * Add the help option to the Activity's menu bar.
+     * @param menu  The menu xml
+     * @return  true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.common_help, menu);
+        return true;
+    }
+
+    /**
+     * Action the respective option when the menu is selected
+     * @param menuitem  The menuitem that was selected
+     * @return true to indicate actioned.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuitem) {
+        int menuitemid = menuitem.getItemId();
+        switch (menuitemid) {
+            case R.id.actionhelp:
+                //new DisplayHelp(this,"ALt Title",R.array.help_main_activity,80,true,0xffff0000, 0xbbffffff,20f,16f,12);
+                new DisplayHelp(this,
+                        getResources().getString(
+                                R.string.title_help_main_activity),
+                        R.array.help_main_activity,
+                        85,
+                        true,
+                        0xff0000ff,
+                        0xbbffffff,
+                        22f,
+                        16f,
+                        12
+                );
+                return true;
+            default:
+                break;
+        }
+        return  onOptionsItemSelected(menuitem);
     }
 
     /**************************************************************************

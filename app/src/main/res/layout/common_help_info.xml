@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="tagstr" type="String"/>
+    </data>
+    <TextView
+        android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="\?"
+        android:tag="@{tagstr}"
+        android:textColor="#ffffffff"
+        android:gravity="center"
+        android:background="@drawable/helpinfobackground"
+        android:onClick="clickHelpInfo"
+        >
+    </TextView>
+</layout>

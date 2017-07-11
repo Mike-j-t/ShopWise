@@ -38,13 +38,13 @@
         <activity android:name=".ProductsAddEditActivity"
             android:label="Products - Add"
             />
-        <activity android:name=".StockActivity"
+        <activity android:name=".StockAddActivity"
             android:label="@string/stocklabel"
             />
         <activity android:name=".StockListActivity"
             android:label="@string/stocklabel"
             />
-        <activity android:name=".StockLisEditActivity"
+        <activity android:name=".StockEditActivity"
             android:label="@string/stocklabel"
             />
         <activity android:name=".CheckListActivity"
