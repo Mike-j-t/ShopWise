@@ -22,7 +22,6 @@
             android:id="@+id/shoppinglist_shopcity"
             style="@style/listviewrowcol_standard"
             android:layout_weight="74"
-            android:layout_height="@dimen/text_size_tiny"
             />
     </LinearLayout>
     <LinearLayout
