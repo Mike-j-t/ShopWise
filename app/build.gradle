@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.0'
     defaultConfig {
         applicationId "mjt.shopwise"
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionName '1.1.1'
+        minSdkVersion 14
+        targetSdkVersion 26
+        versionName '1.1.2'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 5
+        versionCode 6
     }
     dataBinding {
         enabled = true
@@ -29,7 +29,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-appindexing:9.8.0'
     compile project(':pickdate')
