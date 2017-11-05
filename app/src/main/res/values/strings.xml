@@ -2930,8 +2930,8 @@
     <!--
         NOTE The following is a model/template only.
     -->
-    <string name="title_help_base_activity">base</string>
-    <string-array name="help_base_activity">
+    <string name="title_help_base_activity" tools:ignore="UnusedResources">base</string>
+    <string-array name="help_base_activity" tools:ignore="UnusedResources">
         <item>&heading;<![CDATA[base Display]]></item>
         <item>""</item>
         <item><![CDATA[
