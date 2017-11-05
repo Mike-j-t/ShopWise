@@ -423,7 +423,7 @@ public class AislesActivity extends AppCompatActivity{
         intent.putExtra(menucolorcode,passedmenucolorcode);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
                 "Start Activity " + AislesAddEditActivity.class.getSimpleName() +
-                " in EDIT Mode",
+                        " in EDIT Mode",
                 this,methodname);
         startActivity(intent);
     }

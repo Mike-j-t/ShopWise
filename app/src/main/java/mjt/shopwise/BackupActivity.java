@@ -87,6 +87,7 @@ public class BackupActivity extends AppCompatActivity {
     TextView selectrestorefilelabel;
     TextView restorebutton;
 
+    @SuppressWarnings("deprecation")
     private ProgressDialog busy;
 
     private int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
@@ -159,6 +160,7 @@ public class BackupActivity extends AppCompatActivity {
         restorebutton = (TextView) findViewById(R.id.backup_restorebutton);
 
         // Prepare Progress Dialog
+        //noinspection deprecation
         busy = new ProgressDialog(this);
         busy.setTitle(getResources().getString(R.string.backupbusydialogtitle));
         busy.setCancelable(true);

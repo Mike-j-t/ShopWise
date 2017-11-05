@@ -139,7 +139,7 @@ class StoreData {
                 case Environment.MEDIA_REMOVED : {
                     errorlist.add(
                             "External Storage is not present." +
-                                    "\nInsert an SC Card."
+                                    "\nInsert an SD Card."
                     );
                     break;
                 }
@@ -209,7 +209,7 @@ class StoreData {
             this.mounted = true;
         }
 
-        // Get the require directory and specified sub directory
+        // Get the required directory and specified sub directory
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),subdirectory);
         this.directory = dir.getPath();
 
@@ -218,7 +218,7 @@ class StoreData {
             direxists = true;
 
         }
-        // If the directorys do not exist try to create them and redo check
+        // If the directories do not exist try to create them and redo check
         // Note! existcheck is more for file level so always try to create
         // directories
         else {

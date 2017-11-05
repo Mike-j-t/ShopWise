@@ -6,47 +6,6 @@
     android:layout_height="match_parent"
     tools:context="mjt.shopwise.MainActivity"
     >
-
-    <LinearLayout
-        android:id="@+id/ruletoollist_accuracybar"
-        android:layout_height="15dp"
-        android:layout_width="match_parent"
-        android:padding="2dp"
-        android:visibility="gone"
-        >
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            />
-        <ProgressBar
-            android:id="@+id/ruletoollist_accuracylow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:progressDrawable="@drawable/splash_progress_drawable"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            tools:background="@android:color/holo_orange_dark"
-            android:background="@android:color/holo_orange_dark"/>
-        <TextView
-            style="@style/listviewrowcol_standard"
-            android:layout_weight="0"
-            />
-        <ProgressBar
-            android:id="@+id/ruletoollist_accuracyhigh"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:progressDrawable="@drawable/splash_reverse_progress_drawable"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            tools:background="@android:color/holo_green_dark"
-            android:background="@android:color/holo_green_dark"/>
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/ruletoollist_top_linearlayout"
         android:orientation="horizontal"
@@ -117,6 +76,46 @@
             android:layout_weight="2"
             >
         </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ruletoollist_accuracybar"
+        android:layout_height="15dp"
+        android:layout_width="match_parent"
+        android:padding="2dp"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            />
+        <ProgressBar
+            android:id="@+id/ruletoollist_accuracylow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:progressDrawable="@drawable/splash_progress_drawable"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            tools:background="@android:color/holo_orange_dark"
+            android:background="@android:color/holo_orange_dark"/>
+        <TextView
+            style="@style/listviewrowcol_standard"
+            android:layout_weight="0"
+            />
+        <ProgressBar
+            android:id="@+id/ruletoollist_accuracyhigh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:progressDrawable="@drawable/splash_reverse_progress_drawable"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            tools:background="@android:color/holo_green_dark"
+            android:background="@android:color/holo_green_dark"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ruletoollist_bot_linearlayout"
