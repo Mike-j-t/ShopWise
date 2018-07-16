@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -66,7 +67,8 @@
             android:layout_weight="46"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
-            />
+            android:inputType="textNoSuggestions"
+            tools:ignore="LabelFor" />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="34"
@@ -150,7 +152,7 @@
             android:id="@+id/inputstockcost"
             style="@style/inputitem_monetary"
             android:layout_weight="14"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
         <TextView
@@ -171,7 +173,7 @@
             android:id="@+id/inputstockorder"
             style="@style/inputitem_order"
             android:layout_weight="10"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
         <TextView
@@ -207,7 +209,7 @@
             android:id="@+id/inputchecklistcount"
             style="@style/inputitem_order"
             android:layout_weight="10"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
     </LinearLayout>

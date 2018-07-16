@@ -18,22 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import mjt.displayhelp.DisplayHelp;
-
-import static mjt.shopwise.StandardAppConstants.AISLESAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.CHECKLISTAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.INTENTKEY_CALLINGACTIVITY;
-import static mjt.shopwise.StandardAppConstants.INTENTKEY_CALLINGMODE;
-import static mjt.shopwise.StandardAppConstants.MAINACTIVITYOPTIONLIST;
-import static mjt.shopwise.StandardAppConstants.MENUOPTIONS;
-import static mjt.shopwise.StandardAppConstants.ORDERAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.PRODUCTSAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.RULESAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.SHOPPINGAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.SHOPSAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.STOCKAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.STORAGEAPPVALNAME;
-import static mjt.shopwise.StandardAppConstants.TOOLSAPPVALNAME;
-
+import static mjt.shopwise.StandardAppConstants.*;
 import static mjt.sqlwords.SQLKWORD.*;
 
 /**
@@ -83,12 +68,11 @@ public class MainActivity extends AppCompatActivity {
     Set the resume state as normal
      */
     private static int resumestate = StandardAppConstants.RESUMSTATE_NORMAL;
-
-
+    
     /*
     Note LogMsg will only log msg if a) devmode is true and b)
     if the relevant section is set to true.
-    This is accomplished by    changing the values in
+    This is accomplished by changing the values in
     StandardAppConstants.
      */
     @Override
@@ -141,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         DataBindingUtil.setContentView(this,R.layout.activity_main);
 
         // Prepare ListView for Main Options menu
-        options_listview = (ListView) this.findViewById(R.id.activity_main_OptionsMenu);
+        options_listview = this.findViewById(R.id.activity_main_OptionsMenu);
 
         // Ensure that the AppValues table has entries for the Rule periods
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,

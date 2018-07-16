@@ -674,11 +674,11 @@ public class StockListActivity extends AppCompatActivity {
                 getResources().getString(R.string.deletebutton) +
                 " allows the stocked item to be deleted." +
                 getResources().getString(R.string.doublenewline);
-        String tmsg = "";
+        StringBuilder sb = new StringBuilder();
         for (String msg: dbpumethods.stockDeleteImapct(aisleid,productid)) {
-            tmsg = tmsg + msg + "\n";
+            sb.append(msg).append("\n");
         }
-        message = message + tmsg;
+        message = message + sb.toString();
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisleid,productid,0,0,0,0);
 
@@ -760,7 +760,7 @@ public class StockListActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) sla.findViewById(R.id.stocklist_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

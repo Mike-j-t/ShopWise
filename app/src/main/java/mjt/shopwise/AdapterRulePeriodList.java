@@ -80,7 +80,6 @@ public class AdapterRulePeriodList extends CursorAdapter {
         super.getDropDownView(position, convertview, parent);
         View view = convertview;
         if (fromspinner) {
-            int cpos = this.cursor.getPosition();
             view = View.inflate(ctxt,R.layout.ruleperiodlist,null);
             view.setBackgroundResource(R.drawable.textviewborder);
             int evenrow = ActionColorCoding.setHeadingColor(ctxt,

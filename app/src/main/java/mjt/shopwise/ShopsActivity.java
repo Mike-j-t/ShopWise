@@ -604,11 +604,11 @@ public class ShopsActivity extends AppCompatActivity {
         // and Rules for such product usages. Notes, products are not
         // to be deleted.
         ArrayList<String> impact = dbshopmethods.shopDeletedImpact(shopid);
-        String tmsg = "\n";
+        StringBuilder sb = new StringBuilder("\n");
         for (String msg: impact) {
-            tmsg = tmsg + msg + "\n";
-        }
-        String message = "Deleting Shop - " + currentshopname + tmsg;
+            sb.append(msg).append("\n");
+    }
+        String message = "Deleting Shop - " + currentshopname + sb;
          // Prepare for potential deletion i.e. pass the shopid via values
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(shopid,0,0,0,0,0);
@@ -661,7 +661,7 @@ public class ShopsActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) sa.findViewById(R.id.shops_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

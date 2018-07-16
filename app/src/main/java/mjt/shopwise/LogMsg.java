@@ -133,8 +133,6 @@ public class LogMsg{
 
         if (context != null) {
             callingclass = ((Activity) context).getComponentName().getShortClassName();
-            char fc = callingclass.charAt(0);
-            char tc = '.';
             if (callingclass.length() > 1 && callingclass.charAt(0) == '.')  {
                 callingclass = callingclass.substring(1);
 

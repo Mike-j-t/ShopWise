@@ -181,7 +181,10 @@
         <EditText
             android:id="@+id/shoppingadjust_inputproductname"
             style="@style/inputitem"
-            android:layout_weight="78.5"/>
+            android:layout_weight="78.5"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -198,7 +201,9 @@
         <EditText
             android:id="@+id/shoppingadjust_inputcost"
             style="@style/inputitem_monetary"
-            android:layout_weight="14"/>
+            android:layout_weight="14"
+            android:hint="@string/empty"
+            />
         <TextView
             style="@style/inputitemlabel"
             android:layout_weight="64.5"
@@ -219,7 +224,9 @@
         <EditText
             android:id="@+id/shoppingadjust_inputquantity"
             style="@style/inputitem_order"
-            android:layout_weight="14"/>
+            android:layout_weight="14"
+            android:hint="@string/empty"
+            />
         <TextView
             style="@style/inputitemlabel"
             android:layout_weight="2"
@@ -256,7 +263,9 @@
         <EditText
             android:id="@+id/shoppingadjust_inputpurchased"
             style="@style/inputitem_order"
-            android:layout_weight="14"/>
+            android:layout_weight="14"
+            android:hint="@string/empty"
+            />
         <TextView
             style="@style/inputitemlabel"
             android:layout_weight="64.5"

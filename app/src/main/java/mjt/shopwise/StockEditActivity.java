@@ -537,7 +537,7 @@ public class StockEditActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) slea.findViewById(R.id.stocklistedit_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

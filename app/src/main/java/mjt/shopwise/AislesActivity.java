@@ -599,11 +599,11 @@ public class AislesActivity extends AppCompatActivity{
         String neutralaction = "";
 
         ArrayList<String> impact = dbaislemethods.aisleDeleteImpact(aisleid);
-        String tmsg = "\n";
+        StringBuilder sb = new StringBuilder("\n");
         for (String msg: impact) {
-            tmsg = tmsg + msg + "\n";
+            sb.append(msg).append("\n");
         }
-        String message = "Deleting Aisle = " + currentaislename + tmsg;
+        String message = "Deleting Aisle = " + currentaislename + sb.toString();
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisleid,0,0,0,0,0);
 
@@ -667,7 +667,7 @@ public class AislesActivity extends AppCompatActivity{
                 R.id.aisles_messagebar
         );
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

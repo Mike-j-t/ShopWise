@@ -732,7 +732,7 @@ public class RulesActivity extends AppCompatActivity {
         TextView messagebar = (TextView) ra.findViewById(
                 R.id.rules_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

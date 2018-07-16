@@ -425,10 +425,12 @@ public class BackupActivity extends AppCompatActivity {
                                     backupfilename );
                         } else {
                             dbbackupresult.setTitle("DB Backup Failed.");
+                            StringBuilder sb = new StringBuilder("Error(s)");
                             String emsg = "";
                             for(int i = 0; i < errlist.size(); i++) {
-                                emsg = emsg + errlist.get(i);
+                                sb.append("\n").append(errlist.get(i));
                             }
+                            dbbackupresult.setMessage(sb.toString());
                         }
                         dbbackupresult.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -649,12 +651,14 @@ public class BackupActivity extends AppCompatActivity {
                     DBHelper.getHelper(context).expand(null,true);
 
                 }
+                StringBuilder fm = new StringBuilder(finalmessage);
                 for(int i = 0; i < errlist.size(); i++){
                     if(i > 0) {
-                        finalmessage = finalmessage + "\n\n";
+                        fm.append("\n\n");
                     }
-                    finalmessage = finalmessage + errlist.get(i);
+                    fm.append(errlist.get(i));
                 }
+                finalmessage = fm.toString();
 
 
                 runOnUiThread(new Runnable() {
@@ -881,10 +885,11 @@ public class BackupActivity extends AppCompatActivity {
     private void setFullFilename() {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
-        backupfullfilename.setText(
-                backupbasepart.getText().toString() +
-                backupdatetimepart.getText().toString() +
-                backupextension.getText().toString()
+        backupfullfilename.setText(getResources().getString(
+                R.string.full_file_name,
+                backupbasepart.getText().toString(),
+                backupdatetimepart.getText().toString(),
+                backupextension.getText().toString())
         );
     }
 
@@ -905,7 +910,7 @@ public class BackupActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) ba.findViewById(R.id.backup_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

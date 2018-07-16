@@ -38,6 +38,7 @@ public class ValidateInput {
             return  retmsg;
         }
         retmsg.setAll(false,0,"");
+        //noinspection EmptyCatchBlock
         try {
             value = Integer.parseInt(integertocheck);
         } catch (NumberFormatException a) {

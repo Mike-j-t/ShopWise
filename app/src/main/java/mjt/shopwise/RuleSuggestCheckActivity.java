@@ -613,7 +613,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         TextView messagebar = (TextView) rsca.findViewById(
                 R.id.rulesuggest_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

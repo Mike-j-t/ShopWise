@@ -39,6 +39,7 @@ public class AdapterProductList extends CursorAdapter {
     public static final String THISCLASS = AdapterProductList.class.getSimpleName();
     private static final String LOGTAG = "SW_APL(CsrAdptr)";
 
+    @SuppressWarnings("SameParameterValue")
     AdapterProductList(Context context,
                        Cursor csr,
                        @SuppressWarnings("UnusedParameters") int flags,
@@ -235,8 +236,6 @@ public class AdapterProductList extends CursorAdapter {
             storagename = "Ooops";
         }
         try {
-            int pooffset = products_order_offset;
-            String otext = csr.getColumnName(pooffset);
             ordertext = csr.getString(products_order_offset);
         } catch (IllegalStateException e) {
             ordertext = "????";

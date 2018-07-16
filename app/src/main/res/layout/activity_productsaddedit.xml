@@ -41,7 +41,7 @@
             android:id="@+id/inputproductname"
             style="@style/inputitem"
             android:layout_weight="80"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
     </LinearLayout>
@@ -90,6 +90,7 @@
             android:id="@+id/inputproductorder"
             style="@style/inputitem_order"
             android:layout_weight="10"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -149,6 +150,8 @@
             android:id="@+id/productaddedit_inputfilter"
             style="@style/inputitem"
             android:layout_weight="80"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
             />
     </LinearLayout>
     <LinearLayout

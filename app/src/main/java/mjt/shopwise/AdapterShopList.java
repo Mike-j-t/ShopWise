@@ -47,6 +47,7 @@ class AdapterShopList extends CursorAdapter {
      * @param intent        the intent, used for
      * @param fromspinner   true if used by a spinner
      */
+    @SuppressWarnings("SameParameterValue")
     AdapterShopList(Context context,
                     Cursor csr,
                     @SuppressWarnings("UnusedParameters") int flags,

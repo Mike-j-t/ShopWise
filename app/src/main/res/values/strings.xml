@@ -4,9 +4,11 @@
     <!ENTITY tab2 "~TAB2~">
     <!ENTITY cmnt "~CMMT~">
     ]>
+<!--suppress CheckTagEmptyBody -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ShopWise</string>
     <string name="app_catchphrase">Making Shopping a Little Easier</string>
+    <string name="empty"></string>
 
     <string name="devmodeon">Note!!! Developer Mode is ON\n\n
         This indicates that this is not a release version.
@@ -159,7 +161,7 @@
     <string name="editedok">"Successfully Changed."</string>
 
     <!-- Miscellaneous Text -->
-    <string name="messagebar_prefix_lastaction">"Last action: "</string>
+    <string name="messagebar_prefix_lastaction">"Last action: %1$s"</string>
     <string name="availableoptions">"Available options are "\u0020</string>
     <string name="and">\u0020"and"\u0020</string>
     <string name="canceldoes">\u0020returns, doing nothing.</string>
@@ -170,6 +172,7 @@
     <string name="minbuydefault">5</string>
     <string name="minperioddefault">30</string>
     <string name="costdefault">0.00</string>
+    <string name="full_file_name">%1$s%2$s%3$s</string>
 
     <!-- Formatting -->
     <string name="newline">"\n"</string>

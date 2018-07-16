@@ -45,7 +45,7 @@
             android:id="@+id/inputshopname"
             style="@style/inputitem"
             android:layout_weight="80"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
     </LinearLayout>
@@ -73,7 +73,7 @@
             android:id="@+id/inputshopcity"
             style="@style/inputitem"
             android:layout_weight="80"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
     </LinearLayout>
@@ -101,7 +101,7 @@
             android:id="@+id/inputshoporder"
             style="@style/inputitem_order"
             android:layout_weight="10"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
         <TextView

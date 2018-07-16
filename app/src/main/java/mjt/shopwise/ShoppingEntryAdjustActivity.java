@@ -658,7 +658,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         TextView messagebar = (TextView) seaa.findViewById(
                 R.id.shoppingadjust_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

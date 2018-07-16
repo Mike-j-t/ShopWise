@@ -32,6 +32,7 @@ public class AdapterStorageList extends CursorAdapter {
             AdapterStorageList.class.getSimpleName();
     private static final String LOGTAG = "SW_STL(CsrAdptr)";
 
+    @SuppressWarnings("SameParameterValue")
     AdapterStorageList(Context context,
                        Cursor csr,
                        @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags,
@@ -119,7 +120,6 @@ public class AdapterStorageList extends CursorAdapter {
         super.getDropDownView(position, convertview, parent);
         View view = convertview;
         if (fromspinner) {
-            int cpos = this.cursor.getPosition();
             view = View.inflate(ctxt, R.layout.storagelist,null);
             view.setBackgroundResource(R.drawable.textviewborder);
             int evenrow = ActionColorCoding.setHeadingColor(ctxt,

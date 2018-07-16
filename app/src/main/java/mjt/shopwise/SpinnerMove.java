@@ -32,7 +32,7 @@ public class SpinnerMove {
                              @SuppressWarnings("SameParameterValue") boolean animatespinner
     )
     {
-        boolean moved = false;
+        @SuppressWarnings("unused") boolean moved = false;
         String logmsg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -40,6 +40,7 @@ public class SpinnerMove {
         if (movetovalue > 0 ) {
             csr.moveToPosition(-1);
             while (csr.moveToNext()) {
+                //noinspection unused
                 long cv = csr.getLong(csr.getColumnIndex(column));
                 if (csr.getLong(
                         csr.getColumnIndex(column)

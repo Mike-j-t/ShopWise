@@ -95,17 +95,12 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int position = csr.getPosition();
-        boolean showthis = true;
 
-        TextView option = (TextView) view.findViewById(
+        TextView option = view.findViewById(
                 R.id.activity_main_OptionsMenu_option
         );
-        TextView label = (TextView) view.findViewById(
+        TextView label = view.findViewById(
                 R.id.activity_main_OptionsMenu_label
-        );
-        TextView option_rowcount = (TextView) view.findViewById(
-                R.id.activity_main_OptionsMenu_rowcount
         );
         String optiontext = csr.getString(
                 csr.getColumnIndex(

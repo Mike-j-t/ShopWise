@@ -110,7 +110,6 @@ public class AdapterStockList extends CursorAdapter {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getDropDownView(position, convertview, parent);
         if (fromspinner) {
-            int cpos = this.cursor.getPosition();
             view = View.inflate(ctxt,R.layout.stocklist,null);
             view.setBackgroundResource(R.drawable.textviewborder);
             int evenrow = ActionColorCoding.setHeadingColor(ctxt,
@@ -165,9 +164,9 @@ public class AdapterStockList extends CursorAdapter {
                 );
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        TextView productname = (TextView) view.findViewById(R.id.stocklist_productname);
-        TextView productcost = (TextView) view.findViewById(R.id.stocklist_cost);
-        TextView productorder = (TextView) view.findViewById(R.id.stocklist_order);
+        TextView productname = view.findViewById(R.id.stocklist_productname);
+        TextView productcost = view.findViewById(R.id.stocklist_cost);
+        TextView productorder = view.findViewById(R.id.stocklist_order);
 
         productname.setText(csr.getString(product_name_offset));
         productcost.setText(NumberFormat.getCurrencyInstance().format(csr.getDouble(productusage_cost_offest)));

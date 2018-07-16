@@ -477,7 +477,7 @@ public class CheckListActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) cla.findViewById(R.id.checklist_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

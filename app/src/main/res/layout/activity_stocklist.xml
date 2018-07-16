@@ -68,6 +68,7 @@
             style="@style/inputitem"
             android:inputType="textFilter"
             android:layout_weight="80"
+            android:hint="@string/empty"
             />
     </LinearLayout>
     <LinearLayout

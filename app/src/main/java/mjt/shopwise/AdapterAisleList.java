@@ -44,7 +44,7 @@ public class AdapterAisleList extends CursorAdapter{
      * @param intent        the intent, used for
      * @param fromspinner   true if used in a spinner
      */
-    @SuppressWarnings("UnusedParameters")
+    @SuppressWarnings({"UnusedParameters", "SameParameterValue"})
     AdapterAisleList(Context context,
                      Cursor csr,
                      int flags,
@@ -122,7 +122,6 @@ public class AdapterAisleList extends CursorAdapter{
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = convertview;
         if (fromspinner) {
-            int cpos = this.cursor.getPosition();
             view = View.inflate(ctxt,R.layout.aislelist,null);
             view.setBackgroundResource(R.drawable.textviewborder);
             int evenrow = ActionColorCoding.setHeadingColor(ctxt,

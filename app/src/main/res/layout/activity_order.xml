@@ -62,6 +62,8 @@
             android:id="@+id/products_inputfilter"
             style="@style/inputitem"
             android:layout_weight="80"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
             />
     </LinearLayout>
     <LinearLayout

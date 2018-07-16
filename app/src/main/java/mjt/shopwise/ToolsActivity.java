@@ -240,7 +240,7 @@ public class ToolsActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) ta.findViewById(R.id.tools_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

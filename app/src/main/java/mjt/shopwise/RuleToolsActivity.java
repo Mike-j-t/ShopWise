@@ -319,7 +319,7 @@ public class RuleToolsActivity extends AppCompatActivity{
         TextView messagebar = (TextView) rta.findViewById(
                 R.id.ruletools_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

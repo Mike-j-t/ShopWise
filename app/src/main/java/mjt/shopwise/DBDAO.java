@@ -44,9 +44,7 @@ public class DBDAO {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        String sql = " SELECT * FROM " + tablename + " ;";
         Cursor csr = db.query(tablename,null,null,null,null,null,null);
-        //Cursor csr = db.rawQuery(sql,null);
         int rv = csr.getCount();
         csr.close();
         msg = "Returned " + Integer.toString(rv) +
