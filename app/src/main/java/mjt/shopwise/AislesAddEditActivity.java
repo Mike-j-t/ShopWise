@@ -524,7 +524,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) activity.findViewById(R.id.aislesaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

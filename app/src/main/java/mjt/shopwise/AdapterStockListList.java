@@ -107,7 +107,6 @@ public class AdapterStockListList extends CursorAdapter {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getDropDownView(position, convertview, parent);
         if (fromspinner) {
-            int cpos = this.cursor.getPosition();
             view = View.inflate(ctxt, R.layout.stocklist, null);
             view.setBackgroundResource(R.drawable.textviewborder);
             int evenrow = ActionColorCoding.setHeadingColor(ctxt,

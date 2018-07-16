@@ -90,6 +90,8 @@
             android:id="@+id/products_inputfilter"
             style="@style/inputitem"
             android:layout_weight="80"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
             />
     </LinearLayout>
     <LinearLayout
@@ -138,7 +140,7 @@
             android:id="@+id/inputstockcost"
             style="@style/inputitem_monetary"
             android:layout_weight="14"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
         <TextView
@@ -160,6 +162,7 @@
             style="@style/inputitem_order"
             android:layout_weight="10"
             android:inputType="text"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -195,6 +198,7 @@
             style="@style/inputitem_order"
             android:layout_weight="10"
             android:inputType="text"
+            android:hint="@string/empty"
             />
     </LinearLayout>
     <LinearLayout

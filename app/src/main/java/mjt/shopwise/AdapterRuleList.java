@@ -80,6 +80,7 @@ public class AdapterRuleList extends CursorAdapter {
      * @param intent        The Intent from the invoking activity
      * @param fromspinner   True if the adpater is being applied to a spinner
      */
+    @SuppressWarnings("SameParameterValue")
     AdapterRuleList(Context context,
                     Cursor csr,
                     @SuppressWarnings({"SameParameterValue", "UnusedParameters"}) int flags,
@@ -178,16 +179,14 @@ public class AdapterRuleList extends CursorAdapter {
                 ctxt.getResources().getString(R.string.longclickrowindicator);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        TextView rulename = (TextView) view.findViewById(R.id.rulelist_rulename);
-        TextView productname = (TextView) view.findViewById(R.id.rulelist_productname);
-        TextView nextdate = (TextView) view.findViewById(R.id.rulelist_nextdate);
-        TextView rule = (TextView) view.findViewById(R.id.rulelist_rule);
-        TextView prompt = (TextView) view.findViewById(R.id.rulelist_prompt);
-        TextView shopinfo = (TextView) view.findViewById(R.id.rulelist_shopandaisle);
-        //CheckBox prompt = (CheckBox) view.findViewById(R.id.rulelist_prompt);
-        LinearLayout topll = (LinearLayout) view.findViewById(R.id.rulelist_top_linearlayout);
-        LinearLayout botll = (LinearLayout) view.findViewById(R.id.rulelist_bot_linearlayout);
-        LinearLayout midll = (LinearLayout) view.findViewById(R.id.rulelist_mid_linearlayout);
+        TextView rulename = view.findViewById(R.id.rulelist_rulename);
+        TextView productname = view.findViewById(R.id.rulelist_productname);
+        TextView nextdate = view.findViewById(R.id.rulelist_nextdate);
+        TextView rule = view.findViewById(R.id.rulelist_rule);
+        TextView prompt = view.findViewById(R.id.rulelist_prompt);
+        TextView shopinfo = view.findViewById(R.id.rulelist_shopandaisle);
+        LinearLayout botll = view.findViewById(R.id.rulelist_bot_linearlayout);
+        LinearLayout midll = view.findViewById(R.id.rulelist_mid_linearlayout);
 
         if (fromspinner) {
             botll.setVisibility(View.GONE);

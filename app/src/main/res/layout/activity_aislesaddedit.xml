@@ -64,7 +64,7 @@
             android:id="@+id/inputaislename"
             style="@style/inputitem"
             android:layout_weight="80"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
     </LinearLayout>
@@ -89,7 +89,7 @@
             android:id="@+id/inputaisleorder"
             style="@style/inputitem_order"
             android:layout_weight="10"
-            android:hint=""
+            android:hint="@string/empty"
             android:inputType="text"
             />
         <TextView

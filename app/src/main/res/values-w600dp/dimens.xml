@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="dimension_file" tools:keep="@dimen/dimension_file">600px</dimen>
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
 
@@ -25,4 +26,7 @@
     <dimen name="listview_rowheight_large" tools:ignore="UnusedResources">27dp</dimen>
     <dimen name="listview_rowheight_extra_large">30dp</dimen>
     <dimen name="listview_rowheight_superextra_large">42dp</dimen>
+
+    <dimen name="actionbutton_height" tools:ignore="UnusedResources">30dp</dimen>
+    <dimen name="spinner_rightmargin">24dp</dimen>
 </resources>

@@ -1,8 +1,10 @@
-include ':app', ':sqlwords', ':dbindex', ':dbcolumn', ':dbtable', ':dbdatabase', ':displayhelp', ':pickdate'
+include ':app', ':sqlwords', ':dbindex', ':dbcolumn', ':dbtable',  ':dbdependency', ':dbtrigger', ':dbdatabase', ':displayhelp', ':pickdate'
 project(':sqlwords').projectDir= new File('d:/Android_Applications/Modules/sqlwords')
 project(':dbcolumn').projectDir= new File('d:/Android_Applications/Modules/dbcolumn')
 project(':dbtable').projectDir= new File('d:/Android_Applications/Modules/dbtable')
 project(':dbindex').projectDir= new File('d:/Android_Applications/Modules/dbindex')
+project(':dbdependency').projectDir=new File('d:/Android_Applications/Modules/dbdependency')
+project(':dbtrigger').projectDir=new File('d:/Android_Applications/Modules/dbtrigger')
 project(':dbdatabase').projectDir= new File('d:/Android_Applications/Modules/dbdatabase')
 project(':displayhelp').projectDir= new File('d:/Android_Applications/Modules/displayhelp')
 project(':pickdate').projectDir= new File('d:/Android_Applications/PickDateShowCase/pickdate')

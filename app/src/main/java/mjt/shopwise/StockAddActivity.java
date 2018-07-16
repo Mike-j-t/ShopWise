@@ -932,11 +932,11 @@ public class StockAddActivity extends AppCompatActivity {
         ArrayList<String> impact = dbpumethods.stockDeleteImapct(aisleid,productid);
         impact.addAll(dbshoplistmethods.shopListEntryDeleteImpact(aisleid,productid));
         impact.addAll(dbrulemethods.ruleDeleteImpact(aisleid,productid));
-        String tmsg = "";
+        StringBuilder sb = new StringBuilder();
         for (String msg: impact) {
-            tmsg = tmsg + msg + "\n";
+            sb.append(msg).append("\n");
         }
-        message = message + tmsg;
+        message = message + sb.toString();
 
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(aisleid,productid,0,0,0,0);
@@ -1128,7 +1128,7 @@ public class StockAddActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) sa.findViewById(R.id.stock_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

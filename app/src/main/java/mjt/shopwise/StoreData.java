@@ -112,6 +112,7 @@ class StoreData {
      *
      *  Note!! existcheck, if true, will not try to create the file
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public StoreData(String subdirectory, @SuppressWarnings("SameParameterValue") String filename, boolean existcheck) {
         fileexists = false;
         direxists = false;
@@ -124,8 +125,6 @@ class StoreData {
         this.filename = filename;
 
         // External Storage must be mounted.
-        String chkmnt = Environment.getExternalStorageState();
-
         if(!(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))) {
             switch (Environment.getExternalStorageState()) {
                 case Environment.MEDIA_SHARED : {
@@ -222,7 +221,8 @@ class StoreData {
         // Note! existcheck is more for file level so always try to create
         // directories
         else {
-            boolean x = dir.mkdirs();
+            //noinspection ResultOfMethodCallIgnored
+            dir.mkdirs();
             if(dir.exists()) {
                 direxists = true;
             }
@@ -242,7 +242,7 @@ class StoreData {
         }
 
         try {
-            boolean x = f.createNewFile();
+            f.createNewFile();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -252,7 +252,7 @@ class StoreData {
             );
             return;
         }
-        boolean x = f.delete();
+        f.delete();
     }
 
     @SuppressWarnings({"ConstantConditions", "UnusedReturnValue"})
@@ -403,10 +403,11 @@ class StoreData {
         String rv;
         rv = this.Display() + "\nOther Files in Directory (" + this.directory + ") ";
 
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < otherfilesindirectory.size(); i++) {
-            rv = rv + "\n\t" + otherfilesindirectory.get(i).getName();
+            sb.append("\n\t").append(otherfilesindirectory.get(i).getName());
         }
-        return rv;
+        return sb.toString();
     }
 
     /**
@@ -416,10 +417,11 @@ class StoreData {
     @SuppressWarnings("unused")
     public String getErrorMessages() {
         String rv = "";
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < errorlist.size(); i++) {
-            rv = rv + errorlist.get(i);
+            sb.append(errorlist.get(i));
         }
-        return rv;
+        return sb.toString();
     }
 
     /**

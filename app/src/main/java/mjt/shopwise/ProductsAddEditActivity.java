@@ -617,7 +617,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
 
         TextView messagebar = (TextView) pa.findViewById(R.id.productssaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

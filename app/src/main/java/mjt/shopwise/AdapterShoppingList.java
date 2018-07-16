@@ -182,21 +182,20 @@ public class AdapterShoppingList extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        int position = csr.getPosition();
 
-        TextView productname = (TextView) view.findViewById(R.id.shoppinglist_productname);
-        TextView shopname = (TextView) view.findViewById(R.id.shoppinglist_shopname);
-        TextView aislename = (TextView) view.findViewById(R.id.shoppinglist_aislename);
-        TextView shopcity = (TextView) view.findViewById(R.id.shoppinglist_shopcity);
-        TextView productcost = (TextView) view.findViewById(R.id.shoppinglist_itemcost);
-        TextView numbertoget = (TextView) view.findViewById(R.id.shoppinglist_numbertoget);
-        TextView totalcost = (TextView) view.findViewById(R.id.shoppinglist_totalcost);
-        TextView boughtbutton = (TextView) view.findViewById(R.id.shoppinglist_boughtbutton);
-        TextView adjustbutton = (TextView) view.findViewById(R.id.shoppinglist_adjustbutton);
-        TextView deletebutton = (TextView) view.findViewById(R.id.shoppinglist_deletetbutton);
-        LinearLayout shopinfo = (LinearLayout) view.findViewById(R.id.shoppinglist_shopinfo_linearlayout);
-        LinearLayout aisleinfo = (LinearLayout) view.findViewById(R.id.shoppinglist_aisleinfo_linearlayout);
-        LinearLayout productinfo = (LinearLayout) view.findViewById(R.id.shoppinglist_productinfo_linearlayout);
+        TextView productname = view.findViewById(R.id.shoppinglist_productname);
+        TextView shopname = view.findViewById(R.id.shoppinglist_shopname);
+        TextView aislename = view.findViewById(R.id.shoppinglist_aislename);
+        TextView shopcity = view.findViewById(R.id.shoppinglist_shopcity);
+        TextView productcost = view.findViewById(R.id.shoppinglist_itemcost);
+        TextView numbertoget = view.findViewById(R.id.shoppinglist_numbertoget);
+        TextView totalcost = view.findViewById(R.id.shoppinglist_totalcost);
+        TextView boughtbutton = view.findViewById(R.id.shoppinglist_boughtbutton);
+        TextView adjustbutton = view.findViewById(R.id.shoppinglist_adjustbutton);
+        TextView deletebutton = view.findViewById(R.id.shoppinglist_deletetbutton);
+        LinearLayout shopinfo = view.findViewById(R.id.shoppinglist_shopinfo_linearlayout);
+        LinearLayout aisleinfo = view.findViewById(R.id.shoppinglist_aisleinfo_linearlayout);
+        LinearLayout productinfo = view.findViewById(R.id.shoppinglist_productinfo_linearlayout);
 
         boughtbutton.setTag(csr.getPosition());
         adjustbutton.setTag(csr.getPosition());

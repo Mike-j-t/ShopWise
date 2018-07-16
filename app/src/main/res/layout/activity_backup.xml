@@ -87,6 +87,8 @@
             android:id="@+id/backup_basepart"
             style="@style/inputitem"
             android:layout_weight="38"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -114,6 +116,8 @@
             android:id="@+id/backup_datetimepart"
             style="@style/inputitem"
             android:layout_weight="38"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -151,6 +155,8 @@
             android:id="@+id/backup_extension"
             style="@style/inputitem"
             android:layout_weight="10"
+            android:inputType="textNoSuggestions"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"

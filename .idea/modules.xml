@@ -6,8 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Modules/dbcolumn/dbcolumn.iml" filepath="$PROJECT_DIR$/../Modules/dbcolumn/dbcolumn.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Modules/dbdatabase/dbdatabase.iml" filepath="$PROJECT_DIR$/../Modules/dbdatabase/dbdatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Modules/dbdependency/dbdependency.iml" filepath="$PROJECT_DIR$/../Modules/dbdependency/dbdependency.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Modules/dbindex/dbindex.iml" filepath="$PROJECT_DIR$/../Modules/dbindex/dbindex.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Modules/dbtable/dbtable.iml" filepath="$PROJECT_DIR$/../Modules/dbtable/dbtable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Modules/dbtrigger/dbtrigger.iml" filepath="$PROJECT_DIR$/../Modules/dbtrigger/dbtrigger.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Modules/displayhelp/displayhelp.iml" filepath="$PROJECT_DIR$/../Modules/displayhelp/displayhelp.iml" />
       <module fileurl="file://$PROJECT_DIR$/../PickDateShowCase/pickdate/pickdate.iml" filepath="$PROJECT_DIR$/../PickDateShowCase/pickdate/pickdate.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Modules/sqlwords/sqlwords.iml" filepath="$PROJECT_DIR$/../Modules/sqlwords/sqlwords.iml" />

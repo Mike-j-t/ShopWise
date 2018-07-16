@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="dimension_file" tools:keep="@dimen/dimension_file">720px</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
@@ -14,10 +15,10 @@
     <dimen name="listview_vertical_padding_large" tools:ignore="UnusedResources">19dp</dimen>
     <dimen name="listview_vertical_padding_extra_large" tools:ignore="UnusedResources">23dp</dimen>
 
-    <dimen name="listview_vertical_rowpadding_normal" tools:ignore="UnusedResources">8dp</dimen>
-    <dimen name="listview_vertical_rowpadding_large" tools:ignore="UnusedResources">9dp</dimen>
-    <dimen name="listview_vertical_rowpadding_extra_large" tools:ignore="UnusedResources">11dp</dimen>
-    <dimen name="listview_vertical_rowpadding_superextra_large" tools:ignore="UnusedResources">14dp</dimen>
+    <dimen name="listview_vertical_rowpadding_normal" tools:ignore="UnusedResources">10dp</dimen>
+    <dimen name="listview_vertical_rowpadding_large" tools:ignore="UnusedResources">12dp</dimen>
+    <dimen name="listview_vertical_rowpadding_extra_large" tools:ignore="UnusedResources">14dp</dimen>
+    <dimen name="listview_vertical_rowpadding_superextra_large" tools:ignore="UnusedResources">18dp</dimen>
 
     <dimen name="listview_rowheight_tiny" tools:ignore="UnusedResources">25dp</dimen>
     <dimen name="listview_rowheight_small" tools:ignore="UnusedResources">28dp</dimen>
@@ -25,4 +26,7 @@
     <dimen name="listview_rowheight_large" tools:ignore="UnusedResources">34dp</dimen>
     <dimen name="listview_rowheight_extra_large">40dp</dimen>
     <dimen name="listview_rowheight_superextra_large">50dp</dimen>
+
+    <dimen name="actionbutton_height" tools:ignore="UnusedResources">36dp</dimen>
+    <dimen name="spinner_rightmargin">24dp</dimen>
 </resources>

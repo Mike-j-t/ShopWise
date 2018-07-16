@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="dimension_file" tools:keep="@dimen/dimension_file">320px</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">9dp</dimen>
+
+    <dimen name="text_size_tiny" tools:ignore="UnusedResources">5sp</dimen>
+    <dimen name="text_size_small">7sp</dimen>
+    <dimen name="text_size_normal">9sp</dimen>
+    <dimen name="text_size_large">11sp</dimen>
+    <dimen name="text_size_extra_large">12sp</dimen>
+    <dimen name="text_size_superextra_large">14sp</dimen>
+
+    <dimen name="listview_vertical_padding_normal">8dp</dimen>
+    <dimen name="listview_vertical_padding_large" tools:ignore="UnusedResources">10dp</dimen>
+    <dimen name="listview_vertical_padding_extra_large" tools:ignore="UnusedResources">12dp</dimen>
+
+    <dimen name="listview_vertical_rowpadding_normal" tools:ignore="UnusedResources">6dp</dimen>
+    <dimen name="listview_vertical_rowpadding_large" tools:ignore="UnusedResources">8dp</dimen>
+    <dimen name="listview_vertical_rowpadding_extra_large" tools:ignore="UnusedResources">10dp</dimen>
+    <dimen name="listview_vertical_rowpadding_superextra_large" tools:ignore="UnusedResources">12dp</dimen>
+
+    <dimen name="listview_rowheight_tiny" tools:ignore="UnusedResources">12dp</dimen>
+    <dimen name="listview_rowheight_small" tools:ignore="UnusedResources">14dp</dimen>
+    <dimen name="listview_rowheight_normal" tools:ignore="UnusedResources">16dp</dimen>
+    <dimen name="listview_rowheight_large" tools:ignore="UnusedResources">18dp</dimen>
+    <dimen name="listview_rowheight_extra_large">24dp</dimen>
+    <dimen name="listview_rowheight_superextra_large">28dp</dimen>
+
+    <dimen name="actionbutton_height" tools:ignore="UnusedResources">20dp</dimen>
+    <dimen name="spinner_rightmargin">24dp</dimen>
+</resources>

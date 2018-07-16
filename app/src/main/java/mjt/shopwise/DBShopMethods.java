@@ -147,7 +147,7 @@ class DBShopMethods {
      * @param order  sql sort string less ORDER BY
      * @return cursor containing selected shops
      */
-    Cursor getShops(String filter, String order) {
+    Cursor getShops(@SuppressWarnings("SameParameterValue") String filter, String order) {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

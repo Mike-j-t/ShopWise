@@ -552,7 +552,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) sa.findViewById(R.id.shopsaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

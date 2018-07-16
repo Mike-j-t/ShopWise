@@ -45,6 +45,7 @@
             android:id="@+id/ruletools_minperiod"
             style="@style/inputitem_order"
             android:layout_weight="10"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -71,6 +72,7 @@
             android:id="@+id/ruletools_minbuy"
             style="@style/inputitem_order"
             android:layout_weight="10"
+            android:hint="@string/empty"
             />
         <TextView
             style="@style/inputitemdummy"

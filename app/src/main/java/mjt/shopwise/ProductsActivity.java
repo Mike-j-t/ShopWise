@@ -620,11 +620,12 @@ public class ProductsActivity extends AppCompatActivity {
         //          product usages, shopping list entries, rules
 
         ArrayList<String> impact = dbproductmethods.productDeleteImpact(productid);
+        StringBuilder sb = new StringBuilder();
         String tmsg = "";
         for (String msg: impact) {
-            tmsg = tmsg + msg + "\n";
+            sb.append(msg).append("\n");
         }
-        String message = "Deleting product - " + currentproductname + " will:\n\n" + tmsg;
+        String message = "Deleting product - " + currentproductname + " will:\n\n" + sb.toString();
         MixTripleLongTripleInt values = new MixTripleLongTripleInt();
         values.setMIXTRPPLONGINT(productid,0,0,0,0,0);
 
@@ -700,7 +701,7 @@ public class ProductsActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) activity.findViewById(R.id.products_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

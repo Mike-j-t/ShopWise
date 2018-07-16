@@ -480,7 +480,7 @@ public class PromptedRulesActivity extends AppCompatActivity {
         TextView messagebar = (TextView) pra.findViewById(
                 R.id.promptedrules_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

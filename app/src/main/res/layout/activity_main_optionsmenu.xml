@@ -5,8 +5,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
+        android:paddingTop="@dimen/listview_vertical_rowpadding_superextra_large"
+        android:paddingBottom="@dimen/listview_vertical_rowpadding_superextra_large">
         <TextView
             android:id="@+id/activity_main_OptionsMenu_option"
             android:layout_weight="0.185"

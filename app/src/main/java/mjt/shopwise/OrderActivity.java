@@ -467,7 +467,7 @@ public class OrderActivity extends AppCompatActivity {
 
         TextView messagebar = (TextView) oa.findViewById(R.id.order_messagebar);
         messagebar.setText(context.getResources().getString(
-                R.string.messagebar_prefix_lastaction) + " " + msg);
+                R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
             messagebar.setTextColor(Color.YELLOW);
         } else {

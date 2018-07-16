@@ -179,7 +179,7 @@ public class AdapterChecklist extends CursorAdapter {
         TextView order1 = (TextView) view.findViewById(R.id.checklist_order1_button);
         TextView less1 = (TextView) view.findViewById(R.id.checklist_less1_button);
         TextView checkoff = (TextView) view.findViewById(R.id.checklist_checkoff_button);
-        @SuppressWarnings("UnusedAssignment") LinearLayout storagelayout = (LinearLayout) view.findViewById(R.id.checklist_storage_linearlayout);
+        @SuppressWarnings({"UnusedAssignment", "unused"}) LinearLayout storagelayout = (LinearLayout) view.findViewById(R.id.checklist_storage_linearlayout);
         TextView storage = (TextView) view.findViewById(R.id.checklist_storage);
 
         productname.setText(csr.getString(product_name_offset));
