@@ -20,13 +20,6 @@
     <LinearLayout
         style="@style/standard_linearlayout">
         <TextView
-            style="@style/listviewrowcol_standard"
-            android:layout_weight="100"
-            />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/standard_linearlayout">
-        <TextView
             style="@style/inputitemdummy"
             android:layout_weight="2"
             />
@@ -37,7 +30,25 @@
             android:text="@string/donebutton"/>
         <TextView
             style="@style/inputitemdummy"
-            android:layout_weight="79.5"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/backup_backupbutton"
+            style="@style/actionbutton"
+            android:layout_weight="18.5"
+            android:text="@string/backupbutton"/>
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/backup_restorebutton"
+            style="@style/actionbutton"
+            android:layout_weight="18.5"
+            android:text="@string/restorebutton"/>
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="38.5"
             />
     </LinearLayout>
     <LinearLayout
@@ -191,29 +202,6 @@
             />
     </LinearLayout>
     <LinearLayout
-        style="@style/standard_linearlayout">
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="79.5"
-            />
-        <TextView
-            android:id="@+id/backup_backupbutton"
-            style="@style/actionbutton"
-            android:layout_weight="18.5"
-            android:text="@string/backupbutton"/>
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-    </LinearLayout>
-    <LinearLayout
-        style="@style/standard_linearlayout"
-        >
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="100"/>
-    </LinearLayout>
-    <LinearLayout
         style="@style/standard_linearlayout"
         >
         <TextView
@@ -280,14 +268,6 @@
             style="@style/inputitemdummy"
             android:layout_weight="79.5"
             />
-        <TextView
-            android:id="@+id/backup_restorebutton"
-            style="@style/actionbutton"
-            android:layout_weight="18.5"
-            android:text="@string/restorebutton"/>
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
+
     </LinearLayout>
 </LinearLayout>
