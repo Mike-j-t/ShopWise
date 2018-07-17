@@ -22,6 +22,33 @@
             as per StockAddActivity
     -->
     <LinearLayout
+        android:id="@+id/ruleaddedit_buttons_linearlayout"
+        style="@style/standard_linearlayout"
+        >
+        <TextView
+            android:id="@+id/rulesaddedit_savebutton"
+            style="@style/actionbutton"
+            android:layout_weight="18"
+            android:text="@string/savebutton"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/rulesaddedit_donebutton"
+            style="@style/actionbutton"
+            android:layout_weight="18"
+            android:text="@string/donebutton"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="62"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/inputstockshop_linearlayout"
         style="@style/standard_linearlayout"
         >
@@ -171,17 +198,9 @@
             />
         <TextView
             style="@style/inputitemdummy"
-            android:layout_weight="72"
+            android:layout_weight="24"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/inputruleitems_prompt"
-        style="@style/standard_linearlayout"
-        >
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
+
         <TextView
             android:id="@+id/inputprompt_label"
             style="@style/inputitemlabel_primary"
@@ -195,11 +214,11 @@
         <CheckBox
             android:id="@+id/inputruleprompt"
             style="@style/checkbox"
-            android:layout_weight="6"
+            android:layout_weight="8"
             />
         <TextView
             style="@style/inputitemdummy"
-            android:layout_weight="74"
+            android:layout_weight="22"
             />
     </LinearLayout>
     <LinearLayout
@@ -242,7 +261,7 @@
             android:layout_width="0dp"
             android:layout_weight="32"
             android:text="@string/ruledateextrainfo"
-            android:layout_height="@dimen/text_size_normal"
+            android:layout_height="match_parent"
             android:textStyle="italic"
             />
         <TextView
@@ -298,33 +317,6 @@
     </LinearLayout>
     <LinearLayout
         style="@style/standard_linearlayout">
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ruleaddedit_buttons_linearlayout"
-        style="@style/standard_linearlayout"
-        >
-        <TextView
-            android:id="@+id/rulesaddedit_savebutton"
-            style="@style/actionbutton"
-            android:layout_weight="18"
-            android:text="@string/savebutton"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/rulesaddedit_donebutton"
-            style="@style/actionbutton"
-            android:layout_weight="18"
-            android:text="@string/donebutton"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="62"
-            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/rulesaddedit_rulelist_heading"
