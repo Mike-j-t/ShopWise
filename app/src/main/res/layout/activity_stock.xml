@@ -20,6 +20,31 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/stock_buttons_linearlayout"
+        style="@style/standard_linearlayout"
+        android:paddingTop="@dimen/activity_vertical_margin">
+        <TextView
+            android:id="@+id/stock_savebutton"
+            style="@style/actionbutton"
+            android:layout_weight="18"
+            android:text="@string/savebutton"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/stock_donebutton"
+            style="@style/actionbutton"
+            android:layout_weight="18"
+            android:text="@string/donebutton"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="62"
+            />
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/inputstockshop_linearlayout"
         style="@style/standard_linearlayout"
         >
@@ -139,7 +164,7 @@
         <EditText
             android:id="@+id/inputstockcost"
             style="@style/inputitem_monetary"
-            android:layout_weight="14"
+            android:layout_weight="16"
             android:hint="@string/empty"
             android:inputType="text"
             />
@@ -150,7 +175,7 @@
         <TextView
             android:id="@+id/inputstockorder_label"
             style="@style/inputitemlabel_primary"
-            android:layout_weight="8"
+            android:layout_weight="16"
             android:text="@string/orderlabel"
             />
         <TextView
@@ -166,18 +191,30 @@
             />
         <TextView
             style="@style/inputitemdummy"
+            android:layout_weight="34"
+            />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/inputstockchecklist_linearlayout"
+            style="@style/standard_linearlayout">
+        <TextView
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
             android:id="@+id/inputchecklistflag_label"
             style="@style/inputitemlabel_primary"
-            android:layout_weight="14"
+            android:layout_weight="16"
             android:text="@string/checklistflaglabel"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
             />
         <CheckBox
             android:id="@+id/inputchecklistflag"
             style="@style/checkbox"
-            android:layout_weight="6"
+            android:layout_weight="16"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -186,7 +223,7 @@
         <TextView
             android:id="@+id/inputchecklistcount_label"
             style="@style/inputitemlabel_primary"
-            android:layout_weight="8"
+            android:layout_weight="16"
             android:text="@string/stocklevellabel"
             />
         <TextView
@@ -196,34 +233,13 @@
         <EditText
             android:id="@+id/inputchecklistcount"
             style="@style/inputitem_order"
-            android:layout_weight="10"
+            android:layout_weight="6"
             android:inputType="text"
             android:hint="@string/empty"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/stock_buttons_linearlayout"
-        style="@style/standard_linearlayout"
-        android:paddingTop="@dimen/activity_vertical_margin">
-        <TextView
-            android:id="@+id/stock_savebutton"
-            style="@style/actionbutton"
-            android:layout_weight="18"
-            android:text="@string/savebutton"
-            />
         <TextView
             style="@style/inputitemdummy"
-            android:layout_weight="2"
-            />
-        <TextView
-            android:id="@+id/stock_donebutton"
-            style="@style/actionbutton"
-            android:layout_weight="18"
-            android:text="@string/donebutton"
-            />
-        <TextView
-            style="@style/inputitemdummy"
-            android:layout_weight="62"
+            android:layout_weight="38"
             />
     </LinearLayout>
     <LinearLayout

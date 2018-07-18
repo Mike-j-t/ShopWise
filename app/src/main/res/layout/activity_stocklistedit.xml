@@ -151,7 +151,7 @@
         <EditText
             android:id="@+id/inputstockcost"
             style="@style/inputitem_monetary"
-            android:layout_weight="14"
+            android:layout_weight="16"
             android:hint="@string/empty"
             android:inputType="text"
             />
@@ -162,7 +162,7 @@
         <TextView
             android:id="@+id/inputstockorder_label"
             style="@style/inputitemlabel_primary"
-            android:layout_weight="8"
+            android:layout_weight="16"
             android:text="@string/orderlabel"
             />
         <TextView
@@ -178,18 +178,30 @@
             />
         <TextView
             style="@style/inputitemdummy"
+            android:layout_weight="34"
+            />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/stocklistedit2_inputs"
+            style="@style/standard_linearlayout">
+        <TextView
+            style="@style/inputitemdummy"
             android:layout_weight="2"
             />
         <TextView
             android:id="@+id/inputchecklistflag_label"
             style="@style/inputitemlabel"
-            android:layout_weight="14"
+            android:layout_weight="16"
             android:text="@string/checklistflaglabel"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="2"
             />
         <CheckBox
             android:id="@+id/inputchecklistflag"
             style="@style/checkbox"
-            android:layout_weight="6"
+            android:layout_weight="16"
             />
         <TextView
             style="@style/inputitemdummy"
@@ -198,7 +210,7 @@
         <TextView
             android:id="@+id/inputchecklistcount_label"
             style="@style/inputitemlabel"
-            android:layout_weight="8"
+            android:layout_weight="16"
             android:text="@string/stocklevellabel"
             />
         <TextView
@@ -208,9 +220,13 @@
         <EditText
             android:id="@+id/inputchecklistcount"
             style="@style/inputitem_order"
-            android:layout_weight="10"
+            android:layout_weight="6"
             android:hint="@string/empty"
             android:inputType="text"
+            />
+        <TextView
+            style="@style/inputitemdummy"
+            android:layout_weight="38"
             />
     </LinearLayout>
 </LinearLayout>

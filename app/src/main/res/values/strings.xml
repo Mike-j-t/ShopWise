@@ -279,8 +279,8 @@
         <item>&tab1;<![CDATA[<b>- </b><b>STORAGE</b> for Managing Storage (where you keep the purchased <b>Products</b>; e.g. Fridge, Pantry etc.)]]></item>
         <item>&tab1;<![CDATA[<b>- </b><b>PRODUCTS</b> for Managing Products (The Items that you purchase <i>see Stock</i>)]]></item>
         <item>&tab1;<![CDATA[<b>- </b><b>STOCK</b> for Managing Stock i.e. assigning <b>Products</b> to <b>Aisles</b> within <b>Shops</b>.]]></item>
-        <item>&tab1;<![CDATA[<b>- </b><b>ORDER</b> for adding ad-hoc Stock to the <b>Shopping List</b>, <i>complements <b>CHECKLIST</b> and <b>RULES</b></i>]]></item>
-        <item>&tab1;<![CDATA[<b>- </b><b>CHECKLIST</b> for adding Stock to the <b>Shopping List</b>, by checking <b>Storage<b>;
+        <item>&tab1;<![CDATA[<b>- </b><b>ORDER</b> for adding ad-hoc Stock to the <b>Shopping List</b>, <i>complements <b>CHECK</b> and <b>RULES</b></i>]]></item>
+        <item>&tab1;<![CDATA[<b>- </b><b>CHECK</b> for adding Stock to the <b>Shopping List</b>, by checking <b>Storage<b>;
             <i>complements <b>ORDER</b> and <b>RULES</b></i> ]]></item>
         <item>&tab1;<![CDATA[<b>- </b><b>SHOPPING</b> for displaying the <b>Shopping List</b>]]> whilst doing the Shopping.</item>
         <item>&tab1;<![CDATA[<b>- </b><b>RULES</b> for managing Rules, that regularly add Stock to the Shopping List (<i>automatically or prompted<i>)]]></item>
@@ -296,7 +296,7 @@
         <item>&tab1;<![CDATA[<b>- PRODUCTS</b> requires at least 1 <b>Storage</b>.]]></item>
         <item>&tab1;<![CDATA[<b>- STOCK</b> requires at least 1 <b>Aisle</b> and at least 1 <b>Product</b>.]]></item>
         <item>&tab1;<![CDATA[<b>- </b><b>ORDER</b>,
-            <b>CHECKLIST</b>,
+            <b>CHECK</b>,
             <b>SHOPPING</b> and
             <b>RULES</b>
             require at least 1 <b>Stock</b>.]]>
