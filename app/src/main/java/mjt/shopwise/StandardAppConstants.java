@@ -252,7 +252,7 @@ public class StandardAppConstants{
     public static final int STOCKAPPVALORDER = 4;
     public static final String ORDERAPPVALNAME = "ORDER";
     public static final int ORDERAPPVALORDER = 5;
-    public static final String CHECKLISTAPPVALNAME = "CHECKLIST";
+    public static final String CHECKLISTAPPVALNAME = "CHECK";
     public static final int CHECKLISTAPPVALORDER = 6;
     public static final String SHOPPINGAPPVALNAME = "SHOPPING";
     public static final int SHOPPINGAPPVALORDER = 7;
