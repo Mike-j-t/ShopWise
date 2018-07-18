@@ -400,6 +400,7 @@ public class BackupActivity extends AppCompatActivity {
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                            BackupActivity.LOGTAG,"Copy Completed.",
                             BackupActivity.THISCLASS,methodname);
+                    populateAllSpinners();
                 }
                 catch (IOException e) {
                     String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
