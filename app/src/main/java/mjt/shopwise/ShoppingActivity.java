@@ -258,17 +258,17 @@ public class ShoppingActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        messagebar = (TextView) findViewById(R.id.shopping_messagebar);
-        donebutton = (TextView) findViewById(R.id.shopping_donebutton);
-        tidybutton = (TextView) findViewById(R.id.shopping_tidybutton);
-        shoppinglist = (ListView) findViewById(R.id.shopping_shoppinglist);
-        shoppinglistheading = (LinearLayout) findViewById(R.id.shopping_shoppinglistinfo_heading);
-        totalcost = (TextView) findViewById(R.id.shopping_shoppinglist_totalcost);
-        remaining = (TextView) findViewById(R.id.shopping_shoppinglist_remainingcost);
-        spent = (TextView) findViewById(R.id.shopping_shoppinglist_spent);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.shopping_messagebar);
+        donebutton = findViewById(R.id.shopping_donebutton);
+        tidybutton = findViewById(R.id.shopping_tidybutton);
+        shoppinglist = findViewById(R.id.shopping_shoppinglist);
+        shoppinglistheading = findViewById(R.id.shopping_shoppinglistinfo_heading);
+        totalcost = findViewById(R.id.shopping_shoppinglist_totalcost);
+        remaining = findViewById(R.id.shopping_shoppinglist_remainingcost);
+        spent = findViewById(R.id.shopping_shoppinglist_spent);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -609,7 +609,7 @@ public class ShoppingActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) sa.findViewById(
+        TextView messagebar = sa.findViewById(
                 R.id.shopping_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

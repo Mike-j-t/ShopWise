@@ -139,25 +139,25 @@ public class BackupActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        messagebar = (TextView) findViewById(R.id.backup_messagebar);
-        donebutton = (TextView) findViewById(R.id.backup_donebutton);
-        directory = (TextView) findViewById(R.id.backup_directory);
-        directorylabel = (TextView) findViewById(R.id.backup_directorylabel);
-        backupdatetimepart = (EditText) findViewById(R.id.backup_datetimepart);
-        backupdatetimepartlabel = (TextView) findViewById(R.id.backup_datetimepartlabel);
-        backupresetbutton = (TextView) findViewById(R.id.backup_resetbutton);
-        backupbasepart = (EditText) findViewById(R.id.backup_basepart);
-        backupbasepartlabel = (TextView) findViewById(R.id.backup_basepartlabel);
-        backupextension = (EditText) findViewById(R.id.backup_extension);
-        backupextensionlabel = (TextView) findViewById(R.id.backup_extensionlabel);
-        backupfullfilename = (TextView) findViewById(R.id.backup_fullfilename);
-        backupfullfilenamelabel = (TextView) findViewById(R.id.backup_fullfilenamelabel);
-        backupbutton = (TextView) findViewById(R.id.backup_backupbutton);
-        availablebackups = (TextView) findViewById(R.id.backup_availablebackups);
-        availablebackupslabel = (TextView) findViewById(R.id.backup_availablebackupslabel);
-        selectrestorefile = (Spinner) findViewById(R.id.selectrestorefile);
-        selectrestorefilelabel = (TextView) findViewById(R.id.selectrestorefilelabel);
-        restorebutton = (TextView) findViewById(R.id.backup_restorebutton);
+        messagebar = findViewById(R.id.backup_messagebar);
+        donebutton = findViewById(R.id.backup_donebutton);
+        directory = findViewById(R.id.backup_directory);
+        directorylabel = findViewById(R.id.backup_directorylabel);
+        backupdatetimepart = findViewById(R.id.backup_datetimepart);
+        backupdatetimepartlabel = findViewById(R.id.backup_datetimepartlabel);
+        backupresetbutton = findViewById(R.id.backup_resetbutton);
+        backupbasepart = findViewById(R.id.backup_basepart);
+        backupbasepartlabel = findViewById(R.id.backup_basepartlabel);
+        backupextension = findViewById(R.id.backup_extension);
+        backupextensionlabel = findViewById(R.id.backup_extensionlabel);
+        backupfullfilename = findViewById(R.id.backup_fullfilename);
+        backupfullfilenamelabel = findViewById(R.id.backup_fullfilenamelabel);
+        backupbutton = findViewById(R.id.backup_backupbutton);
+        availablebackups = findViewById(R.id.backup_availablebackups);
+        availablebackupslabel = findViewById(R.id.backup_availablebackupslabel);
+        selectrestorefile = findViewById(R.id.selectrestorefile);
+        selectrestorefilelabel = findViewById(R.id.selectrestorefilelabel);
+        restorebutton = findViewById(R.id.backup_restorebutton);
 
         // Prepare Progress Dialog
         //noinspection deprecation
@@ -909,7 +909,7 @@ public class BackupActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
-        TextView messagebar = (TextView) ba.findViewById(R.id.backup_messagebar);
+        TextView messagebar = ba.findViewById(R.id.backup_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

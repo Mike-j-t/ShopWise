@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress CheckTagEmptyBody -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -42,8 +43,9 @@
             style="@style/inputitem"
             android:layout_weight="80"
             android:hint="@string/empty"
+            android:autofillHints="@string/empty"
             android:inputType="text"
-            />
+            tools:targetApi="o" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/inputproductstorage_linearlayout"
@@ -91,7 +93,8 @@
             style="@style/inputitem_order"
             android:layout_weight="10"
             android:hint="@string/empty"
-            />
+            android:autofillHints="@string/empty"
+            tools:targetApi="o" />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="70"
@@ -152,7 +155,8 @@
             android:layout_weight="80"
             android:inputType="textNoSuggestions"
             android:hint="@string/empty"
-            />
+            android:autofillHints="@string/empty"
+            tools:targetApi="o" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/productaddedit_productlist_heading"

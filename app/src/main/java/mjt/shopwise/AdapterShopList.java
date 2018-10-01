@@ -196,9 +196,9 @@ class AdapterShopList extends CursorAdapter {
                 THISCLASS,
                 methodname);
 
-        TextView nametv = (TextView) view.findViewById(R.id.shoplist_name);
-        TextView citytv = (TextView) view.findViewById(R.id.shoplist_city);
-        TextView ordertv = (TextView) view.findViewById(R.id.shoplist_order);
+        TextView nametv = view.findViewById(R.id.shoplist_name);
+        TextView citytv = view.findViewById(R.id.shoplist_city);
+        TextView ordertv = view.findViewById(R.id.shoplist_order);
 
         String shopname = cursor.getString(shops_shopname_offest);
         String shopcity = cursor.getString(shops_shopcity_offset);

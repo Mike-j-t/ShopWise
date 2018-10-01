@@ -223,11 +223,11 @@ public class AdapterProductList extends CursorAdapter {
         );
 
         TextView nametv =
-                (TextView) view.findViewById(R.id.productlist_name);
+                view.findViewById(R.id.productlist_name);
         TextView storagetv =
-                (TextView) view.findViewById(R.id.productlist_storage);
+                view.findViewById(R.id.productlist_storage);
         TextView ordertv =
-                (TextView) view.findViewById(R.id.productlist_order);
+                view.findViewById(R.id.productlist_order);
 
         productname = csr.getString(products_productname_offset);
         try {

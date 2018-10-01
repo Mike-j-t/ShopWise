@@ -160,13 +160,13 @@ public class AdapterPromptedRuleList extends CursorAdapter {
 
         int position = csr.getPosition();
 
-        TextView rulename = (TextView) view.findViewById(R.id.promptedrulelist_rulename);
-        TextView productname = (TextView) view.findViewById(R.id.promptedrulelist_productname);
-        TextView shopname = (TextView) view.findViewById(R.id.promptedrulelist_shopname);
-        TextView textrule = (TextView) view.findViewById(R.id.promptedrulelist_textrule);
-        TextView ruledate = (TextView) view.findViewById(R.id.promptedruleslist_date);
-        TextView addbutton = (TextView) view.findViewById(R.id.promptedruleslist_addbutton);
-        TextView skipbutton = (TextView) view.findViewById(R.id.promptedruleslist_skipbutton);
+        TextView rulename = view.findViewById(R.id.promptedrulelist_rulename);
+        TextView productname = view.findViewById(R.id.promptedrulelist_productname);
+        TextView shopname = view.findViewById(R.id.promptedrulelist_shopname);
+        TextView textrule = view.findViewById(R.id.promptedrulelist_textrule);
+        TextView ruledate = view.findViewById(R.id.promptedruleslist_date);
+        TextView addbutton = view.findViewById(R.id.promptedruleslist_addbutton);
+        TextView skipbutton = view.findViewById(R.id.promptedruleslist_skipbutton);
 
         rulename.setText(csr.getString(rules_rulename_offset));
         productname.setText(csr.getString(products_productname_offset));

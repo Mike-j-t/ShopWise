@@ -158,11 +158,11 @@ public class AdapterStockListList extends CursorAdapter {
                 ctxt.getResources().getString(R.string.longclickrowindicator);
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        TextView productname = (TextView) view.findViewById(R.id.stocklistlist_productname);
-        TextView shopname = (TextView) view.findViewById(R.id.stocklistlist_shopname);
-        TextView aislename = (TextView) view.findViewById(R.id.stocklistlist_aislename);
-        TextView productcost = (TextView) view.findViewById(R.id.stocklistlist_cost);
-        TextView productorder = (TextView) view.findViewById(R.id.stocklistlist_order);
+        TextView productname = view.findViewById(R.id.stocklistlist_productname);
+        TextView shopname = view.findViewById(R.id.stocklistlist_shopname);
+        TextView aislename = view.findViewById(R.id.stocklistlist_aislename);
+        TextView productcost = view.findViewById(R.id.stocklistlist_cost);
+        TextView productorder = view.findViewById(R.id.stocklistlist_order);
 
         productname.setText(csr.getString(product_name_offset));
         shopname.setText(csr.getString(shop_name_offset));

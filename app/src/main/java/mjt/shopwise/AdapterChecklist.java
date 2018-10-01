@@ -119,12 +119,12 @@ public class AdapterChecklist extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        TextView order1 = (TextView) view.findViewById(R.id.checklist_order1_button);
-        TextView less1 = (TextView) view.findViewById(R.id.checklist_less1_button);
-        TextView checkoff = (TextView) view.findViewById(R.id.checklist_checkoff_button);
+        TextView order1 = view.findViewById(R.id.checklist_order1_button);
+        TextView less1 = view.findViewById(R.id.checklist_less1_button);
+        TextView checkoff = view.findViewById(R.id.checklist_checkoff_button);
         LinearLayout storagelinearlayout =
-                (LinearLayout) view.findViewById(R.id.checklist_storage_linearlayout);
-        TextView storage = (TextView) view.findViewById(R.id.checklist_storage);
+                view.findViewById(R.id.checklist_storage_linearlayout);
+        TextView storage = view.findViewById(R.id.checklist_storage);
         int primary_color = ActionColorCoding.setHeadingColor(ctxt,callerintent,0);
         int h1 = ActionColorCoding.setHeadingColor(ctxt,callerintent,1);
 
@@ -170,17 +170,17 @@ public class AdapterChecklist extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         String storagename;
-        TextView productname = (TextView) view.findViewById(R.id.checklist_productname);
-        TextView shopname = (TextView) view.findViewById(R.id.checklist_shopname);
-        TextView aislename = (TextView) view.findViewById(R.id.checklist_aislename);
-        TextView price = (TextView) view.findViewById(R.id.checklist_price);
-        TextView stocklevel = (TextView) view.findViewById(R.id.checklist_stocklevel);
-        TextView orderlevel = (TextView) view.findViewById(R.id.checklist_orderlevel);
-        TextView order1 = (TextView) view.findViewById(R.id.checklist_order1_button);
-        TextView less1 = (TextView) view.findViewById(R.id.checklist_less1_button);
-        TextView checkoff = (TextView) view.findViewById(R.id.checklist_checkoff_button);
-        @SuppressWarnings({"UnusedAssignment", "unused"}) LinearLayout storagelayout = (LinearLayout) view.findViewById(R.id.checklist_storage_linearlayout);
-        TextView storage = (TextView) view.findViewById(R.id.checklist_storage);
+        TextView productname = view.findViewById(R.id.checklist_productname);
+        TextView shopname = view.findViewById(R.id.checklist_shopname);
+        TextView aislename = view.findViewById(R.id.checklist_aislename);
+        TextView price = view.findViewById(R.id.checklist_price);
+        TextView stocklevel = view.findViewById(R.id.checklist_stocklevel);
+        TextView orderlevel = view.findViewById(R.id.checklist_orderlevel);
+        TextView order1 = view.findViewById(R.id.checklist_order1_button);
+        TextView less1 = view.findViewById(R.id.checklist_less1_button);
+        TextView checkoff = view.findViewById(R.id.checklist_checkoff_button);
+        @SuppressWarnings({"UnusedAssignment", "unused"}) LinearLayout storagelayout = view.findViewById(R.id.checklist_storage_linearlayout);
+        TextView storage = view.findViewById(R.id.checklist_storage);
 
         productname.setText(csr.getString(product_name_offset));
         shopname.setText(csr.getString(shop_name_offset));

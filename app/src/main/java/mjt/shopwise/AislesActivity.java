@@ -160,16 +160,16 @@ public class AislesActivity extends AppCompatActivity{
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
         //screen = (LinearLayout) findViewById(R.id.aislesactivity_ms);
-        donebutton = (TextView) findViewById(R.id.aisles_donebutton);
-        newbutton = (TextView) findViewById(R.id.aisles_newaislebutton);
-        aiselist = (ListView) findViewById(R.id.aisles_aislelist);
-        aislelistheading = (LinearLayout) findViewById(R.id.aisles_aislelist_heading);
-        messagebar = (TextView) findViewById(R.id.aisles_messagebar);
-        selectshoplist = (Spinner) findViewById(R.id.aisles_shopspinner);
-        selectshoplabel = (TextView) findViewById(R.id.aisles_shopspinner_shopname_label);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        donebutton = findViewById(R.id.aisles_donebutton);
+        newbutton = findViewById(R.id.aisles_newaislebutton);
+        aiselist = findViewById(R.id.aisles_aislelist);
+        aislelistheading = findViewById(R.id.aisles_aislelist_heading);
+        messagebar = findViewById(R.id.aisles_messagebar);
+        selectshoplist = findViewById(R.id.aisles_shopspinner);
+        selectshoplabel = findViewById(R.id.aisles_shopspinner_shopname_label);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         // Apply Color Coding
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,
@@ -663,7 +663,7 @@ public class AislesActivity extends AppCompatActivity{
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
-        TextView messagebar = (TextView) aa.findViewById(
+        TextView messagebar = aa.findViewById(
                 R.id.aisles_messagebar
         );
         messagebar.setText(context.getResources().getString(

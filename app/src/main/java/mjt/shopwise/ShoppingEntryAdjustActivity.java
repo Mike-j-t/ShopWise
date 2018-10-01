@@ -272,38 +272,38 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
 
         logmsg = "Preparing ColorCoding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        originalvaluesheading = (LinearLayout) findViewById(R.id.shoppingadjust_orginalvalues_heading);
-        donebutton = (TextView) findViewById(R.id.shoppingadjust_donebutton);
-        savebutton = (TextView) findViewById(R.id.shoppingadjust_savebutton);
-        undobutton = (TextView) findViewById(R.id.shoppingadjust_undobutton);
-        morebutton = (TextView) findViewById(R.id.shoppingadjust_morebutton);
-        lessbutton = (TextView) findViewById(R.id.shoppingadjust_lessbutton);
-        messagebar = (TextView) findViewById(R.id.shoppingadjust_messagebar);
+        originalvaluesheading = findViewById(R.id.shoppingadjust_orginalvalues_heading);
+        donebutton = findViewById(R.id.shoppingadjust_donebutton);
+        savebutton = findViewById(R.id.shoppingadjust_savebutton);
+        undobutton = findViewById(R.id.shoppingadjust_undobutton);
+        morebutton = findViewById(R.id.shoppingadjust_morebutton);
+        lessbutton = findViewById(R.id.shoppingadjust_lessbutton);
+        messagebar = findViewById(R.id.shoppingadjust_messagebar);
 
-        orig_productname_tv = (TextView) findViewById(R.id.shoppingadjust_orig_productname);
-        orig_quantity_tv = (TextView) findViewById(R.id.shoppingadjust_orig_quantity);
-        orig_purchased_tv = (TextView) findViewById(R.id.shoppingadjust_orig_purchased);
-        orig_cost_tv = (TextView) findViewById(R.id.shoppingadjust_orig_cost);
-        orig_total_tv = (TextView) findViewById(R.id.shoppingadjust_orig_total);
+        orig_productname_tv = findViewById(R.id.shoppingadjust_orig_productname);
+        orig_quantity_tv = findViewById(R.id.shoppingadjust_orig_quantity);
+        orig_purchased_tv = findViewById(R.id.shoppingadjust_orig_purchased);
+        orig_cost_tv = findViewById(R.id.shoppingadjust_orig_cost);
+        orig_total_tv = findViewById(R.id.shoppingadjust_orig_total);
 
-        orig_productname_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_productname_lbl);
-        orig_cost_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_cost_lbl);
-        orig_total_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_total_lbl);
-        orig_quantity_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_quantity_lbl);
-        orig_purchased_lbl = (TextView) findViewById(R.id.shoppingadjust_orig_purchased_lbl);
+        orig_productname_lbl = findViewById(R.id.shoppingadjust_orig_productname_lbl);
+        orig_cost_lbl = findViewById(R.id.shoppingadjust_orig_cost_lbl);
+        orig_total_lbl = findViewById(R.id.shoppingadjust_orig_total_lbl);
+        orig_quantity_lbl = findViewById(R.id.shoppingadjust_orig_quantity_lbl);
+        orig_purchased_lbl = findViewById(R.id.shoppingadjust_orig_purchased_lbl);
 
-        new_productname_et = (EditText) findViewById(R.id.shoppingadjust_inputproductname);
-        new_cost_et = (EditText) findViewById(R.id.shoppingadjust_inputcost);
-        new_quantity_et = (EditText) findViewById(R.id.shoppingadjust_inputquantity);
-        new_purchased_et = (EditText) findViewById(R.id.shoppingadjust_inputpurchased);
-        new_remaining_et = (TextView) findViewById(R.id.shoppingadjust_inputremaining);
+        new_productname_et = findViewById(R.id.shoppingadjust_inputproductname);
+        new_cost_et = findViewById(R.id.shoppingadjust_inputcost);
+        new_quantity_et = findViewById(R.id.shoppingadjust_inputquantity);
+        new_purchased_et = findViewById(R.id.shoppingadjust_inputpurchased);
+        new_remaining_et = findViewById(R.id.shoppingadjust_inputremaining);
 
 
-        new_productname_lbl = (TextView) findViewById(R.id.shoppingadjust_inputproductname_label);
-        new_cost_lbl = (TextView) findViewById(R.id.shoppingadjust_inputcost_label);
-        new_quantity_lbl = (TextView) findViewById(R.id.shoppingadjust_inputquantity_label);
-        new_purchased_lbl = (TextView) findViewById(R.id.shoppingadjust_inputpurchased_label);
-        new_remaining_lbl = (TextView) findViewById(R.id.shoppingadjust_inputremaining_label);
+        new_productname_lbl = findViewById(R.id.shoppingadjust_inputproductname_label);
+        new_cost_lbl = findViewById(R.id.shoppingadjust_inputcost_label);
+        new_quantity_lbl = findViewById(R.id.shoppingadjust_inputquantity_label);
+        new_purchased_lbl = findViewById(R.id.shoppingadjust_inputpurchased_label);
+        new_remaining_lbl = findViewById(R.id.shoppingadjust_inputremaining_label);
 
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
@@ -655,7 +655,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) seaa.findViewById(
+        TextView messagebar = seaa.findViewById(
                 R.id.shoppingadjust_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

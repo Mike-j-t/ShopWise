@@ -215,18 +215,18 @@ public class StockListActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         stockfilter = "";
 
-        messagebar = (TextView) findViewById(R.id.stocklist_messagebar);
-        donebutton = (TextView) findViewById(R.id.stocklist_donebutton);
-        addbutton = (TextView) findViewById(R.id.stocklist_addbutton);
+        messagebar = findViewById(R.id.stocklist_messagebar);
+        donebutton = findViewById(R.id.stocklist_donebutton);
+        addbutton = findViewById(R.id.stocklist_addbutton);
 
         stocklabel = getResources().getString(R.string.stocklabel);
-        inputproductfilterlabel = (TextView) findViewById(R.id.products_inputfilterlabel);
-        inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
-        stocklistheading = (LinearLayout) findViewById(R.id.stocklist_stocklist_heading);
-        stocklist = (ListView) findViewById(R.id.stocklist_stocklist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        inputproductfilterlabel = findViewById(R.id.products_inputfilterlabel);
+        inputproductfilter = findViewById(R.id.products_inputfilter);
+        stocklistheading = findViewById(R.id.stocklist_stocklist_heading);
+        stocklist = findViewById(R.id.stocklist_stocklist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
 
         actionbar = getSupportActionBar();
@@ -758,7 +758,7 @@ public class StockListActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) sla.findViewById(R.id.stocklist_messagebar);
+        TextView messagebar = sla.findViewById(R.id.stocklist_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

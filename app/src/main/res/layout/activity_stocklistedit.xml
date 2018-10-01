@@ -68,7 +68,10 @@
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             android:inputType="textNoSuggestions"
-            tools:ignore="LabelFor" />
+            android:hint="@string/empty"
+            android:autofillHints="@string/empty"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="34"
@@ -153,8 +156,9 @@
             style="@style/inputitem_monetary"
             android:layout_weight="16"
             android:hint="@string/empty"
+            android:autofillHints="@string/empty"
             android:inputType="text"
-            />
+            tools:targetApi="o" />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="2"
@@ -174,8 +178,9 @@
             style="@style/inputitem_order"
             android:layout_weight="10"
             android:hint="@string/empty"
+            android:autofillHints="@string/empty"
             android:inputType="text"
-            />
+            tools:targetApi="o" />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="34"
@@ -222,8 +227,9 @@
             style="@style/inputitem_order"
             android:layout_weight="6"
             android:hint="@string/empty"
+            android:autofillHints="@string/empty"
             android:inputType="text"
-            />
+            tools:targetApi="o" />
         <TextView
             style="@style/inputitemdummy"
             android:layout_weight="38"

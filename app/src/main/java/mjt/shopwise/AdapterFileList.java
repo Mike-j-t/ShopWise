@@ -71,8 +71,8 @@ public class AdapterFileList extends ArrayAdapter<File> {
             //v.setBackgroundColor(oddrow);
             ActionColorCoding.setActionButtonColor(v, oddrow);
         }
-        tv_filename = (TextView) v.findViewById(R.id.filelist_filename);
-        tv_filemod = (TextView) v.findViewById(R.id.filelist_filemodifieddatetime);
+        tv_filename = v.findViewById(R.id.filelist_filename);
+        tv_filemod = v.findViewById(R.id.filelist_filemodifieddatetime);
         tv_filename.setText(flentry.getName());
         tv_filename.setTextColor(Color.BLACK);
         tv_filemod.setText(sdf.format(flentry.lastModified()));
@@ -107,8 +107,8 @@ public class AdapterFileList extends ArrayAdapter<File> {
         }
         File flentry = flst.get(position);
         if (flentry != null) {
-            tv_filename = (TextView) view.findViewById(R.id.filelist_filename);
-            tv_filemod = (TextView) view.findViewById(R.id.filelist_filemodifieddatetime);
+            tv_filename = view.findViewById(R.id.filelist_filename);
+            tv_filemod = view.findViewById(R.id.filelist_filemodifieddatetime);
 
             tv_filename.setText(flentry.getName());
             tv_filename.setTextColor(Color.BLACK);

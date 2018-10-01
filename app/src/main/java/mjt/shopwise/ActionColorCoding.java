@@ -352,13 +352,13 @@ class ActionColorCoding {
             return;
         }
 
-        TextView mc = (TextView) view.findViewById(R.id.cs_main);
-        TextView h1 = (TextView) view.findViewById(R.id.cs_h1);
-        TextView h2 = (TextView) view.findViewById(R.id.cs_h2);
-        TextView h3 = (TextView) view.findViewById(R.id.cs_h3);
-        TextView h4 = (TextView) view.findViewById(R.id.cs_h4);
-        TextView re = (TextView) view.findViewById(R.id.cs_re);
-        TextView oe = (TextView) view.findViewById(R.id.cs_ro);
+        TextView mc = view.findViewById(R.id.cs_main);
+        TextView h1 = view.findViewById(R.id.cs_h1);
+        TextView h2 = view.findViewById(R.id.cs_h2);
+        TextView h3 = view.findViewById(R.id.cs_h3);
+        TextView h4 = view.findViewById(R.id.cs_h4);
+        TextView re = view.findViewById(R.id.cs_re);
+        TextView oe = view.findViewById(R.id.cs_ro);
 
         if (mc == null || h1 == null || h2 == null || h3 == null ||
                 h4 == null || re == null || oe == null  ) {

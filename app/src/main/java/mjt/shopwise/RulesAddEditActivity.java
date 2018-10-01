@@ -359,50 +359,50 @@ public class RulesAddEditActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode, 0);
 
-        messagebar = (TextView) findViewById(R.id.rulesaddedit_messagebar);
-        donebutton = (TextView) findViewById(R.id.rulesaddedit_donebutton);
-        savebutton = (TextView) findViewById(R.id.rulesaddedit_savebutton);
-        rulelistheading = (LinearLayout) findViewById(R.id.rulesaddedit_rulelist_heading);
-        ruleslist = (ListView) findViewById(R.id.rules_rulelist);
+        messagebar = findViewById(R.id.rulesaddedit_messagebar);
+        donebutton = findViewById(R.id.rulesaddedit_donebutton);
+        savebutton = findViewById(R.id.rulesaddedit_savebutton);
+        rulelistheading = findViewById(R.id.rulesaddedit_rulelist_heading);
+        ruleslist = findViewById(R.id.rules_rulelist);
 
-        shopspinner_linearlayout = (LinearLayout) findViewById(
+        shopspinner_linearlayout = findViewById(
                 R.id.inputstockshop_linearlayout
         );
-        shopnamelabel = (TextView) findViewById(R.id.inputstockshop_label);
-        shopspinner = (Spinner) findViewById(R.id.selectstockshop);
+        shopnamelabel = findViewById(R.id.inputstockshop_label);
+        shopspinner = findViewById(R.id.selectstockshop);
 
-        aislespinner_linearlayout = (LinearLayout) findViewById(
+        aislespinner_linearlayout = findViewById(
                 R.id.inputstockaisle_linearlayout
         );
-        aislenamelabel = (TextView) findViewById(R.id.inputstockaisle_label);
-        aislespinner = (Spinner) findViewById(R.id.selectstockaisle);
+        aislenamelabel = findViewById(R.id.inputstockaisle_label);
+        aislespinner = findViewById(R.id.selectstockaisle);
 
-        productspinner_linearlayout = (LinearLayout) findViewById(
+        productspinner_linearlayout = findViewById(
                 R.id.inputstockproduct_linearlayout
         );
-        productnamelabel = (TextView) findViewById(R.id.inputstockproduct_label);
-        productspinner = (Spinner) findViewById(R.id.selectstockproduct);
-        productfilter_linearlayout = (LinearLayout) findViewById(
+        productnamelabel = findViewById(R.id.inputstockproduct_label);
+        productspinner = findViewById(R.id.selectstockproduct);
+        productfilter_linearlayout = findViewById(
                 R.id.stock_productfilter_linearlayout
         );
-        productfilterlabel = (TextView) findViewById(R.id.products_inputfilterlabel);
-        productfilter_input = (EditText) findViewById(R.id.products_inputfilter);
-        rulenamelabel = (TextView) findViewById(R.id.inputrulename_label);
-        rulename_input = (EditText) findViewById(R.id.inputrulename);
-        numbertogetlabel = (TextView) findViewById(R.id.inputrulenumbertoget_label);
-        numbertoget_input = (EditText) findViewById(R.id.inputrulenumbertoget);
-        rulepromptlabel = (TextView) findViewById(R.id.inputprompt_label);
-        ruleprompt_input = (CheckBox) findViewById(R.id.inputruleprompt);
-        ruledatelabel = (TextView) findViewById(R.id.inputruledatelabel);
-        ruledate_input = (TextView) findViewById(R.id.inputruledate);
-        textruledate_input = (EditText) findViewById(R.id.inputtextruledate);
-        ruleperiodlabel = (TextView) findViewById(R.id.selectruleperiodlabel);
-        ruleperiod_input = (Spinner) findViewById(R.id.selectruleperiod);
-        rulemultiplierlabel = (TextView) findViewById(R.id.inputrulemultiplierlabel);
-        rulemultiplier_input = (EditText) findViewById(R.id.inputrulemultiplier);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        productfilterlabel = findViewById(R.id.products_inputfilterlabel);
+        productfilter_input = findViewById(R.id.products_inputfilter);
+        rulenamelabel = findViewById(R.id.inputrulename_label);
+        rulename_input = findViewById(R.id.inputrulename);
+        numbertogetlabel = findViewById(R.id.inputrulenumbertoget_label);
+        numbertoget_input = findViewById(R.id.inputrulenumbertoget);
+        rulepromptlabel = findViewById(R.id.inputprompt_label);
+        ruleprompt_input = findViewById(R.id.inputruleprompt);
+        ruledatelabel = findViewById(R.id.inputruledatelabel);
+        ruledate_input = findViewById(R.id.inputruledate);
+        textruledate_input = findViewById(R.id.inputtextruledate);
+        ruleperiodlabel = findViewById(R.id.selectruleperiodlabel);
+        ruleperiod_input = findViewById(R.id.selectruleperiod);
+        rulemultiplierlabel = findViewById(R.id.inputrulemultiplierlabel);
+        rulemultiplier_input = findViewById(R.id.inputrulemultiplier);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         actionbar = getSupportActionBar();
 
@@ -1177,7 +1177,7 @@ public class RulesAddEditActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) raea.findViewById(
+        TextView messagebar = raea.findViewById(
                 R.id.rulesaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

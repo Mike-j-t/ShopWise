@@ -128,15 +128,15 @@ public class StorageActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode, 0);
 
-        messagebar = (TextView) findViewById(R.id.storage_messagebar);
-        donebutton = (TextView) findViewById(R.id.storage_donebutton);
-        newbutton = (TextView) findViewById(R.id.storage_newstorgaebutton);
+        messagebar = findViewById(R.id.storage_messagebar);
+        donebutton = findViewById(R.id.storage_donebutton);
+        newbutton = findViewById(R.id.storage_newstorgaebutton);
         storagelistheading =
-                (LinearLayout) findViewById(R.id.storage_storagelist_heading);
-        storagelist = (ListView) findViewById(R.id.storage_storagelist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+                findViewById(R.id.storage_storagelist_heading);
+        storagelist = findViewById(R.id.storage_storagelist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
 
         actionbar = getSupportActionBar();
@@ -559,7 +559,7 @@ public class StorageActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) sa.findViewById(R.id.storage_messagebar);
+        TextView messagebar = sa.findViewById(R.id.storage_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

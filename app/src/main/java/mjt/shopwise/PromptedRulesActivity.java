@@ -259,13 +259,13 @@ public class PromptedRulesActivity extends AppCompatActivity {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode, 0);
-        messagebar = (TextView) findViewById(R.id.promptedrules_messagebar);
-        donebutton = (TextView) findViewById(R.id.promptedrules_donebutton);
-        rulelistheading = (LinearLayout) findViewById(R.id.promptedrules_rulelist_heading);
-        rulelist = (ListView) findViewById(R.id.promptedrules_rulelist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.promptedrules_messagebar);
+        donebutton = findViewById(R.id.promptedrules_donebutton);
+        rulelistheading = findViewById(R.id.promptedrules_rulelist_heading);
+        rulelist = findViewById(R.id.promptedrules_rulelist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -477,7 +477,7 @@ public class PromptedRulesActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) pra.findViewById(
+        TextView messagebar = pra.findViewById(
                 R.id.promptedrules_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

@@ -150,13 +150,13 @@ public class AdapterRuleToolList extends CursorAdapter{
             view.setBackgroundColor(oddrow);
         }
         LinearLayout accuracybar =
-                (LinearLayout) view.findViewById(R.id.ruletoollist_accuracybar);
+                view.findViewById(R.id.ruletoollist_accuracybar);
         TextView addbutton =
-                (TextView) view.findViewById(R.id.ruletoollist_addbutton);
+                view.findViewById(R.id.ruletoollist_addbutton);
         TextView skipbutton =
-                (TextView) view.findViewById(R.id.ruletoollist_skipbutton);
+                view.findViewById(R.id.ruletoollist_skipbutton);
         TextView disablebutton =
-                (TextView) view.findViewById(R.id.ruletoollist_disablebutton);
+                view.findViewById(R.id.ruletoollist_disablebutton);
         if (acccheckmode) {
             accuracybar.setVisibility(View.VISIBLE);
             addbutton.setVisibility(View.INVISIBLE);
@@ -188,17 +188,17 @@ public class AdapterRuleToolList extends CursorAdapter{
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView rulename = (TextView) view.findViewById(R.id.ruletoollist_rulename);
-        TextView productname = (TextView) view.findViewById(R.id.ruletoollist_productname);
-        TextView shopname = (TextView) view.findViewById(R.id.ruletoollist_shopname);
-        TextView aislename = (TextView) view.findViewById(R.id.ruletoollist_aislename);
-        TextView ruletext = (TextView) view.findViewById(R.id.ruletoollist_ruleastext);
-        TextView currentrule = (TextView) view.findViewById(R.id.ruletoollist_currentrule);
-        TextView addbutton = (TextView) view.findViewById(R.id.ruletoollist_addbutton);
-        TextView skipbutton = (TextView) view.findViewById(R.id.ruletoollist_skipbutton);
-        TextView disablebutton = (TextView) view.findViewById(R.id.ruletoollist_disablebutton);
-        ProgressBar accuracylow = (ProgressBar) view.findViewById(R.id.ruletoollist_accuracylow);
-        ProgressBar accuracyhigh = (ProgressBar) view.findViewById(R.id.ruletoollist_accuracyhigh);
+        TextView rulename = view.findViewById(R.id.ruletoollist_rulename);
+        TextView productname = view.findViewById(R.id.ruletoollist_productname);
+        TextView shopname = view.findViewById(R.id.ruletoollist_shopname);
+        TextView aislename = view.findViewById(R.id.ruletoollist_aislename);
+        TextView ruletext = view.findViewById(R.id.ruletoollist_ruleastext);
+        TextView currentrule = view.findViewById(R.id.ruletoollist_currentrule);
+        TextView addbutton = view.findViewById(R.id.ruletoollist_addbutton);
+        TextView skipbutton = view.findViewById(R.id.ruletoollist_skipbutton);
+        TextView disablebutton = view.findViewById(R.id.ruletoollist_disablebutton);
+        ProgressBar accuracylow = view.findViewById(R.id.ruletoollist_accuracylow);
+        ProgressBar accuracyhigh = view.findViewById(R.id.ruletoollist_accuracyhigh);
 
         addbutton.setTag(csr.getPosition());
         skipbutton.setTag(csr.getPosition());

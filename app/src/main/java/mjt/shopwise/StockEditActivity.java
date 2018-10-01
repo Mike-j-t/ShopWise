@@ -241,23 +241,23 @@ public class StockEditActivity extends AppCompatActivity {
         actionbar = getSupportActionBar();
         //noinspection ConstantConditions,ConstantConditions
         actionbar.setTitle(getResources().getString(R.string.stockeditlabel));
-        messagebar = (TextView) findViewById(R.id.stocklistedit_messagebar);
-        donebutton = (TextView) findViewById(R.id.stocklistedit_donebutton);
-        savebutton = (TextView) findViewById(R.id.stocklistedit_savebutton);
-        shopnamelabel = (TextView) findViewById(R.id.stocklistlistedit_shopnamelabel);
-        shopname = (TextView) findViewById(R.id.stocklistlistedit_shopname);
-        aislenamelabel = (TextView) findViewById(R.id.stocklistlistedit_aisleamelabel);
-        aislename = (TextView) findViewById(R.id.stocklistlistedit_aislename);
-        productnamelabel = (TextView) findViewById(R.id.stocklistlistedit_productnamelabel);
-        productname = (EditText) findViewById(R.id.stocklistlistedit_productname);
-        inputstockcostlabel = (TextView) findViewById(R.id.stocklistlistedit_costlabel);
-        inputstockcost = (EditText) findViewById(R.id.inputstockcost);
-        inputstockorderlabel = (TextView) findViewById(R.id.inputstockorder_label);
-        inputstockorder = (EditText) findViewById(R.id.inputstockorder);
-        inputchecklistflaglabel = (TextView) findViewById(R.id.inputchecklistflag_label);
-        inputchecklistflag = (CheckBox) findViewById(R.id.inputchecklistflag);
-        inputchecklistcountlabel = (TextView) findViewById(R.id.inputchecklistcount_label);
-        inputchecklistcount = (EditText) findViewById(R.id.inputchecklistcount);
+        messagebar = findViewById(R.id.stocklistedit_messagebar);
+        donebutton = findViewById(R.id.stocklistedit_donebutton);
+        savebutton = findViewById(R.id.stocklistedit_savebutton);
+        shopnamelabel = findViewById(R.id.stocklistlistedit_shopnamelabel);
+        shopname = findViewById(R.id.stocklistlistedit_shopname);
+        aislenamelabel = findViewById(R.id.stocklistlistedit_aisleamelabel);
+        aislename = findViewById(R.id.stocklistlistedit_aislename);
+        productnamelabel = findViewById(R.id.stocklistlistedit_productnamelabel);
+        productname = findViewById(R.id.stocklistlistedit_productname);
+        inputstockcostlabel = findViewById(R.id.stocklistlistedit_costlabel);
+        inputstockcost = findViewById(R.id.inputstockcost);
+        inputstockorderlabel = findViewById(R.id.inputstockorder_label);
+        inputstockorder = findViewById(R.id.inputstockorder);
+        inputchecklistflaglabel = findViewById(R.id.inputchecklistflag_label);
+        inputchecklistflag = findViewById(R.id.inputchecklistflag);
+        inputchecklistcountlabel = findViewById(R.id.inputchecklistcount_label);
+        inputchecklistcount = findViewById(R.id.inputchecklistcount);
 
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
         primary_color = ActionColorCoding.setHeadingColor(this,getIntent(),0);
@@ -535,7 +535,7 @@ public class StockEditActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) slea.findViewById(R.id.stocklistedit_messagebar);
+        TextView messagebar = slea.findViewById(R.id.stocklistedit_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

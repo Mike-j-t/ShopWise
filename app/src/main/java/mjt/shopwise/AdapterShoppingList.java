@@ -119,12 +119,12 @@ public class AdapterShoppingList extends CursorAdapter {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
-        TextView adjustbutton = (TextView) view.findViewById(R.id.shoppinglist_adjustbutton);
-        TextView boughtbutton = (TextView) view.findViewById(R.id.shoppinglist_boughtbutton);
-        TextView deletebutton = (TextView) view.findViewById(R.id.shoppinglist_deletetbutton);
-        LinearLayout shopinfo = (LinearLayout) view.findViewById(R.id.shoppinglist_shopinfo_linearlayout);
-        LinearLayout aisleinfo = (LinearLayout) view.findViewById(R.id.shoppinglist_aisleinfo_linearlayout);
-        LinearLayout productinfo = (LinearLayout) view.findViewById(R.id.shoppinglist_productinfo_linearlayout);
+        TextView adjustbutton = view.findViewById(R.id.shoppinglist_adjustbutton);
+        TextView boughtbutton = view.findViewById(R.id.shoppinglist_boughtbutton);
+        TextView deletebutton = view.findViewById(R.id.shoppinglist_deletetbutton);
+        LinearLayout shopinfo = view.findViewById(R.id.shoppinglist_shopinfo_linearlayout);
+        LinearLayout aisleinfo = view.findViewById(R.id.shoppinglist_aisleinfo_linearlayout);
+        LinearLayout productinfo = view.findViewById(R.id.shoppinglist_productinfo_linearlayout);
 
         int primary_color = ActionColorCoding.setHeadingColor(ctxt,callerintent,0);
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,callerintent,
@@ -193,8 +193,11 @@ public class AdapterShoppingList extends CursorAdapter {
         TextView boughtbutton = view.findViewById(R.id.shoppinglist_boughtbutton);
         TextView adjustbutton = view.findViewById(R.id.shoppinglist_adjustbutton);
         TextView deletebutton = view.findViewById(R.id.shoppinglist_deletetbutton);
+        //noinspection unused
         LinearLayout shopinfo = view.findViewById(R.id.shoppinglist_shopinfo_linearlayout);
+        //noinspection unused
         LinearLayout aisleinfo = view.findViewById(R.id.shoppinglist_aisleinfo_linearlayout);
+        //noinspection unused
         LinearLayout productinfo = view.findViewById(R.id.shoppinglist_productinfo_linearlayout);
 
         boughtbutton.setTag(csr.getPosition());
