@@ -114,8 +114,8 @@ public class AdapterOrderList extends CursorAdapter {
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
         View view = super.getView(position, convertview, parent);
 
-        TextView order1 = (TextView) view.findViewById(R.id.orderlist_order1_button);
-        TextView less1 = (TextView) view.findViewById(R.id.orderlist_less1_button);
+        TextView order1 = view.findViewById(R.id.orderlist_order1_button);
+        TextView less1 = view.findViewById(R.id.orderlist_less1_button);
 
         int primary_color = ActionColorCoding.setHeadingColor(ctxt,callerintent,0);
         int evenrow = ActionColorCoding.setHeadingColor(ctxt,
@@ -141,13 +141,13 @@ public class AdapterOrderList extends CursorAdapter {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        TextView productname = (TextView) view.findViewById(R.id.orderlist_productname);
-        TextView shopname = (TextView) view.findViewById(R.id.orderlist_shopname);
-        TextView aislename = (TextView) view.findViewById(R.id.orderlist_aislename);
-        TextView price = (TextView) view.findViewById(R.id.orderlist_price);
-        TextView numberinshop = (TextView) view.findViewById(R.id.orderlist_numberinshop);
-        TextView order1 = (TextView) view.findViewById(R.id.orderlist_order1_button);
-        TextView less1 = (TextView) view.findViewById(R.id.orderlist_less1_button);
+        TextView productname = view.findViewById(R.id.orderlist_productname);
+        TextView shopname = view.findViewById(R.id.orderlist_shopname);
+        TextView aislename = view.findViewById(R.id.orderlist_aislename);
+        TextView price = view.findViewById(R.id.orderlist_price);
+        TextView numberinshop = view.findViewById(R.id.orderlist_numberinshop);
+        TextView order1 = view.findViewById(R.id.orderlist_order1_button);
+        TextView less1 = view.findViewById(R.id.orderlist_less1_button);
 
         productname.setText(csr.getString(product_name_offset));
         shopname.setText(csr.getString(shop_name_offset));

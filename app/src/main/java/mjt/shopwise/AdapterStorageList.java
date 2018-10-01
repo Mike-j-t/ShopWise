@@ -191,9 +191,9 @@ public class AdapterStorageList extends CursorAdapter {
         );
 
         TextView nametv =
-                (TextView) view.findViewById(R.id.storagelist_name);
+                view.findViewById(R.id.storagelist_name);
         TextView ordertv =
-                (TextView) view.findViewById(R.id.storagelist_order);
+                view.findViewById(R.id.storagelist_order);
 
         String ivstoragename = cursor.getString(storage_storagename_offset);
         String ivstorageorder = cursor.getString(storage_storageorder_offset);

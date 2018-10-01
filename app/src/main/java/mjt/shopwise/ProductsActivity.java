@@ -167,17 +167,17 @@ public class ProductsActivity extends AppCompatActivity {
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
         productfilter = "";
 
-        donebutton = (TextView) findViewById(R.id.products_donebutton);
-        newbutton = (TextView) findViewById(R.id.products_newproductbutton);
-        productlist = (ListView) findViewById(R.id.products_productlist);
-        productlistheading = (LinearLayout) findViewById(R.id.products_productlist_heading);
-        inputproductfilterlabel = (TextView) findViewById(R.id.products_productfilterlabel);
-        inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
+        donebutton = findViewById(R.id.products_donebutton);
+        newbutton = findViewById(R.id.products_newproductbutton);
+        productlist = findViewById(R.id.products_productlist);
+        productlistheading = findViewById(R.id.products_productlist_heading);
+        inputproductfilterlabel = findViewById(R.id.products_productfilterlabel);
+        inputproductfilter = findViewById(R.id.products_inputfilter);
         addFilterListener();
-        messagebar = (TextView) findViewById(R.id.products_messagebar);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.products_messagebar);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         //ActionColorCoding.setSwatches(findViewById(android.R.id.content),this.getIntent());
 
@@ -699,7 +699,7 @@ public class ProductsActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) activity.findViewById(R.id.products_messagebar);
+        TextView messagebar = activity.findViewById(R.id.products_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

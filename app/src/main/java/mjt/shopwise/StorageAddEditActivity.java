@@ -154,35 +154,35 @@ public class StorageAddEditActivity extends AppCompatActivity {
                 THISCLASS,
                 methodname);
 
-        inputstoragename_linearlayout = (LinearLayout) findViewById(
+        inputstoragename_linearlayout = findViewById(
                 R.id.inputstoragename_linearlayout);
-        inputstoragename_label = (TextView) findViewById(
+        inputstoragename_label = findViewById(
                 R.id.inputstoragename_label);
-        inputstoragename = (EditText) findViewById(R.id.inputstoragename);
-        inputstorageorder_linearlayout = (LinearLayout) findViewById(
+        inputstoragename = findViewById(R.id.inputstoragename);
+        inputstorageorder_linearlayout = findViewById(
                 R.id.inputstorageorder_linearlayout);
-        inputstorageorder_label = (TextView) findViewById(
+        inputstorageorder_label = findViewById(
                 R.id.inputstorageorder_label);
-        inputstorageorder = (EditText) findViewById(R.id.inputstorageorder);
+        inputstorageorder = findViewById(R.id.inputstorageorder);
 
-        savebutton = (TextView) findViewById(R.id.storageaddedit_savebutton);
-        donebutton = (TextView) findViewById(R.id.storageaddedit_donebutton);
+        savebutton = findViewById(R.id.storageaddedit_savebutton);
+        donebutton = findViewById(R.id.storageaddedit_donebutton);
 
         storagelist_heading =
-                (LinearLayout) findViewById(
+                findViewById(
                         R.id.storageaddedit_storagelist_heading);
         storagelist_storagename =
-                (TextView) findViewById(
+                findViewById(
                         R.id.storageaddedit_storagelist_heading_storagename
                 );
         storagelist_storageorder =
-                (TextView) findViewById(
+                findViewById(
                         R.id.storageaddedit_storagelist_heading_storageorder
                 );
-        storagelist = (ListView) findViewById(R.id.storageaddedit_storagelist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        storagelist = findViewById(R.id.storageaddedit_storagelist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this, getIntent(), actionbar);
@@ -542,7 +542,7 @@ public class StorageAddEditActivity extends AppCompatActivity {
         }.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL, LOGTAG, logmsg, THISCLASS, methodname);
 
-        TextView messagebar = (TextView) sae.findViewById(R.id.storageaddedit_messagebar);
+        TextView messagebar = sae.findViewById(R.id.storageaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

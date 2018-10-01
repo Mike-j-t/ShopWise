@@ -49,7 +49,7 @@ public class TestAction extends AppCompatActivity {
         h3 = ActionColorCoding.setHeadingColor(this,getIntent(),3);
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
 
-        tv = (TextView) findViewById(R.id.mytest_textview);
+        tv = findViewById(R.id.mytest_textview);
         tv.setBackgroundColor(h1);
 
     }

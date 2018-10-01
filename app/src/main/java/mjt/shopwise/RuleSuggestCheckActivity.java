@@ -166,16 +166,16 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        messagebar = (TextView) findViewById(R.id.rulesuggest_messagebar);
-        donebutton = (TextView) findViewById(R.id.rulesuggest_donebutton);
-        rulelistheading = (LinearLayout) findViewById(R.id.rulesuggest_heading);
-        rulelist = (ListView) findViewById(R.id.rulesuggest_rulelist);
-        addbutton = (TextView) findViewById(R.id.ruletoollist_addbutton);
-        skipbutton = (TextView) findViewById(R.id.ruletoollist_skipbutton);
-        disablebutton = (TextView) findViewById(R.id.ruletoollist_disablebutton);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.rulesuggest_messagebar);
+        donebutton = findViewById(R.id.rulesuggest_donebutton);
+        rulelistheading = findViewById(R.id.rulesuggest_heading);
+        rulelist = findViewById(R.id.rulesuggest_rulelist);
+        addbutton = findViewById(R.id.ruletoollist_addbutton);
+        skipbutton = findViewById(R.id.ruletoollist_skipbutton);
+        disablebutton = findViewById(R.id.ruletoollist_disablebutton);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         // Apply Color Coding
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -351,7 +351,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
                         DBProductusageTableConstants.RULESUGGESTFLAG_SKIP);
                 break;
             case R.id.ruletoollist_disablebutton:
-                TextView disablebutton = (TextView) findViewById(view.getId());
+                TextView disablebutton = findViewById(view.getId());
                 if (disablebutton.getText().equals(this.getResources().getString(R.string.disablebutton))) {
                     logmsg = "Disabling Rule";
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
@@ -610,7 +610,7 @@ public class RuleSuggestCheckActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,"Invoked",this,methodname);
 
-        TextView messagebar = (TextView) rsca.findViewById(
+        TextView messagebar = rsca.findViewById(
                 R.id.rulesuggest_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

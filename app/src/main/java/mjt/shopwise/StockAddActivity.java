@@ -264,40 +264,40 @@ public class StockAddActivity extends AppCompatActivity {
         stockfilter = "";
 
         // Get the UI views from their resource id's
-        messagebar = (TextView) findViewById(R.id.stock_messagebar);
-        donebutton = (TextView) findViewById(R.id.stock_donebutton);
-        savebutton = (TextView) findViewById(R.id.stock_savebutton);
-        selectshop_linearlayout = (LinearLayout) findViewById(
+        messagebar = findViewById(R.id.stock_messagebar);
+        donebutton = findViewById(R.id.stock_donebutton);
+        savebutton = findViewById(R.id.stock_savebutton);
+        selectshop_linearlayout = findViewById(
                 R.id.inputstockshop_linearlayout);
-        shoplabel = (TextView) findViewById(R.id.inputstockshop_label);
-        selectshop = (Spinner) findViewById(R.id.selectstockshop);
-        selectaisle_linearlayout = (LinearLayout) findViewById(
+        shoplabel = findViewById(R.id.inputstockshop_label);
+        selectshop = findViewById(R.id.selectstockshop);
+        selectaisle_linearlayout = findViewById(
                 R.id.inputstockaisle_linearlayout);
-        aislelabel = (TextView) findViewById(R.id.inputstockaisle_label);
-        selectaisle = (Spinner) findViewById(R.id.selectstockaisle);
-        selectproduct_linearlayout = (LinearLayout) findViewById(
+        aislelabel = findViewById(R.id.inputstockaisle_label);
+        selectaisle = findViewById(R.id.selectstockaisle);
+        selectproduct_linearlayout = findViewById(
                 R.id.inputstockproduct_linearlayout);
-        productlabel = (TextView) findViewById(R.id.inputproductname_label);
-        selectproduct = (Spinner) findViewById(R.id.selectstockproduct);
-        productfilter_linearlayout = (LinearLayout) findViewById(
+        productlabel = findViewById(R.id.inputproductname_label);
+        selectproduct = findViewById(R.id.selectstockproduct);
+        productfilter_linearlayout = findViewById(
                 R.id.stock_productfilter_linearlayout);
-        productfilterlabel = (TextView) findViewById(R.id.products_productfilterlabel);
-        inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
-        productlabel = (TextView) findViewById(R.id.inputstockproduct_label);
+        productfilterlabel = findViewById(R.id.products_productfilterlabel);
+        inputproductfilter = findViewById(R.id.products_inputfilter);
+        productlabel = findViewById(R.id.inputstockproduct_label);
         stocklabel = getResources().getString(R.string.stocklabel);
-        stocklistheading_linearlayout = (LinearLayout) findViewById(R.id.stock_stocklist_heading);
-        inputstockcost = (EditText) findViewById(R.id.inputstockcost);
-        inputstockcostlabel = (TextView) findViewById(R.id.inputstockcost_label);
-        inputstockorder = (EditText) findViewById(R.id.inputstockorder);
-        inputstockorderlabel = (TextView) findViewById(R.id.inputstockorder_label);
-        inputchecklistflag = (CheckBox) findViewById(R.id.inputchecklistflag);
-        inputchecklistflaglabel = (TextView) findViewById(R.id.inputchecklistflag_label);
-        inputchecklistcount = (EditText) findViewById(R.id.inputchecklistcount);
-        inputchecklistcountlabel = (TextView) findViewById(R.id.inputchecklistcount_label);
-        stocklist = (ListView) findViewById(R.id.stock_stocklist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        stocklistheading_linearlayout = findViewById(R.id.stock_stocklist_heading);
+        inputstockcost = findViewById(R.id.inputstockcost);
+        inputstockcostlabel = findViewById(R.id.inputstockcost_label);
+        inputstockorder = findViewById(R.id.inputstockorder);
+        inputstockorderlabel = findViewById(R.id.inputstockorder_label);
+        inputchecklistflag = findViewById(R.id.inputchecklistflag);
+        inputchecklistflaglabel = findViewById(R.id.inputchecklistflag_label);
+        inputchecklistcount = findViewById(R.id.inputchecklistcount);
+        inputchecklistcountlabel = findViewById(R.id.inputchecklistcount_label);
+        stocklist = findViewById(R.id.stock_stocklist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
 
         // Apply Color Coding
@@ -1126,7 +1126,7 @@ public class StockAddActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) sa.findViewById(R.id.stock_messagebar);
+        TextView messagebar = sa.findViewById(R.id.stock_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

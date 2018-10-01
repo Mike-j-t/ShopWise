@@ -184,8 +184,8 @@ public class AdapterAisleList extends CursorAdapter{
                 ctxt.getResources().getString(R.string.longclickrowindicator);
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
 
-        TextView nametv = (TextView) view.findViewById(R.id.aislelist_name);
-        TextView ordertv = (TextView) view.findViewById(R.id.aislelist_order);
+        TextView nametv = view.findViewById(R.id.aislelist_name);
+        TextView ordertv = view.findViewById(R.id.aislelist_order);
 
         String aislename = cursor.getString(aisles_aislename_offset);
         String aisleorder = cursor.getString(aisles_aisleorder_offset);

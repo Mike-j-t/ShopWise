@@ -255,14 +255,14 @@ public class RulesActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        messagebar = (TextView) findViewById(R.id.rules_messagebar);
-        donebutton = (TextView) findViewById(R.id.rules_donebutton);
-        addbutton = (TextView) findViewById(R.id.rules_addbutton);
-        rulelistheading = (LinearLayout) findViewById(R.id.rules_rulelist_heading);
-        rulelist = (ListView) findViewById(R.id.rules_rulelist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.rules_messagebar);
+        donebutton = findViewById(R.id.rules_donebutton);
+        addbutton = findViewById(R.id.rules_addbutton);
+        rulelistheading = findViewById(R.id.rules_rulelist_heading);
+        rulelist = findViewById(R.id.rules_rulelist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
 
         actionbar = getSupportActionBar();
@@ -729,7 +729,7 @@ public class RulesActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) ra.findViewById(
+        TextView messagebar = ra.findViewById(
                 R.id.rules_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

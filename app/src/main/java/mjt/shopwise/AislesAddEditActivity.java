@@ -164,25 +164,25 @@ public class AislesAddEditActivity extends AppCompatActivity {
         context = this;
         thisactivity = (Activity) context;
 
-        messagebar = (TextView) findViewById(R.id.aislesaddedit_messagebar);
-        input_aisleshop_linearlayout = (LinearLayout) findViewById(R.id.inputaisleshop_linearlayout);
-        input_aisleshop_label = (TextView) findViewById(R.id.inputaisleshop_label);
-        input_aisleshop_select = (Spinner) findViewById(R.id.selectaisleshop);
-        input_aislename_linearlayout = (LinearLayout) findViewById(R.id.inputaislename_linearlayout);
-        input_aislename_label = (TextView) findViewById(R.id.inputaislename_label);
-        input_aislename = (EditText) findViewById(R.id.inputaislename);
-        input_aisleorder_linearlayout = (LinearLayout) findViewById(R.id.inputaisleorder_linearlayout);
-        input_aisleorder_label = (TextView) findViewById(R.id.inputaisleorder_label);
-        input_aisleorder = (EditText) findViewById(R.id.inputaisleorder);
-        aislelist_heading_linearlayout = (LinearLayout) findViewById(R.id.aisleaddedit_aislelist_heading);
-        aislelist_heading_aislename = (TextView) findViewById(R.id.aisleaddedit_aislelist_heading_aislename);
-        aislelist_heading_aisleorder = (TextView) findViewById(R.id.aisleaddedit_aislelist_heading_aisleorder);
-        aislelist = (ListView) findViewById(R.id.aisleaddedit_aislelist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
-        savebutton = (TextView) findViewById(R.id.aisleaddedit_savebutton);
-        donebutton = (TextView) findViewById(R.id.aisleaddedit_donebutton);
+        messagebar = findViewById(R.id.aislesaddedit_messagebar);
+        input_aisleshop_linearlayout = findViewById(R.id.inputaisleshop_linearlayout);
+        input_aisleshop_label = findViewById(R.id.inputaisleshop_label);
+        input_aisleshop_select = findViewById(R.id.selectaisleshop);
+        input_aislename_linearlayout = findViewById(R.id.inputaislename_linearlayout);
+        input_aislename_label = findViewById(R.id.inputaislename_label);
+        input_aislename = findViewById(R.id.inputaislename);
+        input_aisleorder_linearlayout = findViewById(R.id.inputaisleorder_linearlayout);
+        input_aisleorder_label = findViewById(R.id.inputaisleorder_label);
+        input_aisleorder = findViewById(R.id.inputaisleorder);
+        aislelist_heading_linearlayout = findViewById(R.id.aisleaddedit_aislelist_heading);
+        aislelist_heading_aislename = findViewById(R.id.aisleaddedit_aislelist_heading_aislename);
+        aislelist_heading_aisleorder = findViewById(R.id.aisleaddedit_aislelist_heading_aisleorder);
+        aislelist = findViewById(R.id.aisleaddedit_aislelist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
+        savebutton = findViewById(R.id.aisleaddedit_savebutton);
+        donebutton = findViewById(R.id.aisleaddedit_donebutton);
         // Apply Color Coding
         actionbar = getSupportActionBar();
         ActionColorCoding.setActionBarColor(this,getIntent(),actionbar);
@@ -522,7 +522,7 @@ public class AislesAddEditActivity extends AppCompatActivity {
      */
     public void setMessage(AislesAddEditActivity activity, String msg, boolean flag) {
 
-        TextView messagebar = (TextView) activity.findViewById(R.id.aislesaddedit_messagebar);
+        TextView messagebar = activity.findViewById(R.id.aislesaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

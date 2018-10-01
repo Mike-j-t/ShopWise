@@ -87,19 +87,19 @@ public class RuleToolsActivity extends AppCompatActivity{
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        messagebar = (TextView) findViewById(R.id.ruletools_messagebar);
-        donebutton = (TextView) findViewById(R.id.ruletools_donebutton);
-        suggestbutton = (TextView) findViewById(R.id.ruletools_rulesuggestionbutton);
-        checkbutton = (TextView) findViewById(R.id.ruletools_checkbutton);
-        disabledbutton = (TextView) findViewById(R.id.ruletools_disabledrulesbutton);
-        suggestoverview = (TextView) findViewById(R.id.ruletools_suggestoverview);
-        checkoverview = (TextView) findViewById(R.id.ruletools_checkoverview);
-        minbuyinfo = (TextView) findViewById(R.id.ruletools_minpbuy_info);
-        minperiodinfo = (TextView) findViewById(R.id.ruletools_minperiod_info);
-        minbuylabel = (TextView) findViewById(R.id.ruletools_minbuy_label);
-        minperiodlabel = (TextView) findViewById(R.id.ruletools_minperiod_label);
-        minbuy = (EditText) findViewById(R.id.ruletools_minbuy);
-        minperiod = (EditText) findViewById(R.id.ruletools_minperiod);
+        messagebar = findViewById(R.id.ruletools_messagebar);
+        donebutton = findViewById(R.id.ruletools_donebutton);
+        suggestbutton = findViewById(R.id.ruletools_rulesuggestionbutton);
+        checkbutton = findViewById(R.id.ruletools_checkbutton);
+        disabledbutton = findViewById(R.id.ruletools_disabledrulesbutton);
+        suggestoverview = findViewById(R.id.ruletools_suggestoverview);
+        checkoverview = findViewById(R.id.ruletools_checkoverview);
+        minbuyinfo = findViewById(R.id.ruletools_minpbuy_info);
+        minperiodinfo = findViewById(R.id.ruletools_minperiod_info);
+        minbuylabel = findViewById(R.id.ruletools_minbuy_label);
+        minperiodlabel = findViewById(R.id.ruletools_minperiod_label);
+        minbuy = findViewById(R.id.ruletools_minbuy);
+        minperiod = findViewById(R.id.ruletools_minperiod);
         minbuy.setText(context.getResources().getString(R.string.minbuydefault));
         minperiod.setText(context.getResources().getString(R.string.minperioddefault));
 
@@ -316,7 +316,7 @@ public class RuleToolsActivity extends AppCompatActivity{
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) rta.findViewById(
+        TextView messagebar = rta.findViewById(
                 R.id.ruletools_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));

@@ -187,27 +187,27 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
 
         msg = "Preparing ColorCoding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        inputproductname_linearlayout = (LinearLayout) findViewById(R.id.inputproductname_linearlayout);
-        inputproductname_label = (TextView) findViewById(R.id.inputproductname_label);
-        inputproductname = (EditText) findViewById(R.id.inputproductname);
-        inputproductstorage_linearlayout = (LinearLayout) findViewById(R.id.inputproductstorage_linearlayout);
-        inputproductstorage_label = (TextView) findViewById(R.id.inputproductstorage_label);
-        inputproductstorage_spinner = (Spinner) findViewById(R.id.inputproductstorage_spinner);
-        inputproductorder_linearlayout = (LinearLayout) findViewById(R.id.inputproductorder_linearlayout);
-        inputproductorder_label = (TextView) findViewById(R.id.inputproductorder_label);
-        inputproductorder = (EditText) findViewById(R.id.inputproductorder);
+        inputproductname_linearlayout = findViewById(R.id.inputproductname_linearlayout);
+        inputproductname_label = findViewById(R.id.inputproductname_label);
+        inputproductname = findViewById(R.id.inputproductname);
+        inputproductstorage_linearlayout = findViewById(R.id.inputproductstorage_linearlayout);
+        inputproductstorage_label = findViewById(R.id.inputproductstorage_label);
+        inputproductstorage_spinner = findViewById(R.id.inputproductstorage_spinner);
+        inputproductorder_linearlayout = findViewById(R.id.inputproductorder_linearlayout);
+        inputproductorder_label = findViewById(R.id.inputproductorder_label);
+        inputproductorder = findViewById(R.id.inputproductorder);
         addFilterListener(inputproductname);
-        inputproductfilter = (EditText) findViewById(R.id.productaddedit_inputfilter);
+        inputproductfilter = findViewById(R.id.productaddedit_inputfilter);
         addFilterListener(inputproductfilter);
-        savebutton = (TextView) findViewById(R.id.productaddedit_savebutton);
-        donebutton = (TextView) findViewById(R.id.productaddedit_donebutton);
-        productfilterlabel = (TextView) findViewById(R.id.productaddedit_productfilterlabel);
-        productlistheading = (LinearLayout) findViewById(R.id.productaddedit_productlist_heading);
-        productlistproductname = (TextView) findViewById(R.id.productaddedit_productlist_heading_productname);
-        productlist = (ListView) findViewById(R.id.productaddedit_productlist);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable =(TextView) findViewById(R.id.longclickable);
+        savebutton = findViewById(R.id.productaddedit_savebutton);
+        donebutton = findViewById(R.id.productaddedit_donebutton);
+        productfilterlabel = findViewById(R.id.productaddedit_productfilterlabel);
+        productlistheading = findViewById(R.id.productaddedit_productlist_heading);
+        productlistproductname = findViewById(R.id.productaddedit_productlist_heading_productname);
+        productlist = findViewById(R.id.productaddedit_productlist);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
          //Apply Color Coding
         actionbar = getSupportActionBar();
@@ -615,7 +615,7 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) pa.findViewById(R.id.productssaddedit_messagebar);
+        TextView messagebar = pa.findViewById(R.id.productssaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

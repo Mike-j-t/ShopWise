@@ -163,28 +163,28 @@ public class ShopsAddEditActivity extends AppCompatActivity {
 
         logmsg = "Preparing ColorCoding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        inputshopname_linearlayout = (LinearLayout) findViewById(R.id.inputshopname_linearlayout);
-        inputshopname_label = (TextView) findViewById(R.id.inputshopname_label);
-        inputshopname = (EditText) findViewById(R.id.inputshopname);
-        inputshopcity_lineralayout = (LinearLayout) findViewById(R.id.inputshopcity_linearlayout);
-        inputshopcity_label = (TextView) findViewById(R.id.inputshopcity_label);
-        inputshopcity = (EditText) findViewById(R.id.inputshopcity);
-        inputshoporder_linearlayout = (LinearLayout) findViewById(R.id.inputshoporder_linearlayout);
-        inputshoporder_label = (TextView) findViewById(R.id.inputshoporder_label);
-        inputshoporder = (EditText) findViewById(R.id.inputshoporder);
+        inputshopname_linearlayout = findViewById(R.id.inputshopname_linearlayout);
+        inputshopname_label = findViewById(R.id.inputshopname_label);
+        inputshopname = findViewById(R.id.inputshopname);
+        inputshopcity_lineralayout = findViewById(R.id.inputshopcity_linearlayout);
+        inputshopcity_label = findViewById(R.id.inputshopcity_label);
+        inputshopcity = findViewById(R.id.inputshopcity);
+        inputshoporder_linearlayout = findViewById(R.id.inputshoporder_linearlayout);
+        inputshoporder_label = findViewById(R.id.inputshoporder_label);
+        inputshoporder = findViewById(R.id.inputshoporder);
 
-        savebutton = (TextView) findViewById(R.id.shopaddedit_savebutton);
-        donebutton = (TextView) findViewById(R.id.shopaddedit_donebutton);
+        savebutton = findViewById(R.id.shopaddedit_savebutton);
+        donebutton = findViewById(R.id.shopaddedit_donebutton);
 
-        shoplist_heading = (LinearLayout) findViewById(R.id.shopaddedit_shoplist_heading);
-        shoplist_shopname = (TextView) findViewById(R.id.shopaddedit_shoplist_heading_shopname);
-        shoplist_shopcity = (TextView) findViewById(R.id.shopaddedit_shoplist_heading_shopcity);
-        shoplist_shoporder = (TextView) findViewById(R.id.shopaddedit_shoplist_heading_shoporder);
-        shoplist = (ListView) findViewById(R.id.shopaddedit_shoplist);
+        shoplist_heading = findViewById(R.id.shopaddedit_shoplist_heading);
+        shoplist_shopname = findViewById(R.id.shopaddedit_shoplist_heading_shopname);
+        shoplist_shopcity = findViewById(R.id.shopaddedit_shoplist_heading_shopcity);
+        shoplist_shoporder = findViewById(R.id.shopaddedit_shoplist_heading_shoporder);
+        shoplist = findViewById(R.id.shopaddedit_shoplist);
 
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         // Apply Color Coding
         actionbar = getSupportActionBar();
@@ -550,7 +550,7 @@ public class ShopsAddEditActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) sa.findViewById(R.id.shopsaddedit_messagebar);
+        TextView messagebar = sa.findViewById(R.id.shopsaddedit_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

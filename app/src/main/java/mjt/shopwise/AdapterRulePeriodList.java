@@ -123,7 +123,7 @@ public class AdapterRulePeriodList extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        TextView ruleperiod = (TextView) view.findViewById(R.id.ruleperiod);
+        TextView ruleperiod = view.findViewById(R.id.ruleperiod);
         ruleperiod.setText(csr.getString(appvalues_text_offset));
         msg = "Set Period=" + ruleperiod.getText().toString();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);

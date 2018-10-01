@@ -206,15 +206,15 @@ public class OrderActivity extends AppCompatActivity {
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
         productfilter = "";
-        messagebar = (TextView) findViewById(R.id.order_messagebar);
-        donebutton = (TextView) findViewById(R.id.order_donebutton);
-        inputproductfilterlabel = (TextView) findViewById(R.id.products_inputfilterlabel);
-        inputproductfilter = (EditText) findViewById(R.id.products_inputfilter);
-        orderlist = (ListView) findViewById(R.id.order_list);
-        orderlistheading = (LinearLayout) findViewById(R.id.order_list_heading);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.order_messagebar);
+        donebutton = findViewById(R.id.order_donebutton);
+        inputproductfilterlabel = findViewById(R.id.products_inputfilterlabel);
+        inputproductfilter = findViewById(R.id.products_inputfilter);
+        orderlist = findViewById(R.id.order_list);
+        orderlistheading = findViewById(R.id.order_list_heading);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
         addFilterListener();
 
         msg = "Preparing Color Coding";
@@ -465,7 +465,7 @@ public class OrderActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) oa.findViewById(R.id.order_messagebar);
+        TextView messagebar = oa.findViewById(R.id.order_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

@@ -148,14 +148,14 @@ public class ShopsActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        donebutton = (TextView) findViewById(R.id.shops_donebutton);
-        newbutton = (TextView) findViewById(R.id.shops_newshopbutton);
-        shoplist  = (ListView) findViewById(R.id.shops_shoplist);
-        shoplistheading = (LinearLayout) findViewById(R.id.shops_shoplist_heading);
-        messagebar = (TextView) findViewById(R.id.shops_messagebar);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        donebutton = findViewById(R.id.shops_donebutton);
+        newbutton = findViewById(R.id.shops_newshopbutton);
+        shoplist  = findViewById(R.id.shops_shoplist);
+        shoplistheading = findViewById(R.id.shops_shoplist_heading);
+        messagebar = findViewById(R.id.shops_messagebar);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
 
         // Apply Color Coding
@@ -659,7 +659,7 @@ public class ShopsActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) sa.findViewById(R.id.shops_messagebar);
+        TextView messagebar = sa.findViewById(R.id.shops_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

@@ -241,14 +241,14 @@ public class CheckListActivity extends AppCompatActivity {
         menucolorcode = StandardAppConstants.INTENTKEY_MENUCOLORCODE;
         passedmenucolorcode = getIntent().getIntExtra(menucolorcode,0);
 
-        messagebar = (TextView) findViewById(R.id.checklist_messagebar);
-        donebutton = (TextView) findViewById(R.id.checklist_donebutton);
-        resetbutton = (TextView) findViewById(R.id.checklist_resetbutton);
-        checklist = (ListView) findViewById(R.id.checklist_checklist);
-        checklistheading = (LinearLayout) findViewById(R.id.checklist_checklist_heading);
-        sortable = (TextView) findViewById(R.id.sortable);
-        clickable = (TextView) findViewById(R.id.clickable);
-        longclickable = (TextView) findViewById(R.id.longclickable);
+        messagebar = findViewById(R.id.checklist_messagebar);
+        donebutton = findViewById(R.id.checklist_donebutton);
+        resetbutton = findViewById(R.id.checklist_resetbutton);
+        checklist = findViewById(R.id.checklist_checklist);
+        checklistheading = findViewById(R.id.checklist_checklist_heading);
+        sortable = findViewById(R.id.sortable);
+        clickable = findViewById(R.id.clickable);
+        longclickable = findViewById(R.id.longclickable);
 
         msg = "Preparing ColorCoding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
@@ -475,7 +475,7 @@ public class CheckListActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) cla.findViewById(R.id.checklist_messagebar);
+        TextView messagebar = cla.findViewById(R.id.checklist_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {

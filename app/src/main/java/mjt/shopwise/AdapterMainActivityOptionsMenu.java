@@ -122,7 +122,7 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        ActionColorCoding acc = ActionColorCoding.getInstance(ctxt);
+        //ActionColorCoding acc = ActionColorCoding.getInstance(ctxt);
         View view = super.getView(position,convertview, parent);
 
         // Get the cursor, store current position, and move to position as
@@ -140,10 +140,10 @@ class AdapterMainActivityOptionsMenu extends CursorAdapter {
         csr.moveToPosition(cpos);
 
         //Set view id's
-        TextView option_tv = (TextView) view.findViewById(
+        TextView option_tv = view.findViewById(
                 R.id.activity_main_OptionsMenu_option
         );
-        TextView option_info_tv = (TextView) view.findViewById(
+        TextView option_info_tv = view.findViewById(
                 R.id.activity_main_OptionsMenu_label
         );
 

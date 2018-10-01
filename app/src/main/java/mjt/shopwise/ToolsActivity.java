@@ -79,12 +79,12 @@ public class ToolsActivity extends AppCompatActivity {
 
         logmsg = "Preparing Color Coding";
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
-        messagebar = (TextView) findViewById(R.id.tools_messagebar);
-        donebutton = (TextView) findViewById(R.id.tools_donebutton);
-        backupbutton = (TextView) findViewById(R.id.tools_backupbutton);
-        backupoverview = (TextView) findViewById(R.id.tools_backupoverview);
-        rulesbutton = (TextView) findViewById(R.id.tools_rulesbutton);
-        rulesoverview = (TextView) findViewById(R.id.tools_rulesoverview);
+        messagebar = findViewById(R.id.tools_messagebar);
+        donebutton = findViewById(R.id.tools_donebutton);
+        backupbutton = findViewById(R.id.tools_backupbutton);
+        backupoverview = findViewById(R.id.tools_backupoverview);
+        rulesbutton = findViewById(R.id.tools_rulesbutton);
+        rulesoverview = findViewById(R.id.tools_rulesoverview);
 
         // Apply Color Coding
         actionbar = getSupportActionBar();
@@ -238,7 +238,7 @@ public class ToolsActivity extends AppCompatActivity {
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,logmsg,THISCLASS,methodname);
 
-        TextView messagebar = (TextView) ta.findViewById(R.id.tools_messagebar);
+        TextView messagebar = ta.findViewById(R.id.tools_messagebar);
         messagebar.setText(context.getResources().getString(
                 R.string.messagebar_prefix_lastaction,msg));
         if (flag) {
