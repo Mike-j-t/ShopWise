@@ -16,7 +16,13 @@
             style="@style/listviewrowcol_standard"
             android:layout_weight="24"
             android:textStyle="bold"
-            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_extra_large"
+            android:textColor="@color/colorWhite"
+            android:shadowColor="@color/colorBlack"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+
             />
         <TextView
             android:id="@+id/shoppinglist_shopcity"

@@ -90,6 +90,16 @@
         <item name="android:clickable">false</item>
         <item name="android:longClickable">false</item>
     </style>
+    <style name="listviewrowcol_shopinshoppinglist">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/listview_rowheight_extra_large</item>
+        <item name="android:layout_weight">100</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:clickable">false</item>
+        <item name="android:longClickable">false</item>
+    </style>
     <style name="listviewrowcol_monetary" parent="@style/listviewrowcol_standard">
         <item name="android:gravity">right</item>
     </style>

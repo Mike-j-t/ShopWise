@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,8 +134,9 @@ public class AdapterShoppingList extends CursorAdapter {
                 ActionColorCoding.transparency_evenrow;
         int oddrow = evenrow &
                 ActionColorCoding.transparency_oddrow;
+
         shopinfo.setBackgroundColor(
-                ActionColorCoding.setHeadingColor(ctxt,callerintent,2)
+                ActionColorCoding.setHeadingColor(ctxt,callerintent,1)
         );
         aisleinfo.setBackgroundColor(
                 ActionColorCoding.setHeadingColor(ctxt,callerintent,3)
