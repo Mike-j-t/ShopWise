@@ -14,15 +14,13 @@ import android.widget.TextView;
  *                      Note has been written for ListView and Spinner
  *                      i.e. includes overridden getDropDownView method.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess","SameParameterValue","UnusedParameters","CanBeFinal","unused"})
 class AdapterShopList extends CursorAdapter {
 
     private final Intent callerintent;
     private final Context ctxt;
     private final boolean fromspinner;
-    @SuppressWarnings("CanBeFinal")
     private boolean clickable;
-    @SuppressWarnings("CanBeFinal")
     private boolean longclickable;
     private Cursor cursor;
 
@@ -47,10 +45,9 @@ class AdapterShopList extends CursorAdapter {
      * @param intent        the intent, used for
      * @param fromspinner   true if used by a spinner
      */
-    @SuppressWarnings("SameParameterValue")
     AdapterShopList(Context context,
                     Cursor csr,
-                    @SuppressWarnings("UnusedParameters") int flags,
+                    int flags,
                     Intent intent,
                     boolean fromspinner,
                     boolean clickable,
@@ -106,7 +103,7 @@ class AdapterShopList extends CursorAdapter {
         String msg = "Invoked";
         String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
-        @SuppressWarnings("unused") int position = csr.getPosition();
+        int position = csr.getPosition();
         //noinspection UnusedAssignment
         view = initView(view, csr);
     }
@@ -202,9 +199,9 @@ class AdapterShopList extends CursorAdapter {
 
         String shopname = cursor.getString(shops_shopname_offest);
         String shopcity = cursor.getString(shops_shopcity_offset);
-        @SuppressWarnings("unused") String shopstreet = cursor.getString(shops_shopstreet_offset);
-        @SuppressWarnings("unused") String shopstate = cursor.getString(shops_shopstate_offset);
-        @SuppressWarnings("unused") String shopnotes = cursor.getString(shops_shopnotes_offset);
+        String shopstreet = cursor.getString(shops_shopstreet_offset);
+        String shopstate = cursor.getString(shops_shopstate_offset);
+        String shopnotes = cursor.getString(shops_shopnotes_offset);
         String shoporder = cursor.getString(shops_shoporder_offset);
 
         nametv.setText(shopname);

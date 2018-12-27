@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import mjt.displayhelp.DisplayHelp;
 
-import static mjt.shopwise.ActionColorCoding.transparency_requied;
+import static mjt.shopwise.ActionColorCoding.transparency_required;
 
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -193,8 +193,8 @@ public class AislesAddEditActivity extends AppCompatActivity {
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(savebutton, primary_color);
-        ActionColorCoding.setActionButtonColor(input_aislename,h2 & transparency_requied);
-        ActionColorCoding.setActionButtonColor(input_aisleorder,h2 & transparency_requied);
+        ActionColorCoding.setActionButtonColor(input_aislename,h2 & transparency_required);
+        ActionColorCoding.setActionButtonColor(input_aisleorder,h2 & transparency_required);
         aislelist_heading_linearlayout.setBackgroundColor(h1);
         ActionColorCoding.setActionButtonColor(input_aisleshop_select,h2);
         input_aislename_label.setTextColor(primary_color);

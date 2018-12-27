@@ -40,7 +40,7 @@ import mjt.displayhelp.DisplayHelp;
  */
 
 @SuppressWarnings({"FieldCanBeLocal", "WeakerAccess", "CanBeFinal", "unused"})
-public class BackupActivity extends AppCompatActivity {
+public class BackupActivity extends AppCompatActivity implements BackupActivityInterface {
 
     @SuppressWarnings("unused")
     private static final String THIS_ACTIVITY = "BackupActivity";
@@ -182,12 +182,12 @@ public class BackupActivity extends AppCompatActivity {
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
         ActionColorCoding.setActionButtonColor(donebutton,primary_color);
         ActionColorCoding.setActionButtonColor(backupdatetimepart,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(backupresetbutton,primary_color);
         ActionColorCoding.setActionButtonColor(backupbasepart,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(backupextension,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         backupfullfilename.setTextColor(Color.BLUE);
         ActionColorCoding.setActionButtonColor(backupbutton,primary_color);
         ActionColorCoding.setActionButtonColor(selectrestorefile,h4);
@@ -400,7 +400,8 @@ public class BackupActivity extends AppCompatActivity {
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                            BackupActivity.LOGTAG,"Copy Completed.",
                             BackupActivity.THISCLASS,methodname);
-                    populateAllSpinners();
+                    //populateAllSpinners(); Changed for ANDROID 9.0 can't change view added interface
+                    DatabaseSaved(); // CHANGED TO use Interface to update Spinners
                 }
                 catch (IOException e) {
                     String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -578,6 +579,15 @@ public class BackupActivity extends AppCompatActivity {
                         msg = "Stage 2 - Completed. Original DB deleted.";
                         LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,LOGTAG,msg,THISCLASS,methodname);
                         origdeleted = true;
+                        // Added for Android 9+ to delete shm and wal file if they exist
+                        File dbshm = new File(dbfile.getPath() + "-shm");
+                        File dbwal = new File(dbfile.getPath()+ "-wal");
+                        if (dbshm.exists()) {
+                            dbshm.delete();
+                        }
+                        if (dbwal.exists()) {
+                            dbwal.delete();
+                        }
                     }
 
                     // Stage 3 copy from the backup to the deleted database file i.e. create it
@@ -919,6 +929,10 @@ public class BackupActivity extends AppCompatActivity {
         }
         messagebar.setVisibility(View.VISIBLE);
         ba.actionbar.setTitle(getResources().getString(R.string.shopslabel));
+    }
+
+    public void DatabaseSaved() {
+        populateAllSpinners();
     }
 
 }

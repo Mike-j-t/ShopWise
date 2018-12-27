@@ -268,11 +268,11 @@ public class StockEditActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton,primary_color);
         ActionColorCoding.setActionButtonColor(savebutton,primary_color);
         ActionColorCoding.setActionButtonColor(productname,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(inputstockcost,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(inputstockorder,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(inputchecklistcount,
                 h2 & ActionColorCoding.transparency_optional);
         ActionColorCoding.setActionButtonColor(inputchecklistflag,
