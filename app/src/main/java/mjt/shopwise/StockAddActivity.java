@@ -319,9 +319,9 @@ public class StockAddActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(inputproductfilter,
                 h2 & ActionColorCoding.transparency_optional);
         ActionColorCoding.setActionButtonColor(inputstockcost,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(inputstockorder,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(inputchecklistcount,
                 h2 & ActionColorCoding.transparency_optional);
         ActionColorCoding.setActionButtonColor(inputchecklistflag,

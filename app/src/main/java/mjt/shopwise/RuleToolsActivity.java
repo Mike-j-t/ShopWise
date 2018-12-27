@@ -126,9 +126,9 @@ public class RuleToolsActivity extends AppCompatActivity{
         ActionColorCoding.setActionButtonColor(suggestbutton,primary_color);
         ActionColorCoding.setActionButtonColor(checkbutton,primary_color);
         ActionColorCoding.setActionButtonColor(minbuy,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(minperiod,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         suggestoverview.setTextColor(h2);
         checkoverview.setTextColor(h2);
         minbuylabel.setTextColor(primary_color);

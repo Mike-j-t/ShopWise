@@ -24,7 +24,7 @@ import android.widget.TextView;
 import mjt.displayhelp.DisplayHelp;
 
 import static mjt.shopwise.ActionColorCoding.transparency_optional;
-import static mjt.shopwise.ActionColorCoding.transparency_requied;
+import static mjt.shopwise.ActionColorCoding.transparency_required;
 
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -219,9 +219,9 @@ public class ProductsAddEditActivity  extends AppCompatActivity {
         h4 = ActionColorCoding.setHeadingColor(this,getIntent(),4);
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(savebutton, primary_color);
-        ActionColorCoding.setActionButtonColor(inputproductname,h2 & transparency_requied);
+        ActionColorCoding.setActionButtonColor(inputproductname,h2 & transparency_required);
         ActionColorCoding.setActionButtonColor(inputproductstorage_spinner,h2);
-        ActionColorCoding.setActionButtonColor(inputproductorder,h2 & transparency_requied);
+        ActionColorCoding.setActionButtonColor(inputproductorder,h2 & transparency_required);
         ActionColorCoding.setActionButtonColor(inputproductfilter,h4 & transparency_optional);
         productlistheading.setBackgroundColor(h1);
         inputproductname_label.setTextColor(primary_color);

@@ -322,7 +322,7 @@ public class ShoppingEntryAdjustActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(undobutton,primary_color);
         originalvaluesheading.setBackgroundColor(h1);
         int etbgcol = ActionColorCoding.getGroupColor(passedmenucolorcode,3)
-                & ActionColorCoding.transparency_requied;
+                & ActionColorCoding.transparency_required;
         int bgcol = ActionColorCoding.getGroupColor(passedmenucolorcode,3) &
                 ActionColorCoding.transparency_optional;
         orig_productname_tv.setTextColor(primary_color);

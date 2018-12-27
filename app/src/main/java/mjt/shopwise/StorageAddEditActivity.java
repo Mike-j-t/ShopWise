@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import mjt.displayhelp.DisplayHelp;
 
-import static mjt.shopwise.ActionColorCoding.transparency_requied;
+import static mjt.shopwise.ActionColorCoding.transparency_required;
 
 import static mjt.sqlwords.SQLKWORD.*;
 
@@ -194,9 +194,9 @@ public class StorageAddEditActivity extends AppCompatActivity {
         ActionColorCoding.setActionButtonColor(donebutton, primary_color);
         ActionColorCoding.setActionButtonColor(savebutton, primary_color);
         ActionColorCoding.setActionButtonColor(inputstoragename,
-                h2 & transparency_requied);
+                h2 & transparency_required);
         ActionColorCoding.setActionButtonColor(inputstorageorder,
-                h2 & transparency_requied);
+                h2 & transparency_required);
         inputstoragename_label.setTextColor(h1);
         inputstorageorder_label.setTextColor(h1);
         storagelist_heading.setBackgroundColor(h1);

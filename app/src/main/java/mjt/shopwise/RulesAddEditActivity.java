@@ -425,10 +425,10 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 h2 & ActionColorCoding.transparency_optional);
         rulenamelabel.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(rulename_input,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         numbertogetlabel.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(numbertoget_input,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         rulepromptlabel.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(ruleprompt_input,
                 h2 & ActionColorCoding.transparency_optional);
@@ -439,10 +439,10 @@ public class RulesAddEditActivity extends AppCompatActivity {
                 ActionColorCoding.transparency_optional);
         ruleperiodlabel.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(ruleperiod_input,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         rulemultiplierlabel.setTextColor(primary_color);
         ActionColorCoding.setActionButtonColor(rulemultiplier_input,
-                h2 & ActionColorCoding.transparency_requied);
+                h2 & ActionColorCoding.transparency_required);
         ActionColorCoding.setActionButtonColor(ruleperiod_input, h2);
         rulelistheading.setBackgroundColor(h1);
         sortable.setTextColor(primary_color);

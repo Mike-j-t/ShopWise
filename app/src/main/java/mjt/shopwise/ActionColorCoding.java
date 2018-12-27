@@ -63,9 +63,9 @@ class ActionColorCoding {
     private static boolean colorsloaded = false;
     public static final String THISCLASS = ActionColorCoding.class.getSimpleName();
     /**
-     * The constant transparency_requied.
+     * The constant transparency_required.
      */
-    public static final int transparency_requied = 0x44ffffff;
+    public static final int transparency_required = 0x44ffffff;
     public static final int transparency_optional = 0x22ffffff;
     public static final int transparency_evenrow = 0x3fffffff;
     public static final int transparency_oddrow = 0x1fffffff;
@@ -374,7 +374,7 @@ class ActionColorCoding {
         h4.setBackgroundColor(setHeadingColor(passedoption,4));
 
         re.setBackgroundColor(setHeadingColor(passedoption,2) &
-                ActionColorCoding.transparency_requied);
+                ActionColorCoding.transparency_required);
         oe.setBackgroundColor(setHeadingColor(passedoption,4) &
                 ActionColorCoding.transparency_optional);
     }
