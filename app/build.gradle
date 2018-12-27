@@ -6,9 +6,9 @@ android {
         applicationId "mjt.shopwise"
         minSdkVersion 14
         targetSdkVersion 28
-        versionName '1.1.12'
+        versionName '1.1.13'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 16
+        versionCode 17
     }
     dataBinding {
         enabled = true
