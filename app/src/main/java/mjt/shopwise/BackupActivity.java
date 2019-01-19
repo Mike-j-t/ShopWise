@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import mjt.dbdatabase.DBDatabase;
 import mjt.displayhelp.DisplayHelp;
 
 /**
@@ -380,6 +382,7 @@ public class BackupActivity extends AppCompatActivity implements BackupActivityI
             @Override
             public void run() {
                 try {
+                    checkpointIfWALEnabled(context);
                     FileInputStream fis = new FileInputStream(dbfile);
                     OutputStream backup = new FileOutputStream(backupfilename);
                     String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -400,8 +403,6 @@ public class BackupActivity extends AppCompatActivity implements BackupActivityI
                     LogMsg.LogMsg(LogMsg.LOGTYPE_INFORMATIONAL,
                            BackupActivity.LOGTAG,"Copy Completed.",
                             BackupActivity.THISCLASS,methodname);
-                    //populateAllSpinners(); Changed for ANDROID 9.0 can't change view added interface
-                    DatabaseSaved(); // CHANGED TO use Interface to update Spinners
                 }
                 catch (IOException e) {
                     String methodname = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -419,6 +420,8 @@ public class BackupActivity extends AppCompatActivity implements BackupActivityI
                     @Override
                     public void run() {
                         busy.dismiss();
+                        //populateAllSpinners(); Changed for ANDROID 9.0 can't change view added interface
+                        DatabaseSaved(); // CHANGED TO use Interface to update Spinners
                         AlertDialog.Builder dbbackupresult = new AlertDialog.Builder(context);
                         dbbackupresult.setCancelable(true);
                         if(confirmaction) {
@@ -935,4 +938,35 @@ public class BackupActivity extends AppCompatActivity implements BackupActivityI
         populateAllSpinners();
     }
 
+    private void checkpointIfWALEnabled(Context context) {
+        final String TAG = "WALCHKPNT";
+        Cursor csr;
+        int wal_busy = -99, wal_log = -99, wal_checkpointed = -99;
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(context.getDatabasePath(DBConstants.DATABASE_NAME).getPath(),null,SQLiteDatabase.OPEN_READWRITE);
+        csr = db.rawQuery("PRAGMA journal_mode",null);
+        if (csr.moveToFirst()) {
+            String mode = csr.getString(0);
+            //Log.d(TAG, "Mode is " + mode);
+            if (mode.toLowerCase().equals("wal")) {
+                csr = db.rawQuery("PRAGMA wal_checkpoint",null);
+                if (csr.moveToFirst()) {
+                    wal_busy = csr.getInt(0);
+                    wal_log = csr.getInt(1);
+                    wal_checkpointed = csr.getInt(2);
+                }
+                //Log.d(TAG,"Checkpoint pre checkpointing Busy = " + String.valueOf(wal_busy) + " LOG = " + String.valueOf(wal_log) + " CHECKPOINTED = " + String.valueOf(wal_checkpointed) );
+                csr = db.rawQuery("PRAGMA wal_checkpoint(TRUNCATE)",null);
+                csr.getCount();
+                csr = db.rawQuery("PRAGMA wal_checkpoint",null);
+                if (csr.moveToFirst()) {
+                    wal_busy = csr.getInt(0);
+                    wal_log = csr.getInt(1);
+                    wal_checkpointed = csr.getInt(2);
+                }
+                //Log.d(TAG,"Checkpoint post checkpointing Busy = " + String.valueOf(wal_busy) + " LOG = " + String.valueOf(wal_log) + " CHECKPOINTED = " + String.valueOf(wal_checkpointed) );
+            }
+        }
+        csr.close();
+        db.close();
+    }
 }
