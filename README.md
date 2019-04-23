@@ -1,3 +1,5 @@
+# NOW ON Mike-j-t-laptop/ShopwWise
+
 # ShopWise
 
 A funcional **ShoppingList** App, designed for **10" Tablets** with consideration for the less able/computer savvy/older user.
